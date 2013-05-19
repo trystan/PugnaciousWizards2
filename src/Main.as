@@ -45,6 +45,8 @@ package
 			terminal.useRasterFont(AsciiPanel.codePage437_8x8, 8, 8);
 			addChild(terminal);
 			
+			screen.world.addWall(6, 4);
+			
 			redraw();
 		}
 		
@@ -58,6 +60,11 @@ package
 		private function redraw():void 
 		{
 			terminal.clear();
+			
+			for (var x:int = 0; x < 80; x++)
+			for (var y:int = 0; y < 80; y++)
+				terminal.write(screen.world.isWall(x, y) ? "#" : String.fromCharCode(250), x, y);
+				
 			terminal.write("@", player.position.x, player.position.y);
 			terminal.paint();
 		}
