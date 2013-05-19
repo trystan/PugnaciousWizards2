@@ -11,7 +11,6 @@ package
 	public class Main extends Sprite 
 	{
 		private var player:Player = new Player(new Point(5, 5));
-		private var terminal:AsciiPanel = new AsciiPanel(80, 80);
 		private var screen:PlayScreen = new PlayScreen(player, new World());
 			
 		public function Main():void 
@@ -42,31 +41,16 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			
-			terminal.useRasterFont(AsciiPanel.codePage437_8x8, 8, 8);
-			addChild(terminal);
+			addChild(screen);
 			
 			screen.world.addWall(6, 4);
-			
-			redraw();
+			screen.redraw();
 		}
 		
 		private function onKeyDown(e:KeyboardEvent):void 
 		{
 			screen.handleInput(e);
-			
-			redraw();
-		}
-		
-		private function redraw():void 
-		{
-			terminal.clear();
-			
-			for (var x:int = 0; x < 80; x++)
-			for (var y:int = 0; y < 80; y++)
-				terminal.write(screen.world.isWall(x, y) ? "#" : String.fromCharCode(250), x, y);
-				
-			terminal.write("@", player.position.x, player.position.y);
-			terminal.paint();
+			screen.redraw();
 		}
 	}
 }

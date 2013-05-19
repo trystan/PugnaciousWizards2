@@ -1,17 +1,22 @@
 package  
 {
+	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
-	import flash.geom.Point;
-	public class PlayScreen 
+	
+	public class PlayScreen extends Sprite
 	{
 		public var player:Player;
 		public var world:World;
+		public var display:WorldDisplay;
 		
 		public function PlayScreen(player:Player, world:World) 
 		{
 			this.player = player;
 			this.world = world;
 			world.add(player);
+			
+			display = new WorldDisplay(player, world);
+			addChild(display);
 		}
 		
 		public function handleInput(keyEvent:KeyboardEvent):void
@@ -25,6 +30,11 @@ package
 				default:
 					trace(keyEvent.keyCode);
 			}
+		}
+		
+		public function redraw():void
+		{
+			display.draw();
 		}
 	}
 }
