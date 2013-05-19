@@ -13,33 +13,25 @@ package
 			movement();
 		}
 		
-		public var position:Point;
-			
 		private function movement():void 
 		{
-			position = new Point(5, 5);
+			var player:Player = new Player(new Point(5, 5));
 			
-			moveBy(1, 0);
-			assertEqual(position.x, 6);
-			assertEqual(position.y, 5);
+			player.moveBy(1, 0);
+			assertEqual(player.position.x, 6);
+			assertEqual(player.position.y, 5);
 			
-			moveBy(-1, 0);
-			assertEqual(position.x, 5);
-			assertEqual(position.y, 5);
+			player.moveBy(-1, 0);
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 5);
 			
-			moveBy(0, 1);
-			assertEqual(position.x, 5);
-			assertEqual(position.y, 6);
+			player.moveBy(0, 1);
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 6);
 			
-			moveBy(0, -1);
-			assertEqual(position.x, 5);
-			assertEqual(position.y, 5);
-		}
-		
-		private function moveBy(x:Number, y:Number):void 
-		{
-			position.x += x;
-			position.y += y;
+			player.moveBy(0, -1);
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 5);
 		}
 		
 		private function assertEqual(actual:Object, expected:Object):void
