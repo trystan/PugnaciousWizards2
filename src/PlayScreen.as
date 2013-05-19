@@ -16,6 +16,7 @@ package
 			world.add(player);
 			
 			display = new WorldDisplay(player, world);
+			display.draw();
 			addChild(display);
 		}
 		

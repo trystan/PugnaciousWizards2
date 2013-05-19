@@ -40,9 +40,10 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			
-			screen = new PlayScreen(new Player(new Point(5, 5)), new World());
+			var world:World = new World();
+			world.addCastleWalls();
+			screen = new PlayScreen(new Player(new Point(5, 5)), world);
 			screen.world.addWall(6, 4);
-			screen.redraw();
 			
 			addChild(screen);
 		}
