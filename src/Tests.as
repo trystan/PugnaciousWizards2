@@ -1,5 +1,6 @@
 package  
 {
+	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	public class Tests 
 	{
@@ -11,6 +12,29 @@ package
 		public function run():void
 		{
 			movement();
+			movementKeys();
+		}
+		
+		private function movementKeys():void 
+		{
+			var player:Player = new Player(new Point(5, 5));
+			var playscreen:PlayScreen = new PlayScreen(player);
+			
+			playscreen.handleInput(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 39, 39));
+			assertEqual(player.position.x, 6);
+			assertEqual(player.position.y, 5);
+			
+			playscreen.handleInput(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 37, 37));
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 5);
+			
+			playscreen.handleInput(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 40, 40));
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 6);
+			
+			playscreen.handleInput(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 38, 38));
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 5);
 		}
 		
 		private function movement():void 
