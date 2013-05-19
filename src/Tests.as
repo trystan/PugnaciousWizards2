@@ -1,5 +1,6 @@
 package  
 {
+	import flash.geom.Point;
 	public class Tests 
 	{
 		public var passed:Boolean = true;
@@ -9,10 +10,39 @@ package
 		
 		public function run():void
 		{
-			assertEqual(5, 5);
+			movement();
 		}
 		
-		private function assertEqual(expected:Object, actual:Object):void
+		public var position:Point;
+			
+		private function movement():void 
+		{
+			position = new Point(5, 5);
+			
+			moveBy(1, 0);
+			assertEqual(position.x, 6);
+			assertEqual(position.y, 5);
+			
+			moveBy(-1, 0);
+			assertEqual(position.x, 5);
+			assertEqual(position.y, 5);
+			
+			moveBy(0, 1);
+			assertEqual(position.x, 5);
+			assertEqual(position.y, 6);
+			
+			moveBy(0, -1);
+			assertEqual(position.x, 5);
+			assertEqual(position.y, 5);
+		}
+		
+		private function moveBy(x:Number, y:Number):void 
+		{
+			position.x += x;
+			position.y += y;
+		}
+		
+		private function assertEqual(actual:Object, expected:Object):void
 		{
 			if (expected == actual)
 				return;
