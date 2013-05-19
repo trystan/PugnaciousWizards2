@@ -14,6 +14,34 @@ package
 			movement();
 			movementKeys();
 			bordersBlockMovement();
+			wallsBlockMovement();
+		}
+		
+		private function wallsBlockMovement():void 
+		{
+			var world:World = new World();
+			var player:Player = new Player(new Point(5, 5));
+			world.add(player);
+			world.addWall(4,5);
+			world.addWall(6,5);
+			world.addWall(5,4);
+			world.addWall(5,6);
+			
+			player.moveBy(-1, 0);
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 5);
+			
+			player.moveBy(0, -1);
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 5);
+			
+			player.moveBy(1, 0);
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 5);
+			
+			player.moveBy(0, 1);
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 5);
 		}
 		
 		private function bordersBlockMovement():void 
