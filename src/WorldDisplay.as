@@ -19,7 +19,7 @@ package
 			addChild(terminal);	
 		}
 		
-		public function draw()
+		public function draw():void
 		{
 			terminal.clear();
 			
