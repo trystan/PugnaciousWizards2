@@ -13,6 +13,9 @@ package
 		
 		public function moveBy(x:Number, y:Number):void 
 		{
+			if (position.x + x < 0 || position.y + y < 0 || position.x + x > 79 || position.y + y > 79)
+				return;
+				
 			position.x += x;
 			position.y += y;
 		}

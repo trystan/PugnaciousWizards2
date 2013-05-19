@@ -13,6 +13,31 @@ package
 		{
 			movement();
 			movementKeys();
+			bordersBlockMovement();
+		}
+		
+		private function bordersBlockMovement():void 
+		{
+			var player:Player = new Player(new Point(0, 0));
+			
+			player.moveBy(-1, 0);
+			assertEqual(player.position.x, 0);
+			assertEqual(player.position.y, 0);
+			
+			player.moveBy(0, -1);
+			assertEqual(player.position.x, 0);
+			assertEqual(player.position.y, 0);
+			
+			player.position.x = 79;
+			player.position.y = 79;
+			
+			player.moveBy(1, 0);
+			assertEqual(player.position.x, 79);
+			assertEqual(player.position.y, 79);
+			
+			player.moveBy(0, 1);
+			assertEqual(player.position.x, 79);
+			assertEqual(player.position.y, 79);
 		}
 		
 		private function movementKeys():void 
