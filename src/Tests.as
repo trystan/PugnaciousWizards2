@@ -18,7 +18,9 @@ package
 		
 		private function bordersBlockMovement():void 
 		{
+			var world:World = new World();
 			var player:Player = new Player(new Point(0, 0));
+			world.add(player);
 			
 			player.moveBy(-1, 0);
 			assertEqual(player.position.x, 0);
@@ -43,7 +45,7 @@ package
 		private function movementKeys():void 
 		{
 			var player:Player = new Player(new Point(5, 5));
-			var playscreen:PlayScreen = new PlayScreen(player);
+			var playscreen:PlayScreen = new PlayScreen(player, new World());
 			
 			playscreen.handleInput(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 39, 39));
 			assertEqual(player.position.x, 6);
@@ -64,7 +66,9 @@ package
 		
 		private function movement():void 
 		{
+			var world:World = new World();
 			var player:Player = new Player(new Point(5, 5));
+			world.add(player);
 			
 			player.moveBy(1, 0);
 			assertEqual(player.position.x, 6);

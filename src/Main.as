@@ -12,7 +12,7 @@ package
 	{
 		private var player:Player = new Player(new Point(5, 5));
 		private var terminal:AsciiPanel = new AsciiPanel(80, 80);
-		private var screen:PlayScreen = new PlayScreen(player);
+		private var screen:PlayScreen = new PlayScreen(player, new World());
 			
 		public function Main():void 
 		{

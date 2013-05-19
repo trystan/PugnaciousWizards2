@@ -5,6 +5,7 @@ package
 	public class Player 
 	{
 		public var position:Point;
+		public var world:World;
 		
 		public function Player(position:Point) 
 		{
@@ -13,7 +14,7 @@ package
 		
 		public function moveBy(x:Number, y:Number):void 
 		{
-			if (position.x + x < 0 || position.y + y < 0 || position.x + x > 79 || position.y + y > 79)
+			if (world.blocksMovement(position.x + x, position.y + y))
 				return;
 				
 			position.x += x;
