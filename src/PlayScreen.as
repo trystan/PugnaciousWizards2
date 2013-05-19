@@ -30,10 +30,7 @@ package
 				default:
 					trace(keyEvent.keyCode);
 			}
-		}
-		
-		public function redraw():void
-		{
+			
 			display.draw();
 		}
 	}

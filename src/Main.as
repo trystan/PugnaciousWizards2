@@ -10,8 +10,7 @@ package
 	
 	public class Main extends Sprite 
 	{
-		private var player:Player = new Player(new Point(5, 5));
-		private var screen:PlayScreen = new PlayScreen(player, new World());
+		private var screen:PlayScreen;
 			
 		public function Main():void 
 		{
@@ -41,16 +40,16 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			
-			addChild(screen);
-			
+			screen = new PlayScreen(new Player(new Point(5, 5)), new World());
 			screen.world.addWall(6, 4);
 			screen.redraw();
+			
+			addChild(screen);
 		}
 		
 		private function onKeyDown(e:KeyboardEvent):void 
 		{
 			screen.handleInput(e);
-			screen.redraw();
 		}
 	}
 }

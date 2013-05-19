@@ -28,6 +28,7 @@ package
 				terminal.write(world.isWall(x, y) ? "#" : String.fromCharCode(250), x, y);
 				
 			terminal.write("@", player.position.x, player.position.y);
+			
 			terminal.paint();
 		}
 	}
