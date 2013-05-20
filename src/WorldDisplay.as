@@ -16,7 +16,7 @@ package
 			
 			terminal = new AsciiPanel(80, 80);
 			terminal.useRasterFont(AsciiPanel.codePage437_8x8, 8, 8);
-			addChild(terminal);	
+			addChild(terminal);
 		}
 		
 		public function draw():void

@@ -36,8 +36,7 @@ package
 		
 		private function castleHasDoors():void 
 		{
-			var world:World = new World();
-			world.addCastle();
+			var world:World = new World().addWorldGen(new WorldGen());
 			
 			assertEqual(world.isClosedDoor(4, 40), true);
 		}
@@ -52,8 +51,7 @@ package
 		
 		private function castleIsWalledGrid():void 
 		{
-			var world:World = new World();
-			world.addCastle();
+			var world:World = new World().addWorldGen(new WorldGen());
 			
 			assertEqual(world.isWall(4, 4), true);
 			assertEqual(world.isWall(79 - 3, 79 - 4), true);
