@@ -12,9 +12,9 @@ package
 		public var perlinBitmap:BitmapData;
 		
 		private var wood_bg:int = hsv(25, 80, 30);
-		private var wood_fg:int = hsv(25, 90, 60);
-		private var stone_bg:int = hsv(35, 10, 30);
-		private var stone_fg:int = hsv(35, 10, 60);
+		private var wood_fg:int = hsv(25, 80, 50);
+		private var stone_bg:int = hsv(200, 5, 35);
+		private var stone_fg:int = hsv(200, 5, 45);
 		private var tile_1:int = hsv(200, 5, 10);
 		private var tile_2:int = hsv(200, 5, 12);
 		private var tile_3:int = hsv(200, 5, 12);
