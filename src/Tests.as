@@ -16,6 +16,15 @@ package
 			bordersBlockMovement();
 			wallsBlockMovement();
 			castleIsWalledGrid();
+			doorsDoNotBlockMovement();
+		}
+		
+		private function doorsDoNotBlockMovement():void 
+		{
+			var world:World = new World();
+			world.addDoor(6, 6);
+			
+			assertEqual(!world.blocksMovement(6, 6), true);
 		}
 		
 		private function castleIsWalledGrid():void 

@@ -19,6 +19,11 @@ package
 			walls.push(x + "," + y);
 		}
 		
+		public function addDoor(x:int, y:int):void 
+		{
+			
+		}
+		
 		public function isWall(x:int, y:int):Boolean
 		{
 			return walls.indexOf(x + "," + y) > -1;
