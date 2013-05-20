@@ -1,6 +1,7 @@
 package  
 {
 	import flash.utils.Dictionary;
+	
 	public class World 
 	{
 		private var tiles:Dictionary = new Dictionary();
@@ -17,32 +18,32 @@ package
 		
 		public function addWall(x:int, y:int):void 
 		{
-			tiles[x + "," + y] = "wall";
+			tiles[x + "," + y] = Tile.wall;
 		}
 		
 		public function addDoor(x:int, y:int):void 
 		{
-			tiles[x + "," + y] = "door";
+			tiles[x + "," + y] = Tile.door_closed;
 		}
 		
 		public function openDoor(x:int, y:int):void
 		{
-			tiles[x + "," + y] = "open door";	
+			tiles[x + "," + y] = Tile.door_opened;	
 		}
 		
 		public function isWall(x:int, y:int):Boolean
 		{
-			return tiles[x + "," + y] == "wall";
+			return tiles[x + "," + y] == Tile.wall;
 		}
 		
 		public function isClosedDoor(x:int, y:int):Boolean 
 		{
-			return tiles[x + "," + y] == "door";
+			return tiles[x + "," + y] == Tile.door_closed;
 		}
 		
 		public function isOpenedDoor(x:int, y:int):Boolean 
 		{
-			return tiles[x + "," + y] == "open door";
+			return tiles[x + "," + y] == Tile.door_opened;
 		}
 		
 		public function addCastle():void 
