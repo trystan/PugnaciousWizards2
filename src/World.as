@@ -24,7 +24,10 @@ package
 		public function getTile(x:int, y:int):Tile
 		{
 			var t:Tile = tiles[x + "," + y];
-			return t == null ? Tile.floor : t;
+			if (t != null)
+				return t;
+				
+			return ((x + y) % 2 == 1) ? Tile.floor_dark : Tile.floor_light;
 		}
 		
 		public function addWall(x:int, y:int):void 

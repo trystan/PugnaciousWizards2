@@ -39,7 +39,8 @@ package
 				case Tile.door_opened: return "/";
 				case Tile.door_closed: return "+";
 				case Tile.wall: return "#";
-				case Tile.floor: return String.fromCharCode(250);
+				case Tile.floor_light: return String.fromCharCode(250);
+				case Tile.floor_dark: return String.fromCharCode(250);
 				default: return "X";
 			}
 		}
@@ -51,7 +52,8 @@ package
 				case Tile.door_opened: return 0xcc9999;
 				case Tile.door_closed: return 0xcc9999;
 				case Tile.wall: return 0xc0c0c0;
-				case Tile.floor: return 0x333333;
+				case Tile.floor_dark: return 0x1a1a1a;
+				case Tile.floor_light: return 0x2b2b2b;
 				default: return 0xff0000;
 			}
 		}
@@ -63,7 +65,8 @@ package
 				case Tile.door_opened: return 0x663333;
 				case Tile.door_closed: return 0x663333;
 				case Tile.wall: return 0x333333;
-				case Tile.floor: return 0x090909;
+				case Tile.floor_dark: return 0x090909;
+				case Tile.floor_light: return 0x1a1a1a;
 				default: return 0x00ff00;
 			}
 		}
