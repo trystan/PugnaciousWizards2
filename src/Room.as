@@ -13,9 +13,12 @@ package
 		public var isConnectedEast:Boolean = false;
 		
 		private static var themes:Array = [
-			new RoomTheme_circle(),
 			new RoomTheme_randomPillars(),
 			new RoomTheme_empty(),
+			new RoomTheme_randomPillars(),
+			new RoomTheme_empty(),
+			new RoomTheme_circle(),
+			new RoomTheme_courtyard(),
 		];
 		
 		public function Room(x:int, y:int) 
