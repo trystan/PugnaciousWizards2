@@ -15,5 +15,16 @@ package
 		{
 			position = new Point(x, y);
 		}
+		
+		public function get isDeadEnd():Boolean 
+		{
+			var connections:int = 0;
+			if (isConnectedNorth) connections++;
+			if (isConnectedSouth) connections++;
+			if (isConnectedWest) connections++;
+			if (isConnectedEast) connections++;
+			
+			return connections == 1;
+		}
 	}
 }

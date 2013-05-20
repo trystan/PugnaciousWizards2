@@ -19,6 +19,15 @@ package
 			insideTheCastleHasLightAndDarkTiles();
 			castleIsMadeOfRooms();
 			castleRoomsAreConnected();
+			roomsCanBeDeadEnds();
+		}
+		
+		private function roomsCanBeDeadEnds():void 
+		{
+			var room:Room = new Room(0, 0);
+			room.isConnectedEast = true;
+			
+			assertEqual(room.isDeadEnd, true);
 		}
 		
 		private function castleRoomsAreConnected():void 
