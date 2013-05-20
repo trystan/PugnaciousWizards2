@@ -5,15 +5,23 @@ package
 	public class Room 
 	{
 		public var position:Point;
+		public var theme:RoomTheme;
 		
 		public var isConnectedNorth:Boolean = false;
 		public var isConnectedSouth:Boolean = false;
 		public var isConnectedWest:Boolean = false;
 		public var isConnectedEast:Boolean = false;
 		
+		private static var themes:Array = [
+			new RoomTheme_circle(),
+			new RoomTheme_randomPillars(),
+			new RoomTheme_empty(),
+		];
+		
 		public function Room(x:int, y:int) 
 		{
 			position = new Point(x, y);
+			theme = themes[Math.floor(Math.random() * themes.length)];
 		}
 		
 		public function get isDeadEnd():Boolean 
@@ -29,24 +37,7 @@ package
 		
 		public function apply(world:World):void
 		{
-			var r:int = Math.random() * 100;
-				
-			if (r < 10)
-			{
-				world.addWall(position.x * 8 + 5, position.y * 8 + 5);
-				world.addWall(position.x * 8 + 11, position.y * 8 + 5);
-				world.addWall(position.x * 8 + 11, position.y * 8 + 11);
-				world.addWall(position.x * 8 + 5, position.y * 8 + 11);
-			}
-			else if (!isDeadEnd)
-			{
-				while (Math.random() < 0.66)
-				{
-					var px:int = Math.random() * 5 + 6;
-					var py:int = Math.random() * 5 + 6;
-					world.addWall(position.x * 8 + px, position.y * 8 + py);
-				}
-			}
+			theme.apply(this, world);
 		}
 	}
 }
