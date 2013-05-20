@@ -26,5 +26,27 @@ package
 			
 			return connections == 1;
 		}
+		
+		public function apply(world:World):void
+		{
+			var r:int = Math.random() * 100;
+				
+			if (r < 10)
+			{
+				world.addWall(position.x * 8 + 5, position.y * 8 + 5);
+				world.addWall(position.x * 8 + 11, position.y * 8 + 5);
+				world.addWall(position.x * 8 + 11, position.y * 8 + 11);
+				world.addWall(position.x * 8 + 5, position.y * 8 + 11);
+			}
+			else if (!isDeadEnd)
+			{
+				while (Math.random() < 0.66)
+				{
+					var px:int = Math.random() * 5 + 6;
+					var py:int = Math.random() * 5 + 6;
+					world.addWall(position.x * 8 + px, position.y * 8 + py);
+				}
+			}
+		}
 	}
 }

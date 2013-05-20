@@ -15,6 +15,7 @@ package
 			addCastleFloor(world)
 			addCastleWalls(world);
 			addCastleDoors(world);
+			addCastleRooms(world);
 		}
 		
 		private function addRooms():void 
@@ -131,6 +132,13 @@ package
 			}
 			
 			world.addDoor(4, 8 * 4 + 8);
+		}
+		
+		private function addCastleRooms(world:World):void 
+		{
+			for (var x:int = 0; x < 9; x++)
+			for (var y:int = 0; y < 9; y++)
+				getRoom(x, y).apply(world);
 		}
 	}
 }
