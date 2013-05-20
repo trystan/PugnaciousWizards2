@@ -3,6 +3,7 @@ package
 	public class World 
 	{
 		private var walls:Array = [];
+		private var doors:Array = [];
 		
 		public function add(player:Player):void
 		{
@@ -21,12 +22,17 @@ package
 		
 		public function addDoor(x:int, y:int):void 
 		{
-			
+			doors.push(x + "," + y);
 		}
 		
 		public function isWall(x:int, y:int):Boolean
 		{
 			return walls.indexOf(x + "," + y) > -1;
+		}
+		
+		public function isDoor(x:int, y:int):Boolean 
+		{
+			return doors.indexOf(x + "," + y) > -1;
 		}
 		
 		public function addCastle():void 

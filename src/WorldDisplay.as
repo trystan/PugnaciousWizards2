@@ -25,7 +25,14 @@ package
 			
 			for (var x:int = 0; x < 80; x++)
 			for (var y:int = 0; y < 80; y++)
-				terminal.write(world.isWall(x, y) ? "#" : String.fromCharCode(250), x, y);
+			{
+				var t:String = String.fromCharCode(250);
+				if (world.isWall(x, y))
+					t = "#";
+				else if (world.isDoor(x, y))
+					t = "+";
+				terminal.write(t, x, y);
+			}
 				
 			terminal.write("@", player.position.x, player.position.y);
 			
