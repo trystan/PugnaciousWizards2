@@ -38,6 +38,20 @@ package
 		public function addCastle():void 
 		{
 			addCastleWalls();
+			addCastleDoors();
+		}
+		
+		private function addCastleDoors():void 
+		{
+			for (var x1:int = 0; x1 < 8; x1++)
+			for (var y1:int = 0; y1 < 9; y1++)
+				addDoor(x1 * 8 + 12, y1 * 8 + 8);
+				
+			for (var x2:int = 0; x2 < 9; x2++)
+			for (var y2:int = 0; y2 < 8; y2++)
+				addDoor(x2 * 8 + 8, y2 * 8 + 12);
+				
+			addDoor(4, 8 * 4 + 8);
 		}
 		
 		public function addCastleWalls():void

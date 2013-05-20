@@ -27,10 +27,10 @@ package
 			for (var y:int = 0; y < 80; y++)
 			{
 				var t:String = String.fromCharCode(250);
-				if (world.isWall(x, y))
-					t = "#";
-				else if (world.isDoor(x, y))
+				if (world.isDoor(x, y))
 					t = "+";
+				else if (world.isWall(x, y))
+					t = "#";
 				terminal.write(t, x, y);
 			}
 				
