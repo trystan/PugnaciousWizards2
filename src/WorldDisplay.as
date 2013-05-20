@@ -34,38 +34,38 @@ package
 		
 		private function tile(x:int, y:int):String
 		{
-			if (world.isOpenedDoor(x, y))
-				return "/";
-			if (world.isClosedDoor(x, y))
-				return "+";
-			else if (world.isWall(x, y))
-				return "#";
-			else
-				return String.fromCharCode(250);
+			switch (world.getTile(x, y))
+			{
+				case Tile.door_opened: return "/";
+				case Tile.door_closed: return "+";
+				case Tile.wall: return "#";
+				case Tile.floor: return String.fromCharCode(250);
+				default: return "X";
+			}
 		}
 		
 		private function fg(x:int, y:int):int
 		{
-			if (world.isOpenedDoor(x, y))
-				return 0xcc9999;
-			if (world.isClosedDoor(x, y))
-				return 0xcc9999;
-			else if (world.isWall(x, y))
-				return 0xc0c0c0;
-			else
-				return 0x333333;
+			switch (world.getTile(x, y))
+			{
+				case Tile.door_opened: return 0xcc9999;
+				case Tile.door_closed: return 0xcc9999;
+				case Tile.wall: return 0xc0c0c0;
+				case Tile.floor: return 0x333333;
+				default: return 0xff0000;
+			}
 		}
 		
 		private function bg(x:int, y:int):int
 		{
-			if (world.isOpenedDoor(x, y))
-				return 0x663333;
-			if (world.isClosedDoor(x, y))
-				return 0x663333;
-			else if (world.isWall(x, y))
-				return 0x333333;
-			else
-				return 0x090909;
+			switch (world.getTile(x, y))
+			{
+				case Tile.door_opened: return 0x663333;
+				case Tile.door_closed: return 0x663333;
+				case Tile.wall: return 0x333333;
+				case Tile.floor: return 0x090909;
+				default: return 0x00ff00;
+			}
 		}
 	}
 }

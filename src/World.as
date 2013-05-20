@@ -16,34 +16,45 @@ package
 			return isOutOfBounds(x, y) || isWall(x, y);
 		}
 		
+		public function addTile(x:int, y:int, tile:Tile):void
+		{
+			tiles[x + "," + y] = tile;
+		}
+		
+		public function getTile(x:int, y:int):Tile
+		{
+			var t:Tile = tiles[x + "," + y];
+			return t == null ? Tile.floor : t;
+		}
+		
 		public function addWall(x:int, y:int):void 
 		{
-			tiles[x + "," + y] = Tile.wall;
+			addTile(x, y, Tile.wall);
 		}
 		
 		public function addDoor(x:int, y:int):void 
 		{
-			tiles[x + "," + y] = Tile.door_closed;
+			addTile(x, y, Tile.door_closed);
 		}
 		
 		public function openDoor(x:int, y:int):void
 		{
-			tiles[x + "," + y] = Tile.door_opened;	
+			addTile(x, y, Tile.door_opened);
 		}
 		
 		public function isWall(x:int, y:int):Boolean
 		{
-			return tiles[x + "," + y] == Tile.wall;
+			return getTile(x, y) == Tile.wall;
 		}
 		
 		public function isClosedDoor(x:int, y:int):Boolean 
 		{
-			return tiles[x + "," + y] == Tile.door_closed;
+			return getTile(x, y) == Tile.door_closed;
 		}
 		
 		public function isOpenedDoor(x:int, y:int):Boolean 
 		{
-			return tiles[x + "," + y] == Tile.door_opened;
+			return getTile(x, y) == Tile.door_opened;
 		}
 		
 		public function addCastle():void 
