@@ -3,20 +3,52 @@ package
 	public class WorldGen 
 	{
 		private var rooms:Array;
+		private var skipRooms:Boolean;
 		
-		public function WorldGen()
+		public function WorldGen(skipRooms:Boolean = false)
 		{
+			this.skipRooms = skipRooms;
+			
 			addRooms();
 			connectRoomsAsPerfectMaze();
+			addItems();
+		}
+		
+		private function addItems():void 
+		{
+			var candidates:Array = [];
+			
+			for (var x:int = 0; x < 9; x++)
+			for (var y:int = 0; y < 9; y++)
+			{
+				var room:Room = getRoom(x, y);
+				if (room.isDeadEnd)
+					candidates.push(room);
+			}
+			
+			if (candidates.length >= 3)
+			{
+				for (var i:int = 0; i < 3; i++)
+				{
+					var index:int = Math.floor(Math.random() * candidates.length);
+					var endRoom:Room = candidates[index];
+					candidates.splice(index, 1);
+					endRoom.isEndRoom = true;
+				}
+			}
 		}
 		
 		public function apply(world:World):void 
 		{
-			addTrees(world);
+			if (!skipRooms)
+				addTrees(world);
+				
 			addCastleFloor(world)
 			addCastleWalls(world);
 			addCastleDoors(world);
-			addCastleRooms(world);
+			
+			if (!skipRooms)
+				addCastleRooms(world);
 		}
 		
 		private function addRooms():void 

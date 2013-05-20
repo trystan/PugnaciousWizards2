@@ -20,6 +20,24 @@ package
 			castleIsMadeOfRooms();
 			castleRoomsAreConnected();
 			roomsCanBeDeadEnds();
+			worldHasItems();
+			threeDeadEndsContainPiecesOfTheAmulet();
+		}
+		
+		private function threeDeadEndsContainPiecesOfTheAmulet():void 
+		{
+			
+		}
+		
+		private function worldHasItems():void 
+		{
+			var world:World = new World();
+			
+			var item:EndPiece = new EndPiece();
+			
+			world.addItem(1, 1, item);
+			
+			assertEqual(world.items[0].item, item);
 		}
 		
 		private function roomsCanBeDeadEnds():void 
@@ -48,7 +66,7 @@ package
 		
 		private function insideTheCastleHasLightAndDarkTiles():void 
 		{
-			var world:World = new World().addWorldGen(new WorldGen());
+			var world:World = new World().addWorldGen(new WorldGen(true));
 			
 			assertEqual(world.getTile(19, 19), Tile.floor_light);
 			assertEqual(world.getTile(19, 18), Tile.floor_dark);

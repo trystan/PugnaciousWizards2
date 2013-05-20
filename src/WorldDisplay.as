@@ -42,11 +42,24 @@ package
 			for (var y:int = 0; y < 80; y++)
 				terminal.write(tile(x, y), x, y, fg(x, y), bg(x, y));
 				
+			for each (var placedItem:Object in world.items)
+				terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item), bg(placedItem.x, placedItem.y));
+				
 			terminal.write("@", player.position.x, player.position.y, 0xffffff, bg(player.position.x, player.position.y));
 			
 			terminal.writeCenter("Pugnacious Wizards 2", 1, null, bg);
 			
 			terminal.paint();
+		}
+		
+		private function item_glyph(endPiece:EndPiece):String
+		{
+			return "*";
+		}
+		
+		private function item_color(endPiece:EndPiece):int
+		{
+			return hsv(60, 90, 90);
 		}
 		
 		private function tile(x:int, y:int):String

@@ -5,6 +5,7 @@ package
 	public class World 
 	{
 		private var tiles:Dictionary = new Dictionary();
+		public var items:Array = [];
 		
 		public function add(player:Player):void
 		{
@@ -69,6 +70,11 @@ package
 		{
 			gen.apply(this);
 			return this;
+		}
+		
+		public function addItem(ix:int, iy:int, thing:EndPiece):void 
+		{
+			items.push({ x:ix, y:iy, item:thing });
 		}
 	}
 }

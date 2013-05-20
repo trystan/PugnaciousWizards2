@@ -1,5 +1,6 @@
 package  
 {
+	import flash.display.InterpolationMethod;
 	import flash.geom.Point;
 	
 	public class Room 
@@ -11,6 +12,7 @@ package
 		public var isConnectedSouth:Boolean = false;
 		public var isConnectedWest:Boolean = false;
 		public var isConnectedEast:Boolean = false;
+		public var isEndRoom:Boolean = false;
 		
 		private static var themes:Array = [
 			new RoomTheme_randomPillars(),
@@ -41,6 +43,18 @@ package
 		public function apply(world:World):void
 		{
 			theme.apply(this, world);
+			
+			if (isEndRoom)
+			{
+				for (var tx:int = 0; tx < 5; tx++)
+				for (var ty:int = 0; ty < 5; ty++)
+				{
+					var x:int = position.x * 8 + 8 + tx - 2;
+					var y:int = position.y * 8 + 8 + ty - 2;
+					world.addTile(x, y, (x + y) % 2 == 0 ? Tile.floor_light : Tile.floor_dark);
+				}
+				world.addItem(position.x * 8 + 8, position.y * 8 + 8, new EndPiece());
+			}
 		}
 	}
 }
