@@ -4,11 +4,19 @@ package
 	
 	public class World 
 	{
+		private var player:Player;
 		private var tiles:Dictionary = new Dictionary();
 		public var items:Array = [];
 		
+		public function get playerHasWon():Boolean 
+		{
+			return player.hasAllEndPieces && player.position.x < 4;
+		}
+		
 		public function add(player:Player):void
 		{
+			this.player = player;
+			
 			player.world = this;
 		}
 		

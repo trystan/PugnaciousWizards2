@@ -23,6 +23,38 @@ package
 			worldHasItems();
 			threeDeadEndsContainPiecesOfTheAmulet();
 			movingOntoAnItemPicksItUp();
+			playerCanWinAfterPickingUpThreeEndPieces();
+			collectingAllPiecesAndGoingToTheExitWinsTheGame();
+		}
+		
+		private function collectingAllPiecesAndGoingToTheExitWinsTheGame():void 
+		{
+			var world:World = new World();
+			var player:Player = new Player(new Point(5,5));
+			world.add(player);
+			player.endPiecesPickedUp = 3;
+			
+			assertEqual(world.playerHasWon, false);
+			
+			player.moveBy( -1, 0);
+			player.moveBy( -1, 0);
+			assertEqual(world.playerHasWon, true);
+		}
+		
+		private function playerCanWinAfterPickingUpThreeEndPieces():void 
+		{
+			var world:World = new World();
+			var player:Player = new Player(new Point(5,5));
+			world.add(player);
+			
+			world.addItem(6, 5, new EndPiece());
+			world.addItem(7, 5, new EndPiece());
+			world.addItem(8, 5, new EndPiece());
+			
+			player.moveBy(1, 0);
+			player.moveBy(1, 0);
+			player.moveBy(1, 0);
+			assertEqual(player.hasAllEndPieces, true);
 		}
 		
 		private function movingOntoAnItemPicksItUp():void 
@@ -42,7 +74,7 @@ package
 		
 		private function threeDeadEndsContainPiecesOfTheAmulet():void 
 		{
-			
+			// ???
 		}
 		
 		private function worldHasItems():void 

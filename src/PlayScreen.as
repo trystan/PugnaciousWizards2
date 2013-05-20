@@ -2,22 +2,30 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
+	import flash.geom.Point;
 	
-	public class PlayScreen extends Sprite
+	public class PlayScreen extends Sprite implements Screen
 	{
 		public var player:Player;
 		public var world:World;
 		public var display:WorldDisplay;
 		
-		public function PlayScreen(player:Player, world:World) 
+		public function PlayScreen(player:Player = null, world:World = null) 
 		{
+			if (player == null)
+				player = new Player(new Point(1, 35));
+				
+			if (world == null)
+				world = new World().addWorldGen(new WorldGen());
+			
 			this.player = player;
 			this.world = world;
+			
 			world.add(player);
 			
 			display = new WorldDisplay(player, world);
-			display.draw();
 			addChild(display);
+			refresh();
 		}
 		
 		public function handleInput(keyEvent:KeyboardEvent):void
@@ -32,6 +40,14 @@ package
 					trace(keyEvent.keyCode);
 			}
 			
+			refresh();
+			
+			if (world.playerHasWon)
+				Main.switchToScreen(new VictoryScreen(player, world));
+		}
+		
+		public function refresh():void
+		{
 			display.draw();
 		}
 	}

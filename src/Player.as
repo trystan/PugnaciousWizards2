@@ -6,6 +6,8 @@ package
 	{
 		public var position:Point;
 		public var world:World;
+		public var endPiecesPickedUp:int = 0;
+		public function get hasAllEndPieces():Boolean { return endPiecesPickedUp == 3; }
 		
 		public function Player(position:Point) 
 		{
@@ -28,6 +30,7 @@ package
 				if (item != null)
 				{
 					world.removeItem(position.x, position.y);
+					endPiecesPickedUp++;
 				}
 			}
 		}
