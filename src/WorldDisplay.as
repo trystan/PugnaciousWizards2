@@ -11,6 +11,15 @@ package
 		private var terminal:AsciiPanel;
 		public var perlinBitmap:BitmapData;
 		
+		private var wood_bg:int = hsv(25, 80, 30);
+		private var wood_fg:int = hsv(25, 90, 60);
+		private var stone_bg:int = hsv(35, 10, 30);
+		private var stone_fg:int = hsv(35, 10, 60);
+		private var tile_1:int = hsv(200, 5, 10);
+		private var tile_2:int = hsv(200, 5, 12);
+		private var tile_3:int = hsv(200, 5, 12);
+		private var tile_4:int = hsv(200, 5, 14);
+		
 		public function WorldDisplay(player:Player, world:World) 
 		{
 			this.player = player;
@@ -58,12 +67,12 @@ package
 		{
 			switch (world.getTile(x, y))
 			{
-				case Tile.grass: return hsv(100, 20, 25 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 10));
-				case Tile.door_opened: return 0xcc9999;
-				case Tile.door_closed: return 0xcc9999;
-				case Tile.wall: return 0xc0c0c0;
-				case Tile.floor_dark: return 0x1a1a1a;
-				case Tile.floor_light: return 0x2b2b2b;
+				case Tile.grass: return hsv(100, 33, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 10));
+				case Tile.door_opened: return wood_fg;
+				case Tile.door_closed: return wood_fg;
+				case Tile.wall: return stone_fg;
+				case Tile.floor_dark: return tile_3;
+				case Tile.floor_light: return tile_4;
 				default: return 0xff0000;
 			}
 		}
@@ -72,12 +81,12 @@ package
 		{
 			switch (world.getTile(x, y))
 			{
-				case Tile.grass: return hsv(100, 20, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 10));
-				case Tile.door_opened: return 0x663333;
-				case Tile.door_closed: return 0x663333;
-				case Tile.wall: return 0x333333;
-				case Tile.floor_dark: return 0x090909;
-				case Tile.floor_light: return 0x1a1a1a;
+				case Tile.grass: return hsv(100, 33, 10 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 10));
+				case Tile.door_opened: return wood_bg;
+				case Tile.door_closed: return wood_bg;
+				case Tile.wall: return stone_bg;
+				case Tile.floor_dark: return tile_1;
+				case Tile.floor_light: return tile_2;
 				default: return 0x00ff00;
 			}
 		}
