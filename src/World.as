@@ -1,9 +1,9 @@
 package  
 {
+	import flash.utils.Dictionary;
 	public class World 
 	{
-		private var walls:Array = [];
-		private var doors:Array = [];
+		private var tiles:Dictionary = new Dictionary();
 		
 		public function add(player:Player):void
 		{
@@ -17,22 +17,22 @@ package
 		
 		public function addWall(x:int, y:int):void 
 		{
-			walls.push(x + "," + y);
+			tiles[x + "," + y] = "wall";
 		}
 		
 		public function addDoor(x:int, y:int):void 
 		{
-			doors.push(x + "," + y);
+			tiles[x + "," + y] = "door";
 		}
 		
 		public function isWall(x:int, y:int):Boolean
 		{
-			return walls.indexOf(x + "," + y) > -1;
+			return tiles[x + "," + y] == "wall";
 		}
 		
 		public function isDoor(x:int, y:int):Boolean 
 		{
-			return doors.indexOf(x + "," + y) > -1;
+			return tiles[x + "," + y] == "door";
 		}
 		
 		public function addCastle():void 
