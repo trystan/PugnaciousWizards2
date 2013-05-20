@@ -224,8 +224,8 @@ package com.headchant.asciipanel {
 				bgcolor = defaultBackgroundColor;
 				
 			for (var i : int = 0; i < string.length; i++) {
-				foregroundColor[x][y] = fgcolor;
-				backgroundColor[x][y] = bgcolor;	
+				foregroundColor[x][y] = fgcolor is Function ? fgcolor(x, y) : fgcolor;
+				backgroundColor[x][y] = bgcolor is Function ? bgcolor(x, y) : bgcolor;	
 				chars[x][y] = string.charCodeAt(i);
 				x++;
 				currentPosition.x = x;
@@ -261,8 +261,8 @@ package com.headchant.asciipanel {
 			for (var i:int = 0; i < widthInCharacters; i++) {
 				for (var j : int = 0; j < heightInCharacters; j++) {
 					chars[i][j] = char.charCodeAt(0);
-					foregroundColor[i][j] = fgcolor;
-					backgroundColor[i][j] = bgcolor;
+					foregroundColor[i][j] = fgcolor is Function ? fgcolor(x, y) : fgcolor;
+					backgroundColor[i][j] = bgcolor is Function ? bgcolor(x, y) : bgcolor;
 				}
 			}
 		}
