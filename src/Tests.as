@@ -2,13 +2,9 @@ package
 {
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
-	public class Tests 
+	
+	public class Tests extends TestFramework
 	{
-		public var passed:Boolean = true;
-		public function get failed():Boolean { return !passed; }
-		
-		public var message:String = "ok";
-		
 		public function run():void
 		{
 			movement();
@@ -155,16 +151,6 @@ package
 			player.moveBy(0, -1);
 			assertEqual(player.position.x, 5);
 			assertEqual(player.position.y, 5);
-		}
-		
-		private function assertEqual(actual:Object, expected:Object):void
-		{
-			if (expected == actual)
-				return;
-			
-			message = "Expected " + expected + " but got " + actual + ".";
-			trace(message);
-			passed = false;
 		}
 	}
 }
