@@ -6,7 +6,7 @@
     <movie input="" />
     <movie path="bin\PugnaciousWizards2.swf" />
     <movie fps="30" />
-    <movie width="640" />
+    <movie width="800" />
     <movie height="640" />
     <movie version="10" />
     <movie minorVersion="1" />

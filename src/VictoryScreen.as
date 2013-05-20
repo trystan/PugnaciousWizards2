@@ -15,7 +15,7 @@ package
 			this.player = player;
 			this.world = world;
 			
-			terminal = new AsciiPanel(80, 80);
+			terminal = new AsciiPanel(100, 80);
 			terminal.useRasterFont(AsciiPanel.codePage437_8x8, 8, 8);
 			addChild(terminal);
 			refresh();

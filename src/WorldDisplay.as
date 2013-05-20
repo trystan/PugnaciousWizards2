@@ -25,7 +25,7 @@ package
 			this.player = player;
 			this.world = world;
 			
-			terminal = new AsciiPanel(80, 80);
+			terminal = new AsciiPanel(100, 80);
 			terminal.useRasterFont(AsciiPanel.codePage437_8x8, 8, 8);
 			addChild(terminal);
 			
@@ -47,9 +47,17 @@ package
 				
 			terminal.write("@", player.position.x, player.position.y, 0xffffff, bg(player.position.x, player.position.y));
 			
-			terminal.writeCenter("Pugnacious Wizards 2", 1, null, bg);
+			drawHud();
 			
 			terminal.paint();
+		}
+		
+		private function drawHud():void
+		{
+			var x:int = 81;
+			var y:int = 1;
+			
+			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2);
 		}
 		
 		private function item_glyph(endPiece:EndPiece):String
