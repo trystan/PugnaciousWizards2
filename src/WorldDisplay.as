@@ -35,6 +35,8 @@ package
 				
 			terminal.write("@", player.position.x, player.position.y, 0xffffff, bg(player.position.x, player.position.y));
 			
+			terminal.writeCenter("Pugnacious Wizards 2", 1, null, bg);
+			
 			terminal.paint();
 		}
 		
