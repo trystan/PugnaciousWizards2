@@ -3,6 +3,7 @@ package
 	public class Tile 
 	{
 		public static var grass:Tile = new Tile(false);
+		public static var tree:Tile = new Tile(true);
 		public static var floor_light:Tile = new Tile(false);
 		public static var floor_dark:Tile = new Tile(false);
 		public static var wall:Tile = new Tile(true);

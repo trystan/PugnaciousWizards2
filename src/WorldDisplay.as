@@ -54,6 +54,7 @@ package
 			switch (world.getTile(x, y))
 			{
 				case Tile.grass: return String.fromCharCode(250);
+				case Tile.tree: return String.fromCharCode(6);
 				case Tile.door_opened: return "/";
 				case Tile.door_closed: return "+";
 				case Tile.wall: return "#";
@@ -68,6 +69,7 @@ package
 			switch (world.getTile(x, y))
 			{
 				case Tile.grass: return hsv(100, 33, 20 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6));
+				case Tile.tree: return hsv(30 + Math.floor((perlinBitmap.getPixel(y, x) & 0xFF) / 255.0 * 90), 40, 40);
 				case Tile.door_opened: return wood_fg;
 				case Tile.door_closed: return wood_fg;
 				case Tile.wall: return stone_fg;
@@ -82,6 +84,7 @@ package
 			switch (world.getTile(x, y))
 			{
 				case Tile.grass: return hsv(100, 33, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6));
+				case Tile.tree: return hsv(100, 33, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6));
 				case Tile.door_opened: return wood_bg;
 				case Tile.door_closed: return wood_bg;
 				case Tile.wall: return stone_bg;
