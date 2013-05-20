@@ -25,20 +25,47 @@ package
 			
 			for (var x:int = 0; x < 80; x++)
 			for (var y:int = 0; y < 80; y++)
-			{
-				var t:String = String.fromCharCode(250);
-				if (world.isOpenedDoor(x, y))
-					t = "/";
-				if (world.isClosedDoor(x, y))
-					t = "+";
-				else if (world.isWall(x, y))
-					t = "#";
-				terminal.write(t, x, y);
-			}
+				terminal.write(tile(x, y), x, y, fg(x, y), bg(x, y));
 				
-			terminal.write("@", player.position.x, player.position.y);
+			terminal.write("@", player.position.x, player.position.y, 0xffffff, bg(player.position.x, player.position.y));
 			
 			terminal.paint();
+		}
+		
+		private function tile(x:int, y:int):String
+		{
+			if (world.isOpenedDoor(x, y))
+				return "/";
+			if (world.isClosedDoor(x, y))
+				return "+";
+			else if (world.isWall(x, y))
+				return "#";
+			else
+				return String.fromCharCode(250);
+		}
+		
+		private function fg(x:int, y:int):int
+		{
+			if (world.isOpenedDoor(x, y))
+				return 0xcc9999;
+			if (world.isClosedDoor(x, y))
+				return 0xcc9999;
+			else if (world.isWall(x, y))
+				return 0xc0c0c0;
+			else
+				return 0x333333;
+		}
+		
+		private function bg(x:int, y:int):int
+		{
+			if (world.isOpenedDoor(x, y))
+				return 0x663333;
+			if (world.isClosedDoor(x, y))
+				return 0x663333;
+			else if (world.isWall(x, y))
+				return 0x333333;
+			else
+				return 0x090909;
 		}
 	}
 }
