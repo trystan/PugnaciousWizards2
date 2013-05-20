@@ -17,6 +17,14 @@ package
 			bumpingIntoAClosedDoorOpensIt();
 			outsideTheCastleHasGrass();
 			insideTheCastleHasLightAndDarkTiles();
+			castleIsMadeOfRooms();
+		}
+		
+		private function castleIsMadeOfRooms():void 
+		{
+			var gen:WorldGen = new WorldGen();
+			
+			assertNotNull(gen.getRoom(0, 0));
 		}
 		
 		private function insideTheCastleHasLightAndDarkTiles():void 

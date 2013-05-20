@@ -16,5 +16,13 @@ package
 			trace(message);
 			passed = false;
 		}
+		
+		protected function assertNotNull(actual:Object):void
+		{
+			if (actual != null)
+				return;
+			
+			assertEqual("null", "not null");
+		}
 	}
 }
