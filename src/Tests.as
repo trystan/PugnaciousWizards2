@@ -18,6 +18,16 @@ package
 			outsideTheCastleHasGrass();
 			insideTheCastleHasLightAndDarkTiles();
 			castleIsMadeOfRooms();
+			castleRoomsAreConnected();
+		}
+		
+		private function castleRoomsAreConnected():void 
+		{
+			var room:Room = new WorldGen().getRoom(0, 0);
+			
+			var isConnected:Boolean = room.isConnectedSouth || room.isConnectedEast;
+			
+			assertEqual(isConnected, true);
 		}
 		
 		private function castleIsMadeOfRooms():void 

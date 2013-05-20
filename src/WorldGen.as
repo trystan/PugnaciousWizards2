@@ -6,7 +6,8 @@ package
 		
 		public function WorldGen()
 		{
-			addRooms();	
+			addRooms();
+			connectRoomsAsPerfectMaze();
 		}
 		
 		public function apply(world:World):void 
@@ -28,7 +29,68 @@ package
 			}
 		}
 		
-		public function getRoom(x:int, y:int):Object 
+		private function connectRoomsAsPerfectMaze():void 
+		{
+			var connected:Array = [getRoom(0, 0)];
+			var frontier:Array = [getRoom(1, 0), getRoom(0, 1)];
+			
+			var tries:int = 0;
+			
+			while (frontier.length > 0 && tries++ < 1000)
+			{
+				var here:Room = frontier[Math.floor(Math.random() * frontier.length)];
+				
+				if (connected.indexOf(here) >= 0)
+					continue;
+				
+				connected.push(here);
+				
+				var neighbors:Array = [];
+				
+				for each (var other:Room in connected)
+				{
+					if (Math.abs(other.position.x - here.position.x) + Math.abs(other.position.y - here.position.y) == 1)
+						neighbors.push(other);
+				}
+				
+				if (neighbors.length == 0)
+					continue;
+				
+				var next:Room = neighbors[Math.floor(Math.random() * neighbors.length)];
+				
+				if (here.position.x < next.position.x)
+				{
+					here.isConnectedEast = true;
+					next.isConnectedWest = true;
+				}
+				else if (here.position.x > next.position.x)
+				{
+					here.isConnectedWest = true;
+					next.isConnectedEast = true;
+				}
+				else if (here.position.y < next.position.y)
+				{
+					here.isConnectedSouth = true;
+					next.isConnectedNorth = true;
+				}
+				else if (here.position.y > next.position.y)
+				{
+					here.isConnectedNorth = true;
+					next.isConnectedSouth = true;
+				}
+				
+				if (here.position.x > 0 && frontier.indexOf(getRoom(here.position.x - 1, here.position.y)) == -1)
+					frontier.push(getRoom(here.position.x - 1, here.position.y));
+				if (here.position.y > 0 && frontier.indexOf(getRoom(here.position.x, here.position.y - 1)) == -1)
+					frontier.push(getRoom(here.position.x, here.position.y - 1));
+				if (here.position.x < 8 && frontier.indexOf(getRoom(here.position.x + 1, here.position.y)) == -1)
+					frontier.push(getRoom(here.position.x + 1, here.position.y));
+				if (here.position.y < 8 && frontier.indexOf(getRoom(here.position.x, here.position.y + 1)) == -1)
+					frontier.push(getRoom(here.position.x, here.position.y + 1));
+			}
+		}
+		
+		public function getRoom(x:int, y:int):Room 
 		{
 			return rooms[x][y];
 		}
@@ -53,14 +115,21 @@ package
 		
 		private function addCastleDoors(world:World):void 
 		{
-			for (var x1:int = 0; x1 < 8; x1++)
-			for (var y1:int = 0; y1 < 9; y1++)
-				world.addDoor(x1 * 8 + 12, y1 * 8 + 8);
+			for (var x:int = 0; x < 9; x++)
+			for (var y:int = 0; y < 9; y++)
+			{
+				var room:Room = getRoom(x, y);
 				
-			for (var x2:int = 0; x2 < 9; x2++)
-			for (var y2:int = 0; y2 < 8; y2++)
-				world.addDoor(x2 * 8 + 8, y2 * 8 + 12);
-				
+				if (room.isConnectedEast)
+					world.addDoor(room.position.x * 8 + 12, room.position.y * 8 + 8);
+				if (room.isConnectedWest)
+					world.addDoor(room.position.x * 8 + 4, room.position.y * 8 + 8);
+				if (room.isConnectedSouth)
+					world.addDoor(room.position.x * 8 + 8, room.position.y * 8 + 12);
+				if (room.isConnectedNorth)
+					world.addDoor(room.position.x * 8 + 8, room.position.y * 8 + 4);
+			}
+			
 			world.addDoor(4, 8 * 4 + 8);
 		}
 	}
