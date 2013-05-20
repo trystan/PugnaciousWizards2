@@ -18,6 +18,20 @@ package
 			castleIsWalledGrid();
 			doorsDoNotBlockMovement();
 			castleHasDoors();
+			bumpingIntoAClosedDoorOpensIt();
+		}
+		
+		private function bumpingIntoAClosedDoorOpensIt():void 
+		{
+			var world:World = new World();
+			var player:Player = new Player(new Point(5, 5));
+			world.add(player);
+			world.addDoor(6,5);
+			
+			player.moveBy(1, 0);
+			assertEqual(world.isOpenedDoor(6, 5), true);
+			assertEqual(player.position.x, 5);
+			assertEqual(player.position.y, 5);	
 		}
 		
 		private function castleHasDoors():void 
@@ -25,7 +39,7 @@ package
 			var world:World = new World();
 			world.addCastle();
 			
-			assertEqual(world.isDoor(4, 40), true);
+			assertEqual(world.isClosedDoor(4, 40), true);
 		}
 		
 		private function doorsDoNotBlockMovement():void 

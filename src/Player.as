@@ -16,9 +16,14 @@ package
 		{
 			if (world.blocksMovement(position.x + x, position.y + y))
 				return;
-				
-			position.x += x;
-			position.y += y;
+			
+			if (world.isClosedDoor(position.x + x, position.y + y))
+				world.openDoor(position.x + x, position.y + y);
+			else
+			{
+				position.x += x;
+				position.y += y;
+			}
 		}
 	}
 }

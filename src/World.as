@@ -25,14 +25,24 @@ package
 			tiles[x + "," + y] = "door";
 		}
 		
+		public function openDoor(x:int, y:int):void
+		{
+			tiles[x + "," + y] = "open door";	
+		}
+		
 		public function isWall(x:int, y:int):Boolean
 		{
 			return tiles[x + "," + y] == "wall";
 		}
 		
-		public function isDoor(x:int, y:int):Boolean 
+		public function isClosedDoor(x:int, y:int):Boolean 
 		{
 			return tiles[x + "," + y] == "door";
+		}
+		
+		public function isOpenedDoor(x:int, y:int):Boolean 
+		{
+			return tiles[x + "," + y] == "open door";
 		}
 		
 		public function addCastle():void 
