@@ -36,6 +36,7 @@ package
 		{
 			switch (world.getTile(x, y))
 			{
+				case Tile.grass: return String.fromCharCode(250);
 				case Tile.door_opened: return "/";
 				case Tile.door_closed: return "+";
 				case Tile.wall: return "#";
@@ -49,6 +50,7 @@ package
 		{
 			switch (world.getTile(x, y))
 			{
+				case Tile.grass: return 0x77aa77;
 				case Tile.door_opened: return 0xcc9999;
 				case Tile.door_closed: return 0xcc9999;
 				case Tile.wall: return 0xc0c0c0;
@@ -62,6 +64,7 @@ package
 		{
 			switch (world.getTile(x, y))
 			{
+				case Tile.grass: return 0x669966;
 				case Tile.door_opened: return 0x663333;
 				case Tile.door_closed: return 0x663333;
 				case Tile.wall: return 0x333333;

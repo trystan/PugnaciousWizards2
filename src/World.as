@@ -27,7 +27,7 @@ package
 			if (t != null)
 				return t;
 				
-			return ((x + y) % 2 == 1) ? Tile.floor_dark : Tile.floor_light;
+			return Tile.grass;
 		}
 		
 		public function addWall(x:int, y:int):void 

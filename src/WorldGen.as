@@ -4,8 +4,16 @@ package
 	{
 		public function apply(world:World):void 
 		{
+			addCastleFloor(world)
 			addCastleWalls(world);
 			addCastleDoors(world);
+		}
+		
+		private function addCastleFloor(world:World):void
+		{
+			for (var x:int = 4; x < 77; x++)
+			for (var y:int = 4; y < 77; y++)
+				world.addTile(x, y, (x + y) % 2 == 1 ? Tile.floor_dark : Tile.floor_light);
 		}
 		
 		private function addCastleDoors(world:World):void 

@@ -15,6 +15,23 @@ package
 			doorsDoNotBlockMovement();
 			castleHasDoors();
 			bumpingIntoAClosedDoorOpensIt();
+			outsideTheCastleHasGrass();
+			insideTheCastleHasLightAndDarkTiles();
+		}
+		
+		private function insideTheCastleHasLightAndDarkTiles():void 
+		{
+			var world:World = new World().addWorldGen(new WorldGen());
+			
+			assertEqual(world.getTile(19, 19), Tile.floor_light);
+			assertEqual(world.getTile(19, 18), Tile.floor_dark);
+		}
+		
+		private function outsideTheCastleHasGrass():void 
+		{
+			var world:World = new World();
+			
+			assertEqual(world.getTile(1, 1), Tile.grass);
 		}
 		
 		private function bumpingIntoAClosedDoorOpensIt():void 
