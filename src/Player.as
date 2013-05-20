@@ -23,6 +23,12 @@ package
 			{
 				position.x += x;
 				position.y += y;
+				
+				var item:EndPiece = world.getItem(position.x, position.y);
+				if (item != null)
+				{
+					world.removeItem(position.x, position.y);
+				}
 			}
 		}
 	}

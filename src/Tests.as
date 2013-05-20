@@ -22,6 +22,22 @@ package
 			roomsCanBeDeadEnds();
 			worldHasItems();
 			threeDeadEndsContainPiecesOfTheAmulet();
+			movingOntoAnItemPicksItUp();
+		}
+		
+		private function movingOntoAnItemPicksItUp():void 
+		{
+			var world:World = new World();
+			var player:Player = new Player(new Point(5,5));
+			world.add(player);
+			
+			var item:EndPiece = new EndPiece();
+			world.addItem(6, 5, item);
+			
+			assertEqual(world.items[0].item, item);
+			
+			player.moveBy(1, 0);
+			assertEqual(world.items.length, 0);
 		}
 		
 		private function threeDeadEndsContainPiecesOfTheAmulet():void 
@@ -32,9 +48,7 @@ package
 		private function worldHasItems():void 
 		{
 			var world:World = new World();
-			
 			var item:EndPiece = new EndPiece();
-			
 			world.addItem(1, 1, item);
 			
 			assertEqual(world.items[0].item, item);

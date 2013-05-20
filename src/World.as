@@ -76,5 +76,29 @@ package
 		{
 			items.push({ x:ix, y:iy, item:thing });
 		}
+		
+		public function getItem(x:int, y:int):EndPiece 
+		{
+			for each (var placedItem:Object in items)
+			{
+				if (placedItem.x == x && placedItem.y == y)
+					return placedItem.item as EndPiece;
+			}
+			return null;
+		}
+		
+		public function removeItem(x:int, y:int):void 
+		{
+			var index:int = -1;
+			for (var i:int = 0; i < items.length; i++)
+			{
+				var placedItem:Object = items[i];
+				if (placedItem.x == x && placedItem.y == y)
+					index = i;
+			}
+			
+			if (index > -1)
+				items.splice(index, 1);
+		}
 	}
 }
