@@ -21,7 +21,7 @@ package
 		private function castleIsWalledGrid():void 
 		{
 			var world:World = new World();
-			world.addCastleWalls();
+			world.addCastle();
 			
 			assertEqual(world.isWall(4, 4), true);
 			assertEqual(world.isWall(79 - 3, 79 - 4), true);

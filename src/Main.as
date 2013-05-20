@@ -41,7 +41,7 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			
 			var world:World = new World();
-			world.addCastleWalls();
+			world.addCastle();
 			screen = new PlayScreen(new Player(new Point(5, 5)), world);
 			screen.world.addWall(6, 4);
 			

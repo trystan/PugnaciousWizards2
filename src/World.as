@@ -24,7 +24,12 @@ package
 			return walls.indexOf(x + "," + y) > -1;
 		}
 		
-		public function addCastleWalls():void 
+		public function addCastle():void 
+		{
+			addCastleWalls();
+		}
+		
+		public function addCastleWalls():void
 		{
 			for (var x1:int = 0; x1 < 9 * 8 + 1; x1++)
 			for (var y1:int = 0; y1 < 10; y1++)
