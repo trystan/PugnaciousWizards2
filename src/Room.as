@@ -5,6 +5,7 @@ package
 	
 	public class Room 
 	{
+		public var worldPosition:Point;
 		public var position:Point;
 		public var theme:RoomTheme;
 		
@@ -13,6 +14,8 @@ package
 		public var isConnectedWest:Boolean = false;
 		public var isConnectedEast:Boolean = false;
 		public var isEndRoom:Boolean = false;
+		
+		public var distance:int = 0;
 		
 		private static var themes:Array = [
 			new RoomTheme_randomPillars(),
@@ -26,6 +29,7 @@ package
 		public function Room(x:int, y:int) 
 		{
 			position = new Point(x, y);
+			worldPosition = new Point(x * 8 + 5, y * 8 + 5);
 			theme = themes[Math.floor(Math.random() * themes.length)];
 		}
 		
@@ -55,6 +59,11 @@ package
 				}
 				world.addItem(position.x * 8 + 8, position.y * 8 + 8, new EndPiece());
 			}
+		}
+		
+		public function contains(x:int, y:int):Boolean 
+		{
+			return worldPosition.x <= x && worldPosition.y <= y && worldPosition.x + 8 > x && worldPosition.y + 8> y;
 		}
 	}
 }

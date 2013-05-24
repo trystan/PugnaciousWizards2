@@ -11,7 +11,32 @@ package
 			
 			addRooms();
 			connectRoomsAsPerfectMaze();
+			addRoomDistances();
 			addItems();
+		}
+		
+		private function addRoomDistances():void 
+		{
+			addRoomDistance(0, 4, 1);
+		}
+		
+		private function addRoomDistance(x:int, y:int, dist:int):void 
+		{
+			var room:Room = rooms[x][y];
+			
+			if (room.distance > 0 && room.distance <= dist)
+				return;
+			
+			room.distance = dist;
+			
+			if (room.isConnectedWest)
+				addRoomDistance(x - 1, y, dist + 1);
+			if (room.isConnectedEast)
+				addRoomDistance(x + 1, y, dist + 1);
+			if (room.isConnectedNorth)
+				addRoomDistance(x, y - 1, dist + 1);
+			if (room.isConnectedSouth)
+				addRoomDistance(x, y + 1, dist + 1);
 		}
 		
 		private function addItems():void 
@@ -49,6 +74,14 @@ package
 			
 			if (!skipRooms)
 				addCastleRooms(world);
+				
+			var roomList:Array = [];
+			
+			for each (var list:Array in rooms)
+			for each (var room:Room in list)
+				roomList.push(room);
+				
+			world.rooms = roomList;
 		}
 		
 		private function addRooms():void 

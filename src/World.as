@@ -7,6 +7,7 @@ package
 		private var player:Player;
 		private var tiles:Dictionary = new Dictionary();
 		public var items:Array = [];
+		public var rooms:Array = [];
 		
 		public function get playerHasWon():Boolean 
 		{
@@ -107,6 +108,16 @@ package
 			
 			if (index > -1)
 				items.splice(index, 1);
+		}
+		
+		public function getRoom(x:int, y:int):Room 
+		{
+			for each (var room:Room in rooms)
+			{
+				if (room.contains(x, y))
+					return room;
+			}
+			return null;
 		}
 	}
 }

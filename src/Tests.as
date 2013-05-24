@@ -25,6 +25,14 @@ package
 			movingOntoAnItemPicksItUp();
 			playerCanWinAfterPickingUpThreeEndPieces();
 			collectingAllPiecesAndGoingToTheExitWinsTheGame();
+			roomsHaveADistanceToTheBegining();
+		}
+		
+		private function roomsHaveADistanceToTheBegining():void 
+		{
+			var world:World = new World().addWorldGen(new WorldGen());
+			
+			assertEqual(world.getRoom(5, 40).distance, 1);
 		}
 		
 		private function collectingAllPiecesAndGoingToTheExitWinsTheGame():void 

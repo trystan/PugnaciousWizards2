@@ -47,6 +47,9 @@ package
 				
 			terminal.write("@", player.position.x, player.position.y, 0xffffff, bg(player.position.x, player.position.y));
 			
+			//for each (var room:Room in world.rooms)
+			//	terminal.write(room.distance + "", room.worldPosition.x + 1, room.worldPosition.y + 1);
+			
 			drawHud();
 			
 			terminal.paint();
