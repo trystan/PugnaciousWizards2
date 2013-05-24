@@ -10,6 +10,10 @@ package
 		public static var door_closed:Tile = new Tile(false, true);
 		public static var door_opened:Tile = new Tile(false, false);
 		static public var tower:Tile = new Tile(true, true);
+		static public var tower_1:Tile = new Tile(true, true);
+		static public var tower_2:Tile = new Tile(true, true);
+		static public var tower_3:Tile = new Tile(true, true);
+		static public var tower_4:Tile = new Tile(true, true);
 		
 		public var blocksMovement:Boolean;
 		public var blocksArrows:Boolean;

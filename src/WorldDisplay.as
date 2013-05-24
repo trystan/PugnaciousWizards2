@@ -18,8 +18,8 @@ package
 		
 		private var wood_bg:int = hsv(25, 80, 30);
 		private var wood_fg:int = hsv(25, 80, 50);
-		private var stone_bg:int = hsv(200, 5, 35);
-		private var stone_fg:int = hsv(200, 5, 45);
+		private var stone_bg:int = hsv(200, 5, 30);
+		private var stone_fg:int = hsv(200, 5, 40);
 		private var tile_1:int = hsv(200, 5, 10);
 		private var tile_2:int = hsv(200, 5, 12);
 		private var tile_3:int = hsv(200, 5, 12);
@@ -113,6 +113,10 @@ package
 				case Tile.floor_light: return dot;
 				case Tile.floor_dark: return dot;
 				case Tile.tower: return tower;
+				case Tile.tower_1: return NS;
+				case Tile.tower_2: return SW_NE;
+				case Tile.tower_3: return WE;
+				case Tile.tower_4: return NW_SE;
 				default: return "X";
 			}
 		}
@@ -128,7 +132,12 @@ package
 				case Tile.wall: return stone_fg;
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
-				case Tile.tower: return stone_bg;
+				case Tile.tower:
+				case Tile.tower_1:
+				case Tile.tower_2:
+				case Tile.tower_3:
+				case Tile.tower_4:
+					return stone_bg;
 				default: return 0xff0000;
 			}
 		}
@@ -144,7 +153,12 @@ package
 				case Tile.wall: return stone_bg;
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;
-				case Tile.tower: return stone_fg;
+				case Tile.tower:
+				case Tile.tower_1:
+				case Tile.tower_2:
+				case Tile.tower_3:
+				case Tile.tower_4:
+					return stone_fg;
 				default: return 0x00ff00;
 			}
 		}

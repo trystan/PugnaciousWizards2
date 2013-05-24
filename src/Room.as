@@ -26,6 +26,7 @@ package
 			new RoomTheme_courtyard(),
 			new RoomTheme_trapWalls(),
 			new RoomTheme_trapTower(),
+			new RoomTheme_rotatingTrapTower(),
 		];
 		
 		public function Room(x:int, y:int) 
