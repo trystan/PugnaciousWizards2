@@ -12,6 +12,10 @@ package
 		private var terminal:AsciiPanel;
 		public var perlinBitmap:BitmapData;
 		
+		private var dot:String = String.fromCharCode(250);
+		private var tree:String = String.fromCharCode(6);
+		private var tower:String = String.fromCharCode(7);
+		
 		private var wood_bg:int = hsv(25, 80, 30);
 		private var wood_fg:int = hsv(25, 80, 50);
 		private var stone_bg:int = hsv(200, 5, 35);
@@ -57,6 +61,8 @@ package
 		
 		private static var NS:String = String.fromCharCode(179);
 		private static var WE:String = String.fromCharCode(196);
+		private static var NW_SE:String = "\\";
+		private static var SW_NE:String = "/";
 		
 		public function animateOneFrame():void 
 		{
@@ -68,6 +74,10 @@ package
 					case "S": terminal.write(NS, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
 					case "W": terminal.write(WE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
 					case "E": terminal.write(WE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
+					case "NW": terminal.write(NW_SE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
+					case "NE": terminal.write(SW_NE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
+					case "SW": terminal.write(SW_NE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
+					case "SE": terminal.write(NW_SE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
 				}
 			}
 			terminal.paint();
@@ -95,13 +105,14 @@ package
 		{
 			switch (world.getTile(x, y))
 			{
-				case Tile.grass: return String.fromCharCode(250);
-				case Tile.tree: return String.fromCharCode(6);
+				case Tile.grass: return dot;
+				case Tile.tree: return tree;
 				case Tile.door_opened: return "/";
 				case Tile.door_closed: return "+";
 				case Tile.wall: return "#";
-				case Tile.floor_light: return String.fromCharCode(250);
-				case Tile.floor_dark: return String.fromCharCode(250);
+				case Tile.floor_light: return dot;
+				case Tile.floor_dark: return dot;
+				case Tile.tower: return tower;
 				default: return "X";
 			}
 		}
@@ -117,6 +128,7 @@ package
 				case Tile.wall: return stone_fg;
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
+				case Tile.tower: return stone_bg;
 				default: return 0xff0000;
 			}
 		}
@@ -132,6 +144,7 @@ package
 				case Tile.wall: return stone_bg;
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;
+				case Tile.tower: return stone_fg;
 				default: return 0x00ff00;
 			}
 		}

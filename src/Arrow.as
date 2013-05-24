@@ -24,12 +24,15 @@ package
 		
 		public function update():void
 		{
-			switch (direction)
+			for (var i:int = 0; i < direction.length; i++)
 			{
-				case "N": effect.y++; break;
-				case "S": effect.y--; break;
-				case "W": effect.x++; break;
-				case "E": effect.x--; break;
+				switch (direction.charAt(i))
+				{
+					case "N": effect.y++; break;
+					case "S": effect.y--; break;
+					case "W": effect.x++; break;
+					case "E": effect.x--; break;
+				}
 			}
 			
 			if (world.getTile(effect.x, effect.y).blocksArrows)

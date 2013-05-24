@@ -25,6 +25,7 @@ package
 			new RoomTheme_circle(),
 			new RoomTheme_courtyard(),
 			new RoomTheme_trapWalls(),
+			new RoomTheme_trapTower(),
 		];
 		
 		public function Room(x:int, y:int) 
