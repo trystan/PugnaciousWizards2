@@ -1,6 +1,6 @@
 package  
 {
-	public class ArrowEffect 
+	public class ArrowEffect
 	{
 		public var x:int;
 		public var y:int;

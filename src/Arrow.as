@@ -3,14 +3,15 @@ package
 	import com.headchant.asciipanel.AsciiPanel;
 	import flash.geom.Point;
 	
-	public class Arrow 
+	public class Arrow implements Animation
 	{
 		public var direction:String;
 		public var world:World;
 		public var ticks:int;
 		public var effect:ArrowEffect;
 		
-		public var done:Boolean = false;
+		private var _done:Boolean = false;
+		public function get done():Boolean { return _done; };
 		
 		public function Arrow(world:World, x:int, y:int, dir:String) 
 		{
@@ -37,7 +38,7 @@ package
 			
 			if (world.getTile(effect.x, effect.y).blocksArrows)
 			{
-				done = true;
+				_done = true;
 				world.removeAnimationEffect(effect);
 			}
 		}

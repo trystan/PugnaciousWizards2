@@ -20,10 +20,9 @@ package
 		private static var themes:Array = [
 			new RoomTheme_randomPillars(),
 			new RoomTheme_empty(),
-			new RoomTheme_randomPillars(),
-			new RoomTheme_empty(),
 			new RoomTheme_circle(),
 			new RoomTheme_courtyard(),
+			new RoomTheme_trapFloors(),
 			new RoomTheme_trapWalls(),
 			new RoomTheme_trapTower(),
 			new RoomTheme_rotatingTrapTower(),

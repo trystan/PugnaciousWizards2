@@ -22,12 +22,12 @@ package
 			effects.push(effect);
 		}
 		
-		public function addAnimationEffect(effect:ArrowEffect):void
+		public function addAnimationEffect(effect:Object):void
 		{
 			animationEffects.push(effect);
 		}
 		
-		public function removeAnimationEffect(effect:ArrowEffect):void
+		public function removeAnimationEffect(effect:Object):void
 		{
 			var index:int = animationEffects.indexOf(effect);
 			

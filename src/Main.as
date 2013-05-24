@@ -74,7 +74,7 @@ package
 			blockInput = true;
 			var nextAnimations:Array = [];
 			
-			for each (var animation:Arrow in animations)
+			for each (var animation:Animation in animations)
 			{
 				animation.update();
 				if (!animation.done)
@@ -108,9 +108,9 @@ package
 			current.screen.refresh();
 		}
 		
-		public static function addAnimation(arrow:Arrow):void
+		public static function addAnimation(animation:Animation):void
 		{
-			current.animations.push(arrow);
+			current.animations.push(animation);
 		}
 	}
 }
