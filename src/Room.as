@@ -50,13 +50,6 @@ package
 		{	
 			if (isEndRoom)
 			{
-				for (var tx:int = 0; tx < 5; tx++)
-				for (var ty:int = 0; ty < 5; ty++)
-				{
-					var x:int = position.x * 8 + 8 + tx - 2;
-					var y:int = position.y * 8 + 8 + ty - 2;
-					world.addTile(x, y, (x + y) % 2 == 0 ? Tile.floor_light : Tile.floor_dark);
-				}
 				world.addItem(position.x * 8 + 8, position.y * 8 + 8, new EndPiece());
 			}
 			else

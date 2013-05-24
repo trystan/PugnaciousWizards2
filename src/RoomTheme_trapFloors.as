@@ -53,7 +53,12 @@ package
 			var ticks:int = (int)(Math.random() * 24);
 			
 			for each (var p:Point in tiles)
+			{
+				if (world.getTile(p.x, p.y).blocksMovement)
+					continue;
+					
 				world.addEffect(new FloorTrap(world, p.x, p.y, ticks));
+			}
 		}
 	}
 }

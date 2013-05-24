@@ -22,7 +22,7 @@ package
 		{
 			ticks++;
 			
-			if (ticks > 5)
+			if (ticks > 9)
 			{
 				_done = true;
 				world.removeAnimationEffect(effect);

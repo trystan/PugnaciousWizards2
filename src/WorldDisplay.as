@@ -24,6 +24,7 @@ package
 		private var tile_2:int = hsv(200, 5, 12);
 		private var tile_3:int = hsv(200, 5, 12);
 		private var tile_4:int = hsv(200, 5, 14);
+		private var metal_fg:int = hsv(200, 2, 90);
 		
 		public function WorldDisplay(player:Player, world:World) 
 		{
@@ -63,7 +64,7 @@ package
 		private static var WE:String = String.fromCharCode(196);
 		private static var NW_SE:String = "\\";
 		private static var SW_NE:String = "/";
-		private static var floor_arrow:String = String.fromCharCode(24);
+		private static var floor_arrow:String = String.fromCharCode(24); // (94);
 		
 		public function animateOneFrame():void 
 		{
@@ -73,19 +74,19 @@ package
 				{
 					switch (effect.direction)
 					{
-						case "N": terminal.write(NS, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
-						case "S": terminal.write(NS, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
-						case "W": terminal.write(WE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
-						case "E": terminal.write(WE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
-						case "NW": terminal.write(NW_SE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
-						case "NE": terminal.write(SW_NE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
-						case "SW": terminal.write(SW_NE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
-						case "SE": terminal.write(NW_SE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
+						case "N": terminal.write(NS, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
+						case "S": terminal.write(NS, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
+						case "W": terminal.write(WE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
+						case "E": terminal.write(WE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
+						case "NW": terminal.write(NW_SE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
+						case "NE": terminal.write(SW_NE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
+						case "SW": terminal.write(SW_NE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
+						case "SE": terminal.write(NW_SE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
 					}
 				}
 				else
 				{
-					terminal.write(floor_arrow, effect.x, effect.y, null, bg(effect.x, effect.y));
+					terminal.write(floor_arrow, effect.x, effect.y, metal_fg, bg(effect.x, effect.y));
 				}
 			}
 			terminal.paint();
