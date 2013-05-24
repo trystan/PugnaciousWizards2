@@ -18,9 +18,9 @@ package
 		public var distance:int = 0;
 		
 		private static var themes:Array = [
-			new RoomTheme_randomPillars(),
 			new RoomTheme_empty(),
-			new RoomTheme_circle(),
+			new RoomTheme_empty(),
+			new RoomTheme_empty(),
 			new RoomTheme_courtyard(),
 			new RoomTheme_trapFloors(),
 			new RoomTheme_trapWalls(),
@@ -48,6 +48,8 @@ package
 		
 		public function apply(world:World):void
 		{
+			addRandomArchitecture(world);
+			
 			theme.apply(this, world);
 			
 			if (isEndRoom)
@@ -60,6 +62,24 @@ package
 					world.addTile(x, y, (x + y) % 2 == 0 ? Tile.floor_light : Tile.floor_dark);
 				}
 				world.addItem(position.x * 8 + 8, position.y * 8 + 8, new EndPiece());
+			}
+		}
+		
+		public function addRandomArchitecture(world:World):void
+		{
+			if (Math.random() < 0.125)
+			{
+				world.addWall(position.x * 8 + 5, position.y * 8 + 5);
+				world.addWall(position.x * 8 + 11, position.y * 8 + 5);
+				world.addWall(position.x * 8 + 11, position.y * 8 + 11);
+				world.addWall(position.x * 8 + 5, position.y * 8 + 11);
+			}
+			
+			while (Math.random() < 0.33)
+			{
+				var px:int = Math.random() * 5 + 6;
+				var py:int = Math.random() * 5 + 6;
+				world.addWall(position.x * 8 + px, position.y * 8 + py);
 			}
 		}
 		
