@@ -8,13 +8,16 @@ package
 	import flash.text.TextField;
 	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
+	import animations.Animation;
+	import screens.Screen;
+	import screens.PlayScreen;
 	
 	public class Main extends Sprite 
 	{
 		private static var current:Main;
 		
 		private var screen:Screen;
-		private var animations:Array = [];
+		private var animationList:Array = [];
 		private var animationInterval:int = -1;
 		private var hasShownLastAnimationFrame:Boolean = false;
 		private var blockInput:Boolean = false;
@@ -60,7 +63,7 @@ package
 			{
 				screen.handleInput(e);
 				
-				if (animations.length > 0 && animationInterval == -1)
+				if (animationList.length > 0 && animationInterval == -1)
 				{
 					hasShownLastAnimationFrame = false;
 					animationInterval = setInterval(animateOne, 1000.0 / 60);
@@ -74,7 +77,7 @@ package
 			blockInput = true;
 			var nextAnimations:Array = [];
 			
-			for each (var animation:Animation in animations)
+			for each (var animation:Animation in animationList)
 			{
 				animation.update();
 				if (!animation.done)
@@ -82,9 +85,9 @@ package
 			}
 			
 			screen.animateOneFrame();
-			animations = nextAnimations;
+			animationList = nextAnimations;
 			
-			if (animations.length == 0)
+			if (animationList.length == 0)
 			{
 				if (hasShownLastAnimationFrame)
 				{
@@ -110,7 +113,7 @@ package
 		
 		public static function addAnimation(animation:Animation):void
 		{
-			current.animations.push(animation);
+			current.animationList.push(animation);
 		}
 	}
 }

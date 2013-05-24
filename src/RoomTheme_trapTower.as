@@ -1,5 +1,7 @@
 package  
 {
+	import features.TowerTrap;
+	
 	public class RoomTheme_trapTower implements RoomTheme
 	{
 		public function apply(room:Room, world:World):void

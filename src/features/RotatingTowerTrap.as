@@ -1,6 +1,8 @@
-package  
+package features
 {
-	public class RotatingTowerTrap extends CastleEffect
+	import animations.Arrow;
+	
+	public class RotatingTowerTrap extends CastleFeature
 	{
 		private static var directions:Array = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
 		

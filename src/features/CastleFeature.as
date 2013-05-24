@@ -1,6 +1,6 @@
-package  
+package features
 {
-	public class CastleEffect 
+	public class CastleFeature
 	{
 		public function update():void
 		{

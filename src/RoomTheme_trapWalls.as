@@ -1,6 +1,8 @@
 package  
 {
 	import flash.geom.Point;
+	import features.WallTrap;
+	
 	public class RoomTheme_trapWalls implements RoomTheme
 	{
 		public function apply(room:Room, world:World):void

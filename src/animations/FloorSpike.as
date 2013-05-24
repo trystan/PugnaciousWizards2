@@ -1,4 +1,4 @@
-package
+package animations
 {
 	public class FloorSpike implements Animation
 	{

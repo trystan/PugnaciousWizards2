@@ -1,5 +1,7 @@
 package  
 {
+	import features.RotatingTowerTrap;
+	
 	public class RoomTheme_rotatingTrapTower implements RoomTheme
 	{
 		public function apply(room:Room, world:World):void

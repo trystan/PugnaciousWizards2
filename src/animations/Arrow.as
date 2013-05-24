@@ -1,4 +1,4 @@
-package
+package animations
 {
 	import com.headchant.asciipanel.AsciiPanel;
 	import flash.geom.Point;

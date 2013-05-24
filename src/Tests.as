@@ -2,6 +2,7 @@ package
 {
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
+	import screens.PlayScreen;
 	
 	public class Tests extends TestFramework
 	{

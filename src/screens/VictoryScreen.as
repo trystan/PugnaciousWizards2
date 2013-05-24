@@ -1,16 +1,16 @@
-package  
+package screens
 {
 	import com.headchant.asciipanel.AsciiPanel;
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
 	
-	public class FailScreen extends Sprite implements Screen
+	public class VictoryScreen extends Sprite implements Screen
 	{
 		public var player:Player;
 		public var world:World;
 		public var terminal:AsciiPanel;
 		
-		public function FailScreen(player:Player, world:World) 
+		public function VictoryScreen(player:Player, world:World) 
 		{
 			this.player = player;
 			this.world = world;
@@ -37,7 +37,7 @@ package
 		public function refresh():void
 		{
 			terminal.clear();
-			terminal.write("You died!", 2, 2);
+			terminal.write("You won!", 2, 2);
 			terminal.writeCenter("-- press enter to restart --", 78);
 			terminal.paint();
 		}

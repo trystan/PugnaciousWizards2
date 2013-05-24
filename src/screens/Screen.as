@@ -1,4 +1,4 @@
-package  
+package screens
 {
 	import flash.events.KeyboardEvent;
 	

@@ -1,6 +1,8 @@
-package  
+package features
 {
-	public class FloorTrap extends CastleEffect
+	import animations.FloorSpike;
+	
+	public class FloorTrap extends CastleFeature
 	{
 		public var x:int;
 		public var y:int;

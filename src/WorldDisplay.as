@@ -4,6 +4,8 @@ package
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.geom.Point;
+	import animations.FloorSpike;
+	import animations.Arrow;
 	
 	public class WorldDisplay extends Sprite
 	{

@@ -1,6 +1,8 @@
-package  
+package features
 {
-	public class WallTrap extends CastleEffect
+	import animations.Arrow;
+	
+	public class WallTrap extends CastleFeature
 	{
 		public var x:int;
 		public var y:int;

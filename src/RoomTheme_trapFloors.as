@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Point;
+	import features.FloorTrap;
 	
 	public class RoomTheme_trapFloors implements RoomTheme
 	{
@@ -56,7 +57,7 @@ package
 			{
 				if (world.getTile(p.x, p.y).blocksMovement)
 					continue;
-					
+				
 				world.addEffect(new FloorTrap(world, p.x, p.y, ticks));
 			}
 		}

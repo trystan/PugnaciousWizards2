@@ -2,6 +2,7 @@ package
 {
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import features.CastleFeature; 
 	
 	public class World 
 	{
@@ -17,7 +18,7 @@ package
 			return player.hasAllEndPieces && player.position.x < 4;
 		}
 		
-		public function addEffect(effect:CastleEffect):void
+		public function addEffect(effect:CastleFeature):void
 		{
 			effects.push(effect);
 		}
@@ -143,7 +144,7 @@ package
 		
 		public function update():void
 		{
-			for each (var effect:CastleEffect in effects)
+			for each (var effect:CastleFeature in effects)
 				effect.update();
 		}
 		
