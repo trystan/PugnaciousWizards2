@@ -41,5 +41,10 @@ package
 			terminal.writeCenter("-- press enter to restart --", 78);
 			terminal.paint();
 		}
+		
+		public function handleAnimation(animation:Arrow):void 
+		{
+			animation.update(terminal);
+		}
 	}
 }

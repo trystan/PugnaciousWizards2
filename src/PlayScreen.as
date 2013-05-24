@@ -30,6 +30,8 @@ package
 		
 		public function handleInput(keyEvent:KeyboardEvent):void
 		{
+			var endTurn:Boolean = true;
+			
 			switch (keyEvent.keyCode)
 			{
 				case 39: player.moveBy(1, 0); break;
@@ -38,7 +40,11 @@ package
 				case 38: player.moveBy(0, -1); break;
 				default:
 					trace(keyEvent.keyCode);
+					endTurn = false;
 			}
+			
+			if (endTurn)
+				world.update();
 			
 			refresh();
 			
@@ -49,6 +55,11 @@ package
 		public function refresh():void
 		{
 			display.draw();
+		}
+		
+		public function handleAnimation(animation:Arrow):void 
+		{
+			display.handleAnimation(animation);
 		}
 	}
 }

@@ -8,10 +8,16 @@ package
 		private var tiles:Dictionary = new Dictionary();
 		public var items:Array = [];
 		public var rooms:Array = [];
+		public var effects:Array = [];
 		
 		public function get playerHasWon():Boolean 
 		{
 			return player.hasAllEndPieces && player.position.x < 4;
+		}
+		
+		public function addEffect(effect:CastleEffect):void
+		{
+			effects.push(effect);
 		}
 		
 		public function add(player:Player):void
@@ -118,6 +124,12 @@ package
 					return room;
 			}
 			return null;
+		}
+		
+		public function update():void
+		{
+			for each (var effect:CastleEffect in effects)
+				effect.update();
 		}
 	}
 }

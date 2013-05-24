@@ -34,7 +34,7 @@ package
 			perlinBitmap.perlinNoise(6, 6, 6, randomNum, false, true, 1, true, null);
 		}
 		
-		public function draw():void
+		public function draw(clear:Boolean = true):void
 		{
 			terminal.clear();
 			
@@ -51,7 +51,12 @@ package
 			//	terminal.write(room.distance + "", room.worldPosition.x + 1, room.worldPosition.y + 1);
 			
 			drawHud();
-			
+			terminal.paint();
+		}
+		
+		public function handleAnimation(animation:Arrow):void 
+		{
+			animation.update(terminal);
 			terminal.paint();
 		}
 		

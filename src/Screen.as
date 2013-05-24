@@ -6,6 +6,7 @@ package
 	{
 		function handleInput(keyEvent:KeyboardEvent):void
 		function refresh():void;
+		
+		function handleAnimation(animation:Arrow):void;
 	}
-	
 }
