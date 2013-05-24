@@ -47,11 +47,7 @@ package
 		}
 		
 		public function apply(world:World):void
-		{
-			addRandomArchitecture(world);
-			
-			theme.apply(this, world);
-			
+		{	
 			if (isEndRoom)
 			{
 				for (var tx:int = 0; tx < 5; tx++)
@@ -62,6 +58,12 @@ package
 					world.addTile(x, y, (x + y) % 2 == 0 ? Tile.floor_light : Tile.floor_dark);
 				}
 				world.addItem(position.x * 8 + 8, position.y * 8 + 8, new EndPiece());
+			}
+			else
+			{
+				addRandomArchitecture(world);
+			
+				theme.apply(this, world);
 			}
 		}
 		
