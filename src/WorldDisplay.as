@@ -35,7 +35,7 @@ package
 			perlinBitmap.perlinNoise(6, 6, 6, randomNum, false, true, 1, true, null);
 		}
 		
-		public function draw(clear:Boolean = true):void
+		public function draw():void
 		{
 			terminal.clear();
 			
@@ -58,7 +58,7 @@ package
 		private static var NS:String = String.fromCharCode(179);
 		private static var WE:String = String.fromCharCode(196);
 		
-		public function handleAnimation():void 
+		public function animateOneFrame():void 
 		{
 			for each (var effect:ArrowEffect in world.animationEffects)
 			{

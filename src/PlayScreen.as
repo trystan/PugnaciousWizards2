@@ -57,9 +57,9 @@ package
 			display.draw();
 		}
 		
-		public function handleAnimation():void 
+		public function animateOneFrame():void 
 		{
-			display.handleAnimation();
+			display.animateOneFrame();
 		}
 	}
 }

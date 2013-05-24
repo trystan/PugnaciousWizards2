@@ -7,6 +7,6 @@ package
 		function handleInput(keyEvent:KeyboardEvent):void
 		function refresh():void;
 		
-		function handleAnimation():void;
+		function animateOneFrame():void;
 	}
 }

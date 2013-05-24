@@ -42,7 +42,7 @@ package
 			terminal.paint();
 		}
 		
-		public function handleAnimation():void 
+		public function animateOneFrame():void 
 		{
 		}
 	}

@@ -81,7 +81,7 @@ package
 					nextAnimations.push(animation);
 			}
 			
-			screen.handleAnimation();
+			screen.animateOneFrame();
 			animations = nextAnimations;
 			
 			if (animations.length == 0)
