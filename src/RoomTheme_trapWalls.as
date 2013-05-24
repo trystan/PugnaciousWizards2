@@ -29,7 +29,7 @@ package
 					break;
 			}
 			
-			var ticks:int = (int)(Math.random() * 3);
+			var ticks:int = (int)(Math.random() * 24);
 			
 			for each (var p:Point in tiles)
 				world.addEffect(new WallTrap(world, p.x, p.y, dir, ticks));

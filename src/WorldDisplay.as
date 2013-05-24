@@ -3,6 +3,7 @@ package
 	import com.headchant.asciipanel.AsciiPanel;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
+	import flash.geom.Point;
 	
 	public class WorldDisplay extends Sprite
 	{
@@ -54,9 +55,21 @@ package
 			terminal.paint();
 		}
 		
-		public function handleAnimation(animation:Arrow):void 
+		private static var NS:String = String.fromCharCode(179);
+		private static var WE:String = String.fromCharCode(196);
+		
+		public function handleAnimation():void 
 		{
-			animation.update(terminal);
+			for each (var effect:ArrowEffect in world.animationEffects)
+			{
+				switch (effect.direction)
+				{
+					case "N": terminal.write(NS, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
+					case "S": terminal.write(NS, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
+					case "W": terminal.write(WE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
+					case "E": terminal.write(WE, effect.x, effect.y, null, bg(effect.x, effect.y)); break;
+				}
+			}
 			terminal.paint();
 		}
 		

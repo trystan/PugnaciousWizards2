@@ -1,5 +1,6 @@
 package  
 {
+	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	
 	public class World 
@@ -9,6 +10,7 @@ package
 		public var items:Array = [];
 		public var rooms:Array = [];
 		public var effects:Array = [];
+		public var animationEffects:Array = [];
 		
 		public function get playerHasWon():Boolean 
 		{
@@ -18,6 +20,19 @@ package
 		public function addEffect(effect:CastleEffect):void
 		{
 			effects.push(effect);
+		}
+		
+		public function addAnimationEffect(effect:ArrowEffect):void
+		{
+			animationEffects.push(effect);
+		}
+		
+		public function removeAnimationEffect(effect:ArrowEffect):void
+		{
+			var index:int = animationEffects.indexOf(effect);
+			
+			if (index > -1)
+				animationEffects.splice(index, 1);
 		}
 		
 		public function add(player:Player):void

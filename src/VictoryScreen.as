@@ -42,9 +42,8 @@ package
 			terminal.paint();
 		}
 		
-		public function handleAnimation(animation:Arrow):void 
+		public function handleAnimation():void 
 		{
-			animation.update(terminal);
 		}
 	}
 }

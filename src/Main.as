@@ -76,12 +76,12 @@ package
 			
 			for each (var animation:Arrow in animations)
 			{
-				screen.handleAnimation(animation);
-				
+				animation.update();
 				if (!animation.done)
 					nextAnimations.push(animation);
 			}
 			
+			screen.handleAnimation();
 			animations = nextAnimations;
 			
 			if (animations.length == 0)

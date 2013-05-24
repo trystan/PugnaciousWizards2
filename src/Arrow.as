@@ -1,48 +1,42 @@
 package
 {
 	import com.headchant.asciipanel.AsciiPanel;
+	import flash.geom.Point;
+	
 	public class Arrow 
 	{
-		public var x:int;
-		public var y:int;
 		public var direction:String;
 		public var world:World;
 		public var ticks:int;
+		public var effect:ArrowEffect;
 		
 		public var done:Boolean = false;
 		
 		public function Arrow(world:World, x:int, y:int, dir:String) 
 		{
-			this.x = x;
-			this.y = y;
 			this.world = world;
 			this.direction = dir;
 			this.ticks = 0;
+			this.effect = new ArrowEffect(x, y, direction);
+			
+			world.addAnimationEffect(effect);
 		}
 		
-		private static var NS:String = String.fromCharCode(179);
-		private static var WE:String = String.fromCharCode(196);
-		
-		public function update(terminal:AsciiPanel):void
+		public function update():void
 		{
 			switch (direction)
 			{
-				case "N": terminal.write(NS, x, y); break;
-				case "S": terminal.write(NS, x, y); break;
-				case "W": terminal.write(WE, x, y); break;
-				case "E": terminal.write(WE, x, y); break;
+				case "N": effect.y++; break;
+				case "S": effect.y--; break;
+				case "W": effect.x++; break;
+				case "E": effect.x--; break;
 			}
 			
-			switch (direction)
+			if (world.getTile(effect.x, effect.y).blocksArrows)
 			{
-				case "N": y++; break;
-				case "S": y--; break;
-				case "W": x++; break;
-				case "E": x--; break;
-			}
-			
-			if (world.getTile(x, y).blocksArrows)
 				done = true;
+				world.removeAnimationEffect(effect);
+			}
 		}
 	}
 }

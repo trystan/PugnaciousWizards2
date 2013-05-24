@@ -57,9 +57,9 @@ package
 			display.draw();
 		}
 		
-		public function handleAnimation(animation:Arrow):void 
+		public function handleAnimation():void 
 		{
-			display.handleAnimation(animation);
+			display.handleAnimation();
 		}
 	}
 }
