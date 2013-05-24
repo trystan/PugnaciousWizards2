@@ -2,8 +2,9 @@ package
 {
 	public class FloorSpike implements Animation
 	{
+		public var x:int;
+		public var y:int;
 		public var world:World;
-		public var effect:Object;
 		public var ticks:int = 0;
 		
 		private var _done:Boolean = false;
@@ -12,10 +13,11 @@ package
 		
 		public function FloorSpike(world:World, x:int, y:int) 
 		{
+			this.x = x;
+			this.y = y;
 			this.world = world;
-			this.effect = new FloorSpikeEffect(x, y);
 			
-			world.addAnimationEffect(effect);
+			world.addAnimationEffect(this);
 		}
 		
 		public function update():void
@@ -24,12 +26,12 @@ package
 			
 			if (ticks > 9)
 			{
-				var hit:Player = world.getCreatureAt(effect.x, effect.y);
+				var hit:Player = world.getCreatureAt(x, y);
 				if (hit != null)
 					hit.takeDamage(10);
 				
 				_done = true;
-				world.removeAnimationEffect(effect);
+				world.removeAnimationEffect(this);
 			}
 		}
 	}

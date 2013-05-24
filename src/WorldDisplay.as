@@ -70,7 +70,7 @@ package
 		{
 			for each (var effect:Object in world.animationEffects)
 			{
-				if (effect is ArrowEffect)
+				if (effect is Arrow)
 				{
 					switch (effect.direction)
 					{
