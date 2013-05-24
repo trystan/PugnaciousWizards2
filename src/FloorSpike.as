@@ -24,6 +24,10 @@ package
 			
 			if (ticks > 9)
 			{
+				var hit:Player = world.getCreatureAt(effect.x, effect.y);
+				if (hit != null)
+					hit.takeDamage(10);
+				
 				_done = true;
 				world.removeAnimationEffect(effect);
 			}

@@ -9,9 +9,15 @@ package
 		public var endPiecesPickedUp:int = 0;
 		public function get hasAllEndPieces():Boolean { return endPiecesPickedUp == 3; }
 		
+		public var health:int;
+		public var maxHealth:int;
+		
 		public function Player(position:Point) 
 		{
 			this.position = position;
+			
+			maxHealth = 100;
+			health = maxHealth;
 		}
 		
 		public function moveBy(x:Number, y:Number):void 
@@ -33,6 +39,11 @@ package
 					endPiecesPickedUp++;
 				}
 			}
+		}
+		
+		public function takeDamage(amount:int):void 
+		{
+			health -= amount;
 		}
 	}
 }

@@ -97,6 +97,8 @@ package
 			var x:int = 81;
 			var y:int = 1;
 			
+			terminal.write(player.health + "/" + player.maxHealth + " health", x, y += 2);
+			
 			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2);
 		}
 		

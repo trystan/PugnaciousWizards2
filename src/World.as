@@ -146,5 +146,13 @@ package
 			for each (var effect:CastleEffect in effects)
 				effect.update();
 		}
+		
+		public function getCreatureAt(x:int, y:int):Player 
+		{
+			if (player.position.x == x && player.position.y == y)
+				return player;
+				
+			return null;
+		}
 	}
 }

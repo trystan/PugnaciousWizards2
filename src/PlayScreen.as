@@ -48,7 +48,9 @@ package
 			
 			refresh();
 			
-			if (world.playerHasWon)
+			if (player.health < 1)
+				Main.switchToScreen(new FailScreen(player, world));
+			else if (world.playerHasWon)
 				Main.switchToScreen(new VictoryScreen(player, world));
 		}
 		

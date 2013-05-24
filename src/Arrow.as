@@ -36,7 +36,14 @@ package
 				}
 			}
 			
-			if (world.getTile(effect.x, effect.y).blocksArrows)
+			var hit:Player = world.getCreatureAt(effect.x, effect.y);
+			if (hit != null)
+			{
+				hit.takeDamage(5);
+				_done = true;
+				world.removeAnimationEffect(effect);	
+			}
+			else if (world.getTile(effect.x, effect.y).blocksArrows)
 			{
 				_done = true;
 				world.removeAnimationEffect(effect);
