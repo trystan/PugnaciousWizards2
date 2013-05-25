@@ -35,7 +35,7 @@ package
 		private var blood:int = hsv(5, 66, 20);
 		private var memory:int = hsv(240, 75, 5);
 		private var magic:int = hsv(240, 50, 50);
-		private var fire:int = hsv(10, 66, 66);
+		private var fire:int = hsv(0, 66, 50);
 		
 		public function WorldDisplay(player:Player, world:World) 
 		{
@@ -70,7 +70,10 @@ package
 					terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item), bg(placedItem.x, placedItem.y));
 			}
 			
-			terminal.write("@", player.position.x, player.position.y, 0xffffff, bg(player.position.x, player.position.y));
+			var playerColor:int = 0xffffff;
+			if (player.fireCounter > 0)
+				playerColor = lerp(fire, playerColor, 0.80);
+			terminal.write("@", player.position.x, player.position.y, playerColor, bg(player.position.x, player.position.y));
 			
 			//for each (var room:Room in world.rooms)
 			//	terminal.write(room.distance + "", room.worldPosition.x + 1, room.worldPosition.y + 1);

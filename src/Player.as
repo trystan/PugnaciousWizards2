@@ -14,6 +14,8 @@ package
 		public var bleedingCounter:int = 0;
 		private var vision:SimpleLineOfSight;
 		
+		public var fireCounter:int = 0;
+		
 		public function Player(position:Point) 
 		{
 			this.position = position;
@@ -26,8 +28,15 @@ package
 		
 		public function moveBy(x:Number, y:Number):void 
 		{
+			if (fireCounter > 0)
+			{
+				takeDamage(2);
+				fireCounter--;
+			}
+			
 			if (bleedingCounter > 0)
 			{
+				takeDamage(1);
 				bleedingCounter--;
 				world.addBlood(position.x, position.y, 1);
 			}
@@ -67,6 +76,11 @@ package
 		public function hasSeen(x:int, y:int):Boolean 
 		{
 			return vision.hasSeen(x, y);
+		}
+		
+		public function catchOnFire(amount:int):void 
+		{
+			fireCounter += amount;
 		}
 	}
 }
