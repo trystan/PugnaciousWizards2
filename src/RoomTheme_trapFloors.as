@@ -58,6 +58,7 @@ package
 				if (world.getTile(p.x, p.y).blocksMovement)
 					continue;
 				
+				world.addBlood(p.x, p.y, 1);
 				world.addEffect(new FloorTrap(world, p.x, p.y, ticks));
 			}
 		}

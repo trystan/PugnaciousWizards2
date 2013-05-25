@@ -27,6 +27,7 @@ package
 		private var tile_3:int = hsv(200, 5, 12);
 		private var tile_4:int = hsv(200, 5, 14);
 		private var metal_fg:int = hsv(200, 2, 90);
+		private var blood:int = hsv(5, 66, 20);
 		
 		public function WorldDisplay(player:Player, world:World) 
 		{
@@ -143,6 +144,11 @@ package
 		
 		private function fg(x:int, y:int):int
 		{
+			return lerp(blood, raw_fg(x, y), world.getBlood(x, y) / 10.0);
+		}
+		
+		private function raw_fg(x:int, y:int):int
+		{
 			switch (world.getTile(x, y))
 			{
 				case Tile.grass: return hsv(100, 33, 20 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6));
@@ -163,6 +169,11 @@ package
 		}
 		
 		private function bg(x:int, y:int):int
+		{
+			return lerp(blood, raw_bg(x, y), world.getBlood(x, y) / 10.0);
+		}
+		
+		private function raw_bg(x:int, y:int):int
 		{
 			switch (world.getTile(x, y))
 			{

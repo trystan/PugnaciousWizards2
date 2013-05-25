@@ -12,6 +12,7 @@ package
 		public var rooms:Array = [];
 		public var effects:Array = [];
 		public var animationEffects:Array = [];
+		private var blood:Dictionary = new Dictionary();
 		
 		public function get playerHasWon():Boolean 
 		{
@@ -157,6 +158,25 @@ package
 				return player;
 				
 			return null;
+		}
+		
+		public function addBlood(x:int, y:int, amount:int = 1):void
+		{
+			addBlood1(x, y, amount * 2);
+			addBlood1(x + (int)(Math.random() * 3) - 1, y + (int)(Math.random() * 3) - 1, amount);
+		}
+		
+		private function addBlood1(x:int, y:int, amount:int = 1):void
+		{
+			blood[x + "," + y] = Math.min(getBlood(x, y) + amount, 9);
+		}
+		
+		public function getBlood(x:int, y:int):int
+		{
+			if (blood[x + "," + y] > 0)
+				return blood[x + "," + y];
+			else
+				return 0;
 		}
 	}
 }

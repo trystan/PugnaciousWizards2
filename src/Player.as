@@ -11,6 +11,7 @@ package
 		
 		public var health:int;
 		public var maxHealth:int;
+		public var bleedingCounter:int = 0;
 		
 		public function Player(position:Point) 
 		{
@@ -22,6 +23,12 @@ package
 		
 		public function moveBy(x:Number, y:Number):void 
 		{
+			if (bleedingCounter > 0)
+			{
+				bleedingCounter--;
+				world.addBlood(position.x, position.y, 1);
+			}
+			
 			if (world.blocksMovement(position.x + x, position.y + y))
 				return;
 			
@@ -44,6 +51,9 @@ package
 		public function takeDamage(amount:int):void 
 		{
 			health -= amount;
+			
+			bleedingCounter += amount / 5;
+			world.addBlood(position.x, position.y, amount / 3 + 1);
 		}
 	}
 }
