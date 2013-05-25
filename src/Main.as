@@ -63,20 +63,24 @@ package
 			{
 				screen.handleInput(e);
 				
-				if (animationList.length > 0 && animationInterval == -1)
-				{
-					hasShownLastAnimationFrame = false;
-					animationInterval = setInterval(animateOne, 1000.0 / 120);
-				}
+				if (animationList.length > 0)
+					animateOne(false);
 			}
+		}
+		
+		private function animateNextFrame():void
+		{
+			animationInterval = setInterval(animateOne, 1000.0 / 60);
 		}
 		
 		private function animateOne(refreshFirst:Boolean = true):void
 		{
+			clearInterval(animationInterval);
+			
 			if (refreshFirst)
 				screen.refresh();
+				
 			var nextAnimations:Array = [];
-			
 			for each (var animation:Animation in animationList)
 			{
 				animation.update();
@@ -84,24 +88,20 @@ package
 					nextAnimations.push(animation);
 			}
 			
-			var didUpdate:Boolean = screen.animateOneFrame();
+			var didUpdate:Boolean = animationList.length == 0 ? false : screen.animateOneFrame();
 			animationList = nextAnimations;
 			
 			if (animationList.length == 0)
 			{
-				if (hasShownLastAnimationFrame)
-				{
+				blockInput = false;
+				if (didUpdate)
 					screen.refresh();
-					clearInterval(animationInterval);
-					animationInterval = -1;
-					blockInput = false;
-				}
-				else
-				{
-					hasShownLastAnimationFrame = true;
-				}
 			}
-			else if (!didUpdate)
+			else if (didUpdate)
+			{
+				animateNextFrame();
+			}
+			else
 				animateOne(false);
 		}
 		

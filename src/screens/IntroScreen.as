@@ -3,6 +3,7 @@ package screens
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
+	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
 	
 	public class IntroScreen extends Sprite implements Screen
@@ -30,7 +31,7 @@ package screens
 			addChild(display);
 			refresh();
 			
-			animateInterval = setInterval(animate, 1000.0 / 100);
+			animateInterval = setInterval(animate, 1000.0 / 30);
 		}
 		
 		private function animate():void
@@ -42,7 +43,7 @@ package screens
 		{
 			if (keyEvent.keyCode == 13)
 			{
-				Main.switchToScreen(new PlayScreen());
+				switchTo(new PlayScreen());
 			}
 			else
 			{
@@ -51,10 +52,16 @@ package screens
 				refresh();
 				
 				if (hero.health < 1)
-					Main.switchToScreen(new IntroScreen());
+					switchTo(new IntroScreen());
 				else if (world.playerHasWon)
-					Main.switchToScreen(new IntroScreen());
+					switchTo(new IntroScreen());
 			}
+		}
+		
+		public function switchTo(screen:Screen):void
+		{
+			clearInterval(animateInterval);
+			Main.switchToScreen(screen);
 		}
 		
 		public function refresh():void 
