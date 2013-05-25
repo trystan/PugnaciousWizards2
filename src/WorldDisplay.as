@@ -7,6 +7,7 @@ package
 	import animations.FloorSpike;
 	import animations.Arrow;
 	import flash.utils.Dictionary;
+	import payloads.Magic;
 	
 	public class WorldDisplay extends Sprite
 	{
@@ -27,9 +28,10 @@ package
 		private var tile_2:int = hsv(200, 5, 12);
 		private var tile_3:int = hsv(200, 5, 12);
 		private var tile_4:int = hsv(200, 5, 14);
-		private var metal_fg:int = hsv(200, 2, 90);
+		private var metal_fg:int = hsv(240, 20, 90);
 		private var blood:int = hsv(5, 66, 20);
 		private var memory:int = hsv(240, 75, 5);
+		private var magic:int = hsv(240, 50, 50);
 		
 		public function WorldDisplay(player:Player, world:World) 
 		{
@@ -99,16 +101,22 @@ package
 				
 				if (effect is Arrow)
 				{
+					var fgc:int = effect.payload is Magic ? magic : metal_fg;
+					var bgc:int = bg(effect.x, effect.y);
+					
+					if (effect.payload is Magic)
+						bgc = lerp(magic, bgc, 0.25);
+					
 					switch (effect.direction)
 					{
-						case "N": terminal.write(NS, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
-						case "S": terminal.write(NS, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
-						case "W": terminal.write(WE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
-						case "E": terminal.write(WE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
-						case "NW": terminal.write(NW_SE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
-						case "NE": terminal.write(SW_NE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
-						case "SW": terminal.write(SW_NE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
-						case "SE": terminal.write(NW_SE, effect.x, effect.y, metal_fg, bg(effect.x, effect.y)); break;
+						case "N": terminal.write(NS, effect.x, effect.y, fgc, bgc); break;
+						case "S": terminal.write(NS, effect.x, effect.y, fgc, bgc); break;
+						case "W": terminal.write(WE, effect.x, effect.y, fgc, bgc); break;
+						case "E": terminal.write(WE, effect.x, effect.y, fgc, bgc); break;
+						case "NW": terminal.write(NW_SE, effect.x, effect.y, fgc, bgc); break;
+						case "NE": terminal.write(SW_NE, effect.x, effect.y, fgc, bgc); break;
+						case "SW": terminal.write(SW_NE, effect.x, effect.y, fgc, bgc); break;
+						case "SE": terminal.write(NW_SE, effect.x, effect.y, fgc, bgc); break;
 					}
 				}
 				else
@@ -152,10 +160,15 @@ package
 				case Tile.wall: return "#";
 				case Tile.floor_light: return dot;
 				case Tile.floor_dark: return dot;
+				case Tile.magic_tower:
 				case Tile.tower: return tower;
+				case Tile.magic_tower_1:
 				case Tile.tower_1: return NS;
+				case Tile.magic_tower_2:
 				case Tile.tower_2: return SW_NE;
+				case Tile.magic_tower_3:
 				case Tile.tower_3: return WE;
+				case Tile.magic_tower_4:
 				case Tile.tower_4: return NW_SE;
 				default: return "X";
 			}
@@ -177,12 +190,18 @@ package
 				case Tile.wall: return stone_fg;
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
+				case Tile.magic_tower:
+				case Tile.magic_tower_1:
+				case Tile.magic_tower_2:
+				case Tile.magic_tower_3:
+				case Tile.magic_tower_4:
+					return magic;
 				case Tile.tower:
 				case Tile.tower_1:
 				case Tile.tower_2:
 				case Tile.tower_3:
 				case Tile.tower_4:
-					return stone_bg;
+					return metal_fg;
 				default: return 0xff0000;
 			}
 		}
@@ -203,6 +222,11 @@ package
 				case Tile.wall: return stone_bg;
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;
+				case Tile.magic_tower:
+				case Tile.magic_tower_1:
+				case Tile.magic_tower_2:
+				case Tile.magic_tower_3:
+				case Tile.magic_tower_4:
 				case Tile.tower:
 				case Tile.tower_1:
 				case Tile.tower_2:

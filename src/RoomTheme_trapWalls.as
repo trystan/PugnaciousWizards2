@@ -2,6 +2,9 @@ package
 {
 	import flash.geom.Point;
 	import features.WallTrap;
+	import payloads.Magic;
+	import payloads.Payload;
+	import payloads.Pierce;
 	
 	public class RoomTheme_trapWalls implements RoomTheme
 	{
@@ -36,9 +39,10 @@ package
 			}
 			
 			var ticks:int = (int)(Math.random() * 24);
+			var payload:Payload = Math.random() < 0.66 ? new Pierce() : new Magic();
 			
 			for each (var p:Point in tiles)
-				world.addEffect(new WallTrap(world, p.x, p.y, dir, ticks));
+				world.addEffect(new WallTrap(world, p.x, p.y, dir, ticks, payload));
 		}
 	}
 }

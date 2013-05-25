@@ -1,6 +1,9 @@
 package features
 {
 	import animations.Arrow;
+	import payloads.Magic;
+	import payloads.Payload;
+	import payloads.Pierce;
 	
 	public class RotatingTowerTrap extends CastleFeature
 	{
@@ -11,6 +14,7 @@ package features
 		public var world:World;
 		public var directionIndex:int;
 		public function get direction():String { return directions[directionIndex]; }
+		public var payload:Payload;
 		
 		public function RotatingTowerTrap(world:World, x:int, y:int) 
 		{
@@ -18,6 +22,7 @@ package features
 			this.x = x;
 			this.y = y;
 			this.directionIndex = (int)(Math.random() * 8);
+			this.payload = Math.random() < 0.66 ? new Pierce() : new Magic();
 			
 			updateWorld();
 		}
@@ -30,11 +35,42 @@ package features
 			
 			updateWorld();
 			
-			Main.addAnimation(new Arrow(world, x, y, directions[directionIndex]));
-			Main.addAnimation(new Arrow(world, x, y, directions[(directionIndex + 4) % 8]));
+			Main.addAnimation(new Arrow(world, x, y, directions[directionIndex], payload));
+			Main.addAnimation(new Arrow(world, x, y, directions[(directionIndex + 4) % 8], payload));
 		}
 		
 		private function updateWorld():void
+		{
+			if (payload is Magic)
+				updateWorld_magic();
+			else
+				updateWorld_piercing();
+		}
+		
+		private function updateWorld_magic():void
+		{
+			switch (direction)
+			{
+				case "N":
+				case "S":
+					world.addTile(x, y, Tile.magic_tower_1);
+					break;
+				case "NE":
+				case "SW":
+					world.addTile(x, y, Tile.magic_tower_2);
+					break;
+				case "E":
+				case "W":
+					world.addTile(x, y, Tile.magic_tower_3);
+					break;
+				case "SE":
+				case "NW":
+					world.addTile(x, y, Tile.magic_tower_4);
+					break;
+			}
+		}
+		
+		private function updateWorld_piercing():void
 		{
 			switch (direction)
 			{

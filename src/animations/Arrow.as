@@ -2,6 +2,7 @@ package animations
 {
 	import com.headchant.asciipanel.AsciiPanel;
 	import flash.geom.Point;
+	import payloads.Payload;
 	
 	public class Arrow implements Animation
 	{
@@ -10,17 +11,19 @@ package animations
 		public var direction:String;
 		public var world:World;
 		public var ticks:int;
+		public var payload:Payload;
 		
 		private var _done:Boolean = false;
 		public function get done():Boolean { return _done; };
 		
-		public function Arrow(world:World, x:int, y:int, dir:String) 
+		public function Arrow(world:World, x:int, y:int, dir:String, payload:Payload) 
 		{
 			this.x = x;
 			this.y = y;
 			this.world = world;
 			this.direction = dir;
 			this.ticks = 0;
+			this.payload = payload;
 			
 			world.addAnimationEffect(this);
 		}
@@ -38,10 +41,10 @@ package animations
 				}
 			}
 			
-			var hit:Player = world.getCreatureAt(x, y);
-			if (hit != null)
+			var creature:Player = world.getCreatureAt(x, y);
+			if (creature != null)
 			{
-				hit.takeDamage(5);
+				payload.hit(creature);
 				_done = true;
 				world.removeAnimationEffect(this);	
 			}
