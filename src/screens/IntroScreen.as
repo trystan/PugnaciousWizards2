@@ -49,6 +49,11 @@ package screens
 				hero.update();
 				world.update();
 				refresh();
+				
+				if (hero.health < 1)
+					Main.switchToScreen(new IntroScreen());
+				else if (world.playerHasWon)
+					Main.switchToScreen(new IntroScreen());
 			}
 		}
 		

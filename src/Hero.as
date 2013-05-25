@@ -14,16 +14,26 @@ package
 		{
 			if (path.length == 0)
 			{
-				path = Dijkstra.pathTo(
-					new Point(position.x, position.y),
-					function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
-				    function (x:int, y:int):Boolean { return world.getItem(x, y) != null; } );
-					
-				if (path.length == 0)
+				if (this.hasAllEndPieces)
+				{
 					path = Dijkstra.pathTo(
 						new Point(position.x, position.y),
 						function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
-						function (x:int, y:int):Boolean { return world.isClosedDoor(x, y); } );
+						function (x:int, y:int):Boolean { return x < 3; } );
+				}
+				else
+				{
+					path = Dijkstra.pathTo(
+						new Point(position.x, position.y),
+						function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
+						function (x:int, y:int):Boolean { return world.getItem(x, y) != null; } );
+						
+					if (path.length == 0)
+						path = Dijkstra.pathTo(
+							new Point(position.x, position.y),
+							function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
+							function (x:int, y:int):Boolean { return world.isClosedDoor(x, y); } );
+				}
 			}
 			
 			if (path.length > 0)
