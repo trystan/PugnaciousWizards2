@@ -61,10 +61,10 @@ package
 			drawHud();
 			
 			if (header != null)
-				terminal.write(header, (80 - footer.length) / 2, 1, null, bg);
+				terminal.write(header, (80 - footer.length) / 2, 1, 0xffffff, bg);
 			
 			if (footer != null)
-				terminal.write(footer, (80 - footer.length) / 2, 78, null, bg);
+				terminal.write(footer, (80 - footer.length) / 2, 78, 0xffffff, bg);
 			
 			terminal.paint();
 		}
