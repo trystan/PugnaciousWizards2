@@ -8,7 +8,7 @@ package
 	import animations.Arrow;
 	import flash.utils.Dictionary;
 	import payloads.Fire;
-	import payloads.Magic;
+	import payloads.Ice;
 	import payloads.Payload;
 	import payloads.Pierce;
 	
@@ -36,8 +36,8 @@ package
 		private var metal_fg:int = hsv(240, 20, 90);
 		private var blood:int = hsv(0, 66, 20);
 		private var memory:int = hsv(240, 75, 5);
-		private var magic:int = hsv(240, 50, 50);
-		private var fire:int = hsv(15, 66, 33);
+		private var ice:int = hsv(240, 66, 66);
+		private var fire:int = hsv(15, 66, 66);
 		
 		public function WorldDisplay(player:Player, world:World) 
 		{
@@ -78,6 +78,8 @@ package
 			var playerColor:int = 0xffffff;
 			if (player.fireCounter > 0)
 				playerColor = lerp(fire, playerColor, 0.80);
+			else if (player.freezeCounter > 0)
+				playerColor = lerp(ice, playerColor, 0.80);
 			terminal.write("@", player.position.x, player.position.y, playerColor, bg(player.position.x, player.position.y));
 			
 			drawHud();
@@ -114,7 +116,7 @@ package
 					var bgc:int = bg(effect.x, effect.y);
 					
 					if (!(effect.payload is Pierce))
-						bgc = lerp(magic, bgc, 0.25);
+						bgc = lerp(fgc, bgc, 0.25);
 					
 					switch (effect.direction)
 					{
@@ -147,6 +149,8 @@ package
 			
 			if (player.fireCounter > 0)
 				terminal.write("on fire!", x + 1, y + 2, lerp(fire, 0xffffff, 0.5));
+			else if (player.freezeCounter > 0)
+				terminal.write("frozen!", x + 1, y + 2, lerp(ice, 0xffffff, 0.5));
 			y += 2;
 			if (player.bleedingCounter > 0)
 				terminal.write("bleeding!", x + 1, y + 2, lerp(blood, 0xffffff, 0.5));
@@ -157,8 +161,8 @@ package
 		
 		private function payloadColor(payload:Payload):int
 		{
-			if (payload is Magic)
-				return magic;
+			if (payload is Ice)
+				return ice;
 			else if (payload is Fire)
 				return fire;
 			else
@@ -186,19 +190,19 @@ package
 				case Tile.wall: return "#";
 				case Tile.floor_light: return dot;
 				case Tile.floor_dark: return dot;
-				case Tile.magic_tower:
+				case Tile.ice_tower:
 				case Tile.fire_tower:
 				case Tile.tower: return tower;
-				case Tile.magic_tower_1:
+				case Tile.ice_tower_1:
 				case Tile.fire_tower_1:
 				case Tile.tower_1: return NS;
-				case Tile.magic_tower_2:
+				case Tile.ice_tower_2:
 				case Tile.fire_tower_2:
 				case Tile.tower_2: return SW_NE;
-				case Tile.magic_tower_3:
+				case Tile.ice_tower_3:
 				case Tile.fire_tower_3:
 				case Tile.tower_3: return WE;
-				case Tile.magic_tower_4:
+				case Tile.ice_tower_4:
 				case Tile.fire_tower_4:
 				case Tile.tower_4: return NW_SE;
 				default: return "X";
@@ -221,12 +225,12 @@ package
 				case Tile.wall: return stone_fg;
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
-				case Tile.magic_tower:
-				case Tile.magic_tower_1:
-				case Tile.magic_tower_2:
-				case Tile.magic_tower_3:
-				case Tile.magic_tower_4:
-					return magic;
+				case Tile.ice_tower:
+				case Tile.ice_tower_1:
+				case Tile.ice_tower_2:
+				case Tile.ice_tower_3:
+				case Tile.ice_tower_4:
+					return ice;
 				case Tile.tower:
 				case Tile.tower_1:
 				case Tile.tower_2:
@@ -259,11 +263,11 @@ package
 				case Tile.wall: return stone_bg;
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;
-				case Tile.magic_tower:
-				case Tile.magic_tower_1:
-				case Tile.magic_tower_2:
-				case Tile.magic_tower_3:
-				case Tile.magic_tower_4:
+				case Tile.ice_tower:
+				case Tile.ice_tower_1:
+				case Tile.ice_tower_2:
+				case Tile.ice_tower_3:
+				case Tile.ice_tower_4:
 				case Tile.fire_tower:
 				case Tile.fire_tower_1:
 				case Tile.fire_tower_2:

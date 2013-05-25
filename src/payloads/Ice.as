@@ -1,11 +1,11 @@
 package payloads 
 {
-	public class Fire implements Payload
+	public class Ice implements Payload
 	{
 		public function hit(creature:Player):void
 		{
 			creature.takeDamage(2);
-			creature.burn(6);
+			creature.freeze(2);
 		}
 	}
 }

@@ -2,10 +2,8 @@ package themes
 {
 	import flash.geom.Point;
 	import features.WallTrap;
-	import payloads.Magic;
 	import payloads.Payload;
 	import payloads.PayloadFactory;
-	import payloads.Pierce;
 	
 	public class TrapWalls implements RoomTheme
 	{

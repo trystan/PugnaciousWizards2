@@ -15,6 +15,7 @@ package
 		private var vision:SimpleLineOfSight;
 		
 		public var fireCounter:int = 0;
+		public var freezeCounter:int = 0;
 		
 		public function Player(position:Point) 
 		{
@@ -38,6 +39,12 @@ package
 			{
 				takeDamage(1);
 				bleedingCounter--;
+			}
+			
+			if (freezeCounter > 0)
+			{
+				freezeCounter--;
+				return;
 			}
 			
 			if (world.blocksMovement(position.x + x, position.y + y))
@@ -77,9 +84,28 @@ package
 			return vision.hasSeen(x, y);
 		}
 		
-		public function catchOnFire(amount:int):void 
+		public function burn(amount:int):void 
 		{
+			if (freezeCounter > 0)
+			{
+				var overlap:int = Math.min(freezeCounter, amount);
+				freezeCounter -= overlap;
+				amount -= overlap;
+			}
+			
 			fireCounter += amount;
+		}
+		
+		public function freeze(amount:int):void 
+		{
+			if (fireCounter > 0)
+			{
+				var overlap:int = Math.min(fireCounter, amount);
+				fireCounter -= overlap;
+				amount -= overlap;
+			}
+			
+			freezeCounter += amount;
 		}
 	}
 }
