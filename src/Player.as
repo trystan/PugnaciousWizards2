@@ -38,7 +38,6 @@ package
 			{
 				takeDamage(1);
 				bleedingCounter--;
-				world.addBlood(position.x, position.y, 1);
 			}
 			
 			if (world.blocksMovement(position.x + x, position.y + y))
