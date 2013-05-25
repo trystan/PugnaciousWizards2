@@ -2,7 +2,7 @@ package features
 {
 	import animations.Arrow;
 	import payloads.Fire;
-	import payloads.Magic;
+	import payloads.Ice;
 	import payloads.Payload;
 	import payloads.PayloadFactory;
 	import payloads.Pierce;
@@ -43,33 +43,33 @@ package features
 		
 		private function updateWorld():void
 		{
-			if (payload is Magic)
-				updateWorld_magic();
+			if (payload is Ice)
+				updateWorld_ice();
 			else if (payload is Fire)
 				updateWorld_fire();
 			else
 				updateWorld_piercing();
 		}
 		
-		private function updateWorld_magic():void
+		private function updateWorld_ice():void
 		{
 			switch (direction)
 			{
 				case "N":
 				case "S":
-					world.addTile(x, y, Tile.magic_tower_1);
+					world.addTile(x, y, Tile.ice_tower_1);
 					break;
 				case "NE":
 				case "SW":
-					world.addTile(x, y, Tile.magic_tower_2);
+					world.addTile(x, y, Tile.ice_tower_2);
 					break;
 				case "E":
 				case "W":
-					world.addTile(x, y, Tile.magic_tower_3);
+					world.addTile(x, y, Tile.ice_tower_3);
 					break;
 				case "SE":
 				case "NW":
-					world.addTile(x, y, Tile.magic_tower_4);
+					world.addTile(x, y, Tile.ice_tower_4);
 					break;
 			}
 		}

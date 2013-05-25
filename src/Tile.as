@@ -15,11 +15,11 @@ package
 		static public var tower_3:Tile = new Tile(true, true);
 		static public var tower_4:Tile = new Tile(true, true);
 		
-		static public var magic_tower:Tile = new Tile(true, true);
-		static public var magic_tower_1:Tile = new Tile(true, true);
-		static public var magic_tower_2:Tile = new Tile(true, true);
-		static public var magic_tower_3:Tile = new Tile(true, true);
-		static public var magic_tower_4:Tile = new Tile(true, true);
+		static public var ice_tower:Tile = new Tile(true, true);
+		static public var ice_tower_1:Tile = new Tile(true, true);
+		static public var ice_tower_2:Tile = new Tile(true, true);
+		static public var ice_tower_3:Tile = new Tile(true, true);
+		static public var ice_tower_4:Tile = new Tile(true, true);
 		
 		static public var fire_tower:Tile = new Tile(true, true);
 		static public var fire_tower_1:Tile = new Tile(true, true);

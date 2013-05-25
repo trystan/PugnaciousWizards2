@@ -2,10 +2,9 @@ package features
 {
 	import animations.Arrow;
 	import payloads.Fire;
-	import payloads.Magic;
+	import payloads.Ice;
 	import payloads.Payload;
 	import payloads.PayloadFactory;
-	import payloads.Pierce;
 	
 	public class TowerTrap extends CastleFeature
 	{
@@ -21,8 +20,8 @@ package features
 			this.y = y;
 			this.payload = PayloadFactory.random();
 			
-			if (payload is Magic)
-				world.addTile(x, y, Tile.magic_tower);
+			if (payload is Ice)
+				world.addTile(x, y, Tile.ice_tower);
 			else if (payload is Fire)
 				world.addTile(x, y, Tile.fire_tower);
 			else

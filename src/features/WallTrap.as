@@ -1,9 +1,7 @@
 package features
 {
 	import animations.Arrow;
-	import payloads.Magic;
 	import payloads.Payload;
-	import payloads.Pierce;
 	
 	public class WallTrap extends CastleFeature
 	{

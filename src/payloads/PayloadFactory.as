@@ -9,7 +9,7 @@ package payloads
 			if (r < 0.125)
 				return new Fire();
 			else if (r < 0.25)
-				return new Magic();
+				return new Ice();
 			else
 				return new Pierce();
 		}
