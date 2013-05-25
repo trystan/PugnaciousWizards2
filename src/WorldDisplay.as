@@ -51,20 +51,9 @@ package
 			var perlinBitmap:BitmapData = new BitmapData(80, 80, false, 0x00CCFFCC);
 			perlinBitmap.perlinNoise(6, 6, 6, Math.floor(Math.random() * int.MAX_VALUE), false, true, 1, true, null);
 			
-			grassForegroundBitmap = new BitmapData(80, 80, false, 0x00ff00);
-			for (var x:int = 0; x < 80; x++)
-			for (var y:int = 0; y < 80; y++)
-				grassForegroundBitmap.setPixel(x, y, hsv(100, 33, 20 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6)));
-				
-			grassBackgroundBitmap = new BitmapData(80, 80, false, 0x00ff00);
-			for (var x:int = 0; x < 80; x++)
-			for (var y:int = 0; y < 80; y++)
-				grassBackgroundBitmap.setPixel(x, y, hsv(100, 33, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6)));
-				
-			treeBitmap = new BitmapData(80, 80, false, 0x00ff00);
-			for (var x:int = 0; x < 80; x++)
-			for (var y:int = 0; y < 80; y++)
-				treeBitmap.setPixel(x, y, hsv(30 + Math.floor((perlinBitmap.getPixel(y, x) & 0xFF) / 255.0 * 90), 40, 40));
+			precalculateGrassForeground(perlinBitmap);		
+			precalculateGrassBackground(perlinBitmap);
+			precalculateTreeForeground();
 		}
 		
 		public function draw(header:String = null, footer:String = null):void
@@ -282,6 +271,36 @@ package
 				default: return 0x00ff00;
 			}
 		}
+		
+		private function precalculateGrassForeground(perlinBitmap:BitmapData):void 
+		{
+			grassForegroundBitmap = new BitmapData(80, 80, false, 0x00ff00);
+			for (var x:int = 0; x < 80; x++)
+			for (var y:int = 0; y < 80; y++)
+				grassForegroundBitmap.setPixel(x, y, hsv(100, 33, 20 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 10)));
+		}
+		
+		private function precalculateGrassBackground(perlinBitmap:BitmapData):void 
+		{
+			grassBackgroundBitmap = new BitmapData(80, 80, false, 0x00ff00);
+			for (var x:int = 0; x < 80; x++)
+			for (var y:int = 0; y < 80; y++)
+				grassBackgroundBitmap.setPixel(x, y, hsv(100, 33, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 10)));
+		}
+		
+		private function precalculateTreeForeground():void 
+		{
+			var perlinBitmap:BitmapData = new BitmapData(80, 80, false, 0x00CCFFCC);
+			perlinBitmap.perlinNoise(6, 6, 6, Math.floor(Math.random() * int.MAX_VALUE), false, true, 1, true, null);
+			
+			treeBitmap = new BitmapData(80, 80, false, 0x00ff00);
+			for (var x:int = 0; x < 80; x++)
+			for (var y:int = 0; y < 80; y++)
+				treeBitmap.setPixel(x, y, hsv(30 + Math.floor((perlinBitmap.getPixel(y, x) & 0xFF) / 255.0 * 90), 40, 40));
+		}
+		
+		
+		
 		
 		
 		

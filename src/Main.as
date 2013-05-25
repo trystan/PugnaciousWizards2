@@ -64,15 +64,15 @@ package
 				screen.handleInput(e);
 				
 				if (animationList.length > 0)
-					animateOne(false);
+					animateOneFrame();
 			}
 		}
 		
-		private function animateOne(refreshFirst:Boolean = true):void
+		private function animateOneFrame(redrawFirst:Boolean = false):void
 		{
 			clearInterval(animationInterval);
 			
-			if (refreshFirst)
+			if (redrawFirst)
 				screen.refresh();
 				
 			var didUpdate:Boolean = false;
@@ -91,18 +91,14 @@ package
 			}
 			
 			if (animationList.length == 0)
-			{
 				blockInput = false;
-			}
 			else if (didUpdate)
-			{
 				animateNextFrame();
-			}
 		}
 		
 		private function animateNextFrame():void
 		{
-			animationInterval = setInterval(animateOne, 1000.0 / 60);
+			animationInterval = setInterval(animateOneFrame, 1000.0 / 60, true);
 		}
 		
 		public static function switchToScreen(newScreen:Screen):void
