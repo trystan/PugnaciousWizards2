@@ -12,6 +12,7 @@ package
 		public var health:int;
 		public var maxHealth:int;
 		public var bleedingCounter:int = 0;
+		private var vision:SimpleLineOfSight;
 		
 		public function Player(position:Point) 
 		{
@@ -19,6 +20,8 @@ package
 			
 			maxHealth = 100;
 			health = maxHealth;
+			
+			vision = new SimpleLineOfSight(this);
 		}
 		
 		public function moveBy(x:Number, y:Number):void 
@@ -58,7 +61,7 @@ package
 		
 		public function canSee(x:int, y:int):Boolean
 		{
-			return Math.abs(position.x - x) + Math.abs(position.y - y) < 8;
+			return vision.canSee(x, y);
 		}
 	}
 }
