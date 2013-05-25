@@ -1,8 +1,10 @@
 package features
 {
 	import animations.Arrow;
+	import payloads.Fire;
 	import payloads.Magic;
 	import payloads.Payload;
+	import payloads.PayloadFactory;
 	import payloads.Pierce;
 	
 	public class RotatingTowerTrap extends CastleFeature
@@ -22,7 +24,7 @@ package features
 			this.x = x;
 			this.y = y;
 			this.directionIndex = (int)(Math.random() * 8);
-			this.payload = Math.random() < 0.66 ? new Pierce() : new Magic();
+			this.payload = PayloadFactory.random();
 			
 			updateWorld();
 		}
@@ -43,6 +45,8 @@ package features
 		{
 			if (payload is Magic)
 				updateWorld_magic();
+			else if (payload is Fire)
+				updateWorld_fire();
 			else
 				updateWorld_piercing();
 		}
@@ -66,6 +70,29 @@ package features
 				case "SE":
 				case "NW":
 					world.addTile(x, y, Tile.magic_tower_4);
+					break;
+			}
+		}
+		
+		private function updateWorld_fire():void
+		{
+			switch (direction)
+			{
+				case "N":
+				case "S":
+					world.addTile(x, y, Tile.fire_tower_1);
+					break;
+				case "NE":
+				case "SW":
+					world.addTile(x, y, Tile.fire_tower_2);
+					break;
+				case "E":
+				case "W":
+					world.addTile(x, y, Tile.fire_tower_3);
+					break;
+				case "SE":
+				case "NW":
+					world.addTile(x, y, Tile.fire_tower_4);
 					break;
 			}
 		}

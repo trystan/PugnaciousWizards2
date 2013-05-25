@@ -7,7 +7,10 @@ package
 	import animations.FloorSpike;
 	import animations.Arrow;
 	import flash.utils.Dictionary;
+	import payloads.Fire;
 	import payloads.Magic;
+	import payloads.Payload;
+	import payloads.Pierce;
 	
 	public class WorldDisplay extends Sprite
 	{
@@ -32,6 +35,7 @@ package
 		private var blood:int = hsv(5, 66, 20);
 		private var memory:int = hsv(240, 75, 5);
 		private var magic:int = hsv(240, 50, 50);
+		private var fire:int = hsv(10, 66, 66);
 		
 		public function WorldDisplay(player:Player, world:World) 
 		{
@@ -101,10 +105,10 @@ package
 				
 				if (effect is Arrow)
 				{
-					var fgc:int = effect.payload is Magic ? magic : metal_fg;
+					var fgc:int = payloadColor(effect.payload);
 					var bgc:int = bg(effect.x, effect.y);
 					
-					if (effect.payload is Magic)
+					if (!(effect.payload is Pierce))
 						bgc = lerp(magic, bgc, 0.25);
 					
 					switch (effect.direction)
@@ -139,6 +143,16 @@ package
 			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2);
 		}
 		
+		private function payloadColor(payload:Payload):int
+		{
+			if (payload is Magic)
+				return magic;
+			else if (payload is Fire)
+				return fire;
+			else
+				return metal_fg;
+		}
+		
 		private function item_glyph(endPiece:EndPiece):String
 		{
 			return "*";
@@ -161,14 +175,19 @@ package
 				case Tile.floor_light: return dot;
 				case Tile.floor_dark: return dot;
 				case Tile.magic_tower:
+				case Tile.fire_tower:
 				case Tile.tower: return tower;
 				case Tile.magic_tower_1:
+				case Tile.fire_tower_1:
 				case Tile.tower_1: return NS;
 				case Tile.magic_tower_2:
+				case Tile.fire_tower_2:
 				case Tile.tower_2: return SW_NE;
 				case Tile.magic_tower_3:
+				case Tile.fire_tower_3:
 				case Tile.tower_3: return WE;
 				case Tile.magic_tower_4:
+				case Tile.fire_tower_4:
 				case Tile.tower_4: return NW_SE;
 				default: return "X";
 			}
@@ -202,6 +221,12 @@ package
 				case Tile.tower_3:
 				case Tile.tower_4:
 					return metal_fg;
+				case Tile.fire_tower:
+				case Tile.fire_tower_1:
+				case Tile.fire_tower_2:
+				case Tile.fire_tower_3:
+				case Tile.fire_tower_4:
+					return fire;
 				default: return 0xff0000;
 			}
 		}
@@ -227,6 +252,11 @@ package
 				case Tile.magic_tower_2:
 				case Tile.magic_tower_3:
 				case Tile.magic_tower_4:
+				case Tile.fire_tower:
+				case Tile.fire_tower_1:
+				case Tile.fire_tower_2:
+				case Tile.fire_tower_3:
+				case Tile.fire_tower_4:
 				case Tile.tower:
 				case Tile.tower_1:
 				case Tile.tower_2:

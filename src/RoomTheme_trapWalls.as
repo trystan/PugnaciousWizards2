@@ -4,6 +4,7 @@ package
 	import features.WallTrap;
 	import payloads.Magic;
 	import payloads.Payload;
+	import payloads.PayloadFactory;
 	import payloads.Pierce;
 	
 	public class RoomTheme_trapWalls implements RoomTheme
@@ -39,7 +40,7 @@ package
 			}
 			
 			var ticks:int = (int)(Math.random() * 24);
-			var payload:Payload = Math.random() < 0.66 ? new Pierce() : new Magic();
+			var payload:Payload = PayloadFactory.random();
 			
 			for each (var p:Point in tiles)
 				world.addEffect(new WallTrap(world, p.x, p.y, dir, ticks, payload));
