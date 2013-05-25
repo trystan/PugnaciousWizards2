@@ -55,6 +55,9 @@ package
 		
 		public function getTile(x:int, y:int):Tile
 		{
+			if (isOutOfBounds(x, y))
+				return Tile.out_of_bounds;
+				
 			var t:Tile = tiles[x + "," + y];
 			if (t != null)
 				return t;

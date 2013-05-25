@@ -14,6 +14,7 @@ package
 		static public var tower_2:Tile = new Tile(true, true);
 		static public var tower_3:Tile = new Tile(true, true);
 		static public var tower_4:Tile = new Tile(true, true);
+		static public var out_of_bounds:Tile = new Tile(true, true);
 		
 		public var blocksMovement:Boolean;
 		public var blocksArrows:Boolean;
