@@ -68,11 +68,6 @@ package
 			}
 		}
 		
-		private function animateNextFrame():void
-		{
-			animationInterval = setInterval(animateOne, 1000.0 / 60);
-		}
-		
 		private function animateOne(refreshFirst:Boolean = true):void
 		{
 			clearInterval(animationInterval);
@@ -80,29 +75,34 @@ package
 			if (refreshFirst)
 				screen.refresh();
 				
-			var nextAnimations:Array = [];
-			for each (var animation:Animation in animationList)
-			{
-				animation.update();
-				if (!animation.done)
-					nextAnimations.push(animation);
-			}
+			var didUpdate:Boolean = false;
 			
-			var didUpdate:Boolean = animationList.length == 0 ? false : screen.animateOneFrame();
-			animationList = nextAnimations;
+			while (animationList.length > 0 && !didUpdate)
+			{
+				var nextAnimations:Array = [];
+				for each (var animation:Animation in animationList)
+				{
+					animation.update();
+					if (!animation.done)
+						nextAnimations.push(animation);
+				}
+				animationList = nextAnimations;
+				didUpdate = screen.animateOneFrame();
+			}
 			
 			if (animationList.length == 0)
 			{
 				blockInput = false;
-				if (didUpdate)
-					screen.refresh();
 			}
 			else if (didUpdate)
 			{
 				animateNextFrame();
 			}
-			else
-				animateOne(false);
+		}
+		
+		private function animateNextFrame():void
+		{
+			animationInterval = setInterval(animateOne, 1000.0 / 60);
 		}
 		
 		public static function switchToScreen(newScreen:Screen):void

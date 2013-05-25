@@ -17,7 +17,9 @@ package
 		public var player:Player;
 		public var world:World;
 		private var terminal:AsciiPanel;
-		public var perlinBitmap:BitmapData;
+		public var grassBackgroundBitmap:BitmapData;
+		public var grassForegroundBitmap:BitmapData;
+		public var treeBitmap:BitmapData;
 		
 		private var dot:String = String.fromCharCode(250);
 		private var tree:String = String.fromCharCode(6);
@@ -46,9 +48,23 @@ package
 			terminal.useRasterFont(AsciiPanel.codePage437_8x8, 8, 8);
 			addChild(terminal);
 			
-			perlinBitmap = new BitmapData(80, 80, false, 0x00CCFFCC);
-			var randomNum:Number = Math.floor(Math.random() * 10);
-			perlinBitmap.perlinNoise(6, 6, 6, randomNum, false, true, 1, true, null);
+			var perlinBitmap:BitmapData = new BitmapData(80, 80, false, 0x00CCFFCC);
+			perlinBitmap.perlinNoise(6, 6, 6, Math.floor(Math.random() * int.MAX_VALUE), false, true, 1, true, null);
+			
+			grassForegroundBitmap = new BitmapData(80, 80, false, 0x00ff00);
+			for (var x:int = 0; x < 80; x++)
+			for (var y:int = 0; y < 80; y++)
+				grassForegroundBitmap.setPixel(x, y, hsv(100, 33, 20 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6)));
+				
+			grassBackgroundBitmap = new BitmapData(80, 80, false, 0x00ff00);
+			for (var x:int = 0; x < 80; x++)
+			for (var y:int = 0; y < 80; y++)
+				grassBackgroundBitmap.setPixel(x, y, hsv(100, 33, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6)));
+				
+			treeBitmap = new BitmapData(80, 80, false, 0x00ff00);
+			for (var x:int = 0; x < 80; x++)
+			for (var y:int = 0; y < 80; y++)
+				treeBitmap.setPixel(x, y, hsv(30 + Math.floor((perlinBitmap.getPixel(y, x) & 0xFF) / 255.0 * 90), 40, 40));
 		}
 		
 		public function draw(header:String = null, footer:String = null):void
@@ -74,9 +90,6 @@ package
 			if (player.fireCounter > 0)
 				playerColor = lerp(fire, playerColor, 0.80);
 			terminal.write("@", player.position.x, player.position.y, playerColor, bg(player.position.x, player.position.y));
-			
-			//for each (var room:Room in world.rooms)
-			//	terminal.write(room.distance + "", room.worldPosition.x + 1, room.worldPosition.y + 1);
 			
 			drawHud();
 			
@@ -205,8 +218,8 @@ package
 		{
 			switch (world.getTile(x, y))
 			{
-				case Tile.grass: return hsv(100, 33, 20 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6));
-				case Tile.tree: return hsv(30 + Math.floor((perlinBitmap.getPixel(y, x) & 0xFF) / 255.0 * 90), 40, 40);
+				case Tile.grass: return grassForegroundBitmap.getPixel(x, y);
+				case Tile.tree: return treeBitmap.getPixel(x, y);
 				case Tile.door_opened: return wood_fg;
 				case Tile.door_closed: return wood_fg;
 				case Tile.wall: return stone_fg;
@@ -243,8 +256,8 @@ package
 		{
 			switch (world.getTile(x, y))
 			{
-				case Tile.grass: return hsv(100, 33, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6));
-				case Tile.tree: return hsv(100, 33, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 6));
+				case Tile.grass: return grassBackgroundBitmap.getPixel(x, y);
+				case Tile.tree: return grassBackgroundBitmap.getPixel(x, y);
 				case Tile.door_opened: return wood_bg;
 				case Tile.door_closed: return wood_bg;
 				case Tile.wall: return stone_bg;
