@@ -1,6 +1,6 @@
-package  
+package themes
 {
-	public class RoomTheme_courtyard implements RoomTheme
+	public class Courtyard implements RoomTheme
 	{
 		public function apply(room:Room, world:World):void
 		{

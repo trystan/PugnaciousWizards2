@@ -34,10 +34,10 @@ package
 		private var tile_3:int = hsv(200, 5, 12);
 		private var tile_4:int = hsv(200, 5, 14);
 		private var metal_fg:int = hsv(240, 20, 90);
-		private var blood:int = hsv(5, 66, 20);
+		private var blood:int = hsv(0, 66, 5);
 		private var memory:int = hsv(240, 75, 5);
 		private var magic:int = hsv(240, 50, 50);
-		private var fire:int = hsv(0, 66, 50);
+		private var fire:int = hsv(15, 50, 50);
 		
 		public function WorldDisplay(player:Player, world:World) 
 		{
@@ -145,7 +145,14 @@ package
 			
 			terminal.write(player.health + "/" + player.maxHealth + " health", x, y += 2);
 			
-			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2);
+			if (player.fireCounter > 0)
+				terminal.write("on fire!", x + 1, y + 2, lerp(fire, 0xffffff, 0.5));
+			y += 2;
+			if (player.bleedingCounter > 0)
+				terminal.write("bleeding!", x + 1, y + 2, lerp(blood, 0xffffff, 0.5));
+			y += 2;
+			
+			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2, item_color(null));
 		}
 		
 		private function payloadColor(payload:Payload):int

@@ -204,8 +204,8 @@ package com.headchant.asciipanel {
 		 * @param	string	The text to write.
 		 * @param	x		Must be a uint or null. Will continue from currentPosition.x if left null.
 		 * @param	y		Must be a uint or null. Will continue from currentPosition.y if left null.
-		 * @param	fgcolor	The foreground color. Must be a uint or null. Will use defaultForegroundColor if left null.
-		 * @param	bgcolor	The background color. Must be a uint or null. Will use defaultBackgroundColor if left null.
+		 * @param	fgcolor	The foreground color. Must be a uint, function(x,y):uint, or null. Will use defaultForegroundColor if left null.
+		 * @param	bgcolor	The background color. Must be a uint, function(x,y):uint, or null. Will use defaultBackgroundColor if left null.
 		 */
 		public function write(string:String, x:* = null, y:* = null, fgcolor:* = null, bgcolor:* = null):void {
 			if (string == null)
@@ -237,8 +237,8 @@ package com.headchant.asciipanel {
 		 * Write some text in the center of a specified row.
 		 * @param	string	The text to write.
 		 * @param	y
-		 * @param	fgcolor	The foreground color. Must be a uint or null. Will use defaultForegroundColor if left null.
-		 * @param	bgcolor	The background color. Must be a uint or null. Will use defaultBackgroundColor if left null.
+		 * @param	fgcolor	The foreground color. Must be a uint, function(x,y):uint, or null. Will use defaultForegroundColor if left null.
+		 * @param	bgcolor	The background color. Must be a uint, function(x,y):uint, or null. Will use defaultBackgroundColor if left null.
 		 */
 		public function writeCenter(string:String, y:int, fgcolor:* = null, bgcolor:* = null):void{
 			var x:int = (widthInCharacters - string.length) / 2;
@@ -248,8 +248,8 @@ package com.headchant.asciipanel {
 		/**
 		 * Clear the panel.
 		 * @param	char
-		 * @param	fgcolor	The foreground color. Must be a uint or null. Will use defaultForegroundColor if left null.
-		 * @param	bgcolor	The background color. Must be a uint or null. Will use defaultBackgroundColor if left null.
+		 * @param	fgcolor	The foreground color. Must be a uint, function(x,y):uint, or null. Will use defaultForegroundColor if left null.
+		 * @param	bgcolor	The background color. Must be a uint, function(x,y):uint, or null. Will use defaultBackgroundColor if left null.
 		 */
 		public function clear(char:String = " ", fgcolor:* = null, bgcolor:* = null):void{
 			if (fgcolor == null)

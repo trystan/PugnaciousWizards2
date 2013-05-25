@@ -1,9 +1,9 @@
-package  
+package themes
 {
 	import flash.geom.Point;
 	import features.FloorTrap;
 	
-	public class RoomTheme_trapFloors implements RoomTheme
+	public class TrapFloors implements RoomTheme
 	{
 		public function apply(room:Room, world:World):void
 		{

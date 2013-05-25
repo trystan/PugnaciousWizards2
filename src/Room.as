@@ -2,6 +2,8 @@ package
 {
 	import flash.display.InterpolationMethod;
 	import flash.geom.Point;
+	import themes.RoomTheme;
+	import themes.RoomThemeFactory;
 	
 	public class Room 
 	{
@@ -17,22 +19,11 @@ package
 		
 		public var distance:int = 0;
 		
-		private static var themes:Array = [
-			new RoomTheme_empty(),
-			new RoomTheme_empty(),
-			new RoomTheme_empty(),
-			new RoomTheme_courtyard(),
-			new RoomTheme_trapFloors(),
-			new RoomTheme_trapWalls(),
-			new RoomTheme_trapTower(),
-			new RoomTheme_rotatingTrapTower(),
-		];
-		
 		public function Room(x:int, y:int) 
 		{
 			position = new Point(x, y);
 			worldPosition = new Point(x * 8 + 5, y * 8 + 5);
-			theme = themes[Math.floor(Math.random() * themes.length)];
+			theme = RoomThemeFactory.random();
 		}
 		
 		public function get isDeadEnd():Boolean 

@@ -1,4 +1,4 @@
-package  
+package themes
 {
 	public interface RoomTheme 
 	{

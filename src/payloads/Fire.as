@@ -4,7 +4,7 @@ package payloads
 	{
 		public function hit(creature:Player):void
 		{
-			creature.takeDamage(2);
+			creature.takeDamage(20);
 			creature.catchOnFire(6);
 		}
 	}

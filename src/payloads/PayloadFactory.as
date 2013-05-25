@@ -6,7 +6,7 @@ package payloads
 		{
 			var r:Number = Math.random();
 			
-			if (r < 0.125)
+			if (r < 0.99)
 				return new Fire();
 			else if (r < 0.25)
 				return new Magic();

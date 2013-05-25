@@ -1,8 +1,8 @@
-package  
+package themes
 {
-	import features.TowerTrap;
+	import features.RotatingTowerTrap;
 	
-	public class RoomTheme_trapTower implements RoomTheme
+	public class RotatingTrapTower implements RoomTheme
 	{
 		public function apply(room:Room, world:World):void
 		{
@@ -11,7 +11,7 @@ package
 				var px:int = Math.random() * 5 + 6;
 				var py:int = Math.random() * 5 + 6;
 				
-				world.addEffect(new TowerTrap(world, room.position.x * 8 + px, room.position.y * 8 + py));
+				world.addEffect(new RotatingTowerTrap(world, room.position.x * 8 + px, room.position.y * 8 + py));
 			}
 		}
 	}
