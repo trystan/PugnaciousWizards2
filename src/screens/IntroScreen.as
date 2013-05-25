@@ -62,9 +62,9 @@ package screens
 			display.draw("Pugnacious Wizards 2", "-- press enter to begin --");
 		}
 		
-		public function animateOneFrame():void 
+		public function animateOneFrame():Boolean 
 		{
-			display.animateOneFrame();
+			return display.animateOneFrame();
 		}
 	}
 }

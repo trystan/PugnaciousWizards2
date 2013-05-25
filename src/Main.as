@@ -66,14 +66,15 @@ package
 				if (animationList.length > 0 && animationInterval == -1)
 				{
 					hasShownLastAnimationFrame = false;
-					animationInterval = setInterval(animateOne, 1000.0 / 60);
+					animationInterval = setInterval(animateOne, 1000.0 / 120);
 				}
 			}
 		}
 		
-		private function animateOne():void
+		private function animateOne(refreshFirst:Boolean = true):void
 		{
-			screen.refresh();
+			if (refreshFirst)
+				screen.refresh();
 			var nextAnimations:Array = [];
 			
 			for each (var animation:Animation in animationList)
@@ -83,7 +84,7 @@ package
 					nextAnimations.push(animation);
 			}
 			
-			screen.animateOneFrame();
+			var didUpdate:Boolean = screen.animateOneFrame();
 			animationList = nextAnimations;
 			
 			if (animationList.length == 0)
@@ -100,6 +101,8 @@ package
 					hasShownLastAnimationFrame = true;
 				}
 			}
+			else if (!didUpdate)
+				animateOne(false);
 		}
 		
 		public static function switchToScreen(newScreen:Screen):void

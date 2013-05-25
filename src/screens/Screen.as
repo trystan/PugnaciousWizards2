@@ -7,6 +7,6 @@ package screens
 		function handleInput(keyEvent:KeyboardEvent):void
 		function refresh():void;
 		
-		function animateOneFrame():void;
+		function animateOneFrame():Boolean;
 	}
 }

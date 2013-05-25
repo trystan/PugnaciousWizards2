@@ -59,9 +59,9 @@ package screens
 			display.draw();
 		}
 		
-		public function animateOneFrame():void 
+		public function animateOneFrame():Boolean 
 		{
-			display.animateOneFrame();
+			return display.animateOneFrame();
 		}
 	}
 }

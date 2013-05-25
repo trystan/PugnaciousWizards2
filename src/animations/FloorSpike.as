@@ -24,7 +24,7 @@ package animations
 		{
 			ticks++;
 			
-			if (ticks > 9)
+			if (ticks > 3)
 			{
 				var hit:Player = world.getCreatureAt(x, y);
 				if (hit != null)

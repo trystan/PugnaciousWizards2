@@ -23,7 +23,7 @@ package
 			
 			if (visible && seen.indexOf(x + "," + y) == -1)
 				seen.push(x + "," + y);
-				
+			
 			return visible;
 		}
 	}

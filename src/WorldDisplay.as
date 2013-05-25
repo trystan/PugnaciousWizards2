@@ -6,6 +6,7 @@ package
 	import flash.geom.Point;
 	import animations.FloorSpike;
 	import animations.Arrow;
+	import flash.utils.Dictionary;
 	
 	public class WorldDisplay extends Sprite
 	{
@@ -85,13 +86,17 @@ package
 		private static var SW_NE:String = "/";
 		private static var floor_arrow:String = String.fromCharCode(24); // (94);
 		
-		public function animateOneFrame():void 
+		public function animateOneFrame():Boolean 
 		{
+			var didDrawAny:Boolean = false;
+			
 			for each (var effect:Object in world.animationEffects)
 			{
 				if (!player.canSee(effect.x, effect.y))
 					continue;
-					
+				
+				didDrawAny = true;
+				
 				if (effect is Arrow)
 				{
 					switch (effect.direction)
@@ -111,7 +116,9 @@ package
 					terminal.write(floor_arrow, effect.x, effect.y, metal_fg, bg(effect.x, effect.y));
 				}
 			}
-			terminal.paint();
+			if (didDrawAny)
+				terminal.paint();
+			return didDrawAny;
 		}
 		
 		private function drawHud():void
@@ -241,7 +248,23 @@ package
 			return (255 << 24) | (r << 16) | (g << 8) | b;
 		}
 		
+		
 		public static function lerp(c1:int, c2:int, percent:Number):int
+		{
+			var key:String = c1 + "," + c2 + "," + percent;
+			var value:Object = lerp_cache[key];
+			
+			if (value == null)
+			{
+				value = lerp_real(c1, c2, percent);
+				lerp_cache[key] = value;
+			}
+			
+			return (int)(value);
+		}
+		
+		private static var lerp_cache:Dictionary = new Dictionary();
+		public static function lerp_real(c1:int, c2:int, percent:Number):int
 		{
 			var r1:int = (c1 >> 16) & 0xFF;
 			var g1:int = (c1 >> 8) & 0xFF;

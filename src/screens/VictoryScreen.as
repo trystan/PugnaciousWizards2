@@ -42,8 +42,9 @@ package screens
 			terminal.paint();
 		}
 		
-		public function animateOneFrame():void 
+		public function animateOneFrame():Boolean 
 		{
+			return false;
 		}
 	}
 }
