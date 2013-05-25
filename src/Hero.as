@@ -25,23 +25,14 @@ package
 		{
 			if (this.hasAllEndPieces)
 			{
-				path = Dijkstra.pathTo(
-					new Point(position.x, position.y),
-					function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
-					function (x:int, y:int):Boolean { return x < 3; } );
+				path = pathToEndPoint();
 			}
 			else
 			{
-				path = Dijkstra.pathTo(
-					new Point(position.x, position.y),
-					function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
-					function (x:int, y:int):Boolean { return world.getItem(x, y) != null; } );
+				path = pathToVisibleEndPice();
 					
 				if (path.length == 0)
-					path = Dijkstra.pathTo(
-						new Point(position.x, position.y),
-						function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
-						function (x:int, y:int):Boolean { return world.isClosedDoor(x, y); } );
+					path = pathToVisibleDoor();
 			}
 		}
 		
@@ -63,6 +54,30 @@ package
 		private function wanderRandomly():void 
 		{
 			moveBy((int)(Math.random() * 3) - 1, (int)(Math.random() * 3) - 1);
+		}
+		
+		private function pathToEndPoint():Array 
+		{
+			return Dijkstra.pathTo(
+				new Point(position.x, position.y),
+				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
+				function (x:int, y:int):Boolean { return x < 3; } );
+		}
+		
+		private function pathToVisibleEndPice():Array 
+		{
+			return Dijkstra.pathTo(
+				new Point(position.x, position.y),
+				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement && world.getTile(x, y) != Tile.door_closed; },
+				function (x:int, y:int):Boolean { return world.getItem(x, y) != null; } );
+		}
+		
+		private function pathToVisibleDoor():Array 
+		{
+			return Dijkstra.pathTo(
+				new Point(position.x, position.y),
+				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
+				function (x:int, y:int):Boolean { return world.isClosedDoor(x, y); } );
 		}
 	}
 }
