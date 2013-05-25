@@ -10,7 +10,7 @@ package
 	import flash.utils.setInterval;
 	import animations.Animation;
 	import screens.Screen;
-	import screens.PlayScreen;
+	import screens.IntroScreen;
 	
 	public class Main extends Sprite 
 	{
@@ -52,7 +52,7 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			
-			screen = new PlayScreen();
+			screen = new IntroScreen();
 			
 			addChild(screen as Sprite);
 		}
@@ -74,7 +74,6 @@ package
 		private function animateOne():void
 		{
 			screen.refresh();
-			blockInput = true;
 			var nextAnimations:Array = [];
 			
 			for each (var animation:Animation in animationList)
@@ -113,7 +112,13 @@ package
 		
 		public static function addAnimation(animation:Animation):void
 		{
+			current.blockInput = true;
 			current.animationList.push(animation);
+		}
+		
+		public static function onKeyDown(e:KeyboardEvent):void 
+		{
+			current.onKeyDown(e);
 		}
 	}
 }

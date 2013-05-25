@@ -42,7 +42,7 @@ package
 			perlinBitmap.perlinNoise(6, 6, 6, randomNum, false, true, 1, true, null);
 		}
 		
-		public function draw():void
+		public function draw(header:String = null, footer:String = null):void
 		{
 			terminal.clear();
 			
@@ -52,13 +52,20 @@ package
 				
 			for each (var placedItem:Object in world.items)
 				terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item), bg(placedItem.x, placedItem.y));
-				
+			
 			terminal.write("@", player.position.x, player.position.y, 0xffffff, bg(player.position.x, player.position.y));
 			
 			//for each (var room:Room in world.rooms)
 			//	terminal.write(room.distance + "", room.worldPosition.x + 1, room.worldPosition.y + 1);
 			
 			drawHud();
+			
+			if (header != null)
+				terminal.write(header, (80 - footer.length) / 2, 1, null, bg);
+			
+			if (footer != null)
+				terminal.write(footer, (80 - footer.length) / 2, 78, null, bg);
+			
 			terminal.paint();
 		}
 		
