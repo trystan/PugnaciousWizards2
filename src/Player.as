@@ -55,5 +55,10 @@ package
 			bleedingCounter += amount / 5;
 			world.addBlood(position.x, position.y, amount / 3 + 1);
 		}
+		
+		public function canSee(x:int, y:int):Boolean
+		{
+			return Math.abs(position.x - x) + Math.abs(position.y - y) < 8;
+		}
 	}
 }

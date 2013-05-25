@@ -49,10 +49,16 @@ package
 			
 			for (var x:int = 0; x < 80; x++)
 			for (var y:int = 0; y < 80; y++)
-				terminal.write(tile(x, y), x, y, fg(x, y), bg(x, y));
-				
+			{
+				if (player.canSee(x, y))
+					terminal.write(tile(x, y), x, y, fg(x, y), bg(x, y));
+			}
+			
 			for each (var placedItem:Object in world.items)
-				terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item), bg(placedItem.x, placedItem.y));
+			{
+				if (player.canSee(placedItem.x, placedItem.y))
+					terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item), bg(placedItem.x, placedItem.y));
+			}
 			
 			terminal.write("@", player.position.x, player.position.y, 0xffffff, bg(player.position.x, player.position.y));
 			
@@ -80,6 +86,9 @@ package
 		{
 			for each (var effect:Object in world.animationEffects)
 			{
+				if (!player.canSee(effect.x, effect.y))
+					continue;
+					
 				if (effect is Arrow)
 				{
 					switch (effect.direction)
