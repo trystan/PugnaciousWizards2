@@ -63,5 +63,10 @@ package
 		{
 			return vision.canSee(x, y);
 		}
+		
+		public function hasSeen(x:int, y:int):Boolean 
+		{
+			return vision.hasSeen(x, y);
+		}
 	}
 }

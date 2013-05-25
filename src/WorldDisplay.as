@@ -28,6 +28,7 @@ package
 		private var tile_4:int = hsv(200, 5, 14);
 		private var metal_fg:int = hsv(200, 2, 90);
 		private var blood:int = hsv(5, 66, 20);
+		private var memory:int = hsv(240, 75, 5);
 		
 		public function WorldDisplay(player:Player, world:World) 
 		{
@@ -52,6 +53,8 @@ package
 			{
 				if (player.canSee(x, y))
 					terminal.write(tile(x, y), x, y, fg(x, y), bg(x, y));
+				else if (player.hasSeen(x, y))
+					terminal.write(tile(x, y), x, y, lerp(memory, fg(x, y), 0.5), lerp(memory, bg(x, y), 0.5));
 			}
 			
 			for each (var placedItem:Object in world.items)
