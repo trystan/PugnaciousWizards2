@@ -1,5 +1,6 @@
 package  
 {
+	import animations.Explosion;
 	import com.headchant.asciipanel.AsciiPanel;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
@@ -44,10 +45,6 @@ package
 			this.player = player;
 			this.world = world;
 			
-			terminal = new AsciiPanel(100, 80);
-			terminal.useRasterFont(AsciiPanel.codePage437_8x8, 8, 8);
-			addChild(terminal);
-			
 			var perlinBitmap:BitmapData = new BitmapData(80, 80, false, 0x00CCFFCC);
 			perlinBitmap.perlinNoise(6, 6, 6, Math.floor(Math.random() * int.MAX_VALUE), false, true, 1, true, null);
 			
@@ -56,7 +53,7 @@ package
 			precalculateTreeForeground();
 		}
 		
-		public function draw(header:String = null, footer:String = null):void
+		public function draw(terminal:AsciiPanel, header:String = null, footer:String = null):void
 		{
 			terminal.clear();
 			
@@ -82,15 +79,13 @@ package
 				playerColor = lerp(ice, playerColor, 0.80);
 			terminal.write("@", player.position.x, player.position.y, playerColor, bg(player.position.x, player.position.y));
 			
-			drawHud();
+			drawHud(terminal);
 			
 			if (header != null)
-				terminal.write(header, (80 - footer.length) / 2, 1, 0xffffff);
+				terminal.write(header, (80 - header.length) / 2, 1, 0xffffff);
 			
-			if (footer != null)
-				terminal.write(footer, (80 - footer.length) / 2, 78, 0xffffff);
-			
-			terminal.paint();
+			if (header != null)
+				terminal.write(footer, (80 - footer.length) / 2, 1, 0xffffff);
 		}
 		
 		private static var NS:String = String.fromCharCode(179);
@@ -99,19 +94,19 @@ package
 		private static var SW_NE:String = "/";
 		private static var floor_arrow:String = String.fromCharCode(24); // (94);
 		
-		public function animateOneFrame():Boolean 
+		public function animateOneFrame(terminal:AsciiPanel):Boolean 
 		{
 			var didDrawAny:Boolean = false;
 			
 			for each (var effect:Object in world.animationEffects)
 			{
-				if (!player.canSee(effect.x, effect.y))
-					continue;
-				
-				didDrawAny = true;
-				
 				if (effect is Arrow)
 				{
+					if (!player.canSee(effect.x, effect.y))
+						continue;
+					
+					didDrawAny = true;
+					
 					var fgc:int = payloadColor(effect.payload);
 					var bgc:int = bg(effect.x, effect.y);
 					
@@ -130,17 +125,55 @@ package
 						case "SE": terminal.write(NW_SE, effect.x, effect.y, fgc, bgc); break;
 					}
 				}
+				else if (effect is Explosion)
+				{
+					for each (var t:Point in effect.tiles)
+					{
+						if (!player.canSee(t.x, t.y))
+							continue;
+					
+						didDrawAny = true;
+						
+						terminal.write(
+							tile(t.x, t.y), 
+							t.x, 
+							t.y, 
+							lerp(fire, fg(t.x, t.y), 0.4), 
+							lerp(fire, bg(t.x, t.y), 0.4));
+					}
+					for each (var t2:Point in effect.frontiers)
+					{
+						if (!player.canSee(t2.x, t2.y))
+							continue;
+					
+						didDrawAny = true;
+						
+						terminal.write(
+							tile(t2.x, t2.y), 
+							t2.x, 
+							t2.y, 
+							lerp(fire, fg(t2.x, t2.y), 0.5), 
+							lerp(fire, bg(t2.x, t2.y), 0.5));
+					}
+				}
 				else
 				{
+					if (!player.canSee(effect.x, effect.y))
+						continue;
+					
+					didDrawAny = true;
+					
+
 					terminal.write(floor_arrow, effect.x, effect.y, metal_fg, bg(effect.x, effect.y));
 				}
 			}
 			if (didDrawAny)
 				terminal.paint();
+				
 			return didDrawAny;
 		}
 		
-		private function drawHud():void
+		private function drawHud(terminal:AsciiPanel):void
 		{
 			var x:int = 81;
 			var y:int = 1;
@@ -157,6 +190,11 @@ package
 			y += 2;
 			
 			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2, item_color(null));
+			
+			y += 2;
+			
+			terminal.write("--- magic ---", x, y += 2);
+			terminal.write("[1] Fire jump", x, y += 2);
 		}
 		
 		private function payloadColor(payload:Payload):int

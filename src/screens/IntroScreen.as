@@ -1,12 +1,12 @@
 package screens
 {
-	import flash.display.Sprite;
+	import com.headchant.asciipanel.AsciiPanel;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
 	
-	public class IntroScreen extends Sprite implements Screen
+	public class IntroScreen implements Screen
 	{
 		public var hero:Hero;
 		public var world:World;
@@ -28,9 +28,6 @@ package screens
 			world.add(hero);
 			
 			display = new WorldDisplay(hero, world);
-			addChild(display);
-			refresh();
-			
 			animateInterval = setInterval(animate, 1000.0 / 30);
 		}
 		
@@ -49,7 +46,6 @@ package screens
 			{
 				hero.update();
 				world.update();
-				refresh();
 				
 				if (hero.health < 1)
 					switchTo(new IntroScreen());
@@ -64,14 +60,14 @@ package screens
 			Main.switchToScreen(screen);
 		}
 		
-		public function refresh():void 
+		public function refresh(terminal:AsciiPanel):void 
 		{
-			display.draw("Pugnacious Wizards 2", "-- press enter to begin --");
+			display.draw(terminal, "Pugnacious Wizards 2", "-- press enter to begin --");
 		}
 		
-		public function animateOneFrame():Boolean 
+		public function animateOneFrame(terminal:AsciiPanel):Boolean 
 		{
-			return display.animateOneFrame();
+			return display.animateOneFrame(terminal);
 		}
 	}
 }

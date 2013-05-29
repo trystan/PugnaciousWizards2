@@ -1,5 +1,6 @@
 package 
 {
+	import com.headchant.asciipanel.AsciiPanel;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -11,16 +12,18 @@ package
 	import animations.Animation;
 	import screens.Screen;
 	import screens.IntroScreen;
+	import screens.TargetScreen;
 	
 	public class Main extends Sprite 
 	{
 		private static var current:Main;
 		
-		private var screen:Screen;
+		private var screenStack:Array = [];
 		private var animationList:Array = [];
 		private var animationInterval:int = -1;
 		private var hasShownLastAnimationFrame:Boolean = false;
 		private var blockInput:Boolean = false;
+		private var terminal:AsciiPanel;
 			
 		public function Main():void 
 		{
@@ -52,20 +55,30 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			
-			screen = new IntroScreen();
+			terminal = new AsciiPanel(100, 80);
+			terminal.useRasterFont(AsciiPanel.codePage437_8x8, 8, 8);
+			addChild(terminal);
 			
-			addChild(screen as Sprite);
+			enterScreen(new IntroScreen());
 		}
 		
 		private function onKeyDown(e:KeyboardEvent):void 
 		{
 			if (!blockInput)
 			{
-				screen.handleInput(e);
-				
+				screenStack[0].handleInput(e);
+				redraw();
+			
 				if (animationList.length > 0)
 					animateOneFrame();
 			}
+		}
+		
+		private function redraw():void
+		{
+			for (var i:int = screenStack.length - 1; i >= 0; i--)
+				screenStack[i].refresh(terminal);
+			terminal.paint();
 		}
 		
 		private function animateOneFrame(redrawFirst:Boolean = false):void
@@ -73,7 +86,7 @@ package
 			clearInterval(animationInterval);
 			
 			if (redrawFirst)
-				screen.refresh();
+				redraw();
 				
 			var didUpdate:Boolean = false;
 			
@@ -87,7 +100,7 @@ package
 						nextAnimations.push(animation);
 				}
 				animationList = nextAnimations;
-				didUpdate = screen.animateOneFrame();
+				didUpdate = screenStack[0].animateOneFrame(terminal);
 			}
 			
 			if (animationList.length == 0)
@@ -101,18 +114,48 @@ package
 			animationInterval = setInterval(animateOneFrame, 1000.0 / 60, true);
 		}
 		
+		public function switchToScreen(newScreen:Screen):void
+		{
+			screenStack[0] = newScreen;
+			screenStack[0].refresh(terminal);	
+		}
+		
+		public function enterScreen(newScreen:Screen):void 
+		{
+			screenStack.unshift(newScreen);
+			screenStack[0].refresh(terminal);
+		}
+		
+		public function exitScreen():void 
+		{
+			screenStack.shift();
+			screenStack[0].refresh(terminal);
+		}
+		
+		public function addAnimation(animation:Animation):void
+		{
+			blockInput = true;
+			animationList.push(animation);
+		}
+		
 		public static function switchToScreen(newScreen:Screen):void
 		{
-			current.removeChild(current.screen as Sprite);
-			current.screen = newScreen;
-			current.addChild(current.screen as Sprite);
-			current.screen.refresh();
+			current.switchToScreen(newScreen);
+		}
+		
+		static public function enterScreen(newScreen:Screen):void 
+		{
+			current.enterScreen(newScreen);
+		}
+		
+		static public function exitScreen():void 
+		{
+			current.exitScreen();
 		}
 		
 		public static function addAnimation(animation:Animation):void
 		{
-			current.blockInput = true;
-			current.animationList.push(animation);
+			current.addAnimation(animation);
 		}
 		
 		public static function onKeyDown(e:KeyboardEvent):void 

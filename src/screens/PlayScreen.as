@@ -1,10 +1,11 @@
 package screens
 {
-	import flash.display.Sprite;
+	import com.headchant.asciipanel.AsciiPanel;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
+	import spells.FireJump;
 	
-	public class PlayScreen extends Sprite implements Screen
+	public class PlayScreen implements Screen
 	{
 		public var player:Player;
 		public var world:World;
@@ -24,8 +25,6 @@ package screens
 			world.add(player);
 			
 			display = new WorldDisplay(player, world);
-			addChild(display);
-			refresh();
 		}
 		
 		public function handleInput(keyEvent:KeyboardEvent):void
@@ -38,15 +37,19 @@ package screens
 				case 37: player.moveBy(-1, 0); break;
 				case 40: player.moveBy(0, 1); break;
 				case 38: player.moveBy(0, -1); break;
+				case 49: new FireJump().playerCast(player, nextTurn); break;
 				default:
 					trace(keyEvent.keyCode);
 					endTurn = false;
 			}
 			
 			if (endTurn)
-				world.update();
-			
-			refresh();
+				nextTurn();
+		}
+		
+		public function nextTurn():void
+		{
+			world.update();
 			
 			if (player.health < 1)
 				Main.switchToScreen(new FailScreen(player, world));
@@ -54,14 +57,14 @@ package screens
 				Main.switchToScreen(new VictoryScreen(player, world));
 		}
 		
-		public function refresh():void
+		public function refresh(terminal:AsciiPanel):void
 		{
-			display.draw();
+			display.draw(terminal);
 		}
 		
-		public function animateOneFrame():Boolean 
+		public function animateOneFrame(terminal:AsciiPanel):Boolean 
 		{
-			return display.animateOneFrame();
+			return display.animateOneFrame(terminal);
 		}
 	}
 }
