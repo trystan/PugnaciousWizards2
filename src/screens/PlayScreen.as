@@ -37,7 +37,15 @@ package screens
 				case 37: player.moveBy(-1, 0); break;
 				case 40: player.moveBy(0, 1); break;
 				case 38: player.moveBy(0, -1); break;
-				case 49: new FireJump().playerCast(player, nextTurn); break;
+				case 49: player.castSpell(0, nextTurn); endTurn = false; break;
+				case 50: player.castSpell(1, nextTurn); endTurn = false; break;
+				case 51: player.castSpell(2, nextTurn); endTurn = false; break;
+				case 52: player.castSpell(3, nextTurn); endTurn = false; break;
+				case 53: player.castSpell(4, nextTurn); endTurn = false; break;
+				case 54: player.castSpell(5, nextTurn); endTurn = false; break;
+				case 55: player.castSpell(6, nextTurn); endTurn = false; break;
+				case 56: player.castSpell(7, nextTurn); endTurn = false; break;
+				case 57: player.castSpell(8, nextTurn); endTurn = false; break;
 				default:
 					trace(keyEvent.keyCode);
 					endTurn = false;

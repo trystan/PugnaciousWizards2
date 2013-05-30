@@ -12,6 +12,7 @@ package
 	import payloads.Ice;
 	import payloads.Payload;
 	import payloads.Pierce;
+	import spells.FireJump;
 	
 	public class WorldDisplay extends Sprite
 	{
@@ -194,7 +195,10 @@ package
 			y += 2;
 			
 			terminal.write("--- magic ---", x, y += 2);
-			terminal.write("[1] Fire jump", x, y += 2);
+			
+			var i:int = 1;
+			for each (var magic:FireJump in player.magic)
+				terminal.write("[" + (i++) + "] Fire jump", x, y += 2);
 		}
 		
 		private function payloadColor(payload:Payload):int
@@ -207,14 +211,14 @@ package
 				return metal_fg;
 		}
 		
-		private function item_glyph(endPiece:EndPiece):String
+		private function item_glyph(item:Item):String
 		{
-			return "*";
+			return item is EndPiece ? "*" : "?";
 		}
 		
-		private function item_color(endPiece:EndPiece):int
+		private function item_color(item:Item):int
 		{
-			return hsv(60, 90, 90);
+			return item is EndPiece ? hsv(60, 90, 90) : 0xffffff;
 		}
 		
 		private function tile(x:int, y:int):String

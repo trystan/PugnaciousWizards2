@@ -1,5 +1,6 @@
 package  
 {
+	import spells.FireJump;
 	public class WorldGen 
 	{
 		private var rooms:Array;
@@ -80,8 +81,10 @@ package
 			for each (var list:Array in rooms)
 			for each (var room:Room in list)
 				roomList.push(room);
-				
+			
 			world.rooms = roomList;
+			
+			world.addItem(3, 36, new Scroll(new FireJump()));
 		}
 		
 		private function addRooms():void 

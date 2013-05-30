@@ -1,6 +1,6 @@
 package  
 {
-	public class EndPiece 
+	public class EndPiece implements Item
 	{
 		public function EndPiece() 
 		{

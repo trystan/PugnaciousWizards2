@@ -107,17 +107,17 @@ package
 			return this;
 		}
 		
-		public function addItem(ix:int, iy:int, thing:EndPiece):void 
+		public function addItem(ix:int, iy:int, thing:Item):void 
 		{
 			items.push({ x:ix, y:iy, item:thing });
 		}
 		
-		public function getItem(x:int, y:int):EndPiece 
+		public function getItem(x:int, y:int):Item 
 		{
 			for each (var placedItem:Object in items)
 			{
 				if (placedItem.x == x && placedItem.y == y)
-					return placedItem.item as EndPiece;
+					return placedItem.item as Item;
 			}
 			return null;
 		}

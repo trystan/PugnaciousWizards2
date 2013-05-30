@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Point;
+	import spells.FireJump;
 	
 	public class Player 
 	{
@@ -16,6 +17,8 @@ package
 		
 		public var fireCounter:int = 0;
 		public var freezeCounter:int = 0;
+		
+		public var magic:Array = [];
 		
 		public function Player(position:Point) 
 		{
@@ -57,13 +60,34 @@ package
 				position.x += x;
 				position.y += y;
 				
-				var item:EndPiece = world.getItem(position.x, position.y);
-				if (item != null)
+				var item:Item = world.getItem(position.x, position.y);
+				if (item is EndPiece)
 				{
 					world.removeItem(position.x, position.y);
 					endPiecesPickedUp++;
 				}
+				else if (item is Scroll && magic.length < 9)
+				{
+					world.removeItem(position.x, position.y);
+					addMagicSpell((item as Scroll).spell);
+				}
 			}
+		}
+		
+		public function addMagicSpell(spell:FireJump):void
+		{
+			magic.push(spell);
+		}
+		
+		public function castSpell(index:int, callback:Function):void
+		{
+			if (freezeCounter > 0)
+				return;
+				
+			if (magic.length <= index)
+				return;
+				
+			(magic[index] as FireJump).playerCast(this, callback);
 		}
 		
 		public function takeDamage(amount:int):void 
