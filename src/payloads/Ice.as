@@ -7,5 +7,9 @@ package payloads
 			creature.takeDamage(2);
 			creature.freeze(2);
 		}
+		
+		public function hitTile(world:World, x:int, y:int):void 
+		{
+		}
 	}
 }

@@ -6,5 +6,9 @@ package payloads
 		{
 			creature.takeDamage(3);
 		}
+		
+		public function hitTile(world:World, x:int, y:int):void 
+		{
+		}
 	}
 }

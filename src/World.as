@@ -19,9 +19,17 @@ package
 			return player.hasAllEndPieces && player.position.x < 4;
 		}
 		
-		public function addEffect(effect:CastleFeature):void
+		public function addFeature(effect:CastleFeature):void
 		{
 			effects.push(effect);
+		}
+		
+		public function removeFeature(feature:CastleFeature):void 
+		{
+			var index:int = effects.indexOf(feature);
+			
+			if (index > -1)
+				effects.splice(index, 1);
 		}
 		
 		public function addAnimationEffect(effect:Object):void

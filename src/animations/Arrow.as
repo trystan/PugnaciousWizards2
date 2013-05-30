@@ -52,6 +52,7 @@ package animations
 			{
 				_done = true;
 				world.removeAnimationEffect(this);
+				payload.hitTile(world, x, y);
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package animations 
 {
+	import features.BurningFire;
 	import flash.geom.Point;
 	
 	public class Explosion implements Animation
@@ -50,6 +51,8 @@ package animations
 			while (frontiers.length > 0)
 			{
 				var p:Point = frontiers.shift();
+				
+				world.addFeature(new BurningFire(world, p.x, p.y));
 				
 				spreadTo(new Point(p.x, p.y - 1));
 				spreadTo(new Point(p.x, p.y + 1));

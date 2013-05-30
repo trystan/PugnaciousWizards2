@@ -5,7 +5,6 @@ package features
 	import payloads.Ice;
 	import payloads.Payload;
 	import payloads.PayloadFactory;
-	import payloads.Pierce;
 	
 	public class RotatingTowerTrap extends CastleFeature
 	{

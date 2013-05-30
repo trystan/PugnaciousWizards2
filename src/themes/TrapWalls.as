@@ -40,7 +40,7 @@ package themes
 			var ticks:int = (int)(Math.random() * 24);
 			var payload:Payload = PayloadFactory.random();
 			
-			world.addEffect(new WallTrap(world, tiles, dir, ticks, payload));
+			world.addFeature(new WallTrap(world, tiles, dir, ticks, payload));
 		}
 	}
 }

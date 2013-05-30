@@ -266,8 +266,13 @@ package
 			{
 				case Tile.grass: return dot;
 				case Tile.tree: return tree;
-				case Tile.door_opened: return "/";
-				case Tile.door_closed: return "+";
+				case Tile.tree_fire_3: return tree;
+				case Tile.tree_fire_2: return tree;
+				case Tile.tree_fire_1: return tree;
+				case Tile.door_opened:
+				case Tile.door_opened_fire: return "/";
+				case Tile.door_closed:
+				case Tile.door_opened_fire: return "+";
 				case Tile.wall: return "#";
 				case Tile.floor_light: return dot;
 				case Tile.floor_dark: return dot;
@@ -301,8 +306,13 @@ package
 			{
 				case Tile.grass: return grassForegroundBitmap.getPixel(x, y);
 				case Tile.tree: return treeBitmap.getPixel(x, y);
+				case Tile.tree_fire_3: return lerp(fire, treeBitmap.getPixel(x, y), 0.2);
+				case Tile.tree_fire_2: return lerp(fire, treeBitmap.getPixel(x, y), 0.4);
+				case Tile.tree_fire_1: return lerp(fire, treeBitmap.getPixel(x, y), 0.6);
 				case Tile.door_opened: return wood_fg;
 				case Tile.door_closed: return wood_fg;
+				case Tile.door_opened_fire: return lerp(fire, wood_bg, 0.3);
+				case Tile.door_closed_fire: return lerp(fire, wood_bg, 0.3);
 				case Tile.wall: return stone_fg;
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
@@ -339,8 +349,13 @@ package
 			{
 				case Tile.grass: return grassBackgroundBitmap.getPixel(x, y);
 				case Tile.tree: return grassBackgroundBitmap.getPixel(x, y);
+				case Tile.tree_fire_3: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.3);
+				case Tile.tree_fire_2: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.4);
+				case Tile.tree_fire_1: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.5);
 				case Tile.door_opened: return wood_bg;
 				case Tile.door_closed: return wood_bg;
+				case Tile.door_opened_fire: return lerp(fire, wood_bg, 0.5);
+				case Tile.door_closed_fire: return lerp(fire, wood_bg, 0.5);
 				case Tile.wall: return stone_bg;
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;

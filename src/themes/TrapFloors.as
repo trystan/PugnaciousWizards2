@@ -62,7 +62,7 @@ package themes
 				world.addBlood(p.x, p.y, 1);
 			}
 			
-			world.addEffect(new FloorTrap(world, triggers));
+			world.addFeature(new FloorTrap(world, triggers));
 		}
 	}
 }
