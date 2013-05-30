@@ -33,6 +33,36 @@ package
 		
 		public function moveBy(x:Number, y:Number):void 
 		{
+			if (freezeCounter > 0)
+				return;
+				
+			if (world.blocksMovement(position.x + x, position.y + y))
+				return;
+			
+			if (world.isClosedDoor(position.x + x, position.y + y))
+				world.openDoor(position.x + x, position.y + y);
+			else
+			{
+				position.x += x;
+				position.y += y;
+			}
+			
+			getStuffHere();
+		}
+		
+		public function moveTo(x:int, y:int):void
+		{
+			if (freezeCounter > 0)
+				return;
+				
+			position.x = x;
+			position.y = y;
+			
+			getStuffHere();
+		}
+		
+		public function update():void
+		{
 			if (fireCounter > 0)
 			{
 				takeDamage(2);
@@ -48,30 +78,21 @@ package
 			if (freezeCounter > 0)
 			{
 				freezeCounter--;
-				return;
 			}
-			
-			if (world.blocksMovement(position.x + x, position.y + y))
-				return;
-			
-			if (world.isClosedDoor(position.x + x, position.y + y))
-				world.openDoor(position.x + x, position.y + y);
-			else
+		}
+		
+		private function getStuffHere():void
+		{
+			var item:Item = world.getItem(position.x, position.y);
+			if (item is EndPiece)
 			{
-				position.x += x;
-				position.y += y;
-				
-				var item:Item = world.getItem(position.x, position.y);
-				if (item is EndPiece)
-				{
-					world.removeItem(position.x, position.y);
-					endPiecesPickedUp++;
-				}
-				else if (item is Scroll && magic.length < 9)
-				{
-					world.removeItem(position.x, position.y);
-					addMagicSpell((item as Scroll).spell);
-				}
+				world.removeItem(position.x, position.y);
+				endPiecesPickedUp++;
+			}
+			else if (item is Scroll && magic.length < 9)
+			{
+				world.removeItem(position.x, position.y);
+				addMagicSpell((item as Scroll).spell);
 			}
 		}
 		

@@ -20,8 +20,7 @@ package spells
 		
 		public function cast(x:int, y:int):void
 		{
-			player.position.x = x;
-			player.position.y = y;
+			player.moveTo(x, y);
 			Main.addAnimation(new Explosion(player.world, x, y));
 			callback();
 		}

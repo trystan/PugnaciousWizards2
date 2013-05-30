@@ -44,7 +44,7 @@ package screens
 			}
 			else
 			{
-				hero.update();
+				hero.doAi();
 				world.update();
 				
 				if (hero.health < 1)

@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Point;
+	
 	public class Hero extends Player
 	{
 		private var path:Array = [];
@@ -10,7 +11,7 @@ package
 			super(position);
 		}
 		
-		public function update():void
+		public function doAi():void
 		{
 			if (path.length == 0)
 				pathToNextTarget();

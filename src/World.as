@@ -158,6 +158,8 @@ package
 		{
 			for each (var effect:CastleFeature in effects)
 				effect.update();
+			
+			player.update();
 		}
 		
 		public function getCreatureAt(x:int, y:int):Player 
