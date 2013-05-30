@@ -1,12 +1,12 @@
 package  
 {
-	import spells.FireJump;
+	import spells.Spell;
 	
 	public class Scroll implements Item
 	{
-		public var spell:FireJump;
+		public var spell:Spell;
 		
-		public function Scroll(spell:FireJump) 
+		public function Scroll(spell:Spell) 
 		{
 			this.spell = spell;
 		}

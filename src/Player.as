@@ -2,6 +2,7 @@ package
 {
 	import flash.geom.Point;
 	import spells.FireJump;
+	import spells.Spell;
 	
 	public class Player 
 	{
@@ -74,7 +75,7 @@ package
 			}
 		}
 		
-		public function addMagicSpell(spell:FireJump):void
+		public function addMagicSpell(spell:Spell):void
 		{
 			magic.push(spell);
 		}
@@ -87,7 +88,7 @@ package
 			if (magic.length <= index)
 				return;
 				
-			(magic[index] as FireJump).playerCast(this, callback);
+			(magic[index] as Spell).playerCast(this, callback);
 		}
 		
 		public function takeDamage(amount:int):void 

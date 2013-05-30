@@ -1,6 +1,8 @@
 package  
 {
 	import animations.Explosion;
+	import animations.MagicMissileProjectile;
+	import animations.MagicMissileProjectileTrail;
 	import com.headchant.asciipanel.AsciiPanel;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
@@ -13,6 +15,7 @@ package
 	import payloads.Payload;
 	import payloads.Pierce;
 	import spells.FireJump;
+	import spells.Spell;
 	
 	public class WorldDisplay extends Sprite
 	{
@@ -38,8 +41,9 @@ package
 		private var metal_fg:int = hsv(240, 20, 90);
 		private var blood:int = hsv(0, 66, 20);
 		private var memory:int = hsv(240, 75, 5);
-		private var ice:int = hsv(240, 66, 66);
+		private var ice:int = hsv(220, 33, 66);
 		private var fire:int = hsv(15, 66, 66);
+		private var magic:int = hsv(260, 66, 99);
 		
 		public function WorldDisplay(player:Player, world:World) 
 		{
@@ -114,17 +118,7 @@ package
 					if (!(effect.payload is Pierce))
 						bgc = lerp(fgc, bgc, 0.25);
 					
-					switch (effect.direction)
-					{
-						case "N": terminal.write(NS, effect.x, effect.y, fgc, bgc); break;
-						case "S": terminal.write(NS, effect.x, effect.y, fgc, bgc); break;
-						case "W": terminal.write(WE, effect.x, effect.y, fgc, bgc); break;
-						case "E": terminal.write(WE, effect.x, effect.y, fgc, bgc); break;
-						case "NW": terminal.write(NW_SE, effect.x, effect.y, fgc, bgc); break;
-						case "NE": terminal.write(SW_NE, effect.x, effect.y, fgc, bgc); break;
-						case "SW": terminal.write(SW_NE, effect.x, effect.y, fgc, bgc); break;
-						case "SE": terminal.write(NW_SE, effect.x, effect.y, fgc, bgc); break;
-					}
+					terminal.write(arrowTile(effect.direction), effect.x, effect.y, fgc, bgc);
 				}
 				else if (effect is Explosion)
 				{
@@ -157,13 +151,40 @@ package
 							lerp(fire, bg(t2.x, t2.y), 0.5));
 					}
 				}
+				else if (effect is MagicMissileProjectile)
+				{
+					if (!player.canSee(effect.x, effect.y))
+						continue;
+					
+					didDrawAny = true;
+
+					terminal.write(
+						arrowTile(effect.direction), 
+						effect.x, 
+						effect.y, 
+						magic, 
+						lerp(magic, bg(effect.x, effect.y), 0.3));
+				}
+				else if (effect is MagicMissileProjectileTrail)
+				{
+					if (!player.canSee(effect.x, effect.y))
+						continue;
+					
+					didDrawAny = true;
+
+					terminal.write(
+						arrowTile(effect.direction), 
+						effect.x, 
+						effect.y, 
+						lerp(magic, fg(effect.x, effect.y), 0.2),
+						lerp(magic, bg(effect.x, effect.y), 0.1));
+				}
 				else
 				{
 					if (!player.canSee(effect.x, effect.y))
 						continue;
 					
 					didDrawAny = true;
-					
 
 					terminal.write(floor_arrow, effect.x, effect.y, metal_fg, bg(effect.x, effect.y));
 				}
@@ -172,6 +193,24 @@ package
 				terminal.paint();
 				
 			return didDrawAny;
+		}
+		
+		private function arrowTile(direction:String):String
+		{
+			switch (direction)
+			{
+				case "N": 
+				case "S": 
+					return NS;
+				case "W": 
+				case "E": 
+					return WE;
+				case "NW": return NW_SE;
+				case "NE": return SW_NE;
+				case "SW": return SW_NE;
+				case "SE": return NW_SE;
+			}
+			return "*";
 		}
 		
 		private function drawHud(terminal:AsciiPanel):void
@@ -197,8 +236,8 @@ package
 			terminal.write("--- magic ---", x, y += 2);
 			
 			var i:int = 1;
-			for each (var magic:FireJump in player.magic)
-				terminal.write("[" + (i++) + "] Fire jump", x, y += 2);
+			for each (var magic:Spell in player.magic)
+				terminal.write("[" + (i++) + "] " + magic.name, x, y += 2);
 		}
 		
 		private function payloadColor(payload:Payload):int

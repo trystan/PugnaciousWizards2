@@ -3,10 +3,12 @@ package spells
 	import animations.Explosion;
 	import screens.TargetScreen;
 	
-	public class FireJump 
+	public class FireJump implements Spell
 	{
 		private var player:Player;
 		private var callback:Function;
+		
+		public function get name():String { return "Fire jump"; }
 		
 		public function playerCast(player:Player, callback:Function):void
 		{
