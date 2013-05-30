@@ -1,27 +1,35 @@
 package features
 {
 	import animations.FloorSpike;
+	import flash.geom.Point;
 	
 	public class FloorTrap extends CastleFeature
 	{
-		public var x:int;
-		public var y:int;
 		public var world:World;
-		public var ticks:int;
+		public var triggers:Array;
 		
-		public function FloorTrap(world:World, x:int, y:int, ticks:int) 
+		public function FloorTrap(world:World, triggers:Array) 
 		{
 			this.world = world;
-			this.x = x;
-			this.y = y;
-			this.ticks = ticks;
+			this.triggers = triggers;
 		}
 		
 		override public function update():void
 		{
-			ticks = (ticks + 1) % 4;
-			if (ticks == 0)
-				Main.addAnimation(new FloorSpike(world, x, y));
+			for each (var p:Point in triggers)
+			{
+				if (world.getCreatureAt(p.x, p.y) == null)
+					continue;
+				
+				activiate();
+				return;
+			}
+		}
+		
+		private function activiate():void
+		{
+			for each (var p:Point in triggers)
+				Main.addAnimation(new FloorSpike(world, p.x, p.y));
 		}
 	}
 }

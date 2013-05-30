@@ -51,16 +51,18 @@ package themes
 				}
 			}
 			
-			var ticks:int = (int)(Math.random() * 24);
+			var triggers:Array = [];
 			
 			for each (var p:Point in tiles)
 			{
 				if (world.getTile(p.x, p.y).blocksMovement)
 					continue;
 				
+				triggers.push(p);
 				world.addBlood(p.x, p.y, 1);
-				world.addEffect(new FloorTrap(world, p.x, p.y, ticks));
 			}
+			
+			world.addEffect(new FloorTrap(world, triggers));
 		}
 	}
 }
