@@ -22,12 +22,7 @@ package animations
 		
 		public function get done():Boolean 
 		{
-			var d:Boolean = tiles.length > 36 || frontiers.length == 0;
-			
-			if (d)
-				world.removeAnimationEffect(this);
-			
-			return d;
+			return tiles.length > 36 || frontiers.length == 0;
 		}
 		
 		public function update():void 

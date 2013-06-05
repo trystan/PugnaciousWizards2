@@ -230,19 +230,19 @@ package
 			var player:Player = new Player(new Point(5, 5));
 			var playscreen:PlayScreen = new PlayScreen(player, new World());
 			
-			playscreen.handleInput(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 39, 39));
+			playscreen.trigger('right', [new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 39, 39)]);
 			assertEqual(player.position.x, 6);
 			assertEqual(player.position.y, 5);
 			
-			playscreen.handleInput(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 37, 37));
+			playscreen.trigger('left', [new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 37, 37)]);
 			assertEqual(player.position.x, 5);
 			assertEqual(player.position.y, 5);
 			
-			playscreen.handleInput(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 40, 40));
+			playscreen.trigger('down', [new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 40, 40)]);
 			assertEqual(player.position.x, 5);
 			assertEqual(player.position.y, 6);
 			
-			playscreen.handleInput(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 38, 38));
+			playscreen.trigger('up', [new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 38, 38)]);
 			assertEqual(player.position.x, 5);
 			assertEqual(player.position.y, 5);
 		}

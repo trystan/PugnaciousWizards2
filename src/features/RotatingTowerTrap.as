@@ -36,8 +36,8 @@ package features
 			
 			updateWorld();
 			
-			Main.addAnimation(new Arrow(world, x, y, directions[directionIndex], payload));
-			Main.addAnimation(new Arrow(world, x, y, directions[(directionIndex + 4) % 8], payload));
+			new Arrow(world, x, y, directions[directionIndex], payload);
+			new Arrow(world, x, y, directions[(directionIndex + 4) % 8], payload);
 		}
 		
 		private function updateWorld():void

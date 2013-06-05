@@ -1,5 +1,6 @@
 package  
 {
+	import animations.Animation;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import features.CastleFeature; 
@@ -32,12 +33,12 @@ package
 				effects.splice(index, 1);
 		}
 		
-		public function addAnimationEffect(effect:Object):void
+		public function addAnimationEffect(effect:Animation):void
 		{
 			animationEffects.push(effect);
 		}
 		
-		public function removeAnimationEffect(effect:Object):void
+		public function removeAnimationEffect(effect:Animation):void
 		{
 			var index:int = animationEffects.indexOf(effect);
 			
@@ -187,6 +188,18 @@ package
 				return blood[x + "," + y];
 			else
 				return 0;
+		}
+		
+		public function animate():void 
+		{
+			var nextAnimations:Array = [];
+			for each (var animation:Animation in animationEffects)
+			{
+				animation.update();
+				if (!animation.done)
+					nextAnimations.push(animation);
+			}
+			animationEffects = nextAnimations;
 		}
 	}
 }

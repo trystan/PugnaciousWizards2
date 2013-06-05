@@ -1,6 +1,7 @@
 package spells 
 {
 	import animations.MagicMissileProjectile;
+	import knave.RL;
 	import screens.TargetDirectionScreen;
 	
 	public class MagicMissile implements Spell
@@ -15,12 +16,12 @@ package spells
 			this.player = player;
 			this.callback = callback;
 			
-			Main.enterScreen(new TargetDirectionScreen(cast));
+			RL.enter(new TargetDirectionScreen(cast));
 		}
 		
 		public function cast(x:int, y:int):void
 		{
-			Main.addAnimation(new MagicMissileProjectile(player.world, player.position.x, player.position.y, x, y));
+			new MagicMissileProjectile(player.world, player.position.x, player.position.y, x, y);
 			callback();
 		}
 	}

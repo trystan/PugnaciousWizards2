@@ -2,8 +2,10 @@ package screens
 {
 	import com.headchant.asciipanel.AsciiPanel;
 	import flash.events.KeyboardEvent;
+	import knave.BaseScreen;
+	import knave.RL;
 	
-	public class FailScreen implements Screen
+	public class FailScreen extends BaseScreen
 	{
 		public var player:Player;
 		public var world:World;
@@ -12,30 +14,16 @@ package screens
 		{
 			this.player = player;
 			this.world = world;
+			
+			bind('enter', function():void { RL.switchTo(new PlayScreen()); } );
 		}
 		
-		public function handleInput(keyEvent:KeyboardEvent):void
-		{
-			switch (keyEvent.keyCode)
-			{
-				case 13:
-					Main.switchToScreen(new PlayScreen());
-					break;
-				default:
-					trace(keyEvent.keyCode);
-			}
-		}
-		
-		public function refresh(terminal:AsciiPanel):void
+		public override function draw(terminal:AsciiPanel):void
 		{
 			terminal.clear();
 			terminal.write("You died!", 2, 2);
 			terminal.writeCenter("-- press enter to restart --", 78);
-		}
-		
-		public function animateOneFrame(terminal:AsciiPanel):Boolean 
-		{
-			return false;
+			terminal.paint();
 		}
 	}
 }

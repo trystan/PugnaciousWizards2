@@ -31,7 +31,7 @@ package features
 		override public function update():void
 		{
 			for each (var direction:String in ["N","E","S","W","NE","SE","SW","NW"])
-				Main.addAnimation(new Arrow(world, x, y, direction, payload));
+				new Arrow(world, x, y, direction, payload);
 		}
 	}
 }

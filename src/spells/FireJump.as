@@ -1,6 +1,7 @@
 package spells 
 {
 	import animations.Explosion;
+	import knave.RL;
 	import screens.TargetScreen;
 	
 	public class FireJump implements Spell
@@ -15,13 +16,13 @@ package spells
 			this.player = player;
 			this.callback = callback;
 			
-			Main.enterScreen(new TargetScreen(player, cast));
+			RL.enter(new TargetScreen(player, cast));
 		}
 		
 		public function cast(x:int, y:int):void
 		{
 			player.moveTo(x, y);
-			Main.addAnimation(new Explosion(player.world, x, y));
+			new Explosion(player.world, x, y);
 			callback();
 		}
 	}

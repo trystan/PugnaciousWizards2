@@ -3,16 +3,16 @@ package screens
 	import com.headchant.asciipanel.AsciiPanel;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
-	import flash.utils.clearInterval;
-	import flash.utils.setInterval;
+	import flash.utils.setTimeout;
+	import knave.RL;
+	import knave.BaseScreen;
+	import knave.Screen;
 	
-	public class IntroScreen implements Screen
+	public class IntroScreen extends BaseScreen
 	{
 		public var hero:Hero;
 		public var world:World;
 		public var display:WorldDisplay;
-		
-		private var animateInterval:int = 0;
 		
 		public function IntroScreen(hero:Hero = null, world:World = null) 
 		{
@@ -28,46 +28,58 @@ package screens
 			world.add(hero);
 			
 			display = new WorldDisplay(hero, world);
-			animateInterval = setInterval(animate, 1000.0 / 30);
+			
+			bind('enter', function():void { switchTo(new PlayScreen()); } );
+			bind('step', autoPlay);
+			bind('animate', animate);
+			RL.current.interruptAnimations = true;
+			
+			setTimeout(RL.trigger, 1000, 'step');
 		}
 		
-		private function animate():void
+		public function autoPlay():void 
 		{
-			Main.onKeyDown(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, false, 46, 46));
+			hero.doAi();
+			world.update();
+			
+			if (hero.health < 1)
+				switchTo(new IntroScreen());
+			else if (world.playerHasWon)
+				switchTo(new IntroScreen());
+			else
+				RL.animate();
 		}
 		
-		public function handleInput(keyEvent:KeyboardEvent):void 
+		public override function draw(terminal:AsciiPanel):void
 		{
-			if (keyEvent.keyCode == 13)
+			display.draw(terminal, "Pugnacious Wizards 2", "-- press enter to begin --");
+			display.drawAnimations(terminal);
+		}
+		
+		public function animate(terminal:AsciiPanel):void
+		{
+			trace("animate " + world.animationEffects.length);
+			
+			draw(terminal);
+			
+			var didUpdate:Boolean = false;
+			while (world.animationEffects.length > 0 && !didUpdate)
 			{
-				switchTo(new PlayScreen());
+				world.animate();
+				
+				if (display.drawAnimations(terminal))
+					didUpdate = true;
+			}
+			
+			if (world.animationEffects.length > 0 || didUpdate)
+			{
+				terminal.paint();
+				RL.animate()
 			}
 			else
 			{
-				hero.doAi();
-				world.update();
-				
-				if (hero.health < 1)
-					switchTo(new IntroScreen());
-				else if (world.playerHasWon)
-					switchTo(new IntroScreen());
+				setTimeout(RL.trigger, 1000 / 30.0, 'step');
 			}
-		}
-		
-		public function switchTo(screen:Screen):void
-		{
-			clearInterval(animateInterval);
-			Main.switchToScreen(screen);
-		}
-		
-		public function refresh(terminal:AsciiPanel):void 
-		{
-			display.draw(terminal, "Pugnacious Wizards 2", "-- press enter to begin --");
-		}
-		
-		public function animateOneFrame(terminal:AsciiPanel):Boolean 
-		{
-			return display.animateOneFrame(terminal);
 		}
 	}
 }

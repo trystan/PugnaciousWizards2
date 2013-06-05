@@ -46,12 +46,10 @@ package animations
 			{
 				payload.hit(creature);
 				_done = true;
-				world.removeAnimationEffect(this);	
 			}
 			else if (world.getTile(x, y).blocksArrows)
 			{
 				_done = true;
-				world.removeAnimationEffect(this);
 				payload.hitTile(world, x, y);
 			}
 		}

@@ -28,7 +28,7 @@ package features
 				return;
 			
 			for each (var p:Point in sources)
-				Main.addAnimation(new Arrow(world, p.x, p.y, direction, payload));
+				new Arrow(world, p.x, p.y, direction, payload);
 		}
 	}
 }

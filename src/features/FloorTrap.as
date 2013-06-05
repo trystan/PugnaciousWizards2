@@ -29,7 +29,7 @@ package features
 		private function activiate():void
 		{
 			for each (var p:Point in triggers)
-				Main.addAnimation(new FloorSpike(world, p.x, p.y));
+				new FloorSpike(world, p.x, p.y);
 		}
 	}
 }

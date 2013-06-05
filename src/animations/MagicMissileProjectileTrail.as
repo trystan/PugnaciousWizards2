@@ -27,10 +27,6 @@ package animations
 		public function update():void 
 		{
 			ticks--;
-			if (ticks < 1)
-			{
-				world.removeAnimationEffect(this);
-			}
 		}
 	}
 }

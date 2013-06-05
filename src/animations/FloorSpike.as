@@ -31,7 +31,6 @@ package animations
 					hit.takeDamage(10);
 				
 				_done = true;
-				world.removeAnimationEffect(this);
 			}
 		}
 	}

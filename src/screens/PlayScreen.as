@@ -1,15 +1,21 @@
 package screens
 {
 	import com.headchant.asciipanel.AsciiPanel;
+	import flash.accessibility.AccessibilityImplementation;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
-	import spells.FireJump;
+	import flash.utils.clearInterval;
+	import flash.utils.setInterval;
+	import flash.utils.setTimeout;
+	import knave.BaseScreen;
+	import knave.RL;
 	
-	public class PlayScreen implements Screen
+	public class PlayScreen extends BaseScreen
 	{
 		public var player:Player;
 		public var world:World;
 		public var display:WorldDisplay;
+		private var animateInterval:int;
 		
 		public function PlayScreen(player:Player = null, world:World = null) 
 		{
@@ -25,34 +31,32 @@ package screens
 			world.add(player);
 			
 			display = new WorldDisplay(player, world);
+			
+			bind('up', function():void { moveBy(0, -1); } );
+			bind('down', function():void { moveBy(0, 1); } );
+			bind('left', function():void { moveBy(-1, 0); } );
+			bind('right', function():void { moveBy(1, 0); } );
+			
+			bind('1', function():void { player.castSpell(0, nextTurn); } );
+			bind('2', function():void { player.castSpell(1, nextTurn); } );
+			bind('3', function():void { player.castSpell(2, nextTurn); } );
+			bind('4', function():void { player.castSpell(3, nextTurn); } );
+			bind('5', function():void { player.castSpell(4, nextTurn); } );
+			bind('6', function():void { player.castSpell(5, nextTurn); } );
+			bind('7', function():void { player.castSpell(6, nextTurn); } );
+			bind('8', function():void { player.castSpell(7, nextTurn); } );
+			bind('9', function():void { player.castSpell(8, nextTurn); } );
+			
+			bind('animate', animate);
+			
+			RL.current.interruptAnimations = false;
+			RL.current.ignoreInputDuringAnimations = true;
 		}
 		
-		public function handleInput(keyEvent:KeyboardEvent):void
+		private function moveBy(mx:int, my:int):void
 		{
-			var endTurn:Boolean = true;
-			
-			switch (keyEvent.keyCode)
-			{
-				case 39: player.moveBy(1, 0); break;
-				case 37: player.moveBy(-1, 0); break;
-				case 40: player.moveBy(0, 1); break;
-				case 38: player.moveBy(0, -1); break;
-				case 49: player.castSpell(0, nextTurn); endTurn = false; break;
-				case 50: player.castSpell(1, nextTurn); endTurn = false; break;
-				case 51: player.castSpell(2, nextTurn); endTurn = false; break;
-				case 52: player.castSpell(3, nextTurn); endTurn = false; break;
-				case 53: player.castSpell(4, nextTurn); endTurn = false; break;
-				case 54: player.castSpell(5, nextTurn); endTurn = false; break;
-				case 55: player.castSpell(6, nextTurn); endTurn = false; break;
-				case 56: player.castSpell(7, nextTurn); endTurn = false; break;
-				case 57: player.castSpell(8, nextTurn); endTurn = false; break;
-				default:
-					trace(keyEvent.keyCode);
-					endTurn = false;
-			}
-			
-			if (endTurn)
-				nextTurn();
+			player.moveBy(mx, my);
+			nextTurn();
 		}
 		
 		public function nextTurn():void
@@ -60,19 +64,38 @@ package screens
 			world.update();
 			
 			if (player.health < 1)
-				Main.switchToScreen(new FailScreen(player, world));
+				switchTo(new FailScreen(player, world));
 			else if (world.playerHasWon)
-				Main.switchToScreen(new VictoryScreen(player, world));
+				switchTo(new VictoryScreen(player, world));
+			else
+				RL.animate();
 		}
 		
-		public function refresh(terminal:AsciiPanel):void
+		public override function draw(terminal:AsciiPanel):void
 		{
-			display.draw(terminal);
+			display.draw(terminal, "Pugnacious Wizards 2", "-- press enter to begin --");
 		}
 		
-		public function animateOneFrame(terminal:AsciiPanel):Boolean 
+		public function animate(terminal:AsciiPanel):void
 		{
-			return display.animateOneFrame(terminal);
+			trace("animate " + world.animationEffects.length);
+			
+			draw(terminal);
+			
+			var didUpdate:Boolean = false;
+			while (world.animationEffects.length > 0 && !didUpdate)
+			{
+				world.animate();
+				
+				if (display.drawAnimations(terminal))
+					didUpdate = true;
+			}
+			
+			if (world.animationEffects.length > 0 || didUpdate)
+			{
+				terminal.paint();
+				RL.animate()
+			}
 		}
 	}
 }

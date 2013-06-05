@@ -84,6 +84,8 @@ package
 				playerColor = lerp(ice, playerColor, 0.80);
 			terminal.write("@", player.position.x, player.position.y, playerColor, bg(player.position.x, player.position.y));
 			
+			drawAnimations(terminal);
+			
 			drawHud(terminal);
 			
 			if (header != null)
@@ -99,7 +101,7 @@ package
 		private static var SW_NE:String = "/";
 		private static var floor_arrow:String = String.fromCharCode(24); // (94);
 		
-		public function animateOneFrame(terminal:AsciiPanel):Boolean 
+		public function drawAnimations(terminal:AsciiPanel):Boolean 
 		{
 			var didDrawAny:Boolean = false;
 			
