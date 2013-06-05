@@ -18,9 +18,10 @@ package screens
 			bind('up', function():void { callback(0, -1); exit(); } );
 			bind('down', function():void { callback(0, 1); exit(); } );
 			bind('escape', function():void { exit(); } );
+			bind('draw', draw);
 		}
 		
-		public override function draw(terminal:AsciiPanel):void 
+		public function draw(terminal:AsciiPanel):void 
 		{
 			terminal.write("Which direction?", 2, 78, 0xffffff);
 		}

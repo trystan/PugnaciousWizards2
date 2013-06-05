@@ -47,6 +47,7 @@ package screens
 			bind('8', function():void { player.castSpell(7, nextTurn); } );
 			bind('9', function():void { player.castSpell(8, nextTurn); } );
 			
+			bind('draw', draw);
 			bind('animate', animate);
 			
 			RL.current.interruptAnimations = false;
@@ -70,7 +71,7 @@ package screens
 				RL.current.animate();
 		}
 		
-		public override function draw(terminal:AsciiPanel):void
+		public function draw(terminal:AsciiPanel):void
 		{
 			display.draw(terminal, "Pugnacious Wizards 2", "-- press enter to begin --");
 		}

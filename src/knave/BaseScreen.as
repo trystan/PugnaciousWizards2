@@ -1,7 +1,5 @@
 package knave 
 {
-	import com.headchant.asciipanel.AsciiPanel;
-	
 	public class BaseScreen implements Screen
 	{
 		private var bindings:Bindings = new Bindings();
@@ -12,14 +10,7 @@ package knave
 		}
 		public function trigger(message:String, args:Array=null):void 
 		{
-			if (args == null)
-				args = [];
-				
 			bindings.trigger(message, args);
-		}
-		
-		public function draw(terminal:AsciiPanel):void
-		{
 		}
 		
 		public function enter(newScreen:Screen):void 

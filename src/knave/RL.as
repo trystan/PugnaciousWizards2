@@ -4,7 +4,6 @@ package knave
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
-	import knave.Screen;
 	
 	public class RL extends Sprite implements Screen
 	{
@@ -13,9 +12,9 @@ package knave
 		private var screenStack:Array = [];
 		private var bindings:Bindings = new Bindings();
 		private var terminal:AsciiPanel;
-		
 		private var keyboardEvent:KeyboardEvent = null;
-		private var isAnimating:Boolean;
+		private var isAnimating:Boolean = false;
+		
 		public var interruptAnimations:Boolean = false;
 		
 		public function RL(terminal:AsciiPanel)
@@ -36,6 +35,12 @@ package knave
 			stage.addEventListener(Event.ENTER_FRAME, onTick);
 		}
 		
+		private function onKeyDown(e:KeyboardEvent):void 
+		{
+			if (keyboardEvent != null && !isAnimating || interruptAnimations)
+				keyboardEvent = e;
+		}
+		
 		private function onTick(e:Event):void 
 		{
 			var update:Boolean = false;
@@ -54,16 +59,7 @@ package knave
 			}
 			
 			if (update)
-				draw(terminal);
-		}
-		
-		private function onKeyDown(e:KeyboardEvent):void 
-		{
-			if (isAnimating && !interruptAnimations)
-				return;
-			
-			if (keyboardEvent == null)
-				keyboardEvent = e;
+				draw();
 		}
 		
 		private function processKeyboardEvent():void
@@ -98,15 +94,19 @@ package knave
 			trigger(key, [event]);
 		}
 		
+		private function draw():void
+		{
+			for (var i:int = screenStack.length - 1; i >= 0; i--)
+				screenStack[i].trigger('draw', [terminal]);
+			terminal.paint();
+		}
+		
 		public function bind(message:String, messageOrHandler:Object):void
 		{
 			bindings.bind(message, messageOrHandler);
 		}
 		public function trigger(message:String, args:Array=null):void
 		{
-			if (args == null)
-				args = [];
-				
 			bindings.trigger(message, args);
 			if (screenStack.length > 0)
 				screenStack[0].trigger(message, args);
@@ -117,28 +117,21 @@ package knave
 			isAnimating = true;
 		}
 		
-		public function draw(terminal:AsciiPanel):void
-		{
-			for (var i:int = screenStack.length - 1; i >= 0; i--)
-				screenStack[i].draw(terminal);
-			terminal.paint();
-		}
-		
 		public function enter(newScreen:Screen):void
 		{
 			screenStack.unshift(newScreen);
-			draw(terminal);
+			draw();
 		}
 		public function exit():void
 		{
 			screenStack.shift();
-			draw(terminal);
+			draw();
 		}
 		public function switchTo(newScreen:Screen):void
 		{
 			screenStack.shift();
 			screenStack.unshift(newScreen);
-			draw(terminal);
+			draw();
 		}
 	}
 }

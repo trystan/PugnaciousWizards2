@@ -6,7 +6,6 @@ package knave
 	{
 		private var messageQueue:Array = [];
 		private var isProcessingMessages:Boolean = false;
-		
 		private var bindings:Dictionary = new Dictionary();
 		
 		public function bind(message:String, messageOrHandler:Object):void
@@ -51,6 +50,9 @@ package knave
 		
 		private function callFunc(func:Function, args:Array):void
 		{
+			if (args == null)
+				args = [];
+				
 			switch (args.length)
 			{
 				case 0: func(); break;

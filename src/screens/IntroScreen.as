@@ -31,7 +31,9 @@ package screens
 			
 			bind('enter', function():void { switchTo(new PlayScreen()); } );
 			bind('step', autoPlay);
+			bind('draw', draw);
 			bind('animate', animate);
+			
 			RL.current.interruptAnimations = true;
 			
 			setTimeout(RL.current.trigger, 1000, 'step');
@@ -50,7 +52,7 @@ package screens
 				RL.current.animate();
 		}
 		
-		public override function draw(terminal:AsciiPanel):void
+		public function draw(terminal:AsciiPanel):void
 		{
 			display.draw(terminal, "Pugnacious Wizards 2", "-- press enter to begin --");
 		}
@@ -69,13 +71,9 @@ package screens
 			}
 			
 			if (world.animationEffects.length > 0 || didUpdate)
-			{
 				RL.current.animate()
-			}
 			else
-			{
 				setTimeout(RL.current.trigger, 1000 / 60.0, 'step');
-			}
 		}
 	}
 }

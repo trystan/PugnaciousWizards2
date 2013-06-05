@@ -25,6 +25,7 @@ package screens
 			
 			bind('escape', function():void { exit(); } );
 			bind('enter', function():void { callback(tx, ty); exit(); } );
+			bind('draw', draw);
 		}
 		
 		private function moveBy(mx:int, my:int):void 
@@ -33,7 +34,7 @@ package screens
 			ty += my;
 		}
 		
-		public override function draw(terminal:AsciiPanel):void 
+		public function draw(terminal:AsciiPanel):void 
 		{
 			terminal.write("Which location?", 2, 78, 0xffffff);
 			terminal.write("X", tx, ty, 0xffffff);

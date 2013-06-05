@@ -16,9 +16,10 @@ package screens
 			this.world = world;
 			
 			bind('enter', function():void { switchTo(new PlayScreen()); } );
+			bind('draw', draw);
 		}
 		
-		public override function draw(terminal:AsciiPanel):void
+		public function draw(terminal:AsciiPanel):void
 		{
 			terminal.clear();
 			terminal.write("You died!", 2, 2);
