@@ -16,7 +16,7 @@ package spells
 			this.player = player;
 			this.callback = callback;
 			
-			RL.enter(new TargetScreen(player, cast));
+			RL.current.enter(new TargetScreen(player, cast));
 		}
 		
 		public function cast(x:int, y:int):void

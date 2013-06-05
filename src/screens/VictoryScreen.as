@@ -22,7 +22,6 @@ package screens
 			terminal.clear();
 			terminal.write("You won!", 2, 2);
 			terminal.writeCenter("-- press enter to restart --", 78);
-			terminal.paint();
 		}
 	}
 }

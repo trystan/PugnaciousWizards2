@@ -50,7 +50,6 @@ package screens
 			bind('animate', animate);
 			
 			RL.current.interruptAnimations = false;
-			RL.current.ignoreInputDuringAnimations = true;
 		}
 		
 		private function moveBy(mx:int, my:int):void
@@ -68,7 +67,7 @@ package screens
 			else if (world.playerHasWon)
 				switchTo(new VictoryScreen(player, world));
 			else
-				RL.animate();
+				RL.current.animate();
 		}
 		
 		public override function draw(terminal:AsciiPanel):void
@@ -78,8 +77,6 @@ package screens
 		
 		public function animate(terminal:AsciiPanel):void
 		{
-			trace("animate " + world.animationEffects.length);
-			
 			draw(terminal);
 			
 			var didUpdate:Boolean = false;
@@ -92,10 +89,7 @@ package screens
 			}
 			
 			if (world.animationEffects.length > 0 || didUpdate)
-			{
-				terminal.paint();
-				RL.animate()
-			}
+				RL.current.animate();
 		}
 	}
 }

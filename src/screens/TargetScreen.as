@@ -31,14 +31,12 @@ package screens
 		{
 			tx += mx;
 			ty += my;
-			RL.trigger('redraw');
 		}
 		
 		public override function draw(terminal:AsciiPanel):void 
 		{
 			terminal.write("Which location?", 2, 78, 0xffffff);
 			terminal.write("X", tx, ty, 0xffffff);
-			terminal.paint();
 		}
 	}
 }

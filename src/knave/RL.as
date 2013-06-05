@@ -10,14 +10,13 @@ package knave
 	{
 		public static var current:RL;
 		
-		public var screenStack:Array = [];
-		public var bindings:Bindings = new Bindings();
-		public var terminal:AsciiPanel;
+		private var screenStack:Array = [];
+		private var bindings:Bindings = new Bindings();
+		private var terminal:AsciiPanel;
 		
-		public var keyboardQueue:Array = [];
-		public var isAnimating:Boolean;
+		private var keyboardEvent:KeyboardEvent = null;
+		private var isAnimating:Boolean;
 		public var interruptAnimations:Boolean = false;
-		public var ignoreInputDuringAnimations:Boolean = false;
 		
 		public function RL(terminal:AsciiPanel)
 		{
@@ -41,10 +40,10 @@ package knave
 		{
 			var update:Boolean = false;
 			
-			if (keyboardQueue.length > 0 && (!isAnimating || interruptAnimations))
+			if (keyboardEvent != null && (!isAnimating || interruptAnimations))
 			{
 				update = true;
-				processKeyboardEvent(keyboardQueue.shift());
+				processKeyboardEvent();
 			}
 			
 			if (isAnimating)
@@ -60,17 +59,24 @@ package knave
 		
 		private function onKeyDown(e:KeyboardEvent):void 
 		{
-			if (isAnimating && ignoreInputDuringAnimations)
+			if (isAnimating && !interruptAnimations)
 				return;
-				
-			keyboardQueue.push(e);
+			
+			if (keyboardEvent == null)
+				keyboardEvent = e;
 		}
 		
-		private function processKeyboardEvent(e:KeyboardEvent):void
+		private function processKeyboardEvent():void
 		{
+			if (keyboardEvent == null)
+				return;
+				
 			var key:String = "";
+			var event:KeyboardEvent = keyboardEvent;
 			
-			switch (e.keyCode)
+			keyboardEvent = null;
+			
+			switch (event.keyCode)
 			{
 				case 38: key += "up"; break;
 				case 39: key += "right"; break;
@@ -83,21 +89,24 @@ package knave
 				case 27: key += "escape"; break;
 				case 27: key += "caps lock"; break;
 				case 16: return; // shift
-				default: key += String.fromCharCode(e.charCode);
+				default: key += String.fromCharCode(event.charCode);
 			}
 			
 			if (key.length == 0)
 				return;
 			
-			trigger(key, [e]);
+			trigger(key, [event]);
 		}
 		
 		public function bind(message:String, messageOrHandler:Object):void
 		{
 			bindings.bind(message, messageOrHandler);
 		}
-		public function trigger(message:String, args:Array):void
+		public function trigger(message:String, args:Array=null):void
 		{
+			if (args == null)
+				args = [];
+				
 			bindings.trigger(message, args);
 			if (screenStack.length > 0)
 				screenStack[0].trigger(message, args);
@@ -130,31 +139,6 @@ package knave
 			screenStack.shift();
 			screenStack.unshift(newScreen);
 			draw(terminal);
-		}
-		
-		public static function bind(message:String, messageOrHandler:Object):void
-		{
-			current.bind(message, messageOrHandler);
-		}
-		public static function trigger(message:String, args:Array=null):void
-		{
-			current.trigger(message, args == null ? [] : args);
-		}
-		public static function enter(newScreen:Screen):void
-		{
-			current.enter(newScreen);
-		}
-		public static function exit():void
-		{
-			current.exit();
-		}
-		public static function switchTo(newScreen:Screen):void
-		{
-			current.switchTo(newScreen);
-		}
-		public static function animate():void
-		{
-			current.animate();
 		}
 	}
 }

@@ -191,9 +191,6 @@ package
 					terminal.write(floor_arrow, effect.x, effect.y, metal_fg, bg(effect.x, effect.y));
 				}
 			}
-			if (didDrawAny)
-				terminal.paint();
-				
 			return didDrawAny;
 		}
 		

@@ -38,7 +38,6 @@ package knave
 				var message:String = item.message;
 				var args:Array = item.args;
 				
-				trace("-- " + message);
 				for each (var thing:Object in bindings[message])
 				{
 					if (thing is String)

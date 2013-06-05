@@ -23,7 +23,6 @@ package screens
 		public override function draw(terminal:AsciiPanel):void 
 		{
 			terminal.write("Which direction?", 2, 78, 0xffffff);
-			terminal.paint();
 		}
 	}
 }

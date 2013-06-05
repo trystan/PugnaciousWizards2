@@ -10,8 +10,11 @@ package knave
 		{
 			bindings.bind(message, messageOrHandler);
 		}
-		public function trigger(message:String, args:Array):void 
+		public function trigger(message:String, args:Array=null):void 
 		{
+			if (args == null)
+				args = [];
+				
 			bindings.trigger(message, args);
 		}
 		
@@ -21,15 +24,15 @@ package knave
 		
 		public function enter(newScreen:Screen):void 
 		{
-			RL.enter(newScreen);
+			RL.current.enter(newScreen);
 		}
 		public function exit():void 
 		{
-			RL.exit();
+			RL.current.exit();
 		}
 		public function switchTo(newScreen:Screen):void 
 		{
-			RL.switchTo(newScreen);
+			RL.current.switchTo(newScreen);
 		}
 	}
 }

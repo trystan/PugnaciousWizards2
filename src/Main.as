@@ -16,35 +16,22 @@ package
 	
 	public class Main extends Sprite 
 	{
-		private static var current:Main;
-		
-		private var rl:RL;
-		
-		private var animationList:Array = [];
-		private var animationInterval:int = -1;
-		private var blockInput:Boolean = false;
-		private var terminal:AsciiPanel;
-			
-		public function Main():void 
+		public function Main():void
 		{
-			terminal = new AsciiPanel(100, 80);
+			var terminal:AsciiPanel = new AsciiPanel(100, 80);
 			terminal.useRasterFont(AsciiPanel.codePage437_8x8, 8, 8);
 			
-			rl = new RL(terminal);
+			var rl:RL = new RL(terminal);
 			rl.bind('a', 'left');
 			rl.bind('d', 'right');
 			rl.bind('w', 'up');
 			rl.bind('s', 'down');
-			rl.bind('redraw', function():void { rl.draw(terminal); } );
-			rl.bind('reanimate', function():void { rl.trigger('animate', [terminal]); } );
 			rl.enter(new IntroScreen());
 			
 			addChild(rl);
 			
 			//if (!runTests())
 			//	return;
-			
-			current = this;
 		}
 		
 		private function runTests():Boolean

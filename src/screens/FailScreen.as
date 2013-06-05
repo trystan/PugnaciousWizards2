@@ -15,7 +15,7 @@ package screens
 			this.player = player;
 			this.world = world;
 			
-			bind('enter', function():void { RL.switchTo(new PlayScreen()); } );
+			bind('enter', function():void { switchTo(new PlayScreen()); } );
 		}
 		
 		public override function draw(terminal:AsciiPanel):void
@@ -23,7 +23,6 @@ package screens
 			terminal.clear();
 			terminal.write("You died!", 2, 2);
 			terminal.writeCenter("-- press enter to restart --", 78);
-			terminal.paint();
 		}
 	}
 }
