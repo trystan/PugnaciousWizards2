@@ -20,9 +20,10 @@ package features
 			this.y = y;
 			this.payload = PayloadFactory.random();
 			
-			if (payload is Ice)
-				world.addTile(x, y, Tile.ice_tower);
-			else if (payload is Fire)
+			while (payload is Ice)
+				payload = PayloadFactory.random();
+			
+			if (payload is Fire)
 				world.addTile(x, y, Tile.fire_tower);
 			else
 				world.addTile(x, y, Tile.tower);

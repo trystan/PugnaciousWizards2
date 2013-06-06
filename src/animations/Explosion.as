@@ -10,6 +10,7 @@ package animations
 		public var frontiers:Array = [];
 		public var next:Array = [];
 		public var occupied:Array = [];
+		public var max:int = 7 * 7;
 		
 		public function Explosion(world:World, x:int, y:int) 
 		{
@@ -22,7 +23,7 @@ package animations
 		
 		public function get done():Boolean 
 		{
-			return tiles.length > 36 || frontiers.length == 0;
+			return tiles.length > max || frontiers.length == 0;
 		}
 		
 		public function update():void 
@@ -47,21 +48,22 @@ package animations
 			{
 				var p:Point = frontiers.shift();
 				
-				if (world.getTile(p.x, p.y).burnChance > 0)
-					world.addFeature(new BurningFire(world, p.x, p.y));
+				if (Math.random() < 0.9)
+					spreadTo(new Point(p.x, p.y - 1));
+				if (Math.random() < 0.9)
+					spreadTo(new Point(p.x, p.y + 1));
+				if (Math.random() < 0.9)
+					spreadTo(new Point(p.x - 1, p.y));
+				if (Math.random() < 0.9)
+					spreadTo(new Point(p.x + 1, p.y));
 				
-				spreadTo(new Point(p.x, p.y - 1));
-				spreadTo(new Point(p.x, p.y + 1));
-				spreadTo(new Point(p.x - 1, p.y));
-				spreadTo(new Point(p.x + 1, p.y));
-				
-				if (Math.random() < 0.714)
+				if (Math.random() < 0.2)
 					spreadTo(new Point(p.x - 1, p.y - 1));
-				if (Math.random() < 0.714)
+				if (Math.random() < 0.2)
 					spreadTo(new Point(p.x + 1, p.y + 1));
-				if (Math.random() < 0.714)
+				if (Math.random() < 0.2)
 					spreadTo(new Point(p.x - 1, p.y + 1));
-				if (Math.random() < 0.714)
+				if (Math.random() < 0.2)
 					spreadTo(new Point(p.x + 1, p.y - 1));
 			}
 			while (next.length > 0)
@@ -71,10 +73,13 @@ package animations
 		private function spreadTo(n:Point):void 
 		{
 			if (world.blocksMovement(n.x, n.y)
-					|| tiles.length > 36
+					|| tiles.length > max
 					|| occupied.indexOf(n.x + "," + n.y) > -1)
 				return;
 			
+			if (world.getTile(n.x, n.y).burnChance > 0)
+				world.addFeature(new BurningFire(world, n.x, n.y));
+				
 			tiles.push(n);
 			next.push(n);
 			occupied.push(n.x + "," + n.y);

@@ -274,7 +274,7 @@ package
 				case Tile.door_opened:
 				case Tile.door_opened_fire: return "/";
 				case Tile.door_closed:
-				case Tile.door_opened_fire: return "+";
+				case Tile.door_closed_fire: return "+";
 				case Tile.wall: return "#";
 				case Tile.floor_light: return dot;
 				case Tile.floor_dark: return dot;
