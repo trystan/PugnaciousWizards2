@@ -26,6 +26,14 @@ package
 			rl.bind('d', 'right');
 			rl.bind('w', 'up');
 			rl.bind('s', 'down');
+			rl.bind('h', 'left');
+			rl.bind('j', 'down');
+			rl.bind('k', 'up');
+			rl.bind('l', 'right');
+			rl.bind('y', 'up left');
+			rl.bind('u', 'up right');
+			rl.bind('b', 'down left');
+			rl.bind('n', 'down right');
 			rl.enter(new IntroScreen());
 			
 			addChild(rl);

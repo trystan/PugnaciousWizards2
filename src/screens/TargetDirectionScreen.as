@@ -17,6 +17,10 @@ package screens
 			bind('right', function():void { callback(1, 0); exit(); } );
 			bind('up', function():void { callback(0, -1); exit(); } );
 			bind('down', function():void { callback(0, 1); exit(); } );
+			bind('up left', function():void { callback(-1, -1); exit(); } );
+			bind('up right', function():void { callback(1, -1); exit(); } );
+			bind('down left', function():void { callback(-1, 1); exit(); } );
+			bind('down right', function():void { callback(1, 1); exit(); } );
 			bind('escape', function():void { exit(); } );
 			bind('draw', draw);
 		}

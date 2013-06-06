@@ -37,6 +37,11 @@ package screens
 			bind('left', function():void { moveBy(-1, 0); } );
 			bind('right', function():void { moveBy(1, 0); } );
 			
+			bind('up left', function():void { moveBy(-1, -1); } );
+			bind('up right', function():void { moveBy(1, -1); } );
+			bind('down left', function():void { moveBy(-1, 1); } );
+			bind('down right', function():void { moveBy(1, 1); } );
+			
 			bind('1', function():void { player.castSpell(0, nextTurn); } );
 			bind('2', function():void { player.castSpell(1, nextTurn); } );
 			bind('3', function():void { player.castSpell(2, nextTurn); } );
@@ -73,7 +78,7 @@ package screens
 		
 		public function draw(terminal:AsciiPanel):void
 		{
-			display.draw(terminal, "Pugnacious Wizards 2", "-- press enter to begin --");
+			display.draw(terminal);
 		}
 		
 		public function animate(terminal:AsciiPanel):void

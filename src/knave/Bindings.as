@@ -40,7 +40,7 @@ package knave
 				for each (var thing:Object in bindings[message])
 				{
 					if (thing is String)
-						trigger(thing as String, args[0]);
+						RL.current.trigger(thing as String, [args[0]]);
 					else if (thing is Function)
 						callFunc(thing as Function, args);
 				}
