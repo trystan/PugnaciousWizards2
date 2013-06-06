@@ -1,5 +1,6 @@
 package  
 {
+	import features.BurningFire;
 	import flash.geom.Point;
 	import spells.FireJump;
 	import spells.Spell;
@@ -65,6 +66,9 @@ package
 		{
 			if (fireCounter > 0)
 			{
+				if (Math.random() < 0.1)
+					world.addFeature(new BurningFire(world, position.x, position.y));
+				
 				takeDamage(2);
 				fireCounter--;
 			}
@@ -151,7 +155,8 @@ package
 				amount -= overlap;
 			}
 			
-			freezeCounter += amount;
+			if (freezeCounter == 0)
+				freezeCounter += amount;
 		}
 	}
 }

@@ -44,6 +44,7 @@ package
 		private var ice:int = hsv(220, 33, 66);
 		private var fire:int = hsv(15, 66, 66);
 		private var magic:int = hsv(260, 66, 99);
+		private var ash:int = hsv(30, 66, 10);
 		
 		public function WorldDisplay(player:Player, world:World) 
 		{
@@ -264,6 +265,8 @@ package
 			switch (world.getTile(x, y))
 			{
 				case Tile.grass: return dot;
+				case Tile.grass_fire: return dot;
+				case Tile.burnt_ground: return dot;
 				case Tile.tree: return tree;
 				case Tile.tree_fire_3: return tree;
 				case Tile.tree_fire_2: return tree;
@@ -304,6 +307,7 @@ package
 			switch (world.getTile(x, y))
 			{
 				case Tile.grass: return grassForegroundBitmap.getPixel(x, y);
+				case Tile.grass_fire: return lerp(fire, grassForegroundBitmap.getPixel(x, y), 0.5);
 				case Tile.tree: return treeBitmap.getPixel(x, y);
 				case Tile.tree_fire_3: return lerp(fire, treeBitmap.getPixel(x, y), 0.2);
 				case Tile.tree_fire_2: return lerp(fire, treeBitmap.getPixel(x, y), 0.4);
@@ -333,6 +337,7 @@ package
 				case Tile.fire_tower_3:
 				case Tile.fire_tower_4:
 					return fire;
+				case Tile.burnt_ground: return lerp(ash, grassForegroundBitmap.getPixel(x, y), 0.5);
 				default: return 0xff0000;
 			}
 		}
@@ -347,6 +352,7 @@ package
 			switch (world.getTile(x, y))
 			{
 				case Tile.grass: return grassBackgroundBitmap.getPixel(x, y);
+				case Tile.grass_fire: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.5);
 				case Tile.tree: return grassBackgroundBitmap.getPixel(x, y);
 				case Tile.tree_fire_3: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.3);
 				case Tile.tree_fire_2: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.4);
@@ -374,6 +380,7 @@ package
 				case Tile.tower_3:
 				case Tile.tower_4:
 					return stone_fg;
+				case Tile.burnt_ground: return lerp(ash, grassBackgroundBitmap.getPixel(x, y), 0.5);
 				default: return 0x00ff00;
 			}
 		}

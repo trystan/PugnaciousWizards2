@@ -17,13 +17,17 @@ package features
 		
 		override public function update():void
 		{
-			if (Math.random() < 0.25 && world.getTile(x, y - 1) == Tile.tree)
+			var creature:Player = world.getCreatureAt(x, y);
+			if (creature != null)
+				creature.burn(2);
+			
+			if (Math.random() < world.getTile(x, y - 1).burnChance)
 				world.addFeature(new BurningFire(world, x, y - 1));
-			if (Math.random() < 0.25 && world.getTile(x, y + 1) == Tile.tree)
+			if (Math.random() < world.getTile(x, y + 1).burnChance)
 				world.addFeature(new BurningFire(world, x, y + 1));
-			if (Math.random() < 0.25 && world.getTile(x - 1, y) == Tile.tree)
+			if (Math.random() < world.getTile(x - 1, y).burnChance)
 				world.addFeature(new BurningFire(world, x- 1, y));
-			if (Math.random() < 0.25 && world.getTile(x + 1, y) == Tile.tree)
+			if (Math.random() < world.getTile(x + 1, y).burnChance)
 				world.addFeature(new BurningFire(world, x + 1, y));
 				
 			switch (world.getTile(x, y))
@@ -56,7 +60,17 @@ package features
 					break;
 				case Tile.tree_fire_1:
 					if (Math.random() < 0.5)
-						world.addTile(x, y, Tile.grass);
+						world.addTile(x, y, Tile.burnt_ground);
+					break;
+				case Tile.grass:
+					if (Math.random() < 0.2)
+						world.addTile(x, y, Tile.grass_fire);
+					else
+						world.removeFeature(this);
+					break;
+				case Tile.grass_fire:
+					if (Math.random() < 0.33)
+						world.addTile(x, y, Tile.burnt_ground);
 					break;
 				default:
 					world.removeFeature(this);

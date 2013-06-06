@@ -47,7 +47,8 @@ package animations
 			{
 				var p:Point = frontiers.shift();
 				
-				world.addFeature(new BurningFire(world, p.x, p.y));
+				if (world.getTile(p.x, p.y).burnChance > 0)
+					world.addFeature(new BurningFire(world, p.x, p.y));
 				
 				spreadTo(new Point(p.x, p.y - 1));
 				spreadTo(new Point(p.x, p.y + 1));

@@ -37,7 +37,7 @@ package knave
 		
 		private function onKeyDown(e:KeyboardEvent):void 
 		{
-			if (keyboardEvent != null && !isAnimating || interruptAnimations)
+			//if (keyboardEvent != null && (!isAnimating || interruptAnimations))
 				keyboardEvent = e;
 		}
 		
