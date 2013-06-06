@@ -45,7 +45,7 @@ package animations
 		{
 			ticks--;
 			
-			if (!(vx == 0 && vy == 0))
+			if (!(vx == 0 && vy == 0) && !world.getTile(x, y).blocksMovement)
 			{
 				new MagicMissileProjectileTrail(world, x, y, direction, 5);
 			}
@@ -86,6 +86,8 @@ package animations
 				{
 					vx *= -1;
 					vy *= -1;
+					x += vx;
+					y += vy;
 				}
 				else
 				{		

@@ -12,7 +12,8 @@ package payloads
 		
 		public function hitTile(world:World, x:int, y:int):void 
 		{
-			world.addFeature(new BurningFire(world, x, y));
+			if (world.getTile(x, y).burnChance > 0)
+				world.addFeature(new BurningFire(world, x, y));
 		}
 	}
 }

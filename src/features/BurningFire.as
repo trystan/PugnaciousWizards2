@@ -60,8 +60,9 @@ package features
 					break;
 				case Tile.tree_fire_1:
 					if (Math.random() < 0.5)
-						world.addTile(x, y, Tile.burnt_ground);
+						world.addTile(x, y, Tile.grass_fire);
 					break;
+					
 				case Tile.grass:
 					if (Math.random() < 0.2)
 						world.addTile(x, y, Tile.grass_fire);
@@ -72,6 +73,7 @@ package features
 					if (Math.random() < 0.33)
 						world.addTile(x, y, Tile.burnt_ground);
 					break;
+					
 				default:
 					world.removeFeature(this);
 			}
