@@ -1,6 +1,7 @@
 package  
 {
 	import spells.FireJump;
+	import spells.HealAndWeaken;
 	import spells.MagicMissile;
 	public class WorldGen 
 	{
@@ -85,8 +86,9 @@ package
 			
 			world.rooms = roomList;
 			
-			world.addItem(3, 36, new Scroll(new MagicMissile()));
 			world.addItem(2, 35, new Scroll(new FireJump()));
+			world.addItem(3, 36, new Scroll(new MagicMissile()));
+			world.addItem(2, 38, new Scroll(new HealAndWeaken()));
 		}
 		
 		private function addRooms():void 
