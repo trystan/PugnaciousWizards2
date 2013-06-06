@@ -14,7 +14,7 @@ package
 		
 		public var health:int;
 		public var maxHealth:int;
-		public var visionRadius:int = 11;
+		public var visionRadius:int = 9;
 		public var bleedingCounter:int = 0;
 		private var vision:SimpleLineOfSight;
 		

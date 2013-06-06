@@ -30,7 +30,7 @@ package
 		
 		public function canSee(x:int, y:int):Boolean
 		{
-			var r:int = viewer.visionRadius;
+			var r:int = Math.max(1, viewer.visionRadius);
 			
 			var visible:Boolean = Math.abs(viewer.position.x - x) < r && Math.abs(viewer.position.y - y) < r;
 			
