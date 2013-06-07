@@ -21,9 +21,9 @@ package screens
 		
 		public function draw(terminal:AsciiPanel):void
 		{
-			terminal.clear();
-			terminal.write("You have died.", 2, 2);
-			terminal.write(player.causeOfDeath, 4, 4);
+			//terminal.clear();
+			terminal.writeCenter("You have died.", 2);
+			terminal.writeCenter(player.causeOfDeath, 4);
 			terminal.writeCenter("-- press enter to restart --", 78);
 		}
 	}

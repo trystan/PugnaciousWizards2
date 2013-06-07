@@ -9,6 +9,13 @@ package themes
 				westEast(room, world);
 			else
 				northSouth(room, world);
+				
+			for (var i:int = 0; i < 7; i++)
+			{
+				var x:int = Math.random() * 7;
+				var y:int = Math.random() * 7;
+				world.addBlood(room.worldPosition.x + x, room.worldPosition.y + y);
+			}
 		}	
 		
 		private function northSouth(room:Room, world:World):void 
@@ -19,7 +26,7 @@ package themes
 			
 			for (x = 0; x < 7; x++)
 			{
-				y = Math.random() * 8;
+				y = Math.random() * 7;
 				world.addFeature(new MovingWall(world, room.worldPosition.x + x, room.worldPosition.y + y, 0, 1));
 			}
 		}
@@ -32,7 +39,7 @@ package themes
 			
 			for (y = 0; y < 7; y++)
 			{
-				x = Math.random() * 8;
+				x = Math.random() * 7;
 				world.addFeature(new MovingWall(world, room.worldPosition.x + x, room.worldPosition.y + y, 1, 0));
 			}
 		}

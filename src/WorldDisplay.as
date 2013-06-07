@@ -322,7 +322,7 @@ package
 				case Tile.door_opened_fire: return lerp(fire, wood_bg, 0.3);
 				case Tile.door_closed_fire: return lerp(fire, wood_bg, 0.3);
 				case Tile.wall: return stone_fg;
-				case Tile.moving_wall: return lerp(0x000000, stone_fg, 0.2);
+				case Tile.moving_wall: return lerp(0x000000, stone_fg, 0.66);
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
 				case Tile.ice_tower:
@@ -372,7 +372,7 @@ package
 				case Tile.door_opened_fire: return lerp(fire, wood_bg, 0.5);
 				case Tile.door_closed_fire: return lerp(fire, wood_bg, 0.5);
 				case Tile.wall: return stone_bg;
-				case Tile.moving_wall: return lerp(0x000000, stone_bg, 0.2);
+				case Tile.moving_wall: return lerp(0x000000, stone_bg, 0.33);
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;
 				case Tile.ice_tower:

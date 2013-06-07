@@ -66,6 +66,9 @@ package
 		
 		public function update():void
 		{
+			if (health < 1)
+				return;
+				
 			if (fireCounter > 0)
 			{
 				if (Math.random() < 0.1)

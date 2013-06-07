@@ -61,11 +61,14 @@ package
 				world.addWall(position.x * 8 + 5, position.y * 8 + 11);
 			}
 			
-			while (Math.random() < 0.33)
+			var chance:Number = 66;
+			while (Math.random() < chance)
 			{
 				var px:int = Math.random() * 5 + 6;
 				var py:int = Math.random() * 5 + 6;
 				world.addWall(position.x * 8 + px, position.y * 8 + py);
+				
+				chance = 0.33;
 			}
 		}
 		

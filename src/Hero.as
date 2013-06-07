@@ -57,7 +57,7 @@ package
 			moveBy(clamp(next.x - position.x), clamp(next.y - position.y));
 			
 			if (Math.abs(next.x - position.x) + Math.abs(next.y - position.y) > 0)
-				path.unshift(next);
+				pathToNextTarget();
 			
 			if (path.length == 1 && world.isOpenedDoor(path[0].x, path[0].y))
 				path.shift();
