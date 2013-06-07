@@ -28,7 +28,7 @@ package screens
 			bind('down right', function():void { moveBy(1, 1); } );
 			
 			bind('escape', function():void { exit(); } );
-			bind('enter', function():void { callback(tx, ty); exit(); } );
+			bind('enter', function():void { callback(player, tx, ty); exit(); } );
 			bind('draw', draw);
 		}
 		

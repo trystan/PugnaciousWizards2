@@ -1,6 +1,8 @@
 package  
 {
 	import flash.geom.Point;
+	import spells.Spell;
+	import spells.SpellCastAction;
 	
 	public class Hero extends Player
 	{
@@ -13,6 +15,16 @@ package
 		
 		public function doAi():void
 		{
+			for each (var spell:Spell in magic)
+			{
+				var action:SpellCastAction = spell.aiGetAction(this);
+				if (Math.random() < action.percentChance)
+				{
+					action.callback();
+					return;
+				}
+			}
+			
 			if (path.length == 0)
 				pathToNextTarget();
 			

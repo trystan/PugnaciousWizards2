@@ -6,23 +6,30 @@ package spells
 	
 	public class MagicMissile implements Spell
 	{
-		private var player:Player;
 		private var callback:Function;
 		
 		public function get name():String { return "Magic missile"; }
 		
 		public function playerCast(player:Player, callback:Function):void
 		{
-			this.player = player;
 			this.callback = callback;
 			
-			RL.current.enter(new TargetDirectionScreen(cast));
+			RL.current.enter(new TargetDirectionScreen(player, cast));
 		}
 		
-		public function cast(x:int, y:int):void
+		public function cast(caster:Player, x:int, y:int):void
 		{
-			new MagicMissileProjectile(player.world, player.position.x, player.position.y, x, y);
-			callback();
+			new MagicMissileProjectile(caster.world, caster.position.x, caster.position.y, x, y);
+			if (callback != null)
+				callback();
+		}
+		
+		public function aiGetAction(ai:Hero):SpellCastAction
+		{
+			return new SpellCastAction(0, function():void
+			{
+				new MagicMissile().cast(ai, ai.position.x, ai.position.y);
+			});
 		}
 	}
 }
