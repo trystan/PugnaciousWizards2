@@ -55,7 +55,7 @@ package
 		
 		public function blocksMovement(x:int, y:int):Boolean
 		{
-			return isOutOfBounds(x, y) || isWall(x, y);
+			return isOutOfBounds(x, y) || getTile(x, y).blocksMovement;
 		}
 		
 		public function addTile(x:int, y:int, tile:Tile):void
@@ -97,12 +97,12 @@ package
 		
 		public function isClosedDoor(x:int, y:int):Boolean 
 		{
-			return getTile(x, y) == Tile.door_closed;
+			return getTile(x, y) == Tile.door_closed || getTile(x, y) == Tile.door_closed_fire;
 		}
 		
 		public function isOpenedDoor(x:int, y:int):Boolean 
 		{
-			return getTile(x, y) == Tile.door_opened;
+			return getTile(x, y) == Tile.door_opened || getTile(x, y) == Tile.door_opened_fire;
 		}
 		
 		private function isOutOfBounds(x:int, y:int):Boolean 
