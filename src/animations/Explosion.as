@@ -72,7 +72,7 @@ package animations
 		
 		private function spreadTo(n:Point):void 
 		{
-			if (world.blocksMovement(n.x, n.y)
+			if (world.getTile(n.x, n.y).blocksArrows
 					|| tiles.length > max
 					|| occupied.indexOf(n.x + "," + n.y) > -1)
 				return;

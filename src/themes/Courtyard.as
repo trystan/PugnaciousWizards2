@@ -4,6 +4,21 @@ package themes
 	{
 		public function apply(room:Room, world:World):void
 		{
+			if (Math.random() < 0.05)
+				fullOfTrees(room, world);
+			else
+				normalCourtyard(room, world);
+		}
+		
+		private function fullOfTrees(room:Room, world:World):void 
+		{
+			for (var x:int = room.position.x * 8 + 5; x < room.position.x * 8 + 12; x++)
+			for (var y:int = room.position.y * 8 + 5; y < room.position.y * 8 + 12; y++)
+				world.addTile(x, y, Tile.tree);
+		}
+		
+		private function normalCourtyard(room:Room, world:World):void 
+		{
 			for (var x:int = room.position.x * 8 + 5; x < room.position.x * 8 + 12; x++)
 			for (var y:int = room.position.y * 8 + 5; y < room.position.y * 8 + 12; y++)
 				world.addTile(x, y, Tile.grass);
