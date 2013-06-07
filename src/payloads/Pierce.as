@@ -4,7 +4,7 @@ package payloads
 	{
 		public function hit(creature:Player):void
 		{
-			creature.takeDamage(3);
+			creature.takeDamage(3, "Killed by a piercing blow.");
 		}
 		
 		public function hitTile(world:World, x:int, y:int):void 

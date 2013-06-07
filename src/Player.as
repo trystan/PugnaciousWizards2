@@ -14,6 +14,7 @@ package
 		
 		public var health:int;
 		public var maxHealth:int;
+		public var causeOfDeath:String = "";
 		public var visionRadius:int = 9;
 		public var bleedingCounter:int = 0;
 		private var vision:SimpleLineOfSight;
@@ -70,13 +71,13 @@ package
 				if (Math.random() < 0.1)
 					world.addFeature(new BurningFire(world, position.x, position.y));
 				
-				takeDamage(2);
+				takeDamage(2, "Burned to death.");
 				fireCounter--;
 			}
 			
 			if (bleedingCounter > 0)
 			{
-				takeDamage(1);
+				takeDamage(1, "Bleed to death.");
 				bleedingCounter--;
 			}
 			
@@ -117,12 +118,14 @@ package
 			(magic[index] as Spell).playerCast(this, callback);
 		}
 		
-		public function takeDamage(amount:int):void 
+		public function takeDamage(amount:int, causeOfDeath:String):void 
 		{
 			health -= amount;
 			
 			bleedingCounter += amount / 5;
 			world.addBlood(position.x, position.y, amount / 3 + 1);
+			
+			this.causeOfDeath = causeOfDeath;
 		}
 		
 		public function canSee(x:int, y:int):Boolean

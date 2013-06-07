@@ -43,7 +43,7 @@ package features
 			{
 				c.moveBy(mx, my);
 				if (world.blocksMovement(x + mx, y + my))
-					c.takeDamage(1000);
+					c.takeDamage(1000, "Crushed to death by a moving wall piece.");
 			}
 		}
 	}
