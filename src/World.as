@@ -165,7 +165,7 @@ package
 		
 		public function getCreatureAt(x:int, y:int):Player 
 		{
-			if (player.position.x == x && player.position.y == y)
+			if (player != null && player.position.x == x && player.position.y == y)
 				return player;
 				
 			return null;

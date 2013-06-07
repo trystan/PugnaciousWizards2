@@ -9,6 +9,7 @@ package themes
 			new TrapWalls(),
 			new TrapTower(),
 			new RotatingTrapTower(),
+			new MovingBlocks(),
 		];
 		
 		public static function random():RoomTheme

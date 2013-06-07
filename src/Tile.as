@@ -11,6 +11,7 @@ package
 		public static var floor_light:Tile = new Tile(false, false, false);
 		public static var floor_dark:Tile = new Tile(false, false, false);
 		public static var wall:Tile = new Tile(true, true, true);
+		public static var moving_wall:Tile = new Tile(true, true, true);
 		public static var door_closed:Tile = new Tile(false, true, true, 0.25);
 		public static var door_opened:Tile = new Tile(false, false, false, 0.25);
 		public static var door_closed_fire:Tile = new Tile(false, true, true);
@@ -35,6 +36,11 @@ package
 		static public var fire_tower_4:Tile = new Tile(true, true, false);
 		
 		static public var out_of_bounds:Tile = new Tile(true, true, true);
+		
+		static public var track_light_ns:Tile = new Tile(false, false, false);
+		static public var track_dark_ns:Tile = new Tile(false, false, false);
+		static public var track_light_we:Tile = new Tile(false, false, false);
+		static public var track_dark_we:Tile = new Tile(false, false, false);
 		
 		public var blocksMovement:Boolean;
 		public var blocksArrows:Boolean;

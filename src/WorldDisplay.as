@@ -276,6 +276,7 @@ package
 				case Tile.door_closed:
 				case Tile.door_closed_fire: return "+";
 				case Tile.wall: return "#";
+				case Tile.moving_wall: return "#";
 				case Tile.floor_light: return dot;
 				case Tile.floor_dark: return dot;
 				case Tile.ice_tower:
@@ -293,6 +294,10 @@ package
 				case Tile.ice_tower_4:
 				case Tile.fire_tower_4:
 				case Tile.tower_4: return NW_SE;
+				case Tile.track_light_ns: return String.fromCharCode(179);
+				case Tile.track_dark_ns: return String.fromCharCode(179);
+				case Tile.track_light_we: return String.fromCharCode(196);
+				case Tile.track_dark_we: return String.fromCharCode(196);
 				default: return "X";
 			}
 		}
@@ -317,6 +322,7 @@ package
 				case Tile.door_opened_fire: return lerp(fire, wood_bg, 0.3);
 				case Tile.door_closed_fire: return lerp(fire, wood_bg, 0.3);
 				case Tile.wall: return stone_fg;
+				case Tile.moving_wall: return lerp(0x000000, stone_fg, 0.2);
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
 				case Tile.ice_tower:
@@ -338,6 +344,10 @@ package
 				case Tile.fire_tower_4:
 					return fire;
 				case Tile.burnt_ground: return lerp(ash, grassForegroundBitmap.getPixel(x, y), 0.5);
+				case Tile.track_light_ns: return 0x111111;
+				case Tile.track_dark_ns: return 0x111111;
+				case Tile.track_light_we: return 0x111111;
+				case Tile.track_dark_we: return 0x111111;
 				default: return 0xff0000;
 			}
 		}
@@ -362,6 +372,7 @@ package
 				case Tile.door_opened_fire: return lerp(fire, wood_bg, 0.5);
 				case Tile.door_closed_fire: return lerp(fire, wood_bg, 0.5);
 				case Tile.wall: return stone_bg;
+				case Tile.moving_wall: return lerp(0x000000, stone_bg, 0.2);
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;
 				case Tile.ice_tower:
@@ -381,6 +392,10 @@ package
 				case Tile.tower_4:
 					return stone_fg;
 				case Tile.burnt_ground: return lerp(ash, grassBackgroundBitmap.getPixel(x, y), 0.5);
+				case Tile.track_light_ns: return tile_2;
+				case Tile.track_dark_ns: return tile_1;
+				case Tile.track_light_we: return tile_2;
+				case Tile.track_dark_we: return tile_1;
 				default: return 0x00ff00;
 			}
 		}
