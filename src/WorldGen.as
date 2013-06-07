@@ -15,6 +15,9 @@ package
 			addRooms();
 			connectRoomsAsPerfectMaze();
 			addRoomDistances();
+			
+			getRoom(0, 4).isConnectedWest = true;
+			
 			addItems();
 		}
 		
