@@ -3,6 +3,7 @@ package
 	import flash.geom.Point;
 	import spells.Spell;
 	import spells.SpellCastAction;
+	import knave.Dijkstra;
 	
 	public class Hero extends Player
 	{

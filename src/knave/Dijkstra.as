@@ -1,5 +1,4 @@
-// https://gist.github.com/trystan/4968958
-package  
+package knave
 {
 	import flash.geom.Point;
 	

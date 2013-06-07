@@ -237,7 +237,7 @@ package
 			
 			var i:int = 1;
 			for each (var magic:Spell in player.magic)
-				terminal.write("[" + (i++) + "] " + magic.name, x, y += 2);
+				terminal.write((i++) + " " + magic.name, x, y += 2);
 		}
 		
 		private function payloadColor(payload:Payload):int
