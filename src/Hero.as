@@ -39,14 +39,14 @@ package
 		{
 			if (this.hasAllEndPieces)
 			{
-				path = pathToEndPoint();
+				path = pathBackHome();
 			}
 			else
 			{
-				path = pathToVisibleEndPice();
+				path = pathToVisibleItem();
 					
 				if (path.length == 0)
-					path = pathToVisibleDoor();
+					path = pathToNearestDoor();
 			}
 		}
 		
@@ -73,7 +73,7 @@ package
 			moveBy((int)(Math.random() * 3) - 1, (int)(Math.random() * 3) - 1);
 		}
 		
-		private function pathToEndPoint():Array 
+		private function pathBackHome():Array 
 		{
 			return Dijkstra.pathTo(
 				new Point(position.x, position.y),
@@ -81,7 +81,7 @@ package
 				function (x:int, y:int):Boolean { return x < 3; } );
 		}
 		
-		private function pathToVisibleEndPice():Array 
+		private function pathToVisibleItem():Array 
 		{
 			return Dijkstra.pathTo(
 				new Point(position.x, position.y),
@@ -89,7 +89,7 @@ package
 				function (x:int, y:int):Boolean { return world.getItem(x, y) != null; } );
 		}
 		
-		private function pathToVisibleDoor():Array 
+		private function pathToNearestDoor():Array 
 		{
 			return Dijkstra.pathTo(
 				new Point(position.x, position.y),

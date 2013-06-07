@@ -11,11 +11,13 @@ package screens
 		private var callback:Function;
 		private var tx:int;
 		private var ty:int;
+		private var player:Player;
 		
 		public function TargetScreen(player:Player, callback:Function) 
 		{
 			this.tx = player.position.x;
 			this.ty = player.position.y;
+			this.player = player;
 			this.callback = callback;
 			
 			bind('up', function():void { moveBy(0, -1); } );
@@ -34,6 +36,10 @@ package screens
 		
 		private function moveBy(mx:int, my:int):void 
 		{
+			if (!player.canSee(tx + mx, ty + my)
+					|| player.world.blocksMovement(tx + mx, ty + my))
+				return;
+				
 			tx += mx;
 			ty += my;
 		}
