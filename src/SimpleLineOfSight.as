@@ -32,14 +32,10 @@ package
 		{
 			var r:int = Math.max(1, viewer.visionRadius);
 			
-			var visible:Boolean = Math.abs(viewer.position.x - x) < r && Math.abs(viewer.position.y - y) < r;
-			
-			if (!visible)
+			if (Math.abs(viewer.position.x - x) < r && Math.abs(viewer.position.y - y) >= r)
 				return false;
 				
-			visible = (viewer.position.x - x)*(viewer.position.x - x) + (viewer.position.y - y)*(viewer.position.y - y) < r*r;
-			
-			if (!visible)
+			if ((viewer.position.x - x) * (viewer.position.x - x) + (viewer.position.y - y) * (viewer.position.y - y) >= r * r)
 				return false;
 			
 			for each (var p:Point in Line.betweenCoordinates(viewer.position.x, viewer.position.y, x, y).points)

@@ -37,7 +37,7 @@ package screens
 		private function moveBy(mx:int, my:int):void 
 		{
 			if (!player.canSee(tx + mx, ty + my)
-					|| player.world.blocksMovement(tx + mx, ty + my))
+					|| player.world.getTile(tx + mx, ty + my).blocksArrows)
 				return;
 				
 			tx += mx;

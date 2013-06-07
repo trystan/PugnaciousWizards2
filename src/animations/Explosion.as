@@ -72,13 +72,14 @@ package animations
 		
 		private function spreadTo(n:Point):void 
 		{
-			if (world.getTile(n.x, n.y).blocksArrows
-					|| tiles.length > max
-					|| occupied.indexOf(n.x + "," + n.y) > -1)
+			if (tiles.length > max || occupied.indexOf(n.x + "," + n.y) > -1)
 				return;
-			
+				
 			if (world.getTile(n.x, n.y).burnChance > 0)
 				world.addFeature(new BurningFire(world, n.x, n.y));
+				
+			if (world.getTile(n.x, n.y).blocksArrows)
+				return;
 				
 			tiles.push(n);
 			next.push(n);
