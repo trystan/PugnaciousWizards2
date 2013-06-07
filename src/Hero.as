@@ -57,6 +57,9 @@ package
 			
 			if (Math.abs(next.x - position.x) + Math.abs(next.y - position.y) > 0)
 				path.unshift(next);
+			
+			if (path.length == 1 && world.isOpenedDoor(path[0].x, path[0].y))
+				path.shift();
 		}
 		
 		private function clamp(n:int):int
