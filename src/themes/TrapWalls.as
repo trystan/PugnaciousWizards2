@@ -39,8 +39,9 @@ package themes
 			
 			var ticks:int = (int)(Math.random() * 24);
 			var payload:Payload = PayloadFactory.random();
+			var howOften:int = Math.random() < 0.05 ? 1 : 3;
 			
-			world.addFeature(new WallTrap(world, tiles, dir, ticks, payload));
+			world.addFeature(new WallTrap(world, tiles, dir, ticks, payload, howOften));
 		}
 	}
 }

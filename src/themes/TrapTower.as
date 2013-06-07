@@ -6,7 +6,12 @@ package themes
 	{
 		public function apply(room:Room, world:World):void
 		{
-			for (var i:int = 0; i < (int)(room.distance / 6 + 1); i++)
+			var total:int = (int)(room.distance / 6 + 1);
+			
+			if (Math.random() < 0.05)
+				total *= 2;
+				
+			for (var i:int = 0; i < total; i++)
 			{
 				var px:int = Math.random() * 5 + 6;
 				var py:int = Math.random() * 5 + 6;

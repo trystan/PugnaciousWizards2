@@ -11,6 +11,9 @@ package themes
 			
 			var type:int = (int)(Math.random() * 8);
 			
+			if (Math.random() < 0.05)
+				type = 99;
+			
 			for (var x:int = 0; x < 7; x++)
 			for (var y:int = 0; y < 7; y++)
 			{
@@ -47,6 +50,9 @@ package themes
 					case 7:
 						if (x != 3 && y != 3)
 							tiles.push(new Point(room.worldPosition.x + x, room.worldPosition.y + y));
+						break;
+					case 99:
+						tiles.push(new Point(room.worldPosition.x + x, room.worldPosition.y + y));
 						break;
 				}
 			}
