@@ -220,8 +220,8 @@ package
 		{
 			var x:int = 81;
 			var y:int = 1;
-			
-			terminal.write(player.health + "/" + player.maxHealth + " health", x, y += 2);
+			var color:int = lerp(0xffffff, 0xff6666, 1.0 * player.health / player.maxHealth);
+			terminal.write(player.health + "/" + player.maxHealth + " health", x, y += 2, color);
 			
 			if (player.fireCounter > 0)
 				terminal.write("on fire!", x + 1, y + 2, lerp(fire, 0xffffff, 0.5));

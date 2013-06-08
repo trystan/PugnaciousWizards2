@@ -38,8 +38,8 @@ package
 			
 			addChild(rl);
 			
-			//if (!runTests())
-			//	return;
+			if (!runTests())
+				return;
 		}
 		
 		private function runTests():Boolean
