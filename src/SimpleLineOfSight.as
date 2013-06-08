@@ -18,14 +18,19 @@ package
 			{				
 				var row:Array = [];
 				for (var y:int = 0; y < 80; y++)
-					row.push(false);
+					row.push(Tile.out_of_bounds);
 				seen.push(row);
 			}
 		}
 		
-		public function hasSeen(x:int, y:int):Boolean
+		public function remembered(x:int, y:int):Tile
 		{
 			return seen[x][y];
+		}
+		
+		public function hasSeen(x:int, y:int):Boolean
+		{
+			return seen[x][y] != Tile.out_of_bounds;
 		}
 		
 		public function canSee(x:int, y:int):Boolean
@@ -44,7 +49,7 @@ package
 					return false;
 			}
 			
-			seen[x][y] = true;
+			seen[x][y] = viewer.world.getTile(x, y);
 			
 			return true;
 		}

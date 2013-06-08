@@ -67,15 +67,18 @@ package
 			for (var y:int = 0; y < 80; y++)
 			{
 				if (player.canSee(x, y))
-					terminal.write(tile(x, y), x, y, fg(x, y), bg(x, y));
+					terminal.write(tileAt(x, y), x, y, fgAt(x, y), bgAt(x, y));
 				else if (player.hasSeen(x, y))
-					terminal.write(tile(x, y), x, y, lerp(memory, fg(x, y), 0.5), lerp(memory, bg(x, y), 0.5));
+				{
+					var remembered:Tile = player.memory(x, y);
+					terminal.write(tile(remembered), x, y, lerp(memory, fg(remembered), 0.5), lerp(memory, bg(remembered), 0.5));
+				}
 			}
 			
 			for each (var placedItem:Object in world.items)
 			{
 				if (player.canSee(placedItem.x, placedItem.y))
-					terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item), bg(placedItem.x, placedItem.y));
+					terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item), bgAt(placedItem.x, placedItem.y));
 			}
 			
 			var playerColor:int = 0xffffff;
@@ -83,7 +86,7 @@ package
 				playerColor = lerp(fire, playerColor, 0.80);
 			else if (player.freezeCounter > 0)
 				playerColor = lerp(ice, playerColor, 0.80);
-			terminal.write("@", player.position.x, player.position.y, playerColor, bg(player.position.x, player.position.y));
+			terminal.write("@", player.position.x, player.position.y, playerColor, bgAt(player.position.x, player.position.y));
 			
 			drawAnimations(terminal);
 			
@@ -116,7 +119,7 @@ package
 					didDrawAny = true;
 					
 					var fgc:int = payloadColor(effect.payload);
-					var bgc:int = bg(effect.x, effect.y);
+					var bgc:int = bgAt(effect.x, effect.y);
 					
 					if (!(effect.payload is Pierce))
 						bgc = lerp(fgc, bgc, 0.25);
@@ -133,11 +136,11 @@ package
 						didDrawAny = true;
 						
 						terminal.write(
-							tile(t.x, t.y), 
+							tileAt(t.x, t.y), 
 							t.x, 
 							t.y, 
-							lerp(fire, fg(t.x, t.y), 0.4), 
-							lerp(fire, bg(t.x, t.y), 0.4));
+							lerp(fire, fgAt(t.x, t.y), 0.4), 
+							lerp(fire, bgAt(t.x, t.y), 0.4));
 					}
 					for each (var t2:Point in effect.frontiers)
 					{
@@ -147,11 +150,11 @@ package
 						didDrawAny = true;
 						
 						terminal.write(
-							tile(t2.x, t2.y), 
+							tileAt(t2.x, t2.y), 
 							t2.x, 
 							t2.y, 
-							lerp(fire, fg(t2.x, t2.y), 0.5), 
-							lerp(fire, bg(t2.x, t2.y), 0.5));
+							lerp(fire, fgAt(t2.x, t2.y), 0.5), 
+							lerp(fire, bgAt(t2.x, t2.y), 0.5));
 					}
 				}
 				else if (effect is MagicMissileProjectile)
@@ -166,7 +169,7 @@ package
 						effect.x, 
 						effect.y, 
 						magic, 
-						lerp(magic, bg(effect.x, effect.y), 0.3));
+						lerp(magic, bgAt(effect.x, effect.y), 0.3));
 				}
 				else if (effect is MagicMissileProjectileTrail)
 				{
@@ -179,8 +182,8 @@ package
 						arrowTile(effect.direction), 
 						effect.x, 
 						effect.y, 
-						lerp(magic, fg(effect.x, effect.y), 0.2),
-						lerp(magic, bg(effect.x, effect.y), 0.1));
+						lerp(magic, fgAt(effect.x, effect.y), 0.2),
+						lerp(magic, bgAt(effect.x, effect.y), 0.1));
 				}
 				else
 				{
@@ -189,7 +192,7 @@ package
 					
 					didDrawAny = true;
 
-					terminal.write(floor_arrow, effect.x, effect.y, metal_fg, bg(effect.x, effect.y));
+					terminal.write(floor_arrow, effect.x, effect.y, metal_fg, bgAt(effect.x, effect.y));
 				}
 			}
 			return didDrawAny;
@@ -260,10 +263,15 @@ package
 			return item is EndPiece ? hsv(60, 90, 90) : 0xffffff;
 		}
 		
-		private function tile(x:int, y:int):String
+		private function tileAt(x:int, y:int):String
 		{
-			switch (world.getTile(x, y))
+			return tile(world.getTile(x, y));
+		}
+		private function tile(tile:Tile):String
+		{
+			switch (tile)
 			{
+				case Tile.out_of_bounds: return " ";
 				case Tile.grass: return dot;
 				case Tile.grass_fire: return dot;
 				case Tile.burnt_ground: return dot;
@@ -302,14 +310,19 @@ package
 			}
 		}
 		
-		private function fg(x:int, y:int):int
+		private function fgAt(x:int, y:int):int
 		{
-			return lerp(blood, raw_fg(x, y), world.getBlood(x, y) / 10.0);
+			return fg(world.getTile(x, y));
 		}
 		
-		private function raw_fg(x:int, y:int):int
+		private function fg(tile:Tile):int
 		{
-			switch (world.getTile(x, y))
+			return lerp(blood, raw_fg(tile), world.getBlood(x, y) / 10.0);
+		}
+		
+		private function raw_fg(tile:Tile):int
+		{
+			switch (tile)
 			{
 				case Tile.grass: return grassForegroundBitmap.getPixel(x, y);
 				case Tile.grass_fire: return lerp(fire, grassForegroundBitmap.getPixel(x, y), 0.5);
@@ -351,15 +364,20 @@ package
 				default: return 0xff0000;
 			}
 		}
-		
-		private function bg(x:int, y:int):int
+
+		private function bgAt(x:int, y:int):int
 		{
-			return lerp(blood, raw_bg(x, y), world.getBlood(x, y) / 10.0);
+			return bg(world.getTile(x, y));
 		}
 		
-		private function raw_bg(x:int, y:int):int
+		private function bg(tile:Tile):int
 		{
-			switch (world.getTile(x, y))
+			return lerp(blood, raw_bg(tile), world.getBlood(x, y) / 10.0);
+		}
+		
+		private function raw_bg(tile:Tile):int
+		{
+			switch (tile)
 			{
 				case Tile.grass: return grassBackgroundBitmap.getPixel(x, y);
 				case Tile.grass_fire: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.5);

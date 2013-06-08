@@ -141,6 +141,11 @@ package
 			return vision.hasSeen(x, y);
 		}
 		
+		public function memory(x:int, y:int):Tile 
+		{
+			return vision.remembered(x, y);
+		}
+		
 		public function burn(amount:int):void 
 		{
 			if (freezeCounter > 0)
