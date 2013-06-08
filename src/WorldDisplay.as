@@ -93,10 +93,10 @@ package
 			drawHud(terminal);
 			
 			if (header != null)
-				terminal.write(header, (80 - header.length) / 2, 1, 0xffffff);
+				terminal.writeCenter(header, 1, 0xffffff);
 			
 			if (footer != null)
-				terminal.write(footer, (80 - footer.length) / 2, 78, 0xffffff);
+				terminal.writeCenter(footer, 78, 0xffffff);
 		}
 		
 		private static var NS:String = String.fromCharCode(179);
