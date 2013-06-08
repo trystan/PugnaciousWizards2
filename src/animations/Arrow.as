@@ -41,7 +41,7 @@ package animations
 				}
 			}
 			
-			var creature:Player = world.getCreatureAt(x, y);
+			var creature:Creature = world.getCreatureAt(x, y);
 			if (creature != null)
 			{
 				payload.hit(creature);

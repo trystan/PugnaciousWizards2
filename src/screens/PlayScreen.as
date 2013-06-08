@@ -12,7 +12,7 @@ package screens
 	
 	public class PlayScreen extends BaseScreen
 	{
-		public var player:Player;
+		public var player:Creature;
 		public var world:World;
 		public var display:WorldDisplay;
 		private var animateInterval:int;

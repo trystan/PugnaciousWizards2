@@ -7,8 +7,9 @@ package
 	
 	public class World 
 	{
-		private var player:Player;
+		public var player:Creature;
 		private var tiles:Dictionary = new Dictionary();
+		public var creatures:Array = [];
 		public var items:Array = [];
 		public var rooms:Array = [];
 		public var effects:Array = [];
@@ -46,11 +47,13 @@ package
 				animationEffects.splice(index, 1);
 		}
 		
-		public function add(player:Player):void
+		public function add(creature:Creature):void
 		{
-			this.player = player;
+			if (creature is Hero || creature is Player)
+				this.player = creature;
 			
-			player.world = this;
+			creatures.push(creature);
+			creature.world = this;
 		}
 		
 		public function blocksMovement(x:int, y:int):Boolean
@@ -160,14 +163,21 @@ package
 			for each (var effect:CastleFeature in effects)
 				effect.update();
 			
-			player.update();
+			for each (var creature:Creature in creatures)
+				creature.update();
+			
+			creatures = creatures.filter(function (value:Creature, index:int, array:Array):Boolean {
+				return value.health > 0;
+			});
 		}
 		
-		public function getCreatureAt(x:int, y:int):Player 
+		public function getCreatureAt(x:int, y:int):Creature 
 		{
-			if (player != null && player.position.x == x && player.position.y == y)
-				return player;
-				
+			for each (var creature:Creature in creatures)
+			{
+				if (creature.position.x == x && creature.position.y == y)
+					return creature;
+			}
 			return null;
 		}
 		

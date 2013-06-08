@@ -38,12 +38,12 @@ package features
 			oldTile = world.getTile(x, y);
 			world.addTile(x, y, Tile.moving_wall);
 			
-			var c:Player = world.getCreatureAt(x, y);
-			if (c != null)
+			var creature:Creature = world.getCreatureAt(x, y);
+			if (creature != null)
 			{
-				c.moveBy(mx, my);
+				creature.moveBy(mx, my);
 				if (world.blocksMovement(x + mx, y + my))
-					c.takeDamage(1000, "Crushed to death by a moving wall piece.");
+					creature.takeDamage(1000, "Crushed to death by a moving wall piece.");
 			}
 		}
 	}

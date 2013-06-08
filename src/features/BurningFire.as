@@ -17,7 +17,7 @@ package features
 		
 		override public function update():void
 		{
-			var creature:Player = world.getCreatureAt(x, y);
+			var creature:Creature = world.getCreatureAt(x, y);
 			if (creature != null)
 				creature.burn(2);
 			

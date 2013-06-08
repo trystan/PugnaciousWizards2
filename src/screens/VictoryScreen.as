@@ -6,10 +6,10 @@ package screens
 	
 	public class VictoryScreen extends BaseScreen
 	{
-		public var player:Player;
+		public var player:Creature;
 		public var world:World;
 		
-		public function VictoryScreen(player:Player, world:World) 
+		public function VictoryScreen(player:Creature, world:World) 
 		{
 			this.player = player;
 			this.world = world;

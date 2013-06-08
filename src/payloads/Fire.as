@@ -3,7 +3,7 @@ package payloads
 	import features.BurningFire;
 	public class Fire implements Payload
 	{
-		public function hit(creature:Player):void
+		public function hit(creature:Creature):void
 		{
 			creature.takeDamage(2, "Burned to death.");
 			creature.burn(6);

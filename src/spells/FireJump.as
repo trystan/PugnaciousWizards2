@@ -10,14 +10,14 @@ package spells
 		
 		public function get name():String { return "Fire jump"; }
 		
-		public function playerCast(player:Player, callback:Function):void
+		public function playerCast(player:Creature, callback:Function):void
 		{
 			this.callback = callback;
 			
 			RL.current.enter(new TargetScreen(player, cast));
 		}
 		
-		public function cast(caster:Player, x:int, y:int):void
+		public function cast(caster:Creature, x:int, y:int):void
 		{
 			caster.moveTo(x, y);
 			new Explosion(caster.world, x, y);

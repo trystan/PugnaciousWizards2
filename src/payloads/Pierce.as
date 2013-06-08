@@ -2,7 +2,7 @@ package payloads
 {
 	public class Pierce implements Payload
 	{
-		public function hit(creature:Player):void
+		public function hit(creature:Creature):void
 		{
 			creature.takeDamage(3, "Killed by a piercing blow.");
 		}

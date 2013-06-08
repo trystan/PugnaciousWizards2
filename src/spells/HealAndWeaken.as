@@ -7,13 +7,13 @@ package spells
 			return "Heal & weaken";
 		}
 		
-		public function playerCast(player:Player, callback:Function):void 
+		public function playerCast(player:Creature, callback:Function):void 
 		{
 			cast(player, 0, 0);
 			callback();
 		}
 		
-		public function cast(caster:Player, x:int, y:int):void 
+		public function cast(caster:Creature, x:int, y:int):void 
 		{
 			caster.maxHealth -= 10;
 			caster.health = caster.maxHealth;

@@ -3,8 +3,8 @@ package spells
 	public interface Spell 
 	{
 		function get name():String;
-		function playerCast(player:Player, callback:Function):void;
-		function cast(caster:Player, x:int, y:int):void;
+		function playerCast(player:Creature, callback:Function):void;
+		function cast(caster:Creature, x:int, y:int):void;
 		
 		function aiGetAction(ai:Hero):SpellCastAction;
 	}	

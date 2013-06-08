@@ -7,10 +7,10 @@ package screens
 	
 	public class FailScreen extends BaseScreen
 	{
-		public var player:Player;
+		public var player:Creature;
 		public var world:World;
 		
-		public function FailScreen(player:Player, world:World) 
+		public function FailScreen(player:Creature, world:World) 
 		{
 			this.player = player;
 			this.world = world;

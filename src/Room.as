@@ -48,6 +48,17 @@ package
 				addRandomArchitecture(world);
 			
 				theme.apply(this, world);
+				
+				while (Math.random() < 0.33)
+				{
+					var px:int = Math.random() * 7 + 1;
+					var py:int = Math.random() * 7 + 1;
+					
+					if (world.getTile(worldPosition.x + px, worldPosition.y + py).blocksMovement)
+						continue;
+						
+					world.add(new Guard(new Point(worldPosition.x + px, worldPosition.y + py)));
+				}
 			}
 		}
 		

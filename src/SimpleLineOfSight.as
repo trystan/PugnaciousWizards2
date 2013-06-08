@@ -7,9 +7,9 @@ package
 	public class SimpleLineOfSight 
 	{
 		private var seen:Array;
-		private var viewer:Player;
+		private var viewer:Creature;
 		
-		public function SimpleLineOfSight(viewer:Player) 
+		public function SimpleLineOfSight(viewer:Creature) 
 		{
 			this.viewer = viewer;
 			seen = [];

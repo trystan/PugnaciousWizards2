@@ -19,7 +19,7 @@ package
 	
 	public class WorldDisplay extends Sprite
 	{
-		public var player:Player;
+		public var player:Creature;
 		public var world:World;
 		private var terminal:AsciiPanel;
 		public var grassBackgroundBitmap:BitmapData;
@@ -46,7 +46,7 @@ package
 		private var magic:int = hsv(260, 66, 99);
 		private var ash:int = hsv(30, 66, 10);
 		
-		public function WorldDisplay(player:Player, world:World) 
+		public function WorldDisplay(player:Creature, world:World) 
 		{
 			this.player = player;
 			this.world = world;
@@ -81,12 +81,20 @@ package
 					terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item), bgAt(placedItem.x, placedItem.y));
 			}
 			
-			var playerColor:int = 0xffffff;
-			if (player.fireCounter > 0)
-				playerColor = lerp(fire, playerColor, 0.80);
-			else if (player.freezeCounter > 0)
-				playerColor = lerp(ice, playerColor, 0.80);
-			terminal.write("@", player.position.x, player.position.y, playerColor, bgAt(player.position.x, player.position.y));
+			
+			for each (var creature:Creature in world.creatures)
+			{
+				if (!player.canSee(creature.position.x, creature.position.y))
+					continue;	
+				
+				var creatureGlyph:String = creature is Guard ? "g" : "@";
+				var creatureColor:int = creature is Guard ? 0xc0c0c0 : 0xffffff;
+				if (creature.fireCounter > 0)
+					creatureColor = lerp(fire, creatureColor, 0.80);
+				else if (creature.freezeCounter > 0)
+					creatureColor = lerp(ice, creatureColor, 0.80);
+				terminal.write(creatureGlyph, creature.position.x, creature.position.y, creatureColor, bgAt(creature.position.x, creature.position.y));
+			}
 			
 			drawAnimations(terminal);
 			

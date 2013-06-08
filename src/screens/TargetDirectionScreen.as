@@ -9,7 +9,7 @@ package screens
 	{
 		private var callback:Function;
 		
-		public function TargetDirectionScreen(player:Player, callback:Function) 
+		public function TargetDirectionScreen(player:Creature, callback:Function) 
 		{
 			this.callback = callback;
 			

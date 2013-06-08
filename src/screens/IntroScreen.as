@@ -41,7 +41,7 @@ package screens
 		
 		public function autoPlay():void 
 		{
-			hero.doAi();
+			//hero.doAi();
 			world.update();
 			
 			if (hero.health < 1)

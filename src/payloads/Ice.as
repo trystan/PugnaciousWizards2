@@ -2,7 +2,7 @@ package payloads
 {
 	public class Ice implements Payload
 	{
-		public function hit(creature:Player):void
+		public function hit(creature:Creature):void
 		{
 			creature.takeDamage(2, "Frooze to death.");
 			creature.freeze(2);

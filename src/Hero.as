@@ -5,7 +5,7 @@ package
 	import spells.SpellCastAction;
 	import knave.Dijkstra;
 	
-	public class Hero extends Player
+	public class Hero extends Creature
 	{
 		private var path:Array = [];
 		
@@ -14,7 +14,7 @@ package
 			super(position);
 		}
 		
-		public function doAi():void
+		public override function doAi():void
 		{
 			for each (var spell:Spell in magic)
 			{
@@ -66,11 +66,6 @@ package
 		private function clamp(n:int):int
 		{
 			return Math.max( -1, Math.min(n, 1));
-		}
-		
-		private function wanderRandomly():void 
-		{
-			moveBy((int)(Math.random() * 3) - 1, (int)(Math.random() * 3) - 1);
 		}
 		
 		private function pathBackHome():Array 

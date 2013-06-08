@@ -11,9 +11,9 @@ package screens
 		private var callback:Function;
 		private var tx:int;
 		private var ty:int;
-		private var player:Player;
+		private var player:Creature;
 		
-		public function TargetScreen(player:Player, callback:Function) 
+		public function TargetScreen(player:Creature, callback:Function) 
 		{
 			this.tx = player.position.x;
 			this.ty = player.position.y;
