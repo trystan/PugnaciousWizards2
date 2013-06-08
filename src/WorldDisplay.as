@@ -71,7 +71,7 @@ package
 				else if (player.hasSeen(x, y))
 				{
 					var remembered:Tile = player.memory(x, y);
-					terminal.write(tile(remembered), x, y, lerp(memory, fg(remembered), 0.5), lerp(memory, bg(remembered), 0.5));
+					terminal.write(tile(remembered), x, y, lerp(memory, fg(remembered, x, y), 0.5), lerp(memory, bg(remembered, x, y), 0.5));
 				}
 			}
 			
@@ -320,15 +320,10 @@ package
 		
 		private function fgAt(x:int, y:int):int
 		{
-			return fg(world.getTile(x, y));
+			return lerp(blood, fg(world.getTile(x, y), x, y), world.getBlood(x, y) / 10.0);
 		}
 		
-		private function fg(tile:Tile):int
-		{
-			return lerp(blood, raw_fg(tile), world.getBlood(x, y) / 10.0);
-		}
-		
-		private function raw_fg(tile:Tile):int
+		private function fg(tile:Tile, x:int = 0, y:int = 0):int
 		{
 			switch (tile)
 			{
@@ -375,15 +370,10 @@ package
 
 		private function bgAt(x:int, y:int):int
 		{
-			return bg(world.getTile(x, y));
+			return lerp(blood, bg(world.getTile(x, y), x, y), world.getBlood(x, y) / 10.0);
 		}
 		
-		private function bg(tile:Tile):int
-		{
-			return lerp(blood, raw_bg(tile), world.getBlood(x, y) / 10.0);
-		}
-		
-		private function raw_bg(tile:Tile):int
+		private function bg(tile:Tile, x:int = 0, y:int = 0):int
 		{
 			switch (tile)
 			{
