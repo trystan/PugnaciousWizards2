@@ -41,7 +41,6 @@ package screens
 		
 		public function autoPlay():void 
 		{
-			//hero.doAi();
 			world.update();
 			
 			if (hero.health < 1)
@@ -54,7 +53,7 @@ package screens
 		
 		public function draw(terminal:AsciiPanel):void
 		{
-			display.draw(terminal, "Pugnacious Wizards 2, version 0.1", "-- press enter to begin --");
+			display.draw(terminal, "Pugnacious Wizards 2, version 0.2", "-- press enter to begin --");
 		}
 		
 		public function animate(terminal:AsciiPanel):void

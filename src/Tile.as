@@ -4,10 +4,10 @@ package
 	{
 		public static var grass:Tile = new Tile(false, false, false, 0.1);
 		public static var grass_fire:Tile = new Tile(false, false, false);
-		public static var tree:Tile = new Tile(true, true, false, 0.25);
-		public static var tree_fire_3:Tile = new Tile(true, true, false);
-		public static var tree_fire_2:Tile = new Tile(true, true, false);
-		public static var tree_fire_1:Tile = new Tile(true, true, false);
+		public static var tree:Tile = new Tile(true, false, false, 0.25);
+		public static var tree_fire_3:Tile = new Tile(true, false, false);
+		public static var tree_fire_2:Tile = new Tile(true, false, false);
+		public static var tree_fire_1:Tile = new Tile(true, false, false);
 		public static var floor_light:Tile = new Tile(false, false, false);
 		public static var floor_dark:Tile = new Tile(false, false, false);
 		public static var wall:Tile = new Tile(true, true, true);

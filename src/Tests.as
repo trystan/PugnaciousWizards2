@@ -53,7 +53,7 @@ package
 		private function playerCanWinAfterPickingUpThreeEndPieces():void 
 		{
 			var world:World = new World();
-			var player:Creature = new Creature(new Point(5,5));
+			var player:Creature = new Creature(new Point(5,5), "test");
 			world.add(player);
 			
 			world.addItem(6, 5, new EndPiece());
@@ -69,7 +69,7 @@ package
 		private function movingOntoAnItemPicksItUp():void 
 		{
 			var world:World = new World();
-			var player:Creature = new Creature(new Point(5,5));
+			var player:Creature = new Creature(new Point(5,5), "test");
 			world.add(player);
 			
 			var item:EndPiece = new EndPiece();
@@ -137,7 +137,7 @@ package
 		private function bumpingIntoAClosedDoorOpensIt():void 
 		{
 			var world:World = new World();
-			var player:Creature = new Creature(new Point(5, 5));
+			var player:Creature = new Creature(new Point(5, 5), "test");
 			world.add(player);
 			world.addDoor(6,5);
 			
@@ -175,7 +175,7 @@ package
 		private function wallsBlockMovement():void 
 		{
 			var world:World = new World();
-			var player:Creature = new Creature(new Point(5, 5));
+			var player:Creature = new Creature(new Point(5, 5), "test");
 			world.add(player);
 			world.addWall(4,5);
 			world.addWall(6,5);
@@ -202,7 +202,7 @@ package
 		private function bordersBlockMovement():void 
 		{
 			var world:World = new World();
-			var player:Creature = new Creature(new Point(0, 0));
+			var player:Creature = new Creature(new Point(0, 0), "test");
 			world.add(player);
 			
 			player.moveBy(-1, 0);
@@ -250,7 +250,7 @@ package
 		private function movement():void 
 		{
 			var world:World = new World();
-			var player:Creature = new Creature(new Point(5, 5));
+			var player:Creature = new Creature(new Point(5, 5), "test");
 			world.add(player);
 			
 			player.moveBy(1, 0);

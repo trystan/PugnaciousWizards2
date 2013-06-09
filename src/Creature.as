@@ -7,6 +7,7 @@ package
 	
 	public class Creature 
 	{
+		public var type:String;
 		public var position:Point;
 		public var world:World;
 		public var endPiecesPickedUp:int = 0;
@@ -24,8 +25,9 @@ package
 		
 		public var magic:Array = [];
 		
-		public function Creature(position:Point) 
+		public function Creature(position:Point, type:String) 
 		{
+			this.type = type;
 			this.position = position;
 			
 			maxHealth = 100;
@@ -41,12 +43,17 @@ package
 			
 			if (world.isClosedDoor(position.x + x, position.y + y))
 				world.openDoor(position.x + x, position.y + y);
+			else if (x == 0 && y == 0)
+			{
+				// stand still
+			}
 			else if (!world.getTile(position.x + x, position.y + y).blocksMovement)
 			{
 				var other:Creature = world.getCreatureAt(position.x + x, position.y + y);
 				if (other != null)
 				{
-					melee(other);
+					if (isEnemy(other))
+						melee(other);
 				}
 				else	
 				{
@@ -56,6 +63,11 @@ package
 			}
 			
 			getStuffHere();
+		}
+		
+		private function isEnemy(other:Creature):Boolean
+		{
+			return this.type != other.type;
 		}
 		
 		private function melee(other:Creature):void 
