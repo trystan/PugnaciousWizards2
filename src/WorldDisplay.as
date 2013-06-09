@@ -274,11 +274,17 @@ package
 		
 		private function item_glyph(item:Item):String
 		{
+			if (item is HealthContainer)
+				return String.fromCharCode(3);
+				
 			return item is EndPiece ? "*" : "?";
 		}
 		
 		private function item_color(item:Item):int
 		{
+			if (item is HealthContainer)
+				return 0xff6666;
+				
 			return item is EndPiece ? hsv(60, 90, 90) : 0xffffff;
 		}
 		

@@ -166,6 +166,12 @@ package
 				world.removeItem(position.x, position.y);
 				addMagicSpell((item as Scroll).spell);
 			}
+			else if (item is HealthContainer)
+			{
+				world.removeItem(position.x, position.y);
+				health += 5;
+				maxHealth = Math.max(health, maxHealth);
+			}
 		}
 		
 		public function addMagicSpell(spell:Spell):void

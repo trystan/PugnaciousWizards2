@@ -4,6 +4,7 @@ package
 	import flash.geom.Point;
 	import themes.RoomTheme;
 	import themes.RoomThemeFactory;
+	import themes.TreasureRoom;
 	
 	public class Room 
 	{
@@ -43,6 +44,10 @@ package
 			if (isEndRoom)
 			{
 				world.addItem(position.x * 8 + 8, position.y * 8 + 8, new EndPiece());
+			}
+			else if (isDeadEnd)
+			{
+				new TreasureRoom().apply(this, world);
 			}
 			else
 			{
