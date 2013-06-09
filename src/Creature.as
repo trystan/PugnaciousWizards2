@@ -65,7 +65,7 @@ package
 			getStuffHere();
 		}
 		
-		private function isEnemy(other:Creature):Boolean
+		public function isEnemy(other:Creature):Boolean
 		{
 			return this.type != other.type;
 		}
