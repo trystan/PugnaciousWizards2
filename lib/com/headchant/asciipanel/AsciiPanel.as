@@ -72,6 +72,23 @@ package com.headchant.asciipanel {
 			useRasterFont(codePage437_9x16, 9, 16);
 		}
 		
+		public function getForegroundColor(x:int, y:int):uint
+		{
+			return foregroundColor[x][y];
+		}
+		public function getBackgroundColor(x:int, y:int):uint
+		{
+			return backgroundColor[x][y];
+		}
+		public function getCharacterCode(x:int, y:int):String
+		{
+			return chars[x][y];
+		}
+		public function getCharacter(x:int, y:int):String
+		{
+			return String.fromCharCode(getCharacterCode(x, y));;
+		}
+		
 		/**
 		 * Use a custom bitmap font such as AsciiPanel.codePage437_8x8 or AsciiPanel.codePage437_9x16.
 		 * @param	fontImage	The top left character is 0, the bottom right is 255.

@@ -22,7 +22,6 @@ package
 	{
 		public var player:Creature;
 		public var world:World;
-		private var terminal:AsciiPanel;
 		public var grassBackgroundBitmap:BitmapData;
 		public var grassForegroundBitmap:BitmapData;
 		public var treeBitmap:BitmapData;
@@ -32,23 +31,23 @@ package
 		private var tower:String = String.fromCharCode(7);
 		private var water:String = String.fromCharCode(247);
 		
-		private var wood_bg:Color = Color.hsv(25, 80, 30);
-		private var wood_fg:Color = Color.hsv(25, 80, 50);
-		private var stone_bg:Color = Color.hsv(200, 5, 25);
-		private var stone_fg:Color = Color.hsv(200, 5, 35);
+		private var wood_bg:Color = Color.hsv(25, 80, 40);
+		private var wood_fg:Color = Color.hsv(25, 80, 60);
+		private var stone_bg:Color = Color.hsv(200, 5, 35);
+		private var stone_fg:Color = Color.hsv(200, 5, 45);
 		private var tile_1:Color = Color.hsv(200, 5, 10);
 		private var tile_2:Color = Color.hsv(200, 5, 13);
 		private var tile_3:Color = Color.hsv(200, 5, 13);
 		private var tile_4:Color = Color.hsv(200, 5, 16);
 		private var metal_fg:Color = Color.hsv(240, 20, 90);
-		private var blood:Color = Color.hsv(0, 66, 25);
+		private var blood:Color = Color.hsv(0, 66, 35);
 		private var memory:Color = Color.hsv(240, 75, 5);
-		private var ice:Color = Color.hsv(220, 33, 66);
-		private var fire:Color = Color.hsv(15, 66, 66);
-		private var magic:Color = Color.integer(0xbb66cc);
-		private var ash:Color = Color.hsv(30, 66, 10);
-		private var water_fg:Color = Color.hsv(220, 70, 40);
-		private var water_bg:Color = Color.hsv(220, 50, 20);
+		private var ice:Color = Color.hsv(220, 33, 80);
+		private var fire:Color = Color.hsv(15, 66, 80);
+		private var magic:Color = Color.hsv(270, 50, 80);
+		private var ash:Color = Color.hsv(30, 66, 20);
+		private var water_fg:Color = Color.hsv(220, 70, 50);
+		private var water_bg:Color = Color.hsv(220, 50, 30);
 		
 		public function WorldDisplay(player:Creature, world:World) 
 		{
@@ -75,14 +74,22 @@ package
 				else if (player.hasSeen(x, y))
 				{
 					var remembered:Tile = player.memory(x, y);
-					terminal.write(tile(remembered, x, y), x, y, memory.lerp(fg(remembered, x, y), 0.5).toInt(), memory.lerp(bg(remembered, x, y), 0.5).toInt());
+					terminal.write(
+						tile(remembered, x, y), 
+						x, y, 
+						memory.lerp(fg(remembered, x, y), 0.5).toInt(), 
+						memory.lerp(bg(remembered, x, y), 0.5).toInt());
 				}
 			}
 			
 			for each (var placedItem:Object in world.items)
 			{
 				if (player.canSee(placedItem.x, placedItem.y))
-					terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item).toInt(), bgAt(placedItem.x, placedItem.y).toInt());
+					terminal.write(
+						item_glyph(placedItem.item), 
+						placedItem.x, placedItem.y, 
+						item_color(placedItem.item).toInt(), 
+						terminal.getBackgroundColor(placedItem.x, placedItem.y));
 			}
 			
 			
@@ -103,12 +110,46 @@ package
 					creatureColor = creatureColor.lerp(fire, 0.20);
 				else if (creature.freezeCounter > 0)
 					creatureColor = creatureColor.lerp(ice, 0.20);
-				terminal.write(creatureGlyph, creature.position.x, creature.position.y, creatureColor.toInt(), bgAt(creature.position.x, creature.position.y).toInt());
+				terminal.write(creatureGlyph, 
+					creature.position.x, creature.position.y, 
+					creatureColor.toInt(), 
+					terminal.getBackgroundColor(creature.position.x, creature.position.y));
 			}
 			
 			drawAnimations(terminal);
 			
 			drawHud(terminal);
+		}
+		
+		private function addLight(terminal:AsciiPanel, x:int, y:int, color:Color, radius:Number = 3.0):void
+		{
+			for (var ox:int = -radius + 1; ox < radius; ox++)
+			for (var oy:int = -radius + 1; oy < radius; oy++)
+			{
+				var tx:int = x + ox;
+				var ty:int = y + oy;
+				
+				if (tx < 0 || ty < 0 || tx > 79 || ty > 79)
+					continue;
+				
+				var dist:Number = ox * ox + oy * oy;
+				if (dist > radius * radius)
+					continue;
+				
+				if (!player.canSee(tx, ty))
+					continue;
+					
+				var mult:Number = (1.0 - dist / (radius * radius)) * 0.1;
+				
+				var fore:int = terminal.getForegroundColor(tx, ty);
+				var back:int = terminal.getBackgroundColor(tx, ty);
+				var char:String = terminal.getCharacter(tx, ty);
+				
+				fore = color.lerp(Color.integer(fore), mult).toInt();
+				back = color.lerp(Color.integer(back), mult).toInt();
+				
+				terminal.write(char, tx, ty, fore, back);
+			}
 		}
 		
 		private static var NS:String = String.fromCharCode(179);
@@ -131,12 +172,11 @@ package
 					didDrawAny = true;
 					
 					var fgc:Color = payloadColor(effect.payload);
-					var bgc:Color = bgAt(effect.x, effect.y);
+					
+					terminal.write(arrowTile(effect.direction), effect.x, effect.y, fgc.toInt(), terminal.getBackgroundColor(effect.x, effect.y));
 					
 					if (!(effect.payload is Pierce))
-						bgc = fgc.lerp(bgc, 0.25);
-					
-					terminal.write(arrowTile(effect.direction), effect.x, effect.y, fgc.toInt(), bgc.toInt());
+						addLight(terminal, effect.x, effect.y, payloadColor(effect.payload), 2);
 				}
 				else if (effect is Explosion)
 				{
@@ -148,11 +188,11 @@ package
 						didDrawAny = true;
 						
 						terminal.write(
-							tileAt(t.x, t.y), 
+							terminal.getCharacter(t.x, t.y),
 							t.x, 
 							t.y, 
-							fire.lerp(fgAt(t.x, t.y), 0.4).toInt(), 
-							fire.lerp(bgAt(t.x, t.y), 0.4).toInt());
+							fire.lerp(Color.integer(terminal.getForegroundColor(t.x, t.y)), 0.5).toInt(), 
+							fire.lerp(Color.integer(terminal.getBackgroundColor(t.x, t.y)), 0.5).toInt());
 					}
 					for each (var t2:Point in effect.frontiers)
 					{
@@ -162,11 +202,11 @@ package
 						didDrawAny = true;
 						
 						terminal.write(
-							tileAt(t2.x, t2.y), 
+							terminal.getCharacter(t2.x, t2.y),
 							t2.x, 
 							t2.y, 
-							fire.lerp(fgAt(t2.x, t2.y), 0.5).toInt(), 
-							fire.lerp(bgAt(t2.x, t2.y), 0.5).toInt());
+							fire.lerp(Color.integer(terminal.getForegroundColor(t2.x, t2.y)), 0.3).toInt(), 
+							fire.lerp(Color.integer(terminal.getBackgroundColor(t2.x, t2.y)), 0.3).toInt());
 					}
 				}
 				else if (effect is MagicMissileProjectile)
@@ -181,7 +221,9 @@ package
 						effect.x, 
 						effect.y, 
 						magic.toInt(), 
-						magic.lerp(bgAt(effect.x, effect.y), 0.3).toInt());
+						terminal.getBackgroundColor(effect.x, effect.y));
+						
+					addLight(terminal, effect.x, effect.y, magic, 2);
 				}
 				else if (effect is MagicMissileProjectileTrail)
 				{
@@ -194,8 +236,10 @@ package
 						arrowTile(effect.direction), 
 						effect.x, 
 						effect.y, 
-						magic.lerp(fgAt(effect.x, effect.y), 0.2).toInt(),
-						magic.lerp(bgAt(effect.x, effect.y), 0.1).toInt());
+						magic.toInt(), 
+						terminal.getBackgroundColor(effect.x, effect.y));
+						
+					addLight(terminal, effect.x, effect.y, magic, 2);
 				}
 				else
 				{
@@ -207,6 +251,7 @@ package
 					terminal.write(floor_arrow, effect.x, effect.y, metal_fg.toInt(), bgAt(effect.x, effect.y).toInt());
 				}
 			}
+			
 			return didDrawAny;
 		}
 		
@@ -225,7 +270,7 @@ package
 				case "SW": return SW_NE;
 				case "SE": return NW_SE;
 			}
-			return "*";
+			return " ";
 		}
 		
 		private function drawHud(terminal:AsciiPanel):void
