@@ -47,6 +47,30 @@ package
 			{
 				// stand still
 			}
+			else if (world.getTile(position.x + x, position.y + y) == Tile.portal)
+			{
+				var candidates:Array = [];
+				
+				for (var ox:int = 0; ox < 80; ox++)
+				for (var oy:int = 0; oy < 80; oy++)
+				{
+					if (world.getTile(ox, oy) == Tile.portal)
+						candidates.push(new Point(ox, oy));
+				}
+				
+				var target:Point = candidates[(int)(Math.random() * candidates.length)];
+				
+				var tx:int = 0;
+				var ty:int = 0;
+				do
+				{
+					tx = target.x + (int)(Math.random() * 3 - 1);
+					ty = target.y + (int)(Math.random() * 3 - 1);
+				}
+				while (world.getTile(tx, ty) == Tile.portal || world.getTile(tx, ty).blocksMovement);
+				
+				moveTo(tx, ty);
+			}
 			else if (!world.getTile(position.x + x, position.y + y).blocksMovement)
 			{
 				var other:Creature = world.getCreatureAt(position.x + x, position.y + y);

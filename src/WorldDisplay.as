@@ -281,6 +281,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.portal: return String.fromCharCode(177);
 				case Tile.out_of_bounds: return " ";
 				case Tile.grass: return dot;
 				case Tile.grass_fire: return dot;
@@ -331,6 +332,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.portal: return hsv(Math.random() * 360, 50, 90);
 				case Tile.grass: return grassForegroundBitmap.getPixel(x, y);
 				case Tile.grass_fire: return lerp(fire, grassForegroundBitmap.getPixel(x, y), 0.5);
 				case Tile.tree: return treeBitmap.getPixel(x, y);
@@ -383,6 +385,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.portal: return hsv(Math.random() * 360, 50, 90);
 				case Tile.grass: return grassBackgroundBitmap.getPixel(x, y);
 				case Tile.grass_fire: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.5);
 				case Tile.tree: return grassBackgroundBitmap.getPixel(x, y);

@@ -15,6 +15,7 @@ package themes
 			new MysticRoom(),
 			new GuardBarracks(),
 			new ArcherBarracks(),
+			new PortalRoom(),
 		];
 		
 		public static function random():RoomTheme

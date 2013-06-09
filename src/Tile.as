@@ -25,6 +25,8 @@ package
 		static public var tower_4:Tile = new Tile(true, true, false);
 		static public var burnt_ground:Tile = new Tile(false, false, false);
 		
+		static public var portal:Tile = new Tile(false, false, false);
+		
 		static public var ice_tower:Tile = new Tile(true, true, false);
 		static public var ice_tower_1:Tile = new Tile(true, true, false);
 		static public var ice_tower_2:Tile = new Tile(true, true, false);
