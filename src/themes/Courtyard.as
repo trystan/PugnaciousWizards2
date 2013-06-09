@@ -23,7 +23,7 @@ package themes
 			for (var y:int = room.position.y * 8 + 5; y < room.position.y * 8 + 12; y++)
 				world.addTile(x, y, Tile.grass);
 				
-			var treeCount:int = Math.random() * 9 + 1;
+			var treeCount:int = Math.random() * 14 + Math.random() * 14 + 1;
 			
 			while (treeCount-- > 0)
 			{

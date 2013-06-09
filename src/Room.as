@@ -40,43 +40,60 @@ package
 		}
 		
 		public function apply(world:World):void
-		{	
-			if (isEndRoom)
-			{
-				world.addItem(position.x * 8 + 8, position.y * 8 + 8, new EndPiece());
-			}
-			else if (isDeadEnd)
+		{
+			if (isDeadEnd)
 			{
 				new TreasureRoom().apply(this, world);
 			}
 			else
 			{
 				addRandomArchitecture(world);
-			
+				addRoomArchitecture(world);
+				
 				theme.apply(this, world);
 				
 				addEnemies(world);
 			}
 		}
 		
+		public function addRoomArchitecture(world:World):void
+		{
+			var r:Number = Math.random();
+			
+			if (r < 0.125 * 2)
+			{
+				world.addWall(worldPosition.x + 0, worldPosition.y + 0);
+				world.addWall(worldPosition.x + 6, worldPosition.y + 0);
+				world.addWall(worldPosition.x + 6, worldPosition.y + 6);
+				world.addWall(worldPosition.x + 0, worldPosition.y + 6);
+			}
+			else if (r < 0.125 * 3)
+			{
+				world.addWall(worldPosition.x + 1, worldPosition.y + 1);
+				world.addWall(worldPosition.x + 5, worldPosition.y + 1);
+				world.addWall(worldPosition.x + 5, worldPosition.y + 5);
+				world.addWall(worldPosition.x + 1, worldPosition.y + 5);
+				
+				if (Math.random() < 0.25)
+				{
+					world.addWall(worldPosition.x + 1, worldPosition.y + 3);
+					world.addWall(worldPosition.x + 3, worldPosition.y + 1);
+					world.addWall(worldPosition.x + 3, worldPosition.y + 5);
+					world.addWall(worldPosition.x + 5, worldPosition.y + 3);
+				}
+			}
+		}
+				
 		public function addRandomArchitecture(world:World):void
 		{
-			if (Math.random() < 0.125)
-			{
-				world.addWall(position.x * 8 + 5, position.y * 8 + 5);
-				world.addWall(position.x * 8 + 11, position.y * 8 + 5);
-				world.addWall(position.x * 8 + 11, position.y * 8 + 11);
-				world.addWall(position.x * 8 + 5, position.y * 8 + 11);
-			}
-			
-			var chance:Number = 66;
+			var chance:Number = 75;
 			while (Math.random() < chance)
 			{
-				var px:int = Math.random() * 5 + 6;
-				var py:int = Math.random() * 5 + 6;
-				world.addWall(position.x * 8 + px, position.y * 8 + py);
+				var px:int = Math.random() * 5 + 1;
+				var py:int = Math.random() * 5 + 1;
+				world.addWall(worldPosition.x + px, worldPosition.y + py);
 				
-				chance = 0.33;
+				chance = 0.25;
 			}
 		}
 		
