@@ -55,11 +55,7 @@ package
 			if (!canSeeCreature(world.player))
 				return false;
 				
-			var isInCorrectDirection:Boolean = world.player.position.x - position.x == 0 
-											|| world.player.position.y == position.y
-											|| Math.abs(world.player.position.x - position.x) 
-											 - Math.abs(world.player.position.y - position.y) == 0;
-			if (!isInCorrectDirection)
+			if (!isInArcherLine(position, world.player.position))
 				return false;
 			
 			for each (var point:Point in Line.betweenPoints(position, world.player.position).points)
@@ -70,12 +66,21 @@ package
 			return true;
 		}
 		
+		private function isInArcherLine(from:Point, to:Point):Boolean
+		{
+			return from.x - to.x == 0 
+					|| from.y == to.y
+					|| Math.abs(from.x - to.x) - Math.abs(from.y - to.y) == 0
+		}
+		
 		private function pathToNextTarget():void
 		{
 			if (canSeeCreature(world.player))
 				path = Dijkstra.pathTo(position, 
 									function (x:int, y:int):Boolean { return !world.blocksMovement(x, y); },
-									function (x:int, y:int):Boolean { return world.player.position.x == x && world.player.position.y == y; });
+									function (x:int, y:int):Boolean { 
+										return world.player.position.x == x && world.player.position.y == y
+											|| isInArcherLine(new Point(x, y), world.player.position); });
 		}
 		
 		private function moveToTarget():void 
