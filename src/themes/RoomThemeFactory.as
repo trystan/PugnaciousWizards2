@@ -4,6 +4,8 @@ package themes
 	{
 		private static var themeList:Array = [
 			new EmptyRoom(),
+			new EmptyRoom(),
+			new EmptyRoom(),
 			new Courtyard(),
 			new TrapFloors(),
 			new TrapWalls(),

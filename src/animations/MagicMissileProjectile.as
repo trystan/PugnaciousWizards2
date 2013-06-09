@@ -53,7 +53,7 @@ package animations
 			x += vx;
 			y += vy;
 			
-			if (ticks == 0)
+			if (ticks < 1)
 			{
 				_done = true;
 				return;
@@ -67,17 +67,17 @@ package animations
 				
 				if (vx == 0 || vy == 0)
 				{
-					new MagicMissileProjectile(world, x, y, -1, 1, ticks);
-					new MagicMissileProjectile(world, x, y, -1, -1, ticks);
-					new MagicMissileProjectile(world, x, y, 1, -1, ticks);
-					new MagicMissileProjectile(world, x, y, 1, 1, ticks);
+					new MagicMissileProjectile(world, x, y, -1, 1, ticks-2);
+					new MagicMissileProjectile(world, x, y, -1, -1, ticks-2);
+					new MagicMissileProjectile(world, x, y, 1, -1, ticks-2);
+					new MagicMissileProjectile(world, x, y, 1, 1, ticks-2);
 				}
 				else
 				{
-					new MagicMissileProjectile(world, x, y, 0, 1, ticks);
-					new MagicMissileProjectile(world, x, y, 0, -1, ticks);
-					new MagicMissileProjectile(world, x, y, 1, 0, ticks);
-					new MagicMissileProjectile(world, x, y, -1, 0, ticks);
+					new MagicMissileProjectile(world, x, y, 0, 1, ticks-2);
+					new MagicMissileProjectile(world, x, y, 0, -1, ticks-2);
+					new MagicMissileProjectile(world, x, y, 1, 0, ticks-2);
+					new MagicMissileProjectile(world, x, y, -1, 0, ticks-2);
 				}
 			}
 			else if (world.getTile(x, y).blocksArrows)
@@ -99,28 +99,28 @@ package animations
 					{
 						case "NW":
 							if (!world.getTile(x, y-1).blocksArrows)
-								new MagicMissileProjectile(world, x-1, y-1, 1, -1, ticks);
+								new MagicMissileProjectile(world, x-1, y-1, 1, -1, ticks-1);
 							if (!world.getTile(x-1, y).blocksArrows)
-								new MagicMissileProjectile(world, x-1, y-1, -1, 1, ticks);
+								new MagicMissileProjectile(world, x-1, y-1, -1, 1, ticks-1);
 							break;
 						case "NE":
 							if (!world.getTile(x, y-1).blocksArrows)
-								new MagicMissileProjectile(world, x+1, y-1, -1, -1, ticks);
+								new MagicMissileProjectile(world, x+1, y-1, -1, -1, ticks-1);
 							if (!world.getTile(x+1, y).blocksArrows)
-								new MagicMissileProjectile(world, x+1, y-1, 1, 1, ticks);
+								new MagicMissileProjectile(world, x+1, y-1, 1, 1, ticks-1);
 							break;
 							
 						case "SW":
 							if (!world.getTile(x, y+1).blocksArrows)
-								new MagicMissileProjectile(world, x-1, y+1, 1, 1, ticks);
+								new MagicMissileProjectile(world, x-1, y+1, 1, 1, ticks-1);
 							if (!world.getTile(x-1, y).blocksArrows)
-								new MagicMissileProjectile(world, x-1, y+1, -1, -1, ticks);
+								new MagicMissileProjectile(world, x-1, y+1, -1, -1, ticks-1);
 							break;
 						case "SE":
 							if (!world.getTile(x, y+1).blocksArrows)
-								new MagicMissileProjectile(world, x+1, y+1, -1, 1, ticks);
+								new MagicMissileProjectile(world, x+1, y+1, -1, 1, ticks-1);
 							if (!world.getTile(x+1, y).blocksArrows)
-								new MagicMissileProjectile(world, x+1, y+1, 1, -1, ticks);
+								new MagicMissileProjectile(world, x+1, y+1, 1, -1, ticks-1);
 							break;
 					}
 				}
