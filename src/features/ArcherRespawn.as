@@ -14,6 +14,9 @@ package features
 		
 		public override function update():void
 		{
+			if (Math.random() > 0.1)
+				return;
+			
 			var archerCount:int = 0;
 			
 			for (var ox:int = 0; ox < 7; ox++)

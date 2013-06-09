@@ -34,13 +34,12 @@ package screens
 			bind('draw', draw);
 			bind('animate', animate);
 			
-			RL.current.interruptAnimations = true;
-			
 			setTimeout(RL.current.trigger, 1000, 'step');
 		}
 		
 		public function autoPlay():void 
 		{
+			RL.current.interruptAnimations = true;
 			world.update();
 			
 			if (hero.health < 1)

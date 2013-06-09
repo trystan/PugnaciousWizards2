@@ -15,7 +15,10 @@ package features
 		
 		public override function update():void
 		{
-			var archerCount:int = 0;
+			if (Math.random() > 0.1)
+				return;
+			
+			var guardCount:int = 0;
 			
 			for (var ox:int = 0; ox < 7; ox++)
 			for (var oy:int = 0; oy < 7; oy++)
@@ -24,11 +27,11 @@ package features
 				var y:int = room.worldPosition.y + oy;
 				
 				var c:Creature = world.getCreatureAt(x, y);
-				if (c is Archer)
-					archerCount++;
+				if (c is Guard)
+					guardCount++;
 			}
 			
-			if (archerCount < room.distance / 7 + 1)
+			if (guardCount < room.distance / 7 + 1)
 			{
 				var cx:int = room.worldPosition.x + Math.random() * 7 + 1;
 				var cy:int = room.worldPosition.y + Math.random() * 7 + 1;
