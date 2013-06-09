@@ -32,14 +32,14 @@ package
 		
 		private var wood_bg:int = hsv(25, 80, 30);
 		private var wood_fg:int = hsv(25, 80, 50);
-		private var stone_bg:int = hsv(200, 5, 30);
-		private var stone_fg:int = hsv(200, 5, 40);
+		private var stone_bg:int = hsv(200, 5, 25);
+		private var stone_fg:int = hsv(200, 5, 35);
 		private var tile_1:int = hsv(200, 5, 10);
-		private var tile_2:int = hsv(200, 5, 12);
-		private var tile_3:int = hsv(200, 5, 12);
-		private var tile_4:int = hsv(200, 5, 14);
+		private var tile_2:int = hsv(200, 5, 13);
+		private var tile_3:int = hsv(200, 5, 13);
+		private var tile_4:int = hsv(200, 5, 16);
 		private var metal_fg:int = hsv(240, 20, 90);
-		private var blood:int = hsv(0, 66, 20);
+		private var blood:int = hsv(0, 66, 25);
 		private var memory:int = hsv(240, 75, 5);
 		private var ice:int = hsv(220, 33, 66);
 		private var fire:int = hsv(15, 66, 66);

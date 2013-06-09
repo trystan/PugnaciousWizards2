@@ -120,7 +120,7 @@ package
 				if (Math.random() < 0.1)
 					world.addFeature(new BurningFire(world, position.x, position.y));
 				
-				takeDamage(2, "Burned to death.");
+				takeDamage(3, "Burned to death.");
 				fireCounter--;
 			}
 			
