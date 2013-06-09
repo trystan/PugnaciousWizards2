@@ -2,6 +2,7 @@ package
 {
 	import flash.display.InterpolationMethod;
 	import flash.geom.Point;
+	import knave.AStar;
 	import themes.RoomTheme;
 	import themes.RoomThemeFactory;
 	import themes.TreasureRoom;
@@ -41,19 +42,60 @@ package
 		
 		public function apply(world:World):void
 		{
+			do
+			{
+				clear(world);
+				
+				if (isDeadEnd)
+				{
+					new TreasureRoom().apply(this, world);
+				}
+				else
+				{
+					addRandomArchitecture(world);
+					addRoomArchitecture(world);
+					
+					theme.apply(this, world);
+					
+					addEnemies(world);
+				}
+			} 
+			while (anyDoorIsBlocked(world))
+		}
+		
+		private function clear(world:World):void 
+		{
+			for (var x:int = 0; x < 7; x++)
+			for (var y:int = 0; y < 7; y++)
+				world.addTile(worldPosition.x + x, worldPosition.y + y, ((x + y) % 2) == 0 ? Tile.floor_light : Tile.floor_dark);
+		}
+		
+		private function anyDoorIsBlocked(world:World):Boolean 
+		{
 			if (isDeadEnd)
-			{
-				new TreasureRoom().apply(this, world);
-			}
-			else
-			{
-				addRandomArchitecture(world);
-				addRoomArchitecture(world);
+				return false;
+			
+			var doors:Array = [];
+			if (isConnectedNorth)
+				doors.push(new Point(worldPosition.x + 3, worldPosition.y));
+			if (isConnectedSouth)
+				doors.push(new Point(worldPosition.x + 3, worldPosition.y + 7));
+			if (isConnectedWest)
+				doors.push(new Point(worldPosition.x, worldPosition.y + 3));
+			if (isConnectedEast)
+				doors.push(new Point(worldPosition.x + 7, worldPosition.y + 3));
 				
-				theme.apply(this, world);
-				
-				addEnemies(world);
+			var start:Point = doors.shift();
+			for each (var other:Point in doors)
+			{
+				var path:Array = AStar.pathTo(
+						function (x:int, y:int):Boolean { return !world.blocksMovement(x, y); },
+						start, other, false);
+						
+				if (path == null || path.length == 0)
+					return true;
 			}
+			return false;
 		}
 		
 		public function addRoomArchitecture(world:World):void
@@ -89,11 +131,11 @@ package
 			var chance:Number = 75;
 			while (Math.random() < chance)
 			{
-				var px:int = Math.random() * 5 + 1;
-				var py:int = Math.random() * 5 + 1;
+				var px:int = Math.random() * 7;
+				var py:int = Math.random() * 7;
 				world.addWall(worldPosition.x + px, worldPosition.y + py);
 				
-				chance = 0.25;
+				chance = 0.50;
 			}
 		}
 		
