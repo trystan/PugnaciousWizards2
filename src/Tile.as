@@ -10,6 +10,8 @@ package
 		public static var tree_fire_1:Tile = new Tile(true, false, false);
 		public static var floor_light:Tile = new Tile(false, false, false);
 		public static var floor_dark:Tile = new Tile(false, false, false);
+		public static var mystic_floor_light:Tile = new Tile(false, false, false);
+		public static var mystic_floor_dark:Tile = new Tile(false, false, false);
 		public static var wall:Tile = new Tile(true, true, true);
 		public static var moving_wall:Tile = new Tile(true, true, true);
 		public static var door_closed:Tile = new Tile(false, true, true, 0.25);

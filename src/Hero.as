@@ -16,13 +16,16 @@ package
 		
 		public override function doAi():void
 		{
-			for each (var spell:Spell in magic)
+			if (canCastMagic)
 			{
-				var action:SpellCastAction = spell.aiGetAction(this);
-				if (Math.random() < action.percentChance)
+				for each (var spell:Spell in magic)
 				{
-					action.callback();
-					return;
+					var action:SpellCastAction = spell.aiGetAction(this);
+					if (Math.random() < action.percentChance)
+					{
+						action.callback();
+						return;
+					}
 				}
 			}
 			

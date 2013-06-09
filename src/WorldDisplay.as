@@ -71,7 +71,7 @@ package
 				else if (player.hasSeen(x, y))
 				{
 					var remembered:Tile = player.memory(x, y);
-					terminal.write(tile(remembered), x, y, lerp(memory, fg(remembered, x, y), 0.5), lerp(memory, bg(remembered, x, y), 0.5));
+					terminal.write(tile(remembered, x, y), x, y, lerp(memory, fg(remembered, x, y), 0.5), lerp(memory, bg(remembered, x, y), 0.5));
 				}
 			}
 			
@@ -244,11 +244,13 @@ package
 			
 			y += 2;
 			
-			terminal.write("--- magic ---", x, y += 2);
+			var magicColor:int = player.canCastMagic ? 0xffffff : 0x909090;
+				
+			terminal.write("--- magic ---", x, y += 2, magicColor);
 			
 			var i:int = 1;
 			for each (var magic:Spell in player.magic)
-				terminal.write((i++) + " " + magic.name, x, y += 2);
+				terminal.write((i++) + " " + magic.name, x, y += 2, magicColor);
 		}
 		
 		private function payloadColor(payload:Payload):int
@@ -273,9 +275,9 @@ package
 		
 		private function tileAt(x:int, y:int):String
 		{
-			return tile(world.getTile(x, y));
+			return tile(world.getTile(x, y), x, y);
 		}
-		private function tile(tile:Tile):String
+		private function tile(tile:Tile, x:int = 0, y:int = 0):String
 		{
 			switch (tile)
 			{
@@ -295,6 +297,8 @@ package
 				case Tile.moving_wall: return "#";
 				case Tile.floor_light: return dot;
 				case Tile.floor_dark: return dot;
+				case Tile.mystic_floor_light: return String.fromCharCode((x * 11 + y * 23) % 250);
+				case Tile.mystic_floor_dark: return String.fromCharCode((x * 11 + y * 23) % 250);
 				case Tile.ice_tower:
 				case Tile.fire_tower:
 				case Tile.tower: return tower;
@@ -341,6 +345,8 @@ package
 				case Tile.moving_wall: return lerp(0x000000, stone_fg, 0.66);
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
+				case Tile.mystic_floor_dark: return 0x113333;
+				case Tile.mystic_floor_light: return 0x113333;
 				case Tile.ice_tower:
 				case Tile.ice_tower_1:
 				case Tile.ice_tower_2:
@@ -391,6 +397,8 @@ package
 				case Tile.moving_wall: return lerp(0x000000, stone_bg, 0.33);
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;
+				case Tile.mystic_floor_dark: return tile_1;
+				case Tile.mystic_floor_light: return tile_2;
 				case Tile.ice_tower:
 				case Tile.ice_tower_1:
 				case Tile.ice_tower_2:

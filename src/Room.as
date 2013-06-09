@@ -18,6 +18,7 @@ package
 		public var isEndRoom:Boolean = false;
 		
 		public var distance:int = 0;
+		public var forbidMagic:Boolean = false;
 		
 		public function Room(x:int, y:int) 
 		{
@@ -76,7 +77,7 @@ package
 		
 		public function contains(x:int, y:int):Boolean 
 		{
-			return worldPosition.x <= x && worldPosition.y <= y && worldPosition.x + 8 > x && worldPosition.y + 8> y;
+			return worldPosition.x <= x && worldPosition.y <= y && worldPosition.x + 7 > x && worldPosition.y + 7 > y;
 		}
 		
 		private function addEnemies(world:World):void 

@@ -144,9 +144,21 @@ package
 			magic.push(spell);
 		}
 		
-		public function castSpell(index:int, callback:Function):void
+		public function get canCastMagic():Boolean 
 		{
 			if (freezeCounter > 0)
+				return false;
+				
+			var room:Room = world.getRoom(position.x, position.y);
+			if (room != null && room.forbidMagic)
+				return false;
+				
+			return true;
+		}
+		
+		public function castSpell(index:int, callback:Function):void
+		{
+			if (!canCastMagic)
 				return;
 				
 			if (magic.length <= index)

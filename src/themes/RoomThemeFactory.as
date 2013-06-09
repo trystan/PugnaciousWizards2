@@ -12,6 +12,7 @@ package themes
 			new MovingBlocks(),
 			new GuardRoom(),
 			new ArcherRoom(),
+			new MysticRoom(),
 		];
 		
 		public static function random():RoomTheme
