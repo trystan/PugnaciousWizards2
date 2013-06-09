@@ -43,7 +43,7 @@ package
 		private var memory:int = hsv(240, 75, 5);
 		private var ice:int = hsv(220, 33, 66);
 		private var fire:int = hsv(15, 66, 66);
-		private var magic:int = hsv(260, 66, 99);
+		private var magic:int = 0xbb66cc;
 		private var ash:int = hsv(30, 66, 10);
 		
 		public function WorldDisplay(player:Creature, world:World) 
@@ -345,8 +345,8 @@ package
 				case Tile.moving_wall: return lerp(0x000000, stone_fg, 0.66);
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
-				case Tile.mystic_floor_dark: return 0x113333;
-				case Tile.mystic_floor_light: return 0x113333;
+				case Tile.mystic_floor_dark: return lerp(magic, 0x000000, 0.33);
+				case Tile.mystic_floor_light: return lerp(magic, 0x000000, 0.33);
 				case Tile.ice_tower:
 				case Tile.ice_tower_1:
 				case Tile.ice_tower_2:

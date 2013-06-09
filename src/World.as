@@ -175,7 +175,7 @@ package
 		{
 			for each (var creature:Creature in creatures)
 			{
-				if (creature.position.x == x && creature.position.y == y)
+				if (creature.position.x == x && creature.position.y == y && creature.health > 0)
 					return creature;
 			}
 			return null;
