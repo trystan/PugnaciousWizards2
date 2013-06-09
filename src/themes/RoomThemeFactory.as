@@ -13,6 +13,8 @@ package themes
 			new GuardRoom(),
 			new ArcherRoom(),
 			new MysticRoom(),
+			new GuardBarracks(),
+			new ArcherBarracks(),
 		];
 		
 		public static function random():RoomTheme
