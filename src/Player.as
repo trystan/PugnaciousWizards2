@@ -6,7 +6,7 @@ package
 	{
 		public function Player(position:Point) 
 		{
-			super(position, "Player");
+			super(position, "Hero");
 		}
 	}
 }

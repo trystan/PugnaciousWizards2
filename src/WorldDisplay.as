@@ -87,8 +87,8 @@ package
 				if (!player.canSee(creature.position.x, creature.position.y))
 					continue;	
 				
-				var creatureGlyph:String = creature is Guard ? "g" : "@";
-				var creatureColor:int = creature is Guard ? 0xc0c0c0 : 0xffffff;
+				var creatureGlyph:String = creature.type == "Hero" ? "@" : creature.type.charAt(0).toLowerCase();
+				var creatureColor:int = creature.type == "Hero" ? 0xffffff : 0xc0c0c0;
 				if (creature.fireCounter > 0)
 					creatureColor = lerp(fire, creatureColor, 0.80);
 				else if (creature.freezeCounter > 0)

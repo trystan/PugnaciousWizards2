@@ -50,6 +50,10 @@ package knave
 				update = true;
 				processKeyboardEvent();
 			}
+			else
+			{
+				keyboardEvent = null;
+			}
 			
 			if (isAnimating)
 			{

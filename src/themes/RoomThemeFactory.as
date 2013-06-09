@@ -10,6 +10,8 @@ package themes
 			new TrapTower(),
 			new RotatingTrapTower(),
 			new MovingBlocks(),
+			new GuardRoom(),
+			new ArcherRoom(),
 		];
 		
 		public static function random():RoomTheme

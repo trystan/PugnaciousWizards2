@@ -49,16 +49,7 @@ package
 			
 				theme.apply(this, world);
 				
-				while (Math.random() < 0.33)
-				{
-					var px:int = Math.random() * 7 + 1;
-					var py:int = Math.random() * 7 + 1;
-					
-					if (world.getTile(worldPosition.x + px, worldPosition.y + py).blocksMovement)
-						continue;
-						
-					world.add(new Guard(new Point(worldPosition.x + px, worldPosition.y + py)));
-				}
+				addEnemies(world);
 			}
 		}
 		
@@ -86,6 +77,23 @@ package
 		public function contains(x:int, y:int):Boolean 
 		{
 			return worldPosition.x <= x && worldPosition.y <= y && worldPosition.x + 8 > x && worldPosition.y + 8> y;
+		}
+		
+		private function addEnemies(world:World):void 
+		{
+			while (Math.random() < 0.33)
+			{
+				var px:int = Math.random() * 7 + 1;
+				var py:int = Math.random() * 7 + 1;
+				
+				if (world.getTile(worldPosition.x + px, worldPosition.y + py).blocksMovement)
+					continue;
+					
+				if (Math.random() < 66)
+					world.add(new Guard(new Point(worldPosition.x + px, worldPosition.y + py)));
+				else
+					world.add(new Archer(new Point(worldPosition.x + px, worldPosition.y + py)));
+			}
 		}
 	}
 }

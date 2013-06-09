@@ -34,6 +34,7 @@ package knave
 			}
 			path.push(endNode);
 			path.reverse();
+			path.shift();
 			return path;
 		}
 		
