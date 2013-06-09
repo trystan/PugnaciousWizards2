@@ -29,6 +29,7 @@ package
 		private var dot:String = String.fromCharCode(250);
 		private var tree:String = String.fromCharCode(6);
 		private var tower:String = String.fromCharCode(7);
+		private var water:String = String.fromCharCode(247);
 		
 		private var wood_bg:int = hsv(25, 80, 30);
 		private var wood_fg:int = hsv(25, 80, 50);
@@ -45,6 +46,8 @@ package
 		private var fire:int = hsv(15, 66, 66);
 		private var magic:int = 0xbb66cc;
 		private var ash:int = hsv(30, 66, 10);
+		private var water_fg:int = hsv(240, 60, 40);
+		private var water_bg:int = hsv(240, 40, 20);
 		
 		public function WorldDisplay(player:Creature, world:World) 
 		{
@@ -85,7 +88,13 @@ package
 			for each (var creature:Creature in world.creatures)
 			{
 				if (!player.canSee(creature.position.x, creature.position.y))
-					continue;	
+					continue;
+					
+				if (creature.health < 1)
+				{
+					trace(creature + " health = " + creature.health);
+					continue;
+				}
 				
 				var creatureGlyph:String = creature.type == "Hero" ? "@" : creature.type.charAt(0).toLowerCase();
 				var creatureColor:int = creature.type == "Hero" ? 0xffffff : 0xc0c0c0;
@@ -281,6 +290,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.shallow_water: return water;
 				case Tile.portal: return String.fromCharCode(177);
 				case Tile.out_of_bounds: return " ";
 				case Tile.grass: return dot;
@@ -332,6 +342,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.shallow_water: return water_fg;
 				case Tile.portal: return hsv(Math.random() * 360, 50, 90);
 				case Tile.grass: return grassForegroundBitmap.getPixel(x, y);
 				case Tile.grass_fire: return lerp(fire, grassForegroundBitmap.getPixel(x, y), 0.5);
@@ -384,7 +395,8 @@ package
 		private function bg(tile:Tile, x:int = 0, y:int = 0):int
 		{
 			switch (tile)
-			{
+			{				
+				case Tile.shallow_water: return water_bg;
 				case Tile.portal: return hsv(Math.random() * 360, 50, 90);
 				case Tile.grass: return grassBackgroundBitmap.getPixel(x, y);
 				case Tile.grass_fire: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.5);

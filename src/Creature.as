@@ -96,7 +96,7 @@ package
 		
 		private function melee(other:Creature):void 
 		{
-			other.takeDamage(5, "Killed in combat.");
+			other.takeDamage(5, "Slain by a " + type.toLowerCase() + ".");
 		}
 		
 		public function moveTo(x:int, y:int):void
@@ -114,6 +114,11 @@ package
 		{
 			if (health < 1)
 				return;
+							
+			if (world.getTile(position.x, position.y) == Tile.shallow_water)
+			{
+				fireCounter = Math.max(0, fireCounter - 10);
+			}
 				
 			if (fireCounter > 0)
 			{
@@ -198,7 +203,11 @@ package
 			bleedingCounter += amount / 5;
 			world.addBlood(position.x, position.y, amount / 3 + 1);
 			
-			this.causeOfDeath = causeOfDeath;
+			if (health < 1)
+			{
+				this.causeOfDeath = causeOfDeath;
+				world.removeCreature(this);
+			}
 		}
 		
 		public function canSeeCreature(other:Creature):Boolean

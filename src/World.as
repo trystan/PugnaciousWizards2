@@ -56,6 +56,13 @@ package
 			creature.world = this;
 		}
 		
+		public function removeCreature(creature:Creature):void 
+		{
+			var i:int = creatures.indexOf(creature);
+			if (i > -1)
+				creatures.splice(i, 1);
+		}
+		
 		public function blocksMovement(x:int, y:int):Boolean
 		{
 			return isOutOfBounds(x, y) || getTile(x, y).blocksMovement;
@@ -163,12 +170,8 @@ package
 			for each (var effect:CastleFeature in effects)
 				effect.update();
 			
-			for each (var creature:Creature in creatures)
+			for each (var creature:Creature in creatures.slice())
 				creature.update();
-			
-			creatures = creatures.filter(function (value:Creature, index:int, array:Array):Boolean {
-				return value.health > 0;
-			});
 		}
 		
 		public function getCreatureAt(x:int, y:int):Creature 
