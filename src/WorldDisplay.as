@@ -16,6 +16,7 @@ package
 	import payloads.Pierce;
 	import spells.FireJump;
 	import spells.Spell;
+	import knave.Color;
 	
 	public class WorldDisplay extends Sprite
 	{
@@ -31,23 +32,23 @@ package
 		private var tower:String = String.fromCharCode(7);
 		private var water:String = String.fromCharCode(247);
 		
-		private var wood_bg:int = hsv(25, 80, 30);
-		private var wood_fg:int = hsv(25, 80, 50);
-		private var stone_bg:int = hsv(200, 5, 25);
-		private var stone_fg:int = hsv(200, 5, 35);
-		private var tile_1:int = hsv(200, 5, 10);
-		private var tile_2:int = hsv(200, 5, 13);
-		private var tile_3:int = hsv(200, 5, 13);
-		private var tile_4:int = hsv(200, 5, 16);
-		private var metal_fg:int = hsv(240, 20, 90);
-		private var blood:int = hsv(0, 66, 25);
-		private var memory:int = hsv(240, 75, 5);
-		private var ice:int = hsv(220, 33, 66);
-		private var fire:int = hsv(15, 66, 66);
-		private var magic:int = 0xbb66cc;
-		private var ash:int = hsv(30, 66, 10);
-		private var water_fg:int = hsv(240, 60, 40);
-		private var water_bg:int = hsv(240, 40, 20);
+		private var wood_bg:Color = Color.hsv(25, 80, 30);
+		private var wood_fg:Color = Color.hsv(25, 80, 50);
+		private var stone_bg:Color = Color.hsv(200, 5, 25);
+		private var stone_fg:Color = Color.hsv(200, 5, 35);
+		private var tile_1:Color = Color.hsv(200, 5, 10);
+		private var tile_2:Color = Color.hsv(200, 5, 13);
+		private var tile_3:Color = Color.hsv(200, 5, 13);
+		private var tile_4:Color = Color.hsv(200, 5, 16);
+		private var metal_fg:Color = Color.hsv(240, 20, 90);
+		private var blood:Color = Color.hsv(0, 66, 25);
+		private var memory:Color = Color.hsv(240, 75, 5);
+		private var ice:Color = Color.hsv(220, 33, 66);
+		private var fire:Color = Color.hsv(15, 66, 66);
+		private var magic:Color = Color.integer(0xbb66cc);
+		private var ash:Color = Color.hsv(30, 66, 10);
+		private var water_fg:Color = Color.hsv(240, 60, 40);
+		private var water_bg:Color = Color.hsv(240, 40, 20);
 		
 		public function WorldDisplay(player:Creature, world:World) 
 		{
@@ -70,18 +71,18 @@ package
 			for (var y:int = 0; y < 80; y++)
 			{
 				if (player.canSee(x, y))
-					terminal.write(tileAt(x, y), x, y, fgAt(x, y), bgAt(x, y));
+					terminal.write(tileAt(x, y), x, y, fgAt(x, y).toInt(), bgAt(x, y).toInt());
 				else if (player.hasSeen(x, y))
 				{
 					var remembered:Tile = player.memory(x, y);
-					terminal.write(tile(remembered, x, y), x, y, lerp(memory, fg(remembered, x, y), 0.5), lerp(memory, bg(remembered, x, y), 0.5));
+					terminal.write(tile(remembered, x, y), x, y, memory.lerp(fg(remembered, x, y), 0.5).toInt(), memory.lerp(bg(remembered, x, y), 0.5).toInt());
 				}
 			}
 			
 			for each (var placedItem:Object in world.items)
 			{
 				if (player.canSee(placedItem.x, placedItem.y))
-					terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item), bgAt(placedItem.x, placedItem.y));
+					terminal.write(item_glyph(placedItem.item), placedItem.x, placedItem.y, item_color(placedItem.item).toInt(), bgAt(placedItem.x, placedItem.y).toInt());
 			}
 			
 			
@@ -97,12 +98,12 @@ package
 				}
 				
 				var creatureGlyph:String = creature.isGoodGuy ? "@" : creature.type.charAt(0).toLowerCase();
-				var creatureColor:int = creature.isGoodGuy ? 0xffffff : 0xc0c0c0;
+				var creatureColor:Color = Color.integer(creature.isGoodGuy ? 0xffffff : 0xc0c0c0);
 				if (creature.fireCounter > 0)
-					creatureColor = lerp(fire, creatureColor, 0.80);
+					creatureColor = creatureColor.lerp(fire, 0.20);
 				else if (creature.freezeCounter > 0)
-					creatureColor = lerp(ice, creatureColor, 0.80);
-				terminal.write(creatureGlyph, creature.position.x, creature.position.y, creatureColor, bgAt(creature.position.x, creature.position.y));
+					creatureColor = creatureColor.lerp(ice, 0.20);
+				terminal.write(creatureGlyph, creature.position.x, creature.position.y, creatureColor.toInt(), bgAt(creature.position.x, creature.position.y).toInt());
 			}
 			
 			drawAnimations(terminal);
@@ -135,13 +136,13 @@ package
 					
 					didDrawAny = true;
 					
-					var fgc:int = payloadColor(effect.payload);
-					var bgc:int = bgAt(effect.x, effect.y);
+					var fgc:Color = payloadColor(effect.payload);
+					var bgc:Color = bgAt(effect.x, effect.y);
 					
 					if (!(effect.payload is Pierce))
-						bgc = lerp(fgc, bgc, 0.25);
+						bgc = fgc.lerp(bgc, 0.25);
 					
-					terminal.write(arrowTile(effect.direction), effect.x, effect.y, fgc, bgc);
+					terminal.write(arrowTile(effect.direction), effect.x, effect.y, fgc.toInt(), bgc.toInt());
 				}
 				else if (effect is Explosion)
 				{
@@ -156,8 +157,8 @@ package
 							tileAt(t.x, t.y), 
 							t.x, 
 							t.y, 
-							lerp(fire, fgAt(t.x, t.y), 0.4), 
-							lerp(fire, bgAt(t.x, t.y), 0.4));
+							fire.lerp(fgAt(t.x, t.y), 0.4).toInt(), 
+							fire.lerp(bgAt(t.x, t.y), 0.4).toInt());
 					}
 					for each (var t2:Point in effect.frontiers)
 					{
@@ -170,8 +171,8 @@ package
 							tileAt(t2.x, t2.y), 
 							t2.x, 
 							t2.y, 
-							lerp(fire, fgAt(t2.x, t2.y), 0.5), 
-							lerp(fire, bgAt(t2.x, t2.y), 0.5));
+							fire.lerp(fgAt(t2.x, t2.y), 0.5).toInt(), 
+							fire.lerp(bgAt(t2.x, t2.y), 0.5).toInt());
 					}
 				}
 				else if (effect is MagicMissileProjectile)
@@ -185,8 +186,8 @@ package
 						arrowTile(effect.direction), 
 						effect.x, 
 						effect.y, 
-						magic, 
-						lerp(magic, bgAt(effect.x, effect.y), 0.3));
+						magic.toInt(), 
+						magic.lerp(bgAt(effect.x, effect.y), 0.3).toInt());
 				}
 				else if (effect is MagicMissileProjectileTrail)
 				{
@@ -199,8 +200,8 @@ package
 						arrowTile(effect.direction), 
 						effect.x, 
 						effect.y, 
-						lerp(magic, fgAt(effect.x, effect.y), 0.2),
-						lerp(magic, bgAt(effect.x, effect.y), 0.1));
+						magic.lerp(fgAt(effect.x, effect.y), 0.2).toInt(),
+						magic.lerp(bgAt(effect.x, effect.y), 0.1).toInt());
 				}
 				else
 				{
@@ -209,7 +210,7 @@ package
 					
 					didDrawAny = true;
 
-					terminal.write(floor_arrow, effect.x, effect.y, metal_fg, bgAt(effect.x, effect.y));
+					terminal.write(floor_arrow, effect.x, effect.y, metal_fg.toInt(), bgAt(effect.x, effect.y).toInt());
 				}
 			}
 			return didDrawAny;
@@ -237,32 +238,33 @@ package
 		{
 			var x:int = 81;
 			var y:int = 1;
-			var color:int = lerp(0xffffff, 0xff6666, 1.0 * player.health / player.maxHealth);
-			terminal.write(player.health + "/" + player.maxHealth + " health", x, y += 2, color);
+			var white:Color = Color.integer(0xffffff);
+			var color:Color = white.lerp(Color.integer(0xff6666), 1.0 * player.health / player.maxHealth);
+			terminal.write(player.health + "/" + player.maxHealth + " health", x, y += 2, color.toInt());
 			
 			if (player.fireCounter > 0)
-				terminal.write("on fire!", x + 1, y + 2, lerp(fire, 0xffffff, 0.5));
+				terminal.write("on fire!", x + 1, y + 2, fire.lerp(white, 0.5).toInt());
 			else if (player.freezeCounter > 0)
-				terminal.write("frozen!", x + 1, y + 2, lerp(ice, 0xffffff, 0.5));
+				terminal.write("frozen!", x + 1, y + 2, ice.lerp(white, 0.5).toInt());
 			y += 2;
 			if (player.bleedingCounter > 0)
-				terminal.write("bleeding!", x + 1, y + 2, lerp(blood, 0xffffff, 0.5));
+				terminal.write("bleeding!", x + 1, y + 2, blood.lerp(white, 0.5).toInt());
 			y += 2;
 			
-			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2, item_color(null));
+			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2, item_color(null).toInt());
 			
 			y += 2;
 			
-			var magicColor:int = player.canCastMagic ? 0xffffff : 0x909090;
+			var magicColor:Color = player.canCastMagic ? white : Color.integer(0x909090);
 				
-			terminal.write("--- magic ---", x, y += 2, magicColor);
+			terminal.write("--- magic ---", x, y += 2, magicColor.toInt());
 			
 			var i:int = 1;
 			for each (var magic:Spell in player.magic)
-				terminal.write((i++) + " " + magic.name, x, y += 2, magicColor);
+				terminal.write((i++) + " " + magic.name, x, y += 2, magicColor.toInt());
 		}
 		
-		private function payloadColor(payload:Payload):int
+		private function payloadColor(payload:Payload):Color
 		{
 			if (payload is Ice)
 				return ice;
@@ -280,12 +282,12 @@ package
 			return item is EndPiece ? "*" : "?";
 		}
 		
-		private function item_color(item:Item):int
+		private function item_color(item:Item):Color
 		{
 			if (item is HealthContainer)
-				return 0xff6666;
+				return Color.integer(0xff6666);
 				
-			return item is EndPiece ? hsv(60, 90, 90) : 0xffffff;
+			return item is EndPiece ? Color.hsv(60, 90, 90) : Color.integer(0xffffff);
 		}
 		
 		private function tileAt(x:int, y:int):String
@@ -339,33 +341,33 @@ package
 			}
 		}
 		
-		private function fgAt(x:int, y:int):int
+		private function fgAt(x:int, y:int):Color
 		{
-			return lerp(blood, fg(world.getTile(x, y), x, y), world.getBlood(x, y) / 20.0);
+			return blood.lerp(fg(world.getTile(x, y), x, y), world.getBlood(x, y) / 20.0);
 		}
 		
-		private function fg(tile:Tile, x:int = 0, y:int = 0):int
+		private function fg(tile:Tile, x:int = 0, y:int = 0):Color
 		{
 			switch (tile)
 			{
 				case Tile.shallow_water: return water_fg;
-				case Tile.portal: return hsv(Math.random() * 360, 50, 90);
-				case Tile.grass: return grassForegroundBitmap.getPixel(x, y);
-				case Tile.grass_fire: return lerp(fire, grassForegroundBitmap.getPixel(x, y), 0.5);
-				case Tile.tree: return treeBitmap.getPixel(x, y);
-				case Tile.tree_fire_3: return lerp(fire, treeBitmap.getPixel(x, y), 0.2);
-				case Tile.tree_fire_2: return lerp(fire, treeBitmap.getPixel(x, y), 0.4);
-				case Tile.tree_fire_1: return lerp(fire, treeBitmap.getPixel(x, y), 0.6);
+				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
+				case Tile.grass: return Color.integer(grassForegroundBitmap.getPixel(x, y));
+				case Tile.grass_fire: return fire.lerp(Color.integer(grassForegroundBitmap.getPixel(x, y)), 0.5);
+				case Tile.tree: return Color.integer(treeBitmap.getPixel(x, y));
+				case Tile.tree_fire_3: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.2);
+				case Tile.tree_fire_2: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.4);
+				case Tile.tree_fire_1: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.6);
 				case Tile.door_opened: return wood_fg;
 				case Tile.door_closed: return wood_fg;
-				case Tile.door_opened_fire: return lerp(fire, wood_bg, 0.3);
-				case Tile.door_closed_fire: return lerp(fire, wood_bg, 0.3);
+				case Tile.door_opened_fire: return fire.lerp(wood_bg, 0.3);
+				case Tile.door_closed_fire: return fire.lerp(wood_bg, 0.3);
 				case Tile.wall: return stone_fg;
-				case Tile.moving_wall: return lerp(0xffffff, stone_fg, 0.50);
+				case Tile.moving_wall: return Color.integer(0xffffff).lerp(stone_fg, 0.50);
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
-				case Tile.mystic_floor_dark: return lerp(magic, 0x000000, 0.33);
-				case Tile.mystic_floor_light: return lerp(magic, 0x000000, 0.33);
+				case Tile.mystic_floor_dark: return magic.lerp(Color.integer(0x000000), 0.33);
+				case Tile.mystic_floor_light: return magic.lerp(Color.integer(0x000000), 0.33);
 				case Tile.ice_tower:
 				case Tile.ice_tower_1:
 				case Tile.ice_tower_2:
@@ -384,38 +386,38 @@ package
 				case Tile.fire_tower_3:
 				case Tile.fire_tower_4:
 					return fire;
-				case Tile.burnt_ground: return lerp(ash, grassForegroundBitmap.getPixel(x, y), 0.5);
-				case Tile.track_light_ns: return 0x111111;
-				case Tile.track_dark_ns: return 0x111111;
-				case Tile.track_light_we: return 0x111111;
-				case Tile.track_dark_we: return 0x111111;
-				default: return 0xff0000;
+				case Tile.burnt_ground: return ash.lerp(Color.integer(grassForegroundBitmap.getPixel(x, y)), 0.5);
+				case Tile.track_light_ns: return Color.integer(0x111111);
+				case Tile.track_dark_ns: return Color.integer(0x111111);
+				case Tile.track_light_we: return Color.integer(0x111111);
+				case Tile.track_dark_we: return Color.integer(0x111111);
+				default: return Color.integer(0x110000);
 			}
 		}
 
-		private function bgAt(x:int, y:int):int
+		private function bgAt(x:int, y:int):Color
 		{
-			return lerp(blood, bg(world.getTile(x, y), x, y), world.getBlood(x, y) / 10.0);
+			return blood.lerp(bg(world.getTile(x, y), x, y), world.getBlood(x, y) / 10.0);
 		}
 		
-		private function bg(tile:Tile, x:int = 0, y:int = 0):int
+		private function bg(tile:Tile, x:int = 0, y:int = 0):Color
 		{
 			switch (tile)
 			{				
 				case Tile.shallow_water: return water_bg;
-				case Tile.portal: return hsv(Math.random() * 360, 50, 90);
-				case Tile.grass: return grassBackgroundBitmap.getPixel(x, y);
-				case Tile.grass_fire: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.5);
-				case Tile.tree: return grassBackgroundBitmap.getPixel(x, y);
-				case Tile.tree_fire_3: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.3);
-				case Tile.tree_fire_2: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.4);
-				case Tile.tree_fire_1: return lerp(fire, grassBackgroundBitmap.getPixel(x, y), 0.5);
+				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
+				case Tile.grass: return Color.integer(grassBackgroundBitmap.getPixel(x, y));
+				case Tile.grass_fire: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.5);
+				case Tile.tree: return Color.integer(grassBackgroundBitmap.getPixel(x, y));
+				case Tile.tree_fire_3: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.3);
+				case Tile.tree_fire_2: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.4);
+				case Tile.tree_fire_1: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.5);
 				case Tile.door_opened: return wood_bg;
 				case Tile.door_closed: return wood_bg;
-				case Tile.door_opened_fire: return lerp(fire, wood_bg, 0.5);
-				case Tile.door_closed_fire: return lerp(fire, wood_bg, 0.5);
+				case Tile.door_opened_fire: return fire.lerp(wood_bg, 0.5);
+				case Tile.door_closed_fire: return fire.lerp(wood_bg, 0.5);
 				case Tile.wall: return stone_bg;
-				case Tile.moving_wall: return lerp(0xffffff, stone_bg, 0.25);
+				case Tile.moving_wall: return Color.integer(0xffffff).lerp(stone_bg, 0.25);
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;
 				case Tile.mystic_floor_dark: return tile_1;
@@ -436,12 +438,12 @@ package
 				case Tile.tower_3:
 				case Tile.tower_4:
 					return stone_fg;
-				case Tile.burnt_ground: return lerp(ash, grassBackgroundBitmap.getPixel(x, y), 0.5);
+				case Tile.burnt_ground: return ash.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.5);
 				case Tile.track_light_ns: return tile_2;
 				case Tile.track_dark_ns: return tile_1;
 				case Tile.track_light_we: return tile_2;
 				case Tile.track_dark_we: return tile_1;
-				default: return 0x00ff00;
+				default: return Color.integer(0x00ff00);
 			}
 		}
 		
@@ -450,7 +452,7 @@ package
 			grassForegroundBitmap = new BitmapData(80, 80, false, 0x00ff00);
 			for (var x:int = 0; x < 80; x++)
 			for (var y:int = 0; y < 80; y++)
-				grassForegroundBitmap.setPixel(x, y, hsv(100, 33, 20 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 10)));
+				grassForegroundBitmap.setPixel(x, y, Color.hsv(100, 33, 20 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 10)).toInt());
 		}
 		
 		private function precalculateGrassBackground(perlinBitmap:BitmapData):void 
@@ -458,7 +460,7 @@ package
 			grassBackgroundBitmap = new BitmapData(80, 80, false, 0x00ff00);
 			for (var x:int = 0; x < 80; x++)
 			for (var y:int = 0; y < 80; y++)
-				grassBackgroundBitmap.setPixel(x, y, hsv(100, 33, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 10)));
+				grassBackgroundBitmap.setPixel(x, y, Color.hsv(100, 33, 15 + Math.floor((perlinBitmap.getPixel(x, y) & 0xFF) / 255.0 * 10)).toInt());
 		}
 		
 		private function precalculateTreeForeground():void 
@@ -469,75 +471,7 @@ package
 			treeBitmap = new BitmapData(80, 80, false, 0x00ff00);
 			for (var x:int = 0; x < 80; x++)
 			for (var y:int = 0; y < 80; y++)
-				treeBitmap.setPixel(x, y, hsv(30 + Math.floor((perlinBitmap.getPixel(y, x) & 0xFF) / 255.0 * 90), 40, 40));
-		}
-		
-		
-		
-		
-		
-		
-		public static function hsv(h:Number, s:Number, v:Number):uint
-		{
-			 var r:Number, g:Number, b:Number, i:Number, f:Number, p:Number, q:Number, t:Number;
-			 h %= 360;
-			 if (v == 0) 
-				return rgb(0, 0, 0);
-			 s /= 100;
-			 v /= 100;
-			 h /= 60;
-			 i = Math.floor(h);
-			 f = h - i;
-			 p = v * (1 - s);
-			 q = v * (1 - (s * f));
-			 t = v * (1 - (s * (1 - f)));
-			 
-			 switch (i)
-			 {
-				 case 0: r = v; g = t; b = p; break;
-				 case 1: r = q; g = v; b = p; break;
-				 case 2: r = p; g = v; b = t; break;
-				 case 3: r = p; g = q; b = v; break;
-				 case 4: r = t; g = p; b = v; break;
-				 case 5: r = v; g = p; b = q; break;
-			 }
-			 
-			 return rgb(Math.floor(r*255), Math.floor(g*255), Math.floor(b*255));
-		}
-		
-		public static function rgb (r:int, g:int, b:int):uint
-		{
-			return (255 << 24) | (r << 16) | (g << 8) | b;
-		}
-		
-		
-		public static function lerp(c1:int, c2:int, percent:Number):int
-		{
-			var key:String = c1 + "," + c2 + "," + percent;
-			var value:Object = lerp_cache[key];
-			
-			if (value == null)
-			{
-				value = lerp_real(c1, c2, percent);
-				lerp_cache[key] = value;
-			}
-			
-			return (int)(value);
-		}
-		
-		private static var lerp_cache:Dictionary = new Dictionary();
-		public static function lerp_real(c1:int, c2:int, percent:Number):int
-		{
-			var r1:int = (c1 >> 16) & 0xFF;
-			var g1:int = (c1 >> 8) & 0xFF;
-			var b1:int = c1 & 0xFF;
-			var r2:int = (c2 >> 16) & 0xFF;
-			var g2:int = (c2 >> 8) & 0xFF;
-			var b2:int = c2 & 0xFF;
-			
-			var inverse:Number = 1 - percent;
-			
-			return rgb(r1 * percent + r2 * inverse, g1 * percent + g2 * inverse, b1 * percent + b2 * inverse);
+				treeBitmap.setPixel(x, y, Color.hsv(30 + Math.floor((perlinBitmap.getPixel(y, x) & 0xFF) / 255.0 * 90), 40, 40).toInt());
 		}
 	}
 }

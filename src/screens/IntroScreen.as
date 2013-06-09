@@ -4,6 +4,7 @@ package screens
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.utils.setTimeout;
+	import knave.Color;
 	import knave.RL;
 	import knave.BaseScreen;
 	import knave.Screen;
