@@ -53,7 +53,9 @@ package screens
 		
 		public function draw(terminal:AsciiPanel):void
 		{
-			display.draw(terminal, "Pugnacious Wizards 2, version 0.2", "-- press enter to begin --");
+			display.draw(terminal);
+			terminal.writeCenter("Pugnacious Wizards 2, version 0.2", 1);
+			terminal.writeCenter("-- press enter to begin --", 78);
 		}
 		
 		public function animate(terminal:AsciiPanel):void

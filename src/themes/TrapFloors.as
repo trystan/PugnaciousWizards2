@@ -11,7 +11,7 @@ package themes
 			
 			var type:int = (int)(Math.random() * 8);
 			
-			if (Math.random() < 0.05)
+			if (Math.random() < Globals.rarePercent)
 				type = 99;
 			
 			for (var x:int = 0; x < 7; x++)

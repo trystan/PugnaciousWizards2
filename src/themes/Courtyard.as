@@ -4,7 +4,7 @@ package themes
 	{
 		public function apply(room:Room, world:World):void
 		{
-			if (Math.random() < 0.05)
+			if (Math.random() < Globals.rarePercent)
 				fullOfTrees(room, world);
 			else
 				normalCourtyard(room, world);

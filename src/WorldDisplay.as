@@ -47,8 +47,8 @@ package
 		private var fire:Color = Color.hsv(15, 66, 66);
 		private var magic:Color = Color.integer(0xbb66cc);
 		private var ash:Color = Color.hsv(30, 66, 10);
-		private var water_fg:Color = Color.hsv(240, 60, 40);
-		private var water_bg:Color = Color.hsv(240, 40, 20);
+		private var water_fg:Color = Color.hsv(220, 70, 40);
+		private var water_bg:Color = Color.hsv(220, 50, 20);
 		
 		public function WorldDisplay(player:Creature, world:World) 
 		{
@@ -63,7 +63,7 @@ package
 			precalculateTreeForeground();
 		}
 		
-		public function draw(terminal:AsciiPanel, header:String = null, footer:String = null):void
+		public function draw(terminal:AsciiPanel):void
 		{
 			terminal.clear();
 			
@@ -109,12 +109,6 @@ package
 			drawAnimations(terminal);
 			
 			drawHud(terminal);
-			
-			if (header != null)
-				terminal.writeCenter(header, 1, 0xffffff);
-			
-			if (footer != null)
-				terminal.writeCenter(footer, 78, 0xffffff);
 		}
 		
 		private static var NS:String = String.fromCharCode(179);

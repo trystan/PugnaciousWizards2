@@ -49,7 +49,9 @@ package
 					return false;
 			}
 			
-			seen[x][y] = viewer.world.getTile(x, y);
+			var tile:Tile = viewer.world.getTile(x, y);
+			if (tile.remember)
+				seen[x][y] = tile;
 			
 			return true;
 		}

@@ -8,7 +8,7 @@ package themes
 		{
 			var total:int = (int)(room.distance / 5 + 1);
 			
-			if (Math.random() < 0.05)
+			if (Math.random() < Globals.rarePercent)
 				total *= 2;
 				
 			for (var i:int = 0; i < total; i++)

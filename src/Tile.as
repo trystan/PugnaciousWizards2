@@ -14,7 +14,7 @@ package
 		public static var mystic_floor_light:Tile = new Tile(false, false, false);
 		public static var mystic_floor_dark:Tile = new Tile(false, false, false);
 		public static var wall:Tile = new Tile(true, true, true);
-		public static var moving_wall:Tile = new Tile(true, true, true);
+		public static var moving_wall:Tile = new Tile(true, true, false, 0, null, false);
 		public static var door_closed:Tile = new Tile(false, true, true, 0.25);
 		public static var door_opened:Tile = new Tile(false, false, false, 0.25);
 		public static var door_closed_fire:Tile = new Tile(false, true, true);
@@ -53,14 +53,16 @@ package
 		public var burnChance:Number;
 		public var blocksVision:Boolean;
 		public var standOnFunction:Function;
+		public var remember:Boolean;
 		
-		public function Tile(blocksMovement:Boolean, blocksArrows:Boolean, blocksVision:Boolean, burnChance:Number = 0.0, standOnFunction:Function = null) 
+		public function Tile(blocksMovement:Boolean, blocksArrows:Boolean, blocksVision:Boolean, burnChance:Number = 0.0, standOnFunction:Function = null, remember:Boolean = true) 
 		{
 			this.blocksMovement = blocksMovement;
 			this.blocksArrows = blocksArrows;
 			this.blocksVision = blocksVision;
 			this.burnChance = burnChance;
 			this.standOnFunction = standOnFunction;
+			this.remember = remember;
 		}
 		
 		public function apply(creature:Creature):void

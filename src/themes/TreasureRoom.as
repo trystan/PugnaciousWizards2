@@ -6,7 +6,7 @@ package themes
 	{
 		public function apply(room:Room, world:World):void
 		{
-			if (Math.random() < 0.05)
+			if (Math.random() < Globals.rarePercent)
 				bigTreasure(room, world);
 			else
 				normalTreasure(room, world);

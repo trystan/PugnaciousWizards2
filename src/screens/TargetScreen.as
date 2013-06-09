@@ -37,10 +37,13 @@ package screens
 		
 		private function moveBy(mx:int, my:int):void 
 		{
+			if (tx + mx < 0 || tx + mx > 79 || ty + my < 0 || ty + my > 79)
+				return;
+				
 			tx += mx;
 			ty += my;
 			
-			isOk = player.canSee(tx + mx, ty + my);
+			isOk = player.canSee(tx, ty);
 		}
 		
 		public function draw(terminal:AsciiPanel):void 

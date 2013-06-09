@@ -7,7 +7,7 @@ package themes
 		public function apply(room:Room, world:World):void
 		{
 			var max:int = room.distance / 7 + 1;
-			if (Math.random() < 0.05)
+			if (Math.random() < Globals.rarePercent)
 				max *= 2;
 				
 			var tries:int = 0;
