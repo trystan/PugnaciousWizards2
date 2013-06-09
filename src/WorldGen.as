@@ -14,6 +14,7 @@ package
 			
 			addRooms();
 			connectRoomsAsPerfectMaze();
+			connectExtraRooms();
 			addRoomDistances();
 			
 			getRoom(0, 4).isConnectedWest = true;
@@ -164,6 +165,41 @@ package
 					frontier.push(getRoom(here.position.x + 1, here.position.y));
 				if (here.position.y < 8 && frontier.indexOf(getRoom(here.position.x, here.position.y + 1)) == -1)
 					frontier.push(getRoom(here.position.x, here.position.y + 1));
+			}
+		}
+		
+		private function connectExtraRooms():void 
+		{
+			var tries:int = 0;
+			while (tries++ < 10)
+			{
+				var x:int = Math.random() * 9;
+				var y:int = Math.random() * 9;
+				var room:Room = getRoom(x, y);
+				
+				if (x > 0 && Math.random() < 0.33)
+				{
+					room.isConnectedWest = true;
+					getRoom(x - 1, y).isConnectedEast = true;
+				}
+				
+				if (x < 8 && Math.random() < 0.33)
+				{
+					room.isConnectedEast = true;
+					getRoom(x + 1, y).isConnectedWest = true;
+				}
+				
+				if (y > 0 && Math.random() < 0.33)
+				{
+					room.isConnectedNorth = true;
+					getRoom(x, y - 1).isConnectedSouth = true;
+				}
+				
+				if (y < 8 && Math.random() < 0.33)
+				{
+					room.isConnectedSouth = true;
+					getRoom(x, y + 1).isConnectedNorth = true;
+				}
 			}
 		}
 		

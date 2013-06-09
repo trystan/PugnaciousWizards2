@@ -96,8 +96,8 @@ package
 					continue;
 				}
 				
-				var creatureGlyph:String = creature.type == "Hero" ? "@" : creature.type.charAt(0).toLowerCase();
-				var creatureColor:int = creature.type == "Hero" ? 0xffffff : 0xc0c0c0;
+				var creatureGlyph:String = creature.isGoodGuy ? "@" : creature.type.charAt(0).toLowerCase();
+				var creatureColor:int = creature.isGoodGuy ? 0xffffff : 0xc0c0c0;
 				if (creature.fireCounter > 0)
 					creatureColor = lerp(fire, creatureColor, 0.80);
 				else if (creature.freezeCounter > 0)
@@ -341,7 +341,7 @@ package
 		
 		private function fgAt(x:int, y:int):int
 		{
-			return lerp(blood, fg(world.getTile(x, y), x, y), world.getBlood(x, y) / 10.0);
+			return lerp(blood, fg(world.getTile(x, y), x, y), world.getBlood(x, y) / 20.0);
 		}
 		
 		private function fg(tile:Tile, x:int = 0, y:int = 0):int
@@ -361,7 +361,7 @@ package
 				case Tile.door_opened_fire: return lerp(fire, wood_bg, 0.3);
 				case Tile.door_closed_fire: return lerp(fire, wood_bg, 0.3);
 				case Tile.wall: return stone_fg;
-				case Tile.moving_wall: return lerp(0x000000, stone_fg, 0.66);
+				case Tile.moving_wall: return lerp(0xffffff, stone_fg, 0.50);
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
 				case Tile.mystic_floor_dark: return lerp(magic, 0x000000, 0.33);
@@ -415,7 +415,7 @@ package
 				case Tile.door_opened_fire: return lerp(fire, wood_bg, 0.5);
 				case Tile.door_closed_fire: return lerp(fire, wood_bg, 0.5);
 				case Tile.wall: return stone_bg;
-				case Tile.moving_wall: return lerp(0x000000, stone_bg, 0.33);
+				case Tile.moving_wall: return lerp(0xffffff, stone_bg, 0.25);
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;
 				case Tile.mystic_floor_dark: return tile_1;

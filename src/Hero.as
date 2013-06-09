@@ -12,6 +12,7 @@ package
 		public function Hero(position:Point)
 		{
 			super(position, "Hero");
+			isGoodGuy = true;
 		}
 		
 		public override function doAi():void

@@ -10,5 +10,14 @@ package
 		{
 			this.spell = spell;
 		}
+		
+		public function getPickedUpBy(creature:Creature):void 
+		{
+			if (creature is Player || creature is Hero)
+			{
+				creature.world.removeItem(creature.position.x, creature.position.y);
+				creature.addMagicSpell(spell);
+			}
+		}
 	}
 }

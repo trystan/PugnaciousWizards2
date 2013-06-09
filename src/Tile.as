@@ -1,5 +1,6 @@
 package  
 {
+	import flash.geom.Point;
 	public class Tile 
 	{
 		public static var grass:Tile = new Tile(false, false, false, 0.1);
@@ -24,9 +25,9 @@ package
 		static public var tower_3:Tile = new Tile(true, true, false);
 		static public var tower_4:Tile = new Tile(true, true, false);
 		static public var burnt_ground:Tile = new Tile(false, false, false);
-		static public var shallow_water:Tile = new Tile(false, false, false);
+		static public var shallow_water:Tile = new Tile(false, false, false, 0, waterEffect);
 		
-		static public var portal:Tile = new Tile(false, false, false);
+		static public var portal:Tile = new Tile(false, false, false, 0, portalEffect);
 		
 		static public var ice_tower:Tile = new Tile(true, true, false);
 		static public var ice_tower_1:Tile = new Tile(true, true, false);
@@ -51,13 +52,51 @@ package
 		public var blocksArrows:Boolean;
 		public var burnChance:Number;
 		public var blocksVision:Boolean;
+		public var standOnFunction:Function;
 		
-		public function Tile(blocksMovement:Boolean, blocksArrows:Boolean, blocksVision:Boolean, burnChance:Number = 0.0) 
+		public function Tile(blocksMovement:Boolean, blocksArrows:Boolean, blocksVision:Boolean, burnChance:Number = 0.0, standOnFunction:Function = null) 
 		{
 			this.blocksMovement = blocksMovement;
 			this.blocksArrows = blocksArrows;
 			this.blocksVision = blocksVision;
 			this.burnChance = burnChance;
+			this.standOnFunction = standOnFunction;
+		}
+		
+		public function apply(creature:Creature):void
+		{
+			if (standOnFunction != null)
+				standOnFunction(creature);
+		}
+		
+		private static function waterEffect(creature:Creature):void
+		{
+			creature.fireCounter = 0;
+		}
+		
+		private static function portalEffect(creature:Creature):void
+		{	
+			var candidates:Array = [];
+			
+			for (var ox:int = 0; ox < 80; ox++)
+			for (var oy:int = 0; oy < 80; oy++)
+			{
+				if (creature.world.getTile(ox, oy) == Tile.portal)
+					candidates.push(new Point(ox, oy));
+			}
+			
+			var target:Point = candidates[(int)(Math.random() * candidates.length)];
+			
+			var tx:int = 0;
+			var ty:int = 0;
+			do
+			{
+				tx = target.x + (int)(Math.random() * 3 - 1);
+				ty = target.y + (int)(Math.random() * 3 - 1);
+			}
+			while (creature.world.getTile(tx, ty) == Tile.portal || creature.world.getTile(tx, ty).blocksMovement);
+			
+			creature.moveTo(tx, ty);
 		}
 	}
 }

@@ -12,6 +12,7 @@ package screens
 		private var tx:int;
 		private var ty:int;
 		private var player:Creature;
+		private var isOk:Boolean = true;
 		
 		public function TargetScreen(player:Creature, callback:Function) 
 		{
@@ -30,24 +31,22 @@ package screens
 			bind('down right', function():void { moveBy(1, 1); } );
 			
 			bind('escape', function():void { exit(); } );
-			bind('enter', function():void { callback(player, tx, ty); exit(); } );
+			bind('enter', function():void { if (isOk) { callback(player, tx, ty); exit(); } } );
 			bind('draw', draw);
 		}
 		
 		private function moveBy(mx:int, my:int):void 
 		{
-			if (!player.canSee(tx + mx, ty + my)
-					|| player.world.getTile(tx + mx, ty + my).blocksArrows)
-				return;
-				
 			tx += mx;
 			ty += my;
+			
+			isOk = player.canSee(tx + mx, ty + my);
 		}
 		
 		public function draw(terminal:AsciiPanel):void 
 		{
 			terminal.write("Which location?", 2, 78, 0xffffff);
-			terminal.write("X", tx, ty, 0xffffff);
+			terminal.write("X", tx, ty, 0xffffff, isOk ? 0x000000 : 0xff3333);
 		}
 	}
 }

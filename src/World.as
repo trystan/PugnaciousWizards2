@@ -186,8 +186,9 @@ package
 		
 		public function addBlood(x:int, y:int, amount:int = 1):void
 		{
-			addBlood1(x, y, amount * 2);
-			addBlood1(x + (int)(Math.random() * 3) - 1, y + (int)(Math.random() * 3) - 1, amount);
+			addBlood1(x, y);
+			for (var i:int = 1; i < amount; i++)
+				addBlood1(x + (int)(Math.random() * 3) - 1, y + (int)(Math.random() * 3) - 1);
 		}
 		
 		private function addBlood1(x:int, y:int, amount:int = 1):void

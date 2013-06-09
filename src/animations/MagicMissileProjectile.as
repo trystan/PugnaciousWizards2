@@ -17,7 +17,7 @@ package animations
 		private var _done:Boolean = false;
 		public function get done():Boolean { return _done; }
 		
-		public function MagicMissileProjectile(world:World, x:int, y:int, vx:int, vy:int, ticks:int = 21) 
+		public function MagicMissileProjectile(world:World, x:int, y:int, vx:int, vy:int, ticks:int = 14) 
 		{
 			this.x = x;
 			this.y = y;

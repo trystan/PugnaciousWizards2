@@ -22,6 +22,7 @@ package
 		
 		public var fireCounter:int = 0;
 		public var freezeCounter:int = 0;
+		public var isGoodGuy:Boolean = false;
 		
 		public var magic:Array = [];
 		
@@ -42,34 +43,13 @@ package
 				return;
 			
 			if (world.isClosedDoor(position.x + x, position.y + y))
-				world.openDoor(position.x + x, position.y + y);
+			{
+				if (isGoodGuy)
+					world.openDoor(position.x + x, position.y + y);
+			}
 			else if (x == 0 && y == 0)
 			{
 				// stand still
-			}
-			else if (world.getTile(position.x + x, position.y + y) == Tile.portal)
-			{
-				var candidates:Array = [];
-				
-				for (var ox:int = 0; ox < 80; ox++)
-				for (var oy:int = 0; oy < 80; oy++)
-				{
-					if (world.getTile(ox, oy) == Tile.portal)
-						candidates.push(new Point(ox, oy));
-				}
-				
-				var target:Point = candidates[(int)(Math.random() * candidates.length)];
-				
-				var tx:int = 0;
-				var ty:int = 0;
-				do
-				{
-					tx = target.x + (int)(Math.random() * 3 - 1);
-					ty = target.y + (int)(Math.random() * 3 - 1);
-				}
-				while (world.getTile(tx, ty) == Tile.portal || world.getTile(tx, ty).blocksMovement);
-				
-				moveTo(tx, ty);
 			}
 			else if (!world.getTile(position.x + x, position.y + y).blocksMovement)
 			{
@@ -91,7 +71,7 @@ package
 		
 		public function isEnemy(other:Creature):Boolean
 		{
-			return this.type != other.type;
+			return this.isGoodGuy != other.isGoodGuy;
 		}
 		
 		private function melee(other:Creature):void 
@@ -112,13 +92,10 @@ package
 		
 		public function update():void
 		{
+			world.getTile(position.x, position.y).apply(this);
+			
 			if (health < 1)
 				return;
-							
-			if (world.getTile(position.x, position.y) == Tile.shallow_water)
-			{
-				fireCounter = Math.max(0, fireCounter - 10);
-			}
 				
 			if (fireCounter > 0)
 			{
@@ -156,22 +133,8 @@ package
 		private function getStuffHere():void
 		{
 			var item:Item = world.getItem(position.x, position.y);
-			if (item is EndPiece)
-			{
-				world.removeItem(position.x, position.y);
-				endPiecesPickedUp++;
-			}
-			else if (item is Scroll && magic.length < 9)
-			{
-				world.removeItem(position.x, position.y);
-				addMagicSpell((item as Scroll).spell);
-			}
-			else if (item is HealthContainer)
-			{
-				world.removeItem(position.x, position.y);
-				health += 5;
-				maxHealth = Math.max(health, maxHealth);
-			}
+			if (item != null)
+				item.getPickedUpBy(this);
 		}
 		
 		public function addMagicSpell(spell:Spell):void
@@ -207,7 +170,7 @@ package
 			health -= amount;
 			
 			bleedingCounter += amount / 5;
-			world.addBlood(position.x, position.y, amount / 3 + 1);
+			world.addBlood(position.x, position.y, amount / 5 + 1);
 			
 			if (health < 1)
 			{

@@ -38,7 +38,7 @@ package animations
 			{
 				var creature:Creature = world.getCreatureAt(p.x, p.y);
 				if (creature != null)
-					creature.burn(6);
+					creature.burn(5);
 			}
 		}
 		

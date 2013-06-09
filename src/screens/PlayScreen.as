@@ -96,7 +96,11 @@ package screens
 					didUpdate = true;
 			}
 			
-			if (world.animationEffects.length > 0 || didUpdate)
+			if (player.health < 1)
+				switchTo(new FailScreen(player, world));
+			else if (world.playerHasWon)
+				switchTo(new VictoryScreen(player, world));
+			else if (world.animationEffects.length > 0 || didUpdate)
 				RL.current.animate();
 		}
 	}
