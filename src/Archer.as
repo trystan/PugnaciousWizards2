@@ -38,14 +38,14 @@ package
 			var dir:String = "";
 			
 			if (world.player.position.y < position.y)
-				dir += "N";
-			else if (world.player.position.y > position.y)
 				dir += "S";
+			else if (world.player.position.y > position.y)
+				dir += "N";
 			
 			if (world.player.position.x < position.x)
-				dir += "W";
-			else if (world.player.position.x > position.x)
 				dir += "E";
+			else if (world.player.position.x > position.x)
+				dir += "W";
 				
 			new Arrow(world, position.x, position.y, dir, new Pierce());
 		}
@@ -53,6 +53,13 @@ package
 		private function canShootTarget():Boolean 
 		{
 			if (!canSeeCreature(world.player))
+				return false;
+				
+			var isInCorrectDirection:Boolean = world.player.position.x - position.x == 0 
+											|| world.player.position.y == position.y
+											|| Math.abs(world.player.position.x - position.x) 
+											 - Math.abs(world.player.position.y - position.y) == 0;
+			if (!isInCorrectDirection)
 				return false;
 			
 			for each (var point:Point in Line.betweenPoints(position, world.player.position).points)
