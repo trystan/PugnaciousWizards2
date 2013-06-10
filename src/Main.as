@@ -37,23 +37,6 @@ package
 			rl.enter(new IntroScreen());
 			
 			addChild(rl);
-			
-			if (!runTests())
-				return;
-		}
-		
-		private function runTests():Boolean
-		{
-			var tests:Tests = new Tests();
-			tests.run();
-			if (tests.failed)
-			{
-				var text:TextField = new TextField();
-				text.text = tests.message;
-				text.width = text.textWidth + 5;
-				addChild(text);
-			}
-			return tests.passed;
 		}
 	}
 }

@@ -43,7 +43,7 @@ package
 		private var blood:Color = Color.hsv(0, 66, 35);
 		private var memory:Color = Color.hsv(240, 75, 5);
 		private var ice:Color = Color.hsv(220, 33, 80);
-		private var fire:Color = Color.hsv(15, 66, 80);
+		private var fire:Color = Color.hsv(0, 75, 80);
 		private var magic:Color = Color.hsv(270, 50, 80);
 		private var ash:Color = Color.hsv(30, 66, 20);
 		private var water_fg:Color = Color.hsv(220, 70, 50);
@@ -119,7 +119,20 @@ package
 			drawAnimations(terminal);
 			
 			drawHud(terminal);
+			
+			addGlowingTiles(terminal);
 		}
+		
+		private var glowingTiles:Array = [
+			Tile.ice_tower, Tile.ice_tower_1, Tile.ice_tower_2, Tile.ice_tower_3, Tile.ice_tower_4,
+			Tile.fire_tower, Tile.fire_tower_1, Tile.fire_tower_2, Tile.fire_tower_3, Tile.fire_tower_4,
+			Tile.portal,
+		];
+		
+		private var isOnFileTiles:Array = [
+			Tile.tree_fire_1, Tile.tree_fire_2, Tile.tree_fire_3,
+			Tile.grass_fire, Tile.door_closed_fire, Tile.door_opened_fire,
+		];
 		
 		private function addLight(terminal:AsciiPanel, x:int, y:int, color:Color, radius:Number = 3.0):void
 		{
@@ -253,6 +266,19 @@ package
 			}
 			
 			return didDrawAny;
+		}
+		
+		private function addGlowingTiles(terminal:AsciiPanel):void
+		{
+			for (var x:int = 0; x < 80; x++)
+			for (var y:int = 0; y < 80; y++)
+			{
+				var tile:Tile = world.getTile(x, y);
+				if (glowingTiles.indexOf(tile) > -1)
+					addLight(terminal, x, y, fgAt(x, y), 3);
+				else if (isOnFileTiles.indexOf(tile) > -1)
+					addLight(terminal, x, y, fire, 3);
+			}
 		}
 		
 		private function arrowTile(direction:String):String
@@ -392,15 +418,15 @@ package
 				case Tile.shallow_water: return water_fg;
 				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
 				case Tile.grass: return Color.integer(grassForegroundBitmap.getPixel(x, y));
-				case Tile.grass_fire: return fire.lerp(Color.integer(grassForegroundBitmap.getPixel(x, y)), 0.5);
+				case Tile.grass_fire: return fire.lerp(Color.integer(grassForegroundBitmap.getPixel(x, y)), 0.33);
 				case Tile.tree: return Color.integer(treeBitmap.getPixel(x, y));
-				case Tile.tree_fire_3: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.2);
-				case Tile.tree_fire_2: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.4);
-				case Tile.tree_fire_1: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.6);
+				case Tile.tree_fire_3: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.1);
+				case Tile.tree_fire_2: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.3);
+				case Tile.tree_fire_1: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.5);
 				case Tile.door_opened: return wood_fg;
 				case Tile.door_closed: return wood_fg;
-				case Tile.door_opened_fire: return fire.lerp(wood_bg, 0.3);
-				case Tile.door_closed_fire: return fire.lerp(wood_bg, 0.3);
+				case Tile.door_opened_fire: return fire.lerp(wood_bg, 0.2);
+				case Tile.door_closed_fire: return fire.lerp(wood_bg, 0.2);
 				case Tile.wall: return stone_fg;
 				case Tile.moving_wall: return Color.integer(0xffffff).lerp(stone_fg, 0.50);
 				case Tile.floor_dark: return tile_3;
@@ -446,15 +472,15 @@ package
 				case Tile.shallow_water: return water_bg;
 				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
 				case Tile.grass: return Color.integer(grassBackgroundBitmap.getPixel(x, y));
-				case Tile.grass_fire: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.5);
+				case Tile.grass_fire: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.33);
 				case Tile.tree: return Color.integer(grassBackgroundBitmap.getPixel(x, y));
-				case Tile.tree_fire_3: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.3);
-				case Tile.tree_fire_2: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.4);
+				case Tile.tree_fire_3: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.1);
+				case Tile.tree_fire_2: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.3);
 				case Tile.tree_fire_1: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.5);
 				case Tile.door_opened: return wood_bg;
 				case Tile.door_closed: return wood_bg;
-				case Tile.door_opened_fire: return fire.lerp(wood_bg, 0.5);
-				case Tile.door_closed_fire: return fire.lerp(wood_bg, 0.5);
+				case Tile.door_opened_fire: return fire.lerp(wood_bg, 0.1);
+				case Tile.door_closed_fire: return fire.lerp(wood_bg, 0.1);
 				case Tile.wall: return stone_bg;
 				case Tile.moving_wall: return Color.integer(0xffffff).lerp(stone_bg, 0.25);
 				case Tile.floor_dark: return tile_1;
