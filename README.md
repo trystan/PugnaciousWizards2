@@ -13,7 +13,7 @@ Easy to play because of the streamlined interface and help system. The complexit
 
 Development Milestones
 ======================
-New spells, rooms, and effects will be added the entire time, but there are major milestones.
+New spells, rooms, and polish will be added the entire time but there are major milestones.
 
 version 0.1 (done)
 * traps
@@ -27,7 +27,7 @@ version 0.3
 * help popups
 
 version 0.4
-* more spells. Eventually have 18 scrolls in each castle and 27 total spells
+* more spells. Eventually have 18 random scrolls in each castle and 27 total spells
 
 version 0.5
 * enemy wizards
