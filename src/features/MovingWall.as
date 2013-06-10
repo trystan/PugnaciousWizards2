@@ -24,9 +24,7 @@ package features
 		
 		override public function update():void
 		{
-			if (world.blocksMovement(x + mx, y + my) 
-				|| world.isOpenedDoor(x + mx, y + my) 
-				|| world.isClosedDoor(x + mx, y + my))
+			if (!isTrack(world.getTile(x + mx, y + my)))
 			{
 				mx *= -1;
 				my *= -1;
@@ -45,6 +43,16 @@ package features
 				if (world.blocksMovement(x + mx, y + my))
 					creature.takeDamage(1000, "Crushed to death by a moving wall piece.");
 			}
+		}
+		
+		private var tracks:Array = [
+			Tile.track_dark_ns, Tile.track_light_ns,
+			Tile.track_dark_we, Tile.track_light_we,
+		];
+		
+		private function isTrack(tile:Tile):Boolean 
+		{
+			return tracks.indexOf(tile) > -1;
 		}
 	}
 }
