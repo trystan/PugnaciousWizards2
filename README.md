@@ -27,7 +27,7 @@ version 0.3
 * help popups
 
 version 0.4
-* more spells
+* more spells. Eventually have 18 scrolls in each castle and 27 total spells
 
 version 0.5
 * enemy wizards
@@ -43,10 +43,10 @@ version 0.8
 
 version 0.9
 * a random effect for each game
-** +10 hp for guards
-** fire does double damage
-** +2 vision
-** etc.
+	* +10 hp for guards
+	* fire does double damage
+	* +2 vision
+	* etc.
 
 version 1.0
 * extract common rogulike stuff into a framework
