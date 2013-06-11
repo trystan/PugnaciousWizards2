@@ -14,7 +14,7 @@ package screens
 		
 		public function HelpPopupScreen(text:String) 
 		{
-			this.text = text.split("\n");
+			setTextLines(text);
 			
 			bind('escape', exitScreen);
 			bind('enter', exitScreen);
@@ -60,6 +60,27 @@ package screens
 					
 					terminal.write(text[i].charAt(x), left + x + 2, top + y + 2, 0xffffff, bg);
 				}
+			}
+		}
+		
+		private function setTextLines(fullText:String):void 
+		{
+			text = [];
+			for each (var line:String in fullText.split("\n"))
+			{
+				if (line.length == 0)
+					text.push("");
+					
+				while (line.length > 70)
+				{
+					text.push(line.substr(0, 70));
+					line = line.substr(70);
+				}
+				while (line.length > 0 && line.charAt(0) == " ")
+					line = line.substr(0);
+					
+				if (line.length > 0)
+					text.push(line);
 			}
 		}
 	}

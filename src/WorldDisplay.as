@@ -142,7 +142,7 @@ package
 		
 		private function popupTitle(thing:String, glyph:String):String
 		{
-			if ("aeiouy".indexOf(thing.substr(0).toLowerCase()) == -1)
+			if ("aeiouy".indexOf(thing.charAt(0).toLowerCase()) == -1)
 				return "You see a " + thing + " (" + glyph + ")";
 			else
 				return "You see an " + thing + " (" + glyph + ")";
