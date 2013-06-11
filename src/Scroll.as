@@ -8,7 +8,7 @@ package
 		
 		public function get name():String { return "scroll of " + spell.name; }
 		
-		public function get description():String { return "This is a scroll for \"" + spell.name + "\"."; }
+		public function get description():String { return spell.description; }
 		
 		public function Scroll(spell:Spell) 
 		{

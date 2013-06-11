@@ -12,6 +12,11 @@ package spells
 		
 		public function get name():String { return "Magic missile"; }
 		
+		public function get description():String
+		{
+			return "Shoot a painfull projectile that bounces off walls and splits when it hits someone.";
+		}
+		
 		public function playerCast(player:Creature, callback:Function):void
 		{
 			this.callback = callback;

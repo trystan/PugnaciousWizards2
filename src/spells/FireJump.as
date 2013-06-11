@@ -10,6 +10,11 @@ package spells
 		
 		public function get name():String { return "Fire jump"; }
 		
+		public function get description():String
+		{
+			return "Teleport nearby and create a fiery explosion near you.\n\nMay start a forest fire.";
+		}
+		
 		public function playerCast(player:Creature, callback:Function):void
 		{
 			this.callback = callback;

@@ -2,9 +2,11 @@ package spells
 {
 	public class HealAndWeaken implements Spell
 	{
-		public function get name():String 
+		public function get name():String { return "Heal & weaken"; }
+		
+		public function get description():String
 		{
-			return "Heal & weaken";
+			return "Reduce you maximum health and vision to fully heal yourself.";
 		}
 		
 		public function playerCast(player:Creature, callback:Function):void 

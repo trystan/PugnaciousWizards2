@@ -35,6 +35,16 @@ package screens
 			bind('down left', function():void { moveBy(-1, 1); } );
 			bind('down right', function():void { moveBy(1, 1); } );
 			
+			bind('1', function():void { describeMagic(0); } );
+			bind('2', function():void { describeMagic(1); } );
+			bind('3', function():void { describeMagic(2); } );
+			bind('4', function():void { describeMagic(3); } );
+			bind('5', function():void { describeMagic(4); } );
+			bind('6', function():void { describeMagic(5); } );
+			bind('7', function():void { describeMagic(6); } );
+			bind('8', function():void { describeMagic(7); } );
+			bind('9', function():void { describeMagic(8); } );
+			
 			bind('draw', draw);
 		}
 		
@@ -42,6 +52,15 @@ package screens
 		{
 			lookX = Math.max(0, Math.min(lookX + x, 79));
 			lookY = Math.max(0, Math.min(lookY + y, 79));
+		}
+		
+		private function describeMagic(index:int):void
+		{
+			if (player.magic.length >= index)
+			{
+				var text:String = player.magic[index].name + "\n\n" + player.magic[index].description;
+				enter(new HelpPopupScreen(text));
+			}
 		}
 		
 		private function exitScreen(junk:*):void
@@ -82,7 +101,14 @@ package screens
 				terminal.write(String.fromCharCode(188), lookX + 1, lookY + 1, fg, bg);
 			
 			terminal.write(text, x, y, 0xffc0c0c0);
-			terminal.write("Examine what?", 2, lookY > 75 ? 71 : 78);
+			var spellRange:String = "";
+			switch (player.magic.length)
+			{
+				case 0: break;
+				case 1: spellRange = " or 1 for magic"; break;
+				default: spellRange = " or 1 through " + player.magic.length + " for magic"; break;
+			}
+			terminal.write("Examine what? (movement keys" + spellRange + ")", 2, lookY > 75 ? 71 : 78);
 		}
 		
 		private function describe():String 
