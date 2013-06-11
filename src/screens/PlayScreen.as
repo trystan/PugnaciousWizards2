@@ -20,7 +20,7 @@ package screens
 		public function PlayScreen(player:Player = null, world:World = null) 
 		{
 			if (player == null)
-				player = new Player(new Point(1, 35));
+				player = new Player(new Point(1, 19));
 				
 			if (world == null)
 				world = new World().addWorldGen(new WorldGen());

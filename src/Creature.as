@@ -8,6 +8,7 @@ package
 	public class Creature 
 	{
 		public var type:String;
+		public var description:String;
 		public var position:Point;
 		public var world:World;
 		public var endPiecesPickedUp:int = 0;
@@ -26,9 +27,10 @@ package
 		
 		public var magic:Array = [];
 		
-		public function Creature(position:Point, type:String) 
+		public function Creature(position:Point, type:String, description:String) 
 		{
 			this.type = type;
+			this.description = description;
 			this.position = position;
 			
 			maxHealth = 100;

@@ -12,7 +12,8 @@ package
 		
 		public function Archer(position:Point)
 		{
-			super(position, "Archer");
+			super(position, "Archer",
+				"Archers can shoot arows and are smart enough to keep you in their sights.");
 			
 			maxHealth = 5 * 2;
 			health = maxHealth;

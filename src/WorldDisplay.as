@@ -70,7 +70,20 @@ package
 			for (var y:int = 0; y < 80; y++)
 			{
 				if (player.canSee(x, y))
+				{
 					terminal.write(tileAt(x, y), x, y, fgAt(x, y).toInt(), bgAt(x, y).toInt());
+					
+					var visibleTile:Tile = world.getTile(x, y);
+					if (visibleTile.description != null)
+						popup(visibleTile.name, 
+								popupTitle(visibleTile.name, tileAt(x, y)),
+								visibleTile.description);
+								
+					if (isOnFileTiles.indexOf(visibleTile) > -1)
+						popup("something is on fire", 
+								popupTitle(visibleTile.name, tileAt(x, y)),
+								"Some things can catch on fire. Be careful - it can easy spread out of control.");
+				}
 				else if (player.hasSeen(x, y))
 				{
 					var remembered:Tile = player.memory(x, y);
@@ -85,11 +98,17 @@ package
 			for each (var placedItem:Object in world.items)
 			{
 				if (player.canSee(placedItem.x, placedItem.y))
+				{
+					popup(placedItem.item.name, 
+						popupTitle(placedItem.item.name, item_glyph(placedItem.item)),
+						placedItem.item.description);
+					
 					terminal.write(
 						item_glyph(placedItem.item), 
 						placedItem.x, placedItem.y, 
 						item_color(placedItem.item).toInt(), 
 						terminal.getBackgroundColor(placedItem.x, placedItem.y));
+				}
 			}
 			
 			
@@ -97,12 +116,6 @@ package
 			{
 				if (!player.canSee(creature.position.x, creature.position.y))
 					continue;
-					
-				if (creature.health < 1)
-				{
-					trace(creature + " health = " + creature.health);
-					continue;
-				}
 				
 				var creatureGlyph:String = creature.isGoodGuy ? "@" : creature.type.charAt(0).toLowerCase();
 				var creatureColor:Color = Color.integer(creature.isGoodGuy ? 0xffffff : 0xc0c0c0);
@@ -114,6 +127,10 @@ package
 					creature.position.x, creature.position.y, 
 					creatureColor.toInt(), 
 					terminal.getBackgroundColor(creature.position.x, creature.position.y));
+				
+				popup(creature.type, 
+						popupTitle(creature.type, creatureGlyph),
+						creature.description);
 			}
 			
 			drawAnimations(terminal);
@@ -121,6 +138,20 @@ package
 			drawHud(terminal);
 			
 			addGlowingTiles(terminal);
+		}
+		
+		private function popupTitle(thing:String, glyph:String):String
+		{
+			if ("aeiouy".indexOf(thing.substr(0).toLowerCase()) == -1)
+				return "You see a " + thing + " (" + glyph + ")";
+			else
+				return "You see an " + thing + " (" + glyph + ")";
+		}
+		
+		private function popup(topic:String, title:String, text:String):void
+		{
+			if (player is Player)
+				HelpSystem.popup(topic, title, text);
 		}
 		
 		private var glowingTiles:Array = [

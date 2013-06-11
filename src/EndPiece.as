@@ -4,6 +4,8 @@ package
 	{
 		public function get name():String { return "piece of the amulet"; }
 		
+		public function get description():String { return "This is one of the pieces you came here for.\nPick it up, find the others, and escape to win."; }
+		
 		public function getPickedUpBy(creature:Creature):void 
 		{
 			if (creature is Player || creature is Hero)

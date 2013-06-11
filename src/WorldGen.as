@@ -90,9 +90,9 @@ package
 			
 			world.rooms = roomList;
 			
-			world.addItem(2, 35, new Scroll(new FireJump()));
-			world.addItem(3, 36, new Scroll(new MagicMissile()));
-			world.addItem(2, 38, new Scroll(new HealAndWeaken()));
+			world.addItem(2, 28, new Scroll(new FireJump()));
+			world.addItem(3, 32, new Scroll(new MagicMissile()));
+			world.addItem(2, 36, new Scroll(new HealAndWeaken()));
 		}
 		
 		private function addRooms():void 

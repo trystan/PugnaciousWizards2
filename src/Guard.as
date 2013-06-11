@@ -9,7 +9,8 @@ package
 		
 		public function Guard(position:Point)
 		{
-			super(position, "Guard");
+			super(position, "Guard",
+				"Guards rush to fight anyone who enters the castle.");
 			
 			maxHealth = 5 * 3;
 			health = maxHealth;

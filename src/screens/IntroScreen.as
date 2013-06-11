@@ -18,7 +18,7 @@ package screens
 		public function IntroScreen(hero:Hero = null, world:World = null) 
 		{
 			if (hero == null)
-				hero = new Hero(new Point(1, 35));
+				hero = new Hero(new Point(1, 19));
 				
 			if (world == null)
 				world = new World().addWorldGen(new WorldGen());

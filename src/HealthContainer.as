@@ -4,6 +4,8 @@ package
 	{
 		public function get name():String { return "health container"; }
 		
+		public function get description():String { return "This heart will give you 5 health, possibly increasing your maximum health in the process."; }
+		
 		public function getPickedUpBy(creature:Creature):void 
 		{
 			creature.world.removeItem(creature.position.x, creature.position.y);

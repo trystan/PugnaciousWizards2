@@ -11,7 +11,9 @@ package
 		
 		public function Hero(position:Point)
 		{
-			super(position, "Hero");
+			super(position, "Hero", 
+				"It's a brave - or foolish - hero who is attempting to find the pieces of the amulet.");
+			
 			isGoodGuy = true;
 		}
 		
