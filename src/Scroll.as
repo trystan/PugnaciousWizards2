@@ -6,6 +6,8 @@ package
 	{
 		public var spell:Spell;
 		
+		public function get name():String { return "scroll of " + spell.name; }
+		
 		public function Scroll(spell:Spell) 
 		{
 			this.spell = spell;
