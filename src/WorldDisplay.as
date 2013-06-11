@@ -438,6 +438,14 @@ package
 				case Tile.track_dark_ns: return String.fromCharCode(179);
 				case Tile.track_light_we: return String.fromCharCode(196);
 				case Tile.track_dark_we: return String.fromCharCode(196);
+				case Tile.track_light_ne: return String.fromCharCode(192);
+				case Tile.track_dark_ne: return String.fromCharCode(192);
+				case Tile.track_light_sw: return String.fromCharCode(191);
+				case Tile.track_dark_sw: return String.fromCharCode(191);
+				case Tile.track_light_nw: return String.fromCharCode(217);
+				case Tile.track_dark_nw: return String.fromCharCode(217);
+				case Tile.track_light_se: return String.fromCharCode(218);
+				case Tile.track_dark_se: return String.fromCharCode(218);
 				default: return "X";
 			}
 		}
@@ -488,10 +496,19 @@ package
 				case Tile.fire_tower_4:
 					return fire;
 				case Tile.burnt_ground: return ash.lerp(Color.integer(grassForegroundBitmap.getPixel(x, y)), 0.5);
-				case Tile.track_light_ns: return Color.integer(0x111111);
-				case Tile.track_dark_ns: return Color.integer(0x111111);
-				case Tile.track_light_we: return Color.integer(0x111111);
-				case Tile.track_dark_we: return Color.integer(0x111111);
+				case Tile.track_light_ns:
+				case Tile.track_dark_ns:
+				case Tile.track_light_we:
+				case Tile.track_dark_we:
+				case Tile.track_light_nw:
+				case Tile.track_dark_nw:
+				case Tile.track_light_ne:
+				case Tile.track_dark_ne:
+				case Tile.track_light_sw:
+				case Tile.track_dark_sw:
+				case Tile.track_light_se:
+				case Tile.track_dark_se:
+					return Color.integer(0x111111);
 				default: return Color.integer(0x110000);
 			}
 		}
@@ -544,6 +561,14 @@ package
 				case Tile.track_dark_ns: return tile_1;
 				case Tile.track_light_we: return tile_2;
 				case Tile.track_dark_we: return tile_1;
+				case Tile.track_light_nw: return tile_2;
+				case Tile.track_dark_nw: return tile_1;
+				case Tile.track_light_ne: return tile_2;
+				case Tile.track_dark_ne: return tile_1;
+				case Tile.track_light_sw: return tile_2;
+				case Tile.track_dark_sw: return tile_1;
+				case Tile.track_light_se: return tile_2;
+				case Tile.track_dark_se: return tile_1;
 				default: return Color.integer(0x00ff00);
 			}
 		}

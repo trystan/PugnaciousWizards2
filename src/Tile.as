@@ -48,6 +48,19 @@ package
 		static public var track_light_we:Tile = new Tile("floor with a track in it", null, false, false, false);
 		static public var track_dark_we:Tile = new Tile("floor with a track in it", null, false, false, false);
 		
+		static public var track_light_ne:Tile = new Tile("floor with a track in it", null, false, false, false); // 192
+		static public var track_dark_ne:Tile = new Tile("floor with a track in it", null, false, false, false);
+		
+		static public var track_light_sw:Tile = new Tile("floor with a track in it", null, false, false, false); // 191
+		static public var track_dark_sw:Tile = new Tile("floor with a track in it", null, false, false, false);
+		
+		static public var track_light_nw:Tile = new Tile("floor with a track in it", null, false, false, false); // 217
+		static public var track_dark_nw:Tile = new Tile("floor with a track in it", null, false, false, false);
+		
+		static public var track_light_se:Tile = new Tile("floor with a track in it", null, false, false, false); // 218
+		static public var track_dark_se:Tile = new Tile("floor with a track in it", null, false, false, false);
+		
+		
 		public var name:String;
 		public var description:String;
 		public var blocksMovement:Boolean;
