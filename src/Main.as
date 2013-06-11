@@ -34,6 +34,18 @@ package
 			rl.bind('u', 'up right');
 			rl.bind('b', 'down left');
 			rl.bind('n', 'down right');
+			rl.bind('.', 'wait');
+			
+			rl.bind('numpad 1', 'down left');
+			rl.bind('numpad 2', 'down');
+			rl.bind('numpad 3', 'down right');
+			rl.bind('numpad 4', 'left');
+			rl.bind('numpad 5', 'wait');
+			rl.bind('numpad 6', 'right');
+			rl.bind('numpad 7', 'up left');
+			rl.bind('numpad 8', 'up');
+			rl.bind('numpad 9', 'up right');
+			
 			rl.enter(new IntroScreen());
 			
 			addChild(rl);

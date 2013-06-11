@@ -106,6 +106,8 @@ package
 				
 				takeDamage(3, "Burned to death.");
 				fireCounter--;
+				
+				popup("you're burning", "You're on fire!", "One of the many hazards of being an adventurer is catching on fire every once in a while.\n\nThe fire will subside after a few turns - if you're still alive.");
 			}
 			
 			if (bleedingCounter > 0)
@@ -118,6 +120,8 @@ package
 			if (freezeCounter > 0)
 			{
 				freezeCounter--;
+				
+				popup("you're frozen", "You're frozen!", "One of the many hazards of being an adventurer is getting frozen solid every once in a while.\n\nYou'll thaw out in a couple turns - if you're still alive.");
 			}
 			
 			if (freezeCounter < 1 && health > 0)
@@ -212,9 +216,6 @@ package
 			}
 			
 			fireCounter += amount;
-			
-			if (fireCounter > 0)
-				popup("you're burning", "You're on fire!", "One of the many hazards of being an adventurer is catching on fire every once in a while.\n\nThe fire will subside after a few turns - if you're still alive.");
 		}
 		
 		public function freeze(amount:int):void 
@@ -228,9 +229,6 @@ package
 			
 			if (freezeCounter == 0)
 				freezeCounter += amount;
-				
-			if (freezeCounter > 0)
-				popup("you're frozen", "You're frozen!", "One of the many hazards of being an adventurer is getting frozen solid every once in a while.\n\nYou'll thaw out in a couple turns - if you're still alive.");
 		}
 		
 		private function popup(topic:String, title:String, text:String):void

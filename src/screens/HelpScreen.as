@@ -35,7 +35,7 @@ package screens
 			"Find the three pieces of the amulet and escape the castle to win.",
 			"",
 			"    w          y k u",
-			"  a . d   or   h . l   or   arrow keys    to move",
+			"  a . d   or   h . l   or   arrow keys   or   numpad   to move",
 			"    s          b j n",
 			"",
 			"Press ? to view this help",

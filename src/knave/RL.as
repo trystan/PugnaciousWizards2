@@ -75,6 +75,7 @@ package knave
 			
 			keyboardEvent = null;
 			
+			// see http://www.dakmm.com/?p=272
 			switch (event.keyCode)
 			{
 				case 38: key += "up"; break;
@@ -88,6 +89,16 @@ package knave
 				case 27: key += "escape"; break;
 				case 27: key += "caps lock"; break;
 				case 16: return; // shift
+				case 96: key += "numpad 0"; break;
+				case 97: key += "numpad 1"; break;
+				case 98: key += "numpad 2"; break;
+				case 99: key += "numpad 3"; break;
+				case 100: key += "numpad 4"; break;
+				case 101: key += "numpad 5"; break;
+				case 102: key += "numpad 6"; break;
+				case 103: key += "numpad 7"; break;
+				case 104: key += "numpad 8"; break;
+				case 105: key += "numpad 9"; break;
 				default: key += String.fromCharCode(event.charCode);
 			}
 			

@@ -36,13 +36,11 @@ package screens
 			bind('down', function():void { moveBy(0, 1); } );
 			bind('left', function():void { moveBy(-1, 0); } );
 			bind('right', function():void { moveBy(1, 0); } );
-			
 			bind('up left', function():void { moveBy(-1, -1); } );
 			bind('up right', function():void { moveBy(1, -1); } );
 			bind('down left', function():void { moveBy(-1, 1); } );
 			bind('down right', function():void { moveBy(1, 1); } );
-			
-			bind('.', function():void { moveBy(0, 0); } );
+			bind('wait', function():void { moveBy(0, 0); } );
 			
 			bind('1', function():void { player.castSpell(0, nextTurn); } );
 			bind('2', function():void { player.castSpell(1, nextTurn); } );
