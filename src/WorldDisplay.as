@@ -327,7 +327,7 @@ package
 				case "SW": return SW_NE;
 				case "SE": return NW_SE;
 			}
-			return " ";
+			return "?";
 		}
 		
 		private function drawHud(terminal:AsciiPanel):void
@@ -434,6 +434,12 @@ package
 				case Tile.ice_tower_4:
 				case Tile.fire_tower_4:
 				case Tile.tower_4: return NW_SE;
+				case Tile.ice_tower_5:
+				case Tile.fire_tower_5:
+				case Tile.tower_5: return String.fromCharCode(197);
+				case Tile.ice_tower_6:
+				case Tile.fire_tower_6:
+				case Tile.tower_6: return "X";
 				case Tile.track_light_ns: return String.fromCharCode(179);
 				case Tile.track_dark_ns: return String.fromCharCode(179);
 				case Tile.track_light_we: return String.fromCharCode(196);
@@ -482,18 +488,24 @@ package
 				case Tile.ice_tower_2:
 				case Tile.ice_tower_3:
 				case Tile.ice_tower_4:
+				case Tile.ice_tower_5:
+				case Tile.ice_tower_6:
 					return ice;
 				case Tile.tower:
 				case Tile.tower_1:
 				case Tile.tower_2:
 				case Tile.tower_3:
 				case Tile.tower_4:
+				case Tile.tower_5:
+				case Tile.tower_6:
 					return metal_fg;
 				case Tile.fire_tower:
 				case Tile.fire_tower_1:
 				case Tile.fire_tower_2:
 				case Tile.fire_tower_3:
 				case Tile.fire_tower_4:
+				case Tile.fire_tower_5:
+				case Tile.fire_tower_6:
 					return fire;
 				case Tile.burnt_ground: return ash.lerp(Color.integer(grassForegroundBitmap.getPixel(x, y)), 0.5);
 				case Tile.track_light_ns:
@@ -545,16 +557,22 @@ package
 				case Tile.ice_tower_2:
 				case Tile.ice_tower_3:
 				case Tile.ice_tower_4:
+				case Tile.ice_tower_5:
+				case Tile.ice_tower_6:
 				case Tile.fire_tower:
 				case Tile.fire_tower_1:
 				case Tile.fire_tower_2:
 				case Tile.fire_tower_3:
 				case Tile.fire_tower_4:
+				case Tile.fire_tower_5:
+				case Tile.fire_tower_6:
 				case Tile.tower:
 				case Tile.tower_1:
 				case Tile.tower_2:
 				case Tile.tower_3:
 				case Tile.tower_4:
+				case Tile.tower_5:
+				case Tile.tower_6:
 					return stone_fg;
 				case Tile.burnt_ground: return ash.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.5);
 				case Tile.track_light_ns: return tile_2;

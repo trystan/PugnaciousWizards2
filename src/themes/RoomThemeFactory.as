@@ -9,6 +9,7 @@ package themes
 			new TrapWalls(),
 			new TrapTower(),
 			new RotatingTrapTower(),
+			new RotatingTrapTower_4Way(),
 			new MovingBlocks(),
 			new GuardRoom(),
 			new ArcherRoom(),
