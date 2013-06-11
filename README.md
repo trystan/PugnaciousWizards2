@@ -18,7 +18,7 @@ New spells, rooms, and polish will be added the entire time but there are major 
 version 0.1 (done)
 * traps
 
-version 0.2
+version 0.2 (done)
 * guards and archers
 
 version 0.3

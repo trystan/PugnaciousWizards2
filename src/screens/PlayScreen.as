@@ -54,6 +54,8 @@ package screens
 			bind('8', function():void { player.castSpell(7, nextTurn); } );
 			bind('9', function():void { player.castSpell(8, nextTurn); } );
 			
+			bind('?', function():void { enter(new HelpScreen()); } );
+			
 			bind('draw', draw);
 			bind('animate', animate);
 			

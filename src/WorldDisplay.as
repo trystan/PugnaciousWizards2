@@ -319,6 +319,10 @@ package
 			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2, item_color(null).toInt());
 			
 			y += 2;
+			terminal.write("--- help ---", x, y += 2);
+			terminal.write("?   help screen", x, y += 2);
+			
+			y += 2;
 			
 			var magicColor:Color = player.canCastMagic ? white : Color.integer(0x909090);
 				
