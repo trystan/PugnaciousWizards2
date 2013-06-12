@@ -89,7 +89,7 @@ package
 			for each (var other:Point in doors)
 			{
 				var path:Array = AStar.pathTo(
-						function (x:int, y:int):Boolean { return !world.blocksMovement(x, y); },
+						function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement },
 						start, other, false);
 						
 				if (path == null || path.length == 0)
@@ -104,24 +104,24 @@ package
 			
 			if (r < 0.125 * 2)
 			{
-				world.addWall(worldPosition.x + 0, worldPosition.y + 0);
-				world.addWall(worldPosition.x + 6, worldPosition.y + 0);
-				world.addWall(worldPosition.x + 6, worldPosition.y + 6);
-				world.addWall(worldPosition.x + 0, worldPosition.y + 6);
+				world.addTile(worldPosition.x + 0, worldPosition.y + 0, Tile.wall);
+				world.addTile(worldPosition.x + 6, worldPosition.y + 0, Tile.wall);
+				world.addTile(worldPosition.x + 6, worldPosition.y + 6, Tile.wall);
+				world.addTile(worldPosition.x + 0, worldPosition.y + 6, Tile.wall);
 			}
 			else if (r < 0.125 * 3)
 			{
-				world.addWall(worldPosition.x + 1, worldPosition.y + 1);
-				world.addWall(worldPosition.x + 5, worldPosition.y + 1);
-				world.addWall(worldPosition.x + 5, worldPosition.y + 5);
-				world.addWall(worldPosition.x + 1, worldPosition.y + 5);
+				world.addTile(worldPosition.x + 1, worldPosition.y + 1, Tile.wall);
+				world.addTile(worldPosition.x + 5, worldPosition.y + 1, Tile.wall);
+				world.addTile(worldPosition.x + 5, worldPosition.y + 5, Tile.wall);
+				world.addTile(worldPosition.x + 1, worldPosition.y + 5, Tile.wall);
 				
 				if (Math.random() < 0.25)
 				{
-					world.addWall(worldPosition.x + 1, worldPosition.y + 3);
-					world.addWall(worldPosition.x + 3, worldPosition.y + 1);
-					world.addWall(worldPosition.x + 3, worldPosition.y + 5);
-					world.addWall(worldPosition.x + 5, worldPosition.y + 3);
+					world.addTile(worldPosition.x + 1, worldPosition.y + 3, Tile.wall);
+					world.addTile(worldPosition.x + 3, worldPosition.y + 1, Tile.wall);
+					world.addTile(worldPosition.x + 3, worldPosition.y + 5, Tile.wall);
+					world.addTile(worldPosition.x + 5, worldPosition.y + 3, Tile.wall);
 				}
 			}
 		}
@@ -133,7 +133,7 @@ package
 			{
 				var px:int = Math.random() * 7;
 				var py:int = Math.random() * 7;
-				world.addWall(worldPosition.x + px, worldPosition.y + py);
+				world.addTile(worldPosition.x + px, worldPosition.y + py, Tile.wall);
 				
 				chance = 0.50;
 			}
@@ -155,9 +155,9 @@ package
 					continue;
 					
 				if (Math.random() < 66)
-					world.add(new Guard(new Point(worldPosition.x + px, worldPosition.y + py)));
+					world.addCreature(new Guard(new Point(worldPosition.x + px, worldPosition.y + py)));
 				else
-					world.add(new Archer(new Point(worldPosition.x + px, worldPosition.y + py)));
+					world.addCreature(new Archer(new Point(worldPosition.x + px, worldPosition.y + py)));
 			}
 		}
 	}

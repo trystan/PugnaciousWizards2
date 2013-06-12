@@ -28,7 +28,7 @@ package screens
 			this.player = player;
 			this.world = world;
 			
-			world.add(player);
+			world.addCreature(player);
 			
 			display = new WorldDisplay(player, world);
 			

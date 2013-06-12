@@ -19,7 +19,7 @@ package themes
 				if (world.getTile(room.worldPosition.x + px, room.worldPosition.y + py).blocksMovement)
 					continue;
 				
-				world.add(new Archer(new Point(room.worldPosition.x + px, room.worldPosition.y + py)));
+				world.addCreature(new Archer(new Point(room.worldPosition.x + px, room.worldPosition.y + py)));
 			}
 		}
 	}

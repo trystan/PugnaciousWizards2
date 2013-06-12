@@ -25,7 +25,7 @@ package features
 				var x:int = room.worldPosition.x + ox;
 				var y:int = room.worldPosition.y + oy;
 				
-				var c:Creature = world.getCreatureAt(x, y);
+				var c:Creature = world.getCreature(x, y);
 				if (c is Archer)
 					archerCount++;
 			}
@@ -35,8 +35,8 @@ package features
 				var cx:int = room.worldPosition.x + Math.random() * 7 + 1;
 				var cy:int = room.worldPosition.y + Math.random() * 7 + 1;
 				
-				if (!world.blocksMovement(cx, cy))
-					world.add(new Archer(new Point(cx, cy)));
+				if (!world.getTile(cx, cy).blocksMovement)
+					world.addCreature(new Archer(new Point(cx, cy)));
 			}
 		}
 	}

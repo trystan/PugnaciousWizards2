@@ -29,7 +29,6 @@ package
 		public function removeFeature(feature:CastleFeature):void 
 		{
 			var index:int = effects.indexOf(feature);
-			
 			if (index > -1)
 				effects.splice(index, 1);
 		}
@@ -42,30 +41,8 @@ package
 		public function removeAnimationEffect(effect:Animation):void
 		{
 			var index:int = animationEffects.indexOf(effect);
-			
 			if (index > -1)
 				animationEffects.splice(index, 1);
-		}
-		
-		public function add(creature:Creature):void
-		{
-			if (creature is Hero || creature is Player)
-				this.player = creature;
-			
-			creatures.push(creature);
-			creature.world = this;
-		}
-		
-		public function removeCreature(creature:Creature):void 
-		{
-			var i:int = creatures.indexOf(creature);
-			if (i > -1)
-				creatures.splice(i, 1);
-		}
-		
-		public function blocksMovement(x:int, y:int):Boolean
-		{
-			return isOutOfBounds(x, y) || getTile(x, y).blocksMovement;
 		}
 		
 		public function addTile(x:int, y:int, tile:Tile):void
@@ -85,24 +62,9 @@ package
 			return Tile.grass;
 		}
 		
-		public function addWall(x:int, y:int):void 
-		{
-			addTile(x, y, Tile.wall);
-		}
-		
-		public function addDoor(x:int, y:int):void 
-		{
-			addTile(x, y, Tile.door_closed);
-		}
-		
 		public function openDoor(x:int, y:int):void
 		{
 			addTile(x, y, Tile.door_opened);
-		}
-		
-		public function isWall(x:int, y:int):Boolean
-		{
-			return getTile(x, y) == Tile.wall;
 		}
 		
 		public function isClosedDoor(x:int, y:int):Boolean 
@@ -126,19 +88,19 @@ package
 			return this;
 		}
 		
-		public function addItem(ix:int, iy:int, thing:Item):void 
+		public function getRoom(x:int, y:int):Room 
 		{
-			items.push({ x:ix, y:iy, item:thing });
-		}
-		
-		public function getItem(x:int, y:int):Item 
-		{
-			for each (var placedItem:Object in items)
+			for each (var room:Room in rooms)
 			{
-				if (placedItem.x == x && placedItem.y == y)
-					return placedItem.item as Item;
+				if (room.contains(x, y))
+					return room;
 			}
 			return null;
+		}
+		
+		public function addItem(x:int, y:int, item:Item):void 
+		{
+			items.push({ x:x, y:y, item:item });
 		}
 		
 		public function removeItem(x:int, y:int):void 
@@ -155,26 +117,33 @@ package
 				items.splice(index, 1);
 		}
 		
-		public function getRoom(x:int, y:int):Room 
+		public function getItem(x:int, y:int):Item 
 		{
-			for each (var room:Room in rooms)
+			for each (var placedItem:Object in items)
 			{
-				if (room.contains(x, y))
-					return room;
+				if (placedItem.x == x && placedItem.y == y)
+					return placedItem.item as Item;
 			}
 			return null;
 		}
 		
-		public function update():void
+		public function addCreature(creature:Creature):void
 		{
-			for each (var effect:CastleFeature in effects)
-				effect.update();
+			if (creature is Hero || creature is Player)
+				this.player = creature;
 			
-			for each (var creature:Creature in creatures.slice())
-				creature.update();
+			creatures.push(creature);
+			creature.world = this;
 		}
 		
-		public function getCreatureAt(x:int, y:int):Creature 
+		public function removeCreature(creature:Creature):void 
+		{
+			var index:int = creatures.indexOf(creature);
+			if (index > -1)
+				creatures.splice(index, 1);
+		}
+		
+		public function getCreature(x:int, y:int):Creature 
 		{
 			for each (var creature:Creature in creatures)
 			{
@@ -202,6 +171,15 @@ package
 				return blood[x + "," + y];
 			else
 				return 0;
+		}
+		
+		public function update():void
+		{
+			for each (var effect:CastleFeature in effects)
+				effect.update();
+			
+			for each (var creature:Creature in creatures.slice())
+				creature.update();
 		}
 		
 		public function animate():void 

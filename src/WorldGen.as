@@ -244,11 +244,11 @@ package
 		{
 			for (var x1:int = 0; x1 < 9 * 8 + 1; x1++)
 			for (var y1:int = 0; y1 < 10; y1++)
-				world.addWall(x1 + 4, y1 * 8 + 4);
+				world.addTile(x1 + 4, y1 * 8 + 4, Tile.wall);
 				
 			for (var x2:int = 0; x2 < 10; x2++)
 			for (var y2:int = 0; y2 < 9 * 8 + 1; y2++)
-				world.addWall(x2 * 8 + 4, y2 + 4);
+				world.addTile(x2 * 8 + 4, y2 + 4, Tile.wall);
 		}
 		
 		private function addCastleDoors(world:World):void 
@@ -259,16 +259,16 @@ package
 				var room:Room = getRoom(x, y);
 				
 				if (room.isConnectedEast)
-					world.addDoor(room.position.x * 8 + 12, room.position.y * 8 + 8);
+					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 8, Tile.door_closed);
 				if (room.isConnectedWest)
-					world.addDoor(room.position.x * 8 + 4, room.position.y * 8 + 8);
+					world.addTile(room.position.x * 8 + 4, room.position.y * 8 + 8, Tile.door_closed);
 				if (room.isConnectedSouth)
-					world.addDoor(room.position.x * 8 + 8, room.position.y * 8 + 12);
+					world.addTile(room.position.x * 8 + 8, room.position.y * 8 + 12, Tile.door_closed);
 				if (room.isConnectedNorth)
-					world.addDoor(room.position.x * 8 + 8, room.position.y * 8 + 4);
+					world.addTile(room.position.x * 8 + 8, room.position.y * 8 + 4, Tile.door_closed);
 			}
 			
-			world.addDoor(4, 8 * 4 + 8);
+			world.addTile(4, 8 * 4 + 8, Tile.door_closed);
 		}
 		
 		private function addCastleRooms(world:World):void 

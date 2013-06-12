@@ -59,7 +59,7 @@ package animations
 				return;
 			}
 			
-			var creature:Creature = world.getCreatureAt(x, y);
+			var creature:Creature = world.getCreature(x, y);
 			if (creature != null)
 			{
 				creature.takeDamage(5, "Killed by your own magic missile.");

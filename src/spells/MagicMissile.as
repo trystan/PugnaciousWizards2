@@ -39,7 +39,7 @@ package spells
 				var x:int = ai.position.x + ox;
 				var y:int = ai.position.y + oy;
 				
-				var other:Creature = ai.world.getCreatureAt(x, y);
+				var other:Creature = ai.world.getCreature(x, y);
 				
 				if (other == null || !ai.isEnemy(other))
 					continue;

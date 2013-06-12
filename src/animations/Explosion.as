@@ -36,7 +36,7 @@ package animations
 		{
 			for each (var p:Point in tiles)
 			{
-				var creature:Creature = world.getCreatureAt(p.x, p.y);
+				var creature:Creature = world.getCreature(p.x, p.y);
 				if (creature != null)
 					creature.burn(5);
 			}

@@ -78,7 +78,7 @@ package
 		{
 			if (canSeeCreature(world.player))
 				path = Dijkstra.pathTo(position, 
-									function (x:int, y:int):Boolean { return !world.blocksMovement(x, y); },
+									function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
 									function (x:int, y:int):Boolean { 
 										return world.player.position.x == x && world.player.position.y == y
 											|| isInArcherLine(new Point(x, y), world.player.position); });

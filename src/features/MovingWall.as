@@ -55,11 +55,11 @@ package features
 			oldTile = world.getTile(x, y);
 			world.addTile(x, y, Tile.moving_wall);
 			
-			var creature:Creature = world.getCreatureAt(x, y);
+			var creature:Creature = world.getCreature(x, y);
 			if (creature != null)
 			{
 				creature.moveBy(mx, my);
-				if (world.blocksMovement(x + mx, y + my))
+				if (world.getTile(x + mx, y + my).blocksMovement)
 					creature.takeDamage(1000, "Crushed to death by a moving wall piece.");
 			}
 		}

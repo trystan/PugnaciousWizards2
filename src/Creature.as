@@ -55,7 +55,7 @@ package
 			}
 			else if (!world.getTile(position.x + x, position.y + y).blocksMovement)
 			{
-				var other:Creature = world.getCreatureAt(position.x + x, position.y + y);
+				var other:Creature = world.getCreature(position.x + x, position.y + y);
 				if (other != null)
 				{
 					if (isEnemy(other))

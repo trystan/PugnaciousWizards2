@@ -18,7 +18,7 @@ package features
 		{
 			for each (var p:Point in triggers)
 			{
-				if (world.getCreatureAt(p.x, p.y) == null)
+				if (world.getCreature(p.x, p.y) == null)
 					continue;
 				
 				activiate();

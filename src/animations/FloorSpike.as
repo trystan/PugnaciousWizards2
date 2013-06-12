@@ -26,7 +26,7 @@ package animations
 			
 			if (ticks > 3)
 			{
-				var hit:Creature = world.getCreatureAt(x, y);
+				var hit:Creature = world.getCreature(x, y);
 				if (hit != null)
 					hit.takeDamage(10, "Impailed on a spike in the floor.");
 				

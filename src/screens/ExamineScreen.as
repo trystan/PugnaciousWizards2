@@ -125,7 +125,7 @@ package screens
 			
 			var text:String = "";
 			
-			var creature:Creature = world.getCreatureAt(lookX, lookY);
+			var creature:Creature = world.getCreature(lookX, lookY);
 			if (creature != null)
 				text += creature.type + " standing on ";
 				

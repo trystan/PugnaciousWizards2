@@ -51,8 +51,8 @@ package screens
 		private function checkTarget():void
 		{
 			isOk = player.canSee(tx, ty) 
-				&& !player.world.blocksMovement(tx, ty)
-				&& player.world.getCreatureAt(tx, ty) == null;
+				&& !player.world.getTile(tx, ty).blocksMovement
+				&& player.world.getCreature(tx, ty) == null;
 		}
 		
 		public function draw(terminal:AsciiPanel):void 
