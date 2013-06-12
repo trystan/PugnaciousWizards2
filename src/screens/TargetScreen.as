@@ -33,6 +33,8 @@ package screens
 			bind('escape', function():void { exit(); } );
 			bind('enter', function():void { if (isOk) { callback(player, tx, ty); exit(); } } );
 			bind('draw', draw);
+			
+			checkTarget();
 		}
 		
 		private function moveBy(mx:int, my:int):void 
@@ -43,7 +45,14 @@ package screens
 			tx += mx;
 			ty += my;
 			
-			isOk = player.canSee(tx, ty);
+			checkTarget();
+		}
+		
+		private function checkTarget():void
+		{
+			isOk = player.canSee(tx, ty) 
+				&& !player.world.blocksMovement(tx, ty)
+				&& player.world.getCreatureAt(tx, ty) == null;
 		}
 		
 		public function draw(terminal:AsciiPanel):void 
