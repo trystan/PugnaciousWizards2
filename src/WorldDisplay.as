@@ -49,6 +49,8 @@ package
 		private var water_fg:Color = Color.hsv(220, 70, 50);
 		private var water_bg:Color = Color.hsv(220, 50, 30);
 		
+		private var tileDisplay:Dictionary = new Dictionary();
+		
 		public function WorldDisplay(player:Creature, world:World) 
 		{
 			this.player = player;

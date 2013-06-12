@@ -1,5 +1,6 @@
 package payloads 
 {
+	import animations.MagicMissileProjectile;
 	public class PayloadFactory 
 	{
 		public static function random():Payload

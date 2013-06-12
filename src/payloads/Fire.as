@@ -1,6 +1,7 @@
 package payloads 
 {
 	import features.BurningFire;
+	
 	public class Fire implements Payload
 	{
 		public function hit(creature:Creature):void

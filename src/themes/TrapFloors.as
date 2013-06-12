@@ -9,7 +9,7 @@ package themes
 		{
 			var tiles:Array = [];
 			
-			var type:int = (int)(Math.random() * 8);
+			var type:int = (int)(Math.random() * 10);
 			
 			if (Math.random() < Globals.rarePercent)
 				type = 99;
@@ -49,6 +49,14 @@ package themes
 						break;
 					case 7:
 						if (x != 3 && y != 3)
+							tiles.push(new Point(room.worldPosition.x + x, room.worldPosition.y + y));
+						break;
+					case 8:
+						if (x < 1 || x > 5 || y < 1 || y > 5)
+							tiles.push(new Point(room.worldPosition.x + x, room.worldPosition.y + y));
+						break;
+					case 9:
+						if (x > 1 && x < 5 && y > 1 && y < 5)
 							tiles.push(new Point(room.worldPosition.x + x, room.worldPosition.y + y));
 						break;
 					case 99:
