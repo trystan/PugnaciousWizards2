@@ -41,14 +41,20 @@ package themes
 		{
 			var r:Number = Math.random();
 			
-			if (r < 0.2)
+			if (r < 0.1)
+			{
+				for (var x:int = 0; x < 7; x++)
+				for (var y:int = 0; y < 7; y++)
+					world.addTile(room.worldPosition.x + x, room.worldPosition.y + y, Tile.grass);
+			}
+			else if (r < 0.3)
 			{
 				world.addWall(room.worldPosition.x + 0, room.worldPosition.y + 0);
 				world.addWall(room.worldPosition.x + 6, room.worldPosition.y + 0);
 				world.addWall(room.worldPosition.x + 6, room.worldPosition.y + 6);
 				world.addWall(room.worldPosition.x + 0, room.worldPosition.y + 6);
 			}
-			else if (r < 0.4)
+			else if (r < 0.5)
 			{
 				addPool(world, room.worldPosition.x + 1, room.worldPosition.y + 1);
 				addPool(world, room.worldPosition.x + 4, room.worldPosition.y + 1);
