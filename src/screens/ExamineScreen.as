@@ -59,7 +59,7 @@ package screens
 			if (player.magic.length >= index)
 			{
 				var text:String = player.magic[index].name + "\n\n" + player.magic[index].description;
-				enter(new HelpPopupScreen(text));
+				enter(new HelpPopupScreen(text, false));
 			}
 		}
 		

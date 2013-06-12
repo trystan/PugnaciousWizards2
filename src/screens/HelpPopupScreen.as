@@ -12,18 +12,20 @@ package screens
 		private var background:Color = Color.integer(0x11111f);
 		private var text:Array;
 		
-		public function HelpPopupScreen(text:String) 
+		public function HelpPopupScreen(text:String, canDismiss:Boolean = true) 
 		{
-			setTextLines(text);
+			w = 60;
+			setTextLines(text, canDismiss);
+			h = this.text.length * 2 + 3;
 			
-			bind('escape', exitScreen);
+			bind('escape', function ():void {
+				if (canDismiss)
+					HelpSystem.showHelpPopups = false;
+				exitScreen("this is junk");
+			});
 			bind('enter', exitScreen);
 			
 			bind('draw', draw);
-			
-			h = this.text.length * 2 + 3;
-			for each (var line:String in this.text)
-				w = Math.max(w, line.length + 4);
 		}
 		
 		private function exitScreen(junk:*):void
@@ -34,10 +36,10 @@ package screens
 		
 		private function draw(terminal:AsciiPanel):void
 		{
-			var left:int = (terminal.getWidthInCharacters() - w) / 2;
+			var left:int = (terminal.getWidthInCharacters() - w) / 2 - 2;
 			var top:int = (terminal.getHeightInCharacters() - h) / 2;
 			
-			for (var x:int = 0; x < w; x++)
+			for (var x:int = 0; x < w + 4; x++)
 			for (var y:int = 0; y < h; y++)
 			{
 				var char:String = terminal.getCharacter(left + x, top + y);
@@ -63,25 +65,45 @@ package screens
 			}
 		}
 		
-		private function setTextLines(fullText:String):void 
+		private function setTextLines(fullText:String, canDismiss:Boolean):void 
 		{
 			text = [];
 			for each (var line:String in fullText.split("\n"))
 			{
 				if (line.length == 0)
 					text.push("");
-					
-				while (line.length > 70)
+				
+				while (line.length > w)
 				{
-					text.push(line.substr(0, 70));
-					line = line.substr(70);
+					text.push(line.substr(0, w));
+					line = line.substr(w);
 				}
 				while (line.length > 0 && line.charAt(0) == " ")
-					line = line.substr(0);
+					line = line.substr(1);
 					
 				if (line.length > 0)
 					text.push(line);
 			}
+			
+			text.push("");
+			text.push("");
+			if (canDismiss)
+				text.push(padToCenter("-- press escape to dismiss all popups --"));
+			text.push(padToCenter("-- press enter to continue --"));
+		}
+		
+		private function padToCenter(line:String):String
+		{
+			var left:int = (w - line.length) / 2;
+			var right:int = w - line.length;
+			
+			var i:int = 0;
+			for (i = 0; i < left; i++)
+				line = " " + line;
+			for (i = 0; i < right; i++)
+				line = line + " ";
+				
+			return line;
 		}
 	}
 }
