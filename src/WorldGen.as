@@ -171,7 +171,7 @@ package
 		private function connectExtraRooms():void 
 		{
 			var tries:int = 0;
-			while (tries++ < 10)
+			while (tries++ < 21)
 			{
 				var x:int = Math.random() * 9;
 				var y:int = Math.random() * 9;
