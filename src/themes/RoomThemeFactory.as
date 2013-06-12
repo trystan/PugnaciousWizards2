@@ -18,6 +18,7 @@ package themes
 			new ArcherBarracks(),
 			new PortalRoom(),
 			new PoolRoom(),
+			new TrapRoom(),
 		];
 		
 		public static function random():RoomTheme

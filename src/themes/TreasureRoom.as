@@ -49,10 +49,10 @@ package themes
 			}
 			else if (r < 0.3)
 			{
-				world.addTile(room.worldPosition.x + 0, room.worldPosition.y + 0, Tile.tree);
-				world.addTile(room.worldPosition.x + 6, room.worldPosition.y + 0, Tile.tree);
-				world.addTile(room.worldPosition.x + 6, room.worldPosition.y + 6, Tile.tree);
-				world.addTile(room.worldPosition.x + 0, room.worldPosition.y + 6, Tile.tree);
+				world.addTile(room.worldPosition.x + 0, room.worldPosition.y + 0, Tile.wall);
+				world.addTile(room.worldPosition.x + 6, room.worldPosition.y + 0, Tile.wall);
+				world.addTile(room.worldPosition.x + 6, room.worldPosition.y + 6, Tile.wall);
+				world.addTile(room.worldPosition.x + 0, room.worldPosition.y + 6, Tile.wall);
 			}
 			else if (r < 0.5)
 			{
