@@ -19,7 +19,7 @@ package features
 		{
 			var creature:Creature = world.getCreatureAt(x, y);
 			if (creature != null)
-				creature.burn(2);
+				creature.burn(5);
 			
 			if (Math.random() < world.getTile(x, y - 1).burnChance)
 				world.addFeature(new BurningFire(world, x, y - 1));
@@ -40,11 +40,17 @@ package features
 					break;
 				case Tile.door_closed_fire:
 					if (Math.random() < 0.33)
+					{
 						world.addTile(x, y, Tile.floor_light);
+						world.removeFeature(this);
+					}
 					break;
 				case Tile.door_opened_fire:
 					if (Math.random() < 0.33)
+					{
 						world.addTile(x, y, Tile.floor_light);
+						world.removeFeature(this);
+					}
 					break;
 					
 				case Tile.tree:
@@ -71,7 +77,10 @@ package features
 					break;
 				case Tile.grass_fire:
 					if (Math.random() < 0.33)
+					{
 						world.addTile(x, y, Tile.burnt_ground);
+						world.removeFeature(this);
+					}
 					break;
 					
 				default:

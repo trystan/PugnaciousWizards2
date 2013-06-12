@@ -104,10 +104,9 @@ package
 				if (Math.random() < 0.1)
 					world.addFeature(new BurningFire(world, position.x, position.y));
 				
+				popup("you're burning", "You're on fire!", "One of the many hazards of being an adventurer is catching on fire every once in a while.\n\nThe fire will subside after a few turns - if you're still alive.");
 				takeDamage(3, "Burned to death.");
 				fireCounter--;
-				
-				popup("you're burning", "You're on fire!", "One of the many hazards of being an adventurer is catching on fire every once in a while.\n\nThe fire will subside after a few turns - if you're still alive.");
 			}
 			
 			if (bleedingCounter > 0)
@@ -119,9 +118,9 @@ package
 			
 			if (freezeCounter > 0)
 			{
-				freezeCounter--;
-				
 				popup("you're frozen", "You're frozen!", "One of the many hazards of being an adventurer is getting frozen solid every once in a while.\n\nYou'll thaw out in a couple turns - if you're still alive.");
+				takeDamage(1, "Froze to death.");
+				freezeCounter--;
 			}
 			
 			if (freezeCounter < 1 && health > 0)
