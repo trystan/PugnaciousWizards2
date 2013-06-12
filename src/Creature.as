@@ -209,25 +209,16 @@ package
 		public function burn(amount:int):void 
 		{
 			if (freezeCounter > 0)
-			{
-				var overlap:int = Math.min(freezeCounter, amount);
-				freezeCounter -= overlap;
-				amount -= overlap;
-			}
-			
-			fireCounter += amount;
+				freezeCounter = 0;
+			else
+				fireCounter += amount;
 		}
 		
 		public function freeze(amount:int):void 
 		{
 			if (fireCounter > 0)
-			{
-				var overlap:int = Math.min(fireCounter, amount);
-				fireCounter -= overlap;
-				amount -= overlap;
-			}
-			
-			if (freezeCounter == 0)
+				fireCounter = 0;
+			else if (freezeCounter == 0)
 				freezeCounter += amount;
 		}
 		
