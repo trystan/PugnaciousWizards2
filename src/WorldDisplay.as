@@ -43,7 +43,7 @@ package
 		private var metal_fg:Color = Color.hsv(240, 20, 90);
 		private var blood:Color = Color.hsv(0, 66, 35);
 		private var memory:Color = Color.hsv(240, 75, 5);
-		private var ice:Color = Color.hsv(220, 33, 80);
+		private var ice:Color = Color.hsv(220, 50, 80);
 		private var fire:Color = Color.hsv(0, 75, 80);
 		private var magic:Color = Color.hsv(270, 50, 80);
 		private var ash:Color = Color.hsv(30, 66, 20);

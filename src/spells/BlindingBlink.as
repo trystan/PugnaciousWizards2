@@ -18,9 +18,6 @@ package spells
 		public function cast(caster:Creature, x:int, y:int):void 
 		{
 			var all:Array = getVisibleCreatures(caster);
-			
-			if (all.length < 2)
-				return;
 				
 			var copy:Array = all.slice();
 			var shuffledCreatures:Array = [];
@@ -52,7 +49,7 @@ package spells
 						samePosition = true;
 				}
 			}
-			while (samePosition)
+			while (samePosition && shuffledCreatures.length > 1)
 			
 			applyEffect(caster, shuffledCreatures, shuffledPositions);
 		}

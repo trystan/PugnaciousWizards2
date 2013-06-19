@@ -7,6 +7,8 @@ package knave
 		private var open:Array = null;
 		private var closed:Array = null;
 		
+		public var offsets:Array = [[ -1, 0], [0, -1], [0, 1], [1, 0], [ -1, -1], [ -1, 1], [1, -1], [1, 1]];
+		
 		private var canEnter:Function;
 		private var start:Point;
 		private var checkEnding:Boolean;
@@ -41,7 +43,7 @@ package knave
 				if(current.x == end.x && current.y == end.y)
 					break;
 																			
-				for each (var offset:Array in [[-1,0],[0,-1],[0,1],[1,0],[-1,-1],[-1,1],[1,-1],[1,1]])
+				for each (var offset:Array in offsets)
 				{
 					var neighbor:Point = new Point(current.x + offset[0], current.y + offset[1]);
 					

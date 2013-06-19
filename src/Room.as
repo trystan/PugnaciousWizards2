@@ -77,20 +77,26 @@ package
 			
 			var doors:Array = [];
 			if (isConnectedNorth)
-				doors.push(new Point(worldPosition.x + 3, worldPosition.y));
+				doors.push(new Point(worldPosition.x + 4, worldPosition.y));
 			if (isConnectedSouth)
-				doors.push(new Point(worldPosition.x + 3, worldPosition.y + 7));
+				doors.push(new Point(worldPosition.x + 4, worldPosition.y + 8));
 			if (isConnectedWest)
-				doors.push(new Point(worldPosition.x, worldPosition.y + 3));
+				doors.push(new Point(worldPosition.x, worldPosition.y + 4));
 			if (isConnectedEast)
-				doors.push(new Point(worldPosition.x + 7, worldPosition.y + 3));
-				
-			var start:Point = doors.shift();
+				doors.push(new Point(worldPosition.x + 8, worldPosition.y + 4));
+			
+			var cardinal:AStar = new AStar(
+				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement 
+						|| world.getTile(x, y) == Tile.tree
+						|| world.getTile(x, y) == Tile.door_closed },
+				doors.shift(),
+				true);
+			
+			cardinal.offsets = [[ -1, 0], [1, 0], [0, -1], [0, 1]];
+			
 			for each (var other:Point in doors)
 			{
-				var path:Array = AStar.pathTo(
-						function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement },
-						start, other, false);
+				var path:Array = cardinal.pathTo(other);
 						
 				if (path == null || path.length == 0)
 					return true;
