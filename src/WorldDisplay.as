@@ -117,7 +117,7 @@ package
 			
 			for each (var creature:Creature in world.creatures)
 			{
-				if (!player.canSee(creature.position.x, creature.position.y))
+				if (!player.canSee(creature.position.x, creature.position.y) && player != creature)
 					continue;
 				
 				var creatureGlyph:String = creature.isGoodGuy ? "@" : creature.type.charAt(0).toLowerCase();
@@ -360,7 +360,9 @@ package
 				terminal.write("frozen!", x + 1, y + 2, ice.lerp(white, 0.5).toInt());
 			y += 2;
 			if (player.bleedingCounter > 0)
-				terminal.write("bleeding!", x + 1, y + 2, blood.lerp(white, 0.5).toInt());
+				terminal.write("bleeding!", x + 1, y += 2, blood.lerp(white, 0.5).toInt());
+			if (player.blindCounter > 0)
+				terminal.write("blind!", x + 1, y += 2, 0xc0c0ff);
 			y += 2;
 			
 			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2, item_color(null).toInt());

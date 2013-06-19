@@ -1,5 +1,6 @@
 package  
 {
+	import spells.BlindingBlink;
 	import spells.BloodHeal;
 	import spells.BloodBurn;
 	import spells.FireJump;
@@ -99,6 +100,7 @@ package
 			
 			world.addItem(2, 40, new Scroll(new BloodHeal()));
 			world.addItem(2, 42, new Scroll(new BloodBurn()));
+			world.addItem(2, 44, new Scroll(new BlindingBlink()));
 		}
 		
 		private function addRooms():void 

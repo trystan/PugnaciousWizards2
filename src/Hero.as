@@ -37,13 +37,19 @@ package
 			
 			if (path.length > 0)
 				moveToTarget();
+			else if (blindCounter > 0)
+				moveBy(0, 0);
 			else
 				wanderRandomly();
 		}
 		
 		private function pathToNextTarget():void 
 		{
-			if (this.hasAllEndPieces)
+			if (blindCounter > 0)
+			{
+				path = [];
+			}
+			else if (this.hasAllEndPieces)
 			{
 				path = pathBackHome();
 			}

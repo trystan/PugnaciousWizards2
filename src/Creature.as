@@ -17,12 +17,18 @@ package
 		public var health:int;
 		public var maxHealth:int;
 		public var causeOfDeath:String = "";
-		public var visionRadius:int = 9;
+		
+		public function get visionRadius():int { return blindCounter == 0 ? _visionRadius : 0; }
+		public function set visionRadius(amount:int):void { _visionRadius = amount; }
+		
+		
+		private var _visionRadius:int = 9;
 		public var bleedingCounter:int = 0;
 		private var vision:SimpleLineOfSight;
 		
 		public var fireCounter:int = 0;
 		public var freezeCounter:int = 0;
+		public var blindCounter:int = 0;
 		public var isGoodGuy:Boolean = false;
 		
 		public var magic:Array = [];
@@ -123,6 +129,9 @@ package
 				freezeCounter--;
 			}
 			
+			if (blindCounter > 0)
+				blindCounter--;
+			
 			if (freezeCounter < 1 && health > 0)
 				doAi();
 		}
@@ -138,6 +147,9 @@ package
 		
 		private function getStuffHere():void
 		{
+			if (blindCounter > 0)
+				return;
+				
 			var item:Item = world.getItem(position.x, position.y);
 			if (item != null)
 				item.getPickedUpBy(this);
@@ -197,6 +209,9 @@ package
 		
 		public function canSee(x:int, y:int):Boolean
 		{
+			if (blindCounter > 0)
+				return false;
+				
 			return vision.canSee(x, y);
 		}
 		
@@ -224,6 +239,12 @@ package
 				fireCounter = 0;
 			else if (freezeCounter == 0)
 				freezeCounter += amount;
+		}
+		
+		public function blind(amount:int):void 
+		{
+			if (blindCounter == 0)
+				blindCounter = amount;
 		}
 		
 		private function popup(topic:String, title:String, text:String):void

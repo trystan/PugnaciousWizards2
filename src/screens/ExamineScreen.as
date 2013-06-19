@@ -56,7 +56,7 @@ package screens
 		
 		private function describeMagic(index:int):void
 		{
-			if (player.magic.length >= index)
+			if (player.magic.length > index)
 			{
 				var text:String = player.magic[index].name + "\n\n" + player.magic[index].description;
 				enter(new HelpPopupScreen(text, false));
@@ -127,8 +127,29 @@ package screens
 			
 			var creature:Creature = world.getCreature(lookX, lookY);
 			if (creature != null)
-				text += creature.type + " standing on ";
+			{
+				text += creature.type;
 				
+				var attribs:Array = []
+				if (creature.fireCounter > 0)
+					attribs.push("burning");
+					
+				if (creature.freezeCounter > 0)
+					attribs.push("frozen");
+				
+				if (creature.bleedingCounter > 0)
+					attribs.push("bleeding");
+					
+				if (creature.blindCounter > 0)
+					attribs.push("blind");
+				
+				if (attribs.length > 0)
+					text += " (" + attribs.join(", ") + ")"
+					
+				text += " standing on ";
+			}
+			
+			
 			var item:Item = world.getItem(lookX, lookY);
 			if (item != null)
 				text += item.name + " laying on ";

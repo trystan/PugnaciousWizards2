@@ -18,8 +18,8 @@ package spells
 		
 		public function cast(caster:Creature, x:int, y:int):void 
 		{
-			for (var x:int = -caster.visionRadius; x <= caster.visionRadius; x++)
-			for (var y:int = -caster.visionRadius; y <= caster.visionRadius; y++)
+			for (var x:int = -caster.visionRadius-1; x <= caster.visionRadius+1; x++)
+			for (var y:int = -caster.visionRadius-1; y <= caster.visionRadius+1; y++)
 			{
 				if (!caster.canSee(x + caster.position.x, y + caster.position.y))
 					continue;
@@ -38,8 +38,8 @@ package spells
 		private function getVisibleBloodCount(caster:Creature):int
 		{
 			var count:int = 0;
-			for (var x:int = -caster.visionRadius; x <= caster.visionRadius; x++)
-			for (var y:int = -caster.visionRadius; y <= caster.visionRadius; y++)
+			for (var x:int = -caster.visionRadius-1; x <= caster.visionRadius+1; x++)
+			for (var y:int = -caster.visionRadius-1; y <= caster.visionRadius+1; y++)
 			{
 				if (caster.canSee(x + caster.position.x, y + caster.position.y))
 					count += caster.world.getBlood(x + caster.position.x, y + caster.position.y);
@@ -49,7 +49,7 @@ package spells
 		
 		public function aiGetAction(ai:Hero):SpellCastAction 
 		{
-			return new SpellCastAction(0.1, function():void {
+			return new SpellCastAction(0.01, function():void {
 				new BloodBurn().cast(ai, 0, 0);
 			});
 		}
