@@ -1,12 +1,13 @@
 package spells 
 {
+	import animations.Explosion;
 	import animations.Flash;
 	
-	public class BloodHeal implements Spell 
+	public class BloodBurn implements Spell 
 	{
-		public function get name():String { return "Blood Heal"; }
+		public function get name():String { return "Blood Burn"; }
 		
-		public function get description():String { return "Restore health based on how much blood you see."; }
+		public function get description():String { return "Ignite any blood you see."; }
 		
 		
 		public function playerCast(player:Creature, callback:Function):void 
@@ -17,8 +18,6 @@ package spells
 		
 		public function cast(caster:Creature, x:int, y:int):void 
 		{
-			var total:int = 0;
-			
 			for (var x:int = -caster.visionRadius; x <= caster.visionRadius; x++)
 			for (var y:int = -caster.visionRadius; y <= caster.visionRadius; y++)
 			{
@@ -30,12 +29,10 @@ package spells
 				if (blood == 0)
 					continue;
 					
-				new Flash(caster.world, x + caster.position.x, y + caster.position.y);
+				new Explosion(caster.world, x + caster.position.x, y + caster.position.y, blood * 3, true);
 				
 				caster.world.addBlood(x + caster.position.x, y + caster.position.y, -blood);
-				total += blood;
 			}
-			caster.healBy(total / 2);
 		}
 		
 		private function getVisibleBloodCount(caster:Creature):int
@@ -52,8 +49,8 @@ package spells
 		
 		public function aiGetAction(ai:Hero):SpellCastAction 
 		{
-			return new SpellCastAction(ai.health < 30 && getVisibleBloodCount(ai) > 2 ? 50 : 0, function():void {
-				new BloodHeal().cast(ai, 0, 0);
+			return new SpellCastAction(0.1, function():void {
+				new BloodBurn().cast(ai, 0, 0);
 			});
 		}
 	}

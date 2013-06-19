@@ -1,9 +1,11 @@
 package  
 {
 	import spells.BloodHeal;
+	import spells.BloodBurn;
 	import spells.FireJump;
 	import spells.HealAndWeaken;
 	import spells.MagicMissile;
+	
 	public class WorldGen 
 	{
 		private var rooms:Array;
@@ -96,6 +98,7 @@ package
 			world.addItem(2, 36, new Scroll(new HealAndWeaken()));
 			
 			world.addItem(2, 40, new Scroll(new BloodHeal()));
+			world.addItem(2, 42, new Scroll(new BloodBurn()));
 		}
 		
 		private function addRooms():void 

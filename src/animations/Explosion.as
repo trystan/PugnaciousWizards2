@@ -12,11 +12,15 @@ package animations
 		public var occupied:Array = [];
 		public var max:int = 7 * 7;
 		
-		public function Explosion(world:World, x:int, y:int) 
+		public function Explosion(world:World, x:int, y:int, amount:int = 49, includeOrigin:Boolean = false) 
 		{
 			this.world = world;
 			this.frontiers = [new Point(x, y)];
-			this.occupied.push(x + "," + y);
+			
+			if (!includeOrigin)
+				this.occupied.push(x + "," + y);
+				
+			this.max = amount;
 			
 			world.addAnimationEffect(this);
 		}
