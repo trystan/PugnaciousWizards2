@@ -19,6 +19,15 @@ package themes
 			new PortalRoom(),
 			new PoolRoom(),
 			new TrapRoom(),
+			
+			// some rooms are more common
+			new Courtyard(),
+			new TrapFloors(),
+			new GuardBarracks(),
+			new ArcherBarracks(),
+			new PortalRoom(),
+			new TrapRoom(),
+			new TrapRoom(),
 		];
 		
 		public static function random():RoomTheme

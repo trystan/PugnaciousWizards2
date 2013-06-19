@@ -146,7 +146,7 @@ package
 		
 		private function addEnemies(world:World):void 
 		{
-			while (Math.random() < 0.33)
+			while (Math.random() < 0.4)
 			{
 				var px:int = Math.random() * 7 + 1;
 				var py:int = Math.random() * 7 + 1;

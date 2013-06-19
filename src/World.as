@@ -155,6 +155,11 @@ package
 		
 		public function addBlood(x:int, y:int, amount:int = 1):void
 		{
+			if (amount < 1) {
+				addBlood1(x, y, amount);
+				return;
+			}
+			
 			addBlood1(x, y);
 			for (var i:int = 1; i < amount; i++)
 				addBlood1(x + (int)(Math.random() * 3) - 1, y + (int)(Math.random() * 3) - 1);
@@ -162,7 +167,7 @@ package
 		
 		private function addBlood1(x:int, y:int, amount:int = 1):void
 		{
-			blood[x + "," + y] = Math.min(getBlood(x, y) + amount, 9);
+			blood[x + "," + y] = Math.min(Math.max(0, getBlood(x, y) + amount), 9);
 		}
 		
 		public function getBlood(x:int, y:int):int

@@ -1,6 +1,7 @@
 package  
 {
 	import animations.Explosion;
+	import animations.Flash;
 	import animations.MagicMissileProjectile;
 	import animations.MagicMissileProjectileTrail;
 	import com.headchant.asciipanel.AsciiPanel;
@@ -286,6 +287,19 @@ package
 						terminal.getBackgroundColor(effect.x, effect.y));
 						
 					addLight(terminal, effect.x, effect.y, magic, 2);
+				}
+				else if (effect is Flash)
+				{
+					if (!player.canSee(effect.x, effect.y))
+						continue;
+					
+					didDrawAny = true;
+					
+					var white:Color = Color.integer(0xffffff);
+					
+					terminal.write(" ", effect.x, effect.y, 
+							white.lerp(Color.integer(terminal.getForegroundColor(effect.x, effect.y)), 0.5).toInt(), 
+							white.lerp(Color.integer(terminal.getBackgroundColor(effect.x, effect.y)), 0.5).toInt());
 				}
 				else
 				{

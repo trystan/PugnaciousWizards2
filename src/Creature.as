@@ -185,6 +185,11 @@ package
 			}
 		}
 		
+		public function healBy(blood:int):void 
+		{
+			health = Math.min(health + blood, maxHealth);
+		}
+		
 		public function canSeeCreature(other:Creature):Boolean
 		{
 			return canSee(other.position.x, other.position.y);

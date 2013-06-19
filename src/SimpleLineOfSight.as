@@ -50,6 +50,10 @@ package
 			}
 			
 			var tile:Tile = viewer.world.getTile(x, y);
+			
+			if (tile == Tile.out_of_bounds)
+				return false;
+				
 			if (tile.remember)
 				seen[x][y] = tile;
 			
