@@ -2,6 +2,7 @@ package spells
 {
 	import animations.Explosion;
 	import animations.Flash;
+	import payloads.Fire;
 	
 	public class BoneSplode implements Spell 
 	{
@@ -27,7 +28,7 @@ package spells
 				if (bones == null)
 					continue;
 					
-				new Explosion(caster.world, x + caster.position.x, y + caster.position.y, 13, true);
+				new Explosion(caster.world, x + caster.position.x, y + caster.position.y, new Fire(), 13, true);
 				caster.world.removeItemAt(x + caster.position.x, y + caster.position.y);
 			}
 		}

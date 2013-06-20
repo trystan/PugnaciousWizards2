@@ -12,14 +12,16 @@ package screens
 		private var tx:int;
 		private var ty:int;
 		private var player:Creature;
+		private var excludeOccupiedTiles:Boolean;
 		private var isOk:Boolean = true;
 		
-		public function TargetScreen(player:Creature, callback:Function) 
+		public function TargetScreen(player:Creature, callback:Function, excludeOccupiedTiles:Boolean) 
 		{
 			this.tx = player.position.x;
 			this.ty = player.position.y;
 			this.player = player;
 			this.callback = callback;
+			this.excludeOccupiedTiles = excludeOccupiedTiles;
 			
 			bind('up', function():void { moveBy(0, -1); } );
 			bind('down', function():void { moveBy(0, 1); } );
@@ -52,7 +54,7 @@ package screens
 		{
 			isOk = player.canSee(tx, ty) 
 				&& !player.world.getTile(tx, ty).blocksMovement
-				&& player.world.getCreature(tx, ty) == null;
+				&& (!excludeOccupiedTiles || player.world.getCreature(tx, ty) == null);
 		}
 		
 		public function draw(terminal:AsciiPanel):void 

@@ -2,6 +2,7 @@ package spells
 {
 	import animations.Explosion;
 	import knave.RL;
+	import payloads.Fire;
 	import screens.TargetScreen;
 	
 	public class FireJump implements Spell
@@ -19,13 +20,13 @@ package spells
 		{
 			this.callback = callback;
 			
-			RL.current.enter(new TargetScreen(player, cast));
+			RL.current.enter(new TargetScreen(player, cast, true));
 		}
 		
 		public function cast(caster:Creature, x:int, y:int):void
 		{
 			caster.moveTo(x, y);
-			new Explosion(caster.world, x, y);
+			new Explosion(caster.world, x, y, new Fire());
 			
 			if (callback != null)
 				callback();

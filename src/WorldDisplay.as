@@ -227,6 +227,8 @@ package
 				}
 				else if (effect is Explosion)
 				{
+					var color:Color = payloadColor(effect.payload);
+					
 					for each (var t:Point in effect.tiles)
 					{
 						if (!player.canSee(t.x, t.y))
@@ -238,8 +240,8 @@ package
 							terminal.getCharacter(t.x, t.y),
 							t.x, 
 							t.y, 
-							fire.lerp(Color.integer(terminal.getForegroundColor(t.x, t.y)), 0.5).toInt(), 
-							fire.lerp(Color.integer(terminal.getBackgroundColor(t.x, t.y)), 0.5).toInt());
+							color.lerp(Color.integer(terminal.getForegroundColor(t.x, t.y)), 0.5).toInt(), 
+							color.lerp(Color.integer(terminal.getBackgroundColor(t.x, t.y)), 0.5).toInt());
 					}
 					for each (var t2:Point in effect.frontiers)
 					{
@@ -252,8 +254,8 @@ package
 							terminal.getCharacter(t2.x, t2.y),
 							t2.x, 
 							t2.y, 
-							fire.lerp(Color.integer(terminal.getForegroundColor(t2.x, t2.y)), 0.3).toInt(), 
-							fire.lerp(Color.integer(terminal.getBackgroundColor(t2.x, t2.y)), 0.3).toInt());
+							color.lerp(Color.integer(terminal.getForegroundColor(t2.x, t2.y)), 0.25).toInt(), 
+							color.lerp(Color.integer(terminal.getBackgroundColor(t2.x, t2.y)), 0.25).toInt());
 					}
 				}
 				else if (effect is MagicMissileProjectile)

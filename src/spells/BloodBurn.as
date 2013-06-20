@@ -2,6 +2,7 @@ package spells
 {
 	import animations.Explosion;
 	import animations.Flash;
+	import payloads.Fire;
 	
 	public class BloodBurn implements Spell 
 	{
@@ -29,7 +30,7 @@ package spells
 				if (blood == 0)
 					continue;
 					
-				new Explosion(caster.world, x + caster.position.x, y + caster.position.y, blood * 3, true);
+				new Explosion(caster.world, x + caster.position.x, y + caster.position.y, new Fire(), blood * 3, true);
 				
 				caster.world.addBlood(x + caster.position.x, y + caster.position.y, -blood);
 			}

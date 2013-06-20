@@ -4,7 +4,8 @@ package payloads
 	{
 		public function hit(creature:Creature):void
 		{
-			creature.takeDamage(2, "Frooze to death.");
+			if (creature.freezeCounter < 1)
+				creature.takeDamage(2, "Frooze to death.");
 			creature.freeze(2);
 		}
 		

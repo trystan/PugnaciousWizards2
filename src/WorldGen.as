@@ -7,6 +7,7 @@ package
 	import spells.FireJump;
 	import spells.HealAndWeaken;
 	import spells.MagicMissile;
+	import spells.Winter;
 	
 	public class WorldGen 
 	{
@@ -103,6 +104,7 @@ package
 			world.addItem(2, 42, new Scroll(new BloodBurn()));
 			world.addItem(2, 44, new Scroll(new BlindingBlink()));
 			world.addItem(2, 46, new Scroll(new BoneSplode()));
+			world.addItem(2, 48, new Scroll(new Winter()));
 		}
 		
 		private function addRooms():void 

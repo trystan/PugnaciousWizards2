@@ -2,6 +2,7 @@ package animations
 {
 	import features.BurningFire;
 	import flash.geom.Point;
+	import payloads.Payload;
 	
 	public class Explosion implements Animation
 	{
@@ -11,11 +12,13 @@ package animations
 		public var next:Array = [];
 		public var occupied:Array = [];
 		public var max:int = 7 * 7;
+		public var payload:Payload;
 		
-		public function Explosion(world:World, x:int, y:int, amount:int = 49, includeOrigin:Boolean = false) 
+		public function Explosion(world:World, x:int, y:int, payload:Payload, amount:int = 49, includeOrigin:Boolean = false) 
 		{
 			this.world = world;
 			this.frontiers = [new Point(x, y)];
+			this.payload = payload;
 			
 			if (!includeOrigin)
 				this.occupied.push(x + "," + y);
@@ -42,7 +45,7 @@ package animations
 			{
 				var creature:Creature = world.getCreature(p.x, p.y);
 				if (creature != null)
-					creature.burn(5);
+					payload.hit(creature);
 			}
 		}
 		
@@ -79,8 +82,7 @@ package animations
 			if (tiles.length > max || occupied.indexOf(n.x + "," + n.y) > -1)
 				return;
 				
-			if (world.getTile(n.x, n.y).burnChance > 0)
-				world.addFeature(new BurningFire(world, n.x, n.y));
+			payload.hitTile(world, n.x, n.y);
 				
 			if (world.getTile(n.x, n.y).blocksArrows)
 				return;
