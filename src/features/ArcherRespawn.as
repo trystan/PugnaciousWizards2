@@ -14,7 +14,7 @@ package features
 		
 		public override function update():void
 		{
-			if (Math.random() > 0.1)
+			if (Math.random() > 0.025)
 				return;
 			
 			var archerCount:int = 0;
@@ -35,7 +35,7 @@ package features
 				var cx:int = room.worldPosition.x + Math.random() * 7 + 1;
 				var cy:int = room.worldPosition.y + Math.random() * 7 + 1;
 				
-				if (!world.getTile(cx, cy).blocksMovement)
+				if (!world.getTile(cx, cy).blocksMovement && world.getCreature(cx, cy) == null)
 					world.addCreature(new Archer(new Point(cx, cy)));
 			}
 		}
