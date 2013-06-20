@@ -15,6 +15,8 @@ package
 			this.spell = spell;
 		}
 		
+		public function canBePickedUp():Boolean { return true; }
+		
 		public function getPickedUpBy(creature:Creature):void 
 		{
 			if (creature is Player || creature is Hero)

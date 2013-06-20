@@ -398,6 +398,9 @@ package
 			if (item is HealthContainer)
 				return String.fromCharCode(3);
 				
+			if (item is PileOfBones)
+				return "%";
+				
 			return item is EndPiece ? "*" : "?";
 		}
 		
@@ -405,6 +408,9 @@ package
 		{
 			if (item is HealthContainer)
 				return Color.integer(0xff6666);
+				
+			if (item is PileOfBones)
+				return Color.integer(0x909090);
 				
 			return item is EndPiece ? Color.hsv(60, 90, 90) : Color.integer(0xffffff);
 		}

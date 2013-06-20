@@ -151,7 +151,7 @@ package
 				return;
 				
 			var item:Item = world.getItem(position.x, position.y);
-			if (item != null)
+			if (item != null && item.canBePickedUp())
 				item.getPickedUpBy(this);
 		}
 		
@@ -194,6 +194,7 @@ package
 			{
 				this.causeOfDeath = causeOfDeath;
 				world.removeCreature(this);
+				world.addItem(position.x, position.y, new PileOfBones());
 			}
 		}
 		
