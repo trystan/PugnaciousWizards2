@@ -47,7 +47,7 @@ package spells
 				if (!canShootTarget(ai, other))
 					continue;
 					
-				return new SpellCastAction(75, function():void
+				return new SpellCastAction(1.0 - ai.magic.length * 0.075, function():void
 				{
 					new MagicMissile().cast(ai, 
 								clamp(other.position.x - ai.position.x), 
