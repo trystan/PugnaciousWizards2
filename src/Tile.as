@@ -28,6 +28,7 @@ package
 		static public var tower_6:Tile = new Tile("rotating arrow tower", "This tower rotates and shoots arrows in four directions.", true, true, false);
 		static public var burnt_ground:Tile = new Tile("burt ground", null, false, false, false);
 		static public var shallow_water:Tile = new Tile("shallow water", "There is a shallow pool of water here.", false, false, false, 0, waterEffect);
+		static public var frozen_water:Tile = new Tile("ice", "There is some very slippery ice here.", false, false, false, 0, iceEffect);
 		
 		static public var portal:Tile = new Tile("glowing portal", "This portal glows brightly. You can't see where it leads.", false, false, false, 0, portalEffect);
 		
@@ -93,6 +94,11 @@ package
 		private static function waterEffect(creature:Creature):void
 		{
 			creature.fireCounter = 0;
+		}
+		
+		private static function iceEffect(creature:Creature):void
+		{
+			creature.moveBy(creature.movedBy.x, creature.movedBy.y);
 		}
 		
 		private static function portalEffect(creature:Creature):void

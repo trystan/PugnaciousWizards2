@@ -11,6 +11,8 @@ package payloads
 		
 		public function hitTile(world:World, x:int, y:int):void 
 		{
+			if (world.getTile(x, y) == Tile.shallow_water)
+				world.addTile(x, y, Tile.frozen_water);
 		}
 	}
 }

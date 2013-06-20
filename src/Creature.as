@@ -10,6 +10,7 @@ package
 		public var type:String;
 		public var description:String;
 		public var position:Point;
+		public var movedBy:Point = new Point(0,0);
 		public var world:World;
 		public var endPiecesPickedUp:int = 0;
 		public function get hasAllEndPieces():Boolean { return endPiecesPickedUp == 3; }
@@ -49,7 +50,10 @@ package
 		public function moveBy(x:Number, y:Number):void 
 		{
 			if (freezeCounter > 0)
+			{
+				world.getTile(position.x, position.y).apply(this);
 				return;
+			}
 			
 			if (world.isClosedDoor(position.x + x, position.y + y))
 			{
@@ -72,10 +76,14 @@ package
 				{
 					position.x += x;
 					position.y += y;
+					movedBy.x = x;
+					movedBy.y = y;
 				}
 			}
 			
 			getStuffHere();
+			
+			world.getTile(position.x, position.y).apply(this);
 		}
 		
 		public function isEnemy(other:Creature):Boolean
@@ -92,18 +100,23 @@ package
 		public function moveTo(x:int, y:int):void
 		{
 			if (freezeCounter > 0)
+			{
+				world.getTile(position.x, position.y).apply(this);
 				return;
+			}
 				
 			position.x = x;
 			position.y = y;
+			movedBy.x = 0;
+			movedBy.y = 0;
 			
 			getStuffHere();
+			
+			world.getTile(position.x, position.y).apply(this);
 		}
 		
 		public function update():void
-		{
-			world.getTile(position.x, position.y).apply(this);
-			
+		{	
 			if (health < 1)
 				return;
 				
@@ -176,6 +189,8 @@ package
 		
 		public function castSpell(index:int, callback:Function):void
 		{
+			world.getTile(position.x, position.y).apply(this);
+			
 			if (!canCastMagic)
 				return;
 				

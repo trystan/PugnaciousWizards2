@@ -426,6 +426,7 @@ package
 			switch (tile)
 			{
 				case Tile.shallow_water: return water;
+				case Tile.frozen_water: return "="; // String.fromCharCode(240);
 				case Tile.portal: return String.fromCharCode(177);
 				case Tile.out_of_bounds: return " ";
 				case Tile.grass: return dot;
@@ -492,6 +493,7 @@ package
 			switch (tile)
 			{
 				case Tile.shallow_water: return water_fg;
+				case Tile.frozen_water: return ice;
 				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
 				case Tile.grass: return Color.integer(grassForegroundBitmap.getPixel(x, y));
 				case Tile.grass_fire: return fire.lerp(Color.integer(grassForegroundBitmap.getPixel(x, y)), 0.33);
@@ -561,6 +563,7 @@ package
 			switch (tile)
 			{				
 				case Tile.shallow_water: return water_bg;
+				case Tile.frozen_water: return water_fg;
 				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
 				case Tile.grass: return Color.integer(grassBackgroundBitmap.getPixel(x, y));
 				case Tile.grass_fire: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.33);
