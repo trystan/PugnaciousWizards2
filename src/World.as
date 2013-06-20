@@ -1,6 +1,7 @@
 package  
 {
 	import animations.Animation;
+	import flash.display.InteractiveObject;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import features.CastleFeature; 
@@ -103,7 +104,27 @@ package
 			items.push({ x:x, y:y, item:item });
 		}
 		
-		public function removeItem(x:int, y:int):void 
+		public function removeItem(item:Item):Point
+		{
+			var index:int = -1;
+			var pos:Point = null;
+			for (var i:int = 0; i < items.length; i++)
+			{
+				var placedItem:Object = items[i];
+				if (placedItem.item == item)
+				{
+					index = i;
+					pos = new Point(placedItem.x, placedItem.y);
+				}
+			}
+			
+			if (index > -1)
+				items.splice(index, 1);
+				
+			return pos;
+		}
+		
+		public function removeItemAt(x:int, y:int):void 
 		{
 			var index:int = -1;
 			for (var i:int = 0; i < items.length; i++)
@@ -183,6 +204,9 @@ package
 			for each (var effect:CastleFeature in effects)
 				effect.update();
 			
+			for each (var placedItem:Object in items)
+				placedItem.item.update();
+				
 			for each (var creature:Creature in creatures.slice())
 				creature.update();
 		}

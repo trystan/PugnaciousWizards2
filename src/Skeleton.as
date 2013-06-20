@@ -3,17 +3,24 @@ package
 	import flash.geom.Point;
 	import knave.Dijkstra;
 	
-	public class Guard extends Creature
+	public class Skeleton extends Creature
 	{
 		public var path:Array = [];
 		
-		public function Guard(position:Point)
+		public function Skeleton(origin:Creature)
 		{
-			super(position, "Guard",
-				"Guards rush to fight anyone who enters the castle.");
+			super(origin.position, "Skeleton",
+				origin is Skeleton 
+					? "This fallen skeleton has picked itself up and come back for more. More REVENGE!"
+					: "This dead " + origin.type + " has come back as a weak skeleton and decided to take arms against intruders.");
 			
-			maxHealth = 5 * 4;
+			maxHealth = 5;
 			health = maxHealth;
+			meleeDamage = 1;
+		}
+		
+		override public function bleed(amount:int):void 
+		{
 		}
 		
 		public override function doAi():void

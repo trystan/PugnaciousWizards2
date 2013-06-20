@@ -5,10 +5,9 @@ package spells
 	
 	public class BoneSplode implements Spell 
 	{
-		public function get name():String { return "Blood-splode"; }
+		public function get name():String { return "Bone-splode"; }
 		
 		public function get description():String { return "Makes all piles of bones that you can see explode."; }
-		
 		
 		public function playerCast(player:Creature, callback:Function):void 
 		{
@@ -29,7 +28,7 @@ package spells
 					continue;
 					
 				new Explosion(caster.world, x + caster.position.x, y + caster.position.y, 13, true);
-				caster.world.removeItem(x + caster.position.x, y + caster.position.y);
+				caster.world.removeItemAt(x + caster.position.x, y + caster.position.y);
 			}
 		}
 		

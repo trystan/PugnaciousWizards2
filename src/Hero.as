@@ -93,7 +93,10 @@ package
 			return Dijkstra.pathTo(
 				new Point(position.x, position.y),
 				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement && world.getTile(x, y) != Tile.door_closed; },
-				function (x:int, y:int):Boolean { return world.getItem(x, y) != null; } );
+				function (x:int, y:int):Boolean { 
+						var item:Item = world.getItem(x, y);
+						return item != null && item.canBePickedUp(); 
+					} );
 		}
 		
 		private function pathToNearestDoor():Array 

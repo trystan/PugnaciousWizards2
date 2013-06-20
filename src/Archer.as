@@ -15,8 +15,9 @@ package
 			super(position, "Archer",
 				"Archers can shoot arows and are smart enough to keep you in their sights.");
 			
-			maxHealth = 5 * 2;
+			maxHealth = 5 * 3;
 			health = maxHealth;
+			meleeDamage = 2;
 		}
 		
 		public override function doAi():void

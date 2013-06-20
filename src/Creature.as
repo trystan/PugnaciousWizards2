@@ -17,6 +17,7 @@ package
 		public var health:int;
 		public var maxHealth:int;
 		public var causeOfDeath:String = "";
+		public var meleeDamage:int = 5;
 		
 		public function get visionRadius():int { return blindCounter == 0 ? _visionRadius : 0; }
 		public function set visionRadius(amount:int):void { _visionRadius = amount; }
@@ -84,7 +85,8 @@ package
 		
 		private function melee(other:Creature):void 
 		{
-			other.takeDamage(5, "Slain by a " + type.toLowerCase() + ".");
+			other.takeDamage(meleeDamage, "Slain by a " + type.toLowerCase() + ".");
+			other.bleed(5);
 		}
 		
 		public function moveTo(x:int, y:int):void
@@ -187,15 +189,18 @@ package
 		{
 			health -= amount;
 			
-			bleedingCounter += amount / 5;
-			world.addBlood(position.x, position.y, amount / 5 + 1);
-			
 			if (health < 1)
 			{
 				this.causeOfDeath = causeOfDeath;
 				world.removeCreature(this);
-				world.addItem(position.x, position.y, new PileOfBones());
+				world.addItem(position.x, position.y, new PileOfBones(this));
 			}
+		}
+		
+		public function bleed(amount:int):void
+		{
+			bleedingCounter += amount;
+			world.addBlood(position.x, position.y, amount + 1);
 		}
 		
 		public function healBy(blood:int):void 

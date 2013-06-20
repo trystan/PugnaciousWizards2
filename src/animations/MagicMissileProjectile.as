@@ -63,6 +63,7 @@ package animations
 			if (creature != null)
 			{
 				creature.takeDamage(5, "Killed by your own magic missile.");
+				creature.bleed(5);
 				_done = true;
 				
 				if (vx == 0 || vy == 0)
