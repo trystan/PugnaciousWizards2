@@ -25,7 +25,7 @@ package features
 					if (!creature.canSee(x, y))
 						continue;
 					
-					creature.takeDamage(1, "Fried by a timed flash spell.");
+					creature.hurt(1, "Fried by a timed flash spell.");
 					creature.blind(Math.random() * 25 + Math.random() * 25 + 25);
 				}
 				world.removeFeature(this);

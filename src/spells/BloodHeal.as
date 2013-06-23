@@ -30,7 +30,7 @@ package spells
 				caster.world.addBlood(vx, vy, -blood);
 				total += blood;
 			});
-			caster.healBy(total / 2);
+			caster.heal(total / 2);
 		}
 		
 		private function getVisibleBloodCount(caster:Creature):int

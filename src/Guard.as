@@ -13,7 +13,7 @@ package
 				"Guards rush to fight anyone who enters the castle.");
 			
 			maxHealth = 5 * 4;
-			health = maxHealth;
+			_health = maxHealth;
 		}
 		
 		public override function doAi():void

@@ -28,7 +28,7 @@ package animations
 			{
 				var hit:Creature = world.getCreature(x, y);
 				if (hit != null)
-					hit.takeDamage(10, "Impailed on a spike in the floor.");
+					hit.hurt(10, "Impailed on a spike in the floor.");
 				
 				_done = true;
 			}

@@ -15,7 +15,8 @@ package
 		public var endPiecesPickedUp:int = 0;
 		public function get hasAllEndPieces():Boolean { return endPiecesPickedUp == 3; }
 		
-		public var health:int;
+		protected var _health:int;
+		public function get health():int { return _health; };
 		public var maxHealth:int;
 		public var causeOfDeath:String = "";
 		public var meleeDamage:int = 5;
@@ -42,7 +43,7 @@ package
 			this.position = position;
 			
 			maxHealth = 100;
-			health = maxHealth;
+			_health = maxHealth;
 			
 			vision = new SimpleLineOfSight(this);
 		}
@@ -97,7 +98,7 @@ package
 		
 		private function melee(other:Creature):void 
 		{
-			other.takeDamage(meleeDamage, "Slain by a " + type.toLowerCase() + ".");
+			other.hurt(meleeDamage, "Slain by a " + type.toLowerCase() + ".");
 			other.bleed(5);
 		}
 		
@@ -130,21 +131,21 @@ package
 					world.addFeature(new BurningFire(world, position.x, position.y));
 				
 				popup("you're burning", "You're on fire!", "One of the many hazards of being an adventurer is catching on fire every once in a while.\n\nThe fire will subside after a few turns - if you're still alive.");
-				takeDamage(3, "Burned to death.");
+				hurt(3, "Burned to death.");
 				fireCounter--;
 			}
 			
 			if (bleedingCounter > 0)
 			{
 				popup("you're bleeding", "You're bleeding!", "One of the many hazards of being an adventurer is getting hurt too much at once and bleeding.\n\nYour wounds will stop bleeding in a few turns - hopefully you'l still be alive.");
-				takeDamage(1, "Bleed to death.");
+				hurt(1, "Bleed to death.");
 				bleedingCounter--;
 			}
 			
 			if (freezeCounter > 0)
 			{
 				popup("you're frozen", "You're frozen!", "One of the many hazards of being an adventurer is getting frozen solid every once in a while.\n\nYou'll thaw out in a couple turns - if you're still alive.");
-				takeDamage(1, "Froze to death.");
+				hurt(1, "Froze to death.");
 				freezeCounter--;
 			}
 			
@@ -204,9 +205,9 @@ package
 			(magic[index] as Spell).playerCast(this, callback);
 		}
 		
-		public function takeDamage(amount:int, causeOfDeath:String):void 
+		public function hurt(amount:int, causeOfDeath:String):void 
 		{
-			health -= amount;
+			_health -= amount;
 			
 			if (health < 1)
 			{
@@ -216,15 +217,18 @@ package
 			}
 		}
 		
+		public function heal(amount:int, increaseMaxHealth:Boolean = false):void 
+		{
+			if (increaseMaxHealth)
+				maxHealth = Math.max(health + amount, maxHealth);
+			
+			_health = Math.min(health + amount, maxHealth);
+		}
+		
 		public function bleed(amount:int):void
 		{
 			bleedingCounter += amount;
 			world.addBlood(position.x, position.y, amount + 1);
-		}
-		
-		public function healBy(blood:int):void 
-		{
-			health = Math.min(health + blood, maxHealth);
 		}
 		
 		public function canSeeCreature(other:Creature):Boolean
@@ -263,7 +267,7 @@ package
 			if (freezeCounter > 0)
 				return;
 				
-			takeDamage(amount, "Froze to death.");
+			hurt(amount, "Froze to death.");
 			
 			if (fireCounter > 0)
 				fireCounter = 0;

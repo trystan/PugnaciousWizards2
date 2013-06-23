@@ -18,7 +18,7 @@ package spells
 		public function cast(caster:Creature, x:int, y:int):void 
 		{
 			caster.maxHealth -= 10;
-			caster.health = caster.maxHealth;
+			caster.heal(caster.maxHealth);
 			caster.visionRadius--;
 		}
 		

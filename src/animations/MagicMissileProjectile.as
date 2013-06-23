@@ -62,7 +62,7 @@ package animations
 			var creature:Creature = world.getCreature(x, y);
 			if (creature != null)
 			{
-				creature.takeDamage(5, "Killed by your own magic missile.");
+				creature.hurt(5, "Killed by your own magic missile.");
 				creature.bleed(5);
 				_done = true;
 				

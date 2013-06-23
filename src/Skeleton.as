@@ -15,7 +15,7 @@ package
 					: "This dead " + origin.type + " has come back as a weak skeleton and decided to take arms against intruders.");
 			
 			maxHealth = 5;
-			health = maxHealth;
+			_health = maxHealth;
 			meleeDamage = 1;
 		}
 		
