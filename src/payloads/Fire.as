@@ -6,7 +6,7 @@ package payloads
 	{
 		public function hitCreature(creature:Creature):void
 		{
-			creature.hurt(2, "Burned to death.");
+			creature.hurt(2, "You burned to death.");
 			creature.burn(5);
 			hitTile(creature.world, creature.position.x, creature.position.y);
 		}

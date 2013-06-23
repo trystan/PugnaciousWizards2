@@ -98,7 +98,7 @@ package
 		
 		private function melee(other:Creature):void 
 		{
-			other.hurt(meleeDamage, "Slain by a " + type.toLowerCase() + ".");
+			other.hurt(meleeDamage, "You've been slain by a " + type.toLowerCase());
 			other.bleed(5);
 		}
 		
@@ -131,21 +131,21 @@ package
 					world.addFeature(new BurningFire(world, position.x, position.y));
 				
 				popup("you're burning", "You're on fire!", "One of the many hazards of being an adventurer is catching on fire every once in a while.\n\nThe fire will subside after a few turns - if you're still alive.");
-				hurt(3, "Burned to death.");
+				hurt(3, "You have burned to death.");
 				fireCounter--;
 			}
 			
 			if (bleedingCounter > 0)
 			{
 				popup("you're bleeding", "You're bleeding!", "One of the many hazards of being an adventurer is getting hurt too much at once and bleeding.\n\nYour wounds will stop bleeding in a few turns - hopefully you'l still be alive.");
-				hurt(1, "Bleed to death.");
+				hurt(1, "You have bleed to death.");
 				bleedingCounter--;
 			}
 			
 			if (freezeCounter > 0)
 			{
 				popup("you're frozen", "You're frozen!", "One of the many hazards of being an adventurer is getting frozen solid every once in a while.\n\nYou'll thaw out in a couple turns - if you're still alive.");
-				hurt(1, "Froze to death.");
+				hurt(1, "You have froze to death.");
 				freezeCounter--;
 			}
 			
@@ -266,8 +266,6 @@ package
 		{
 			if (freezeCounter > 0)
 				return;
-				
-			hurt(amount, "Froze to death.");
 			
 			if (fireCounter > 0)
 				fireCounter = 0;

@@ -3,6 +3,7 @@ package
 	import spells.FireJump;
 	import spells.HealAndWeaken;
 	import spells.MagicMissile;
+	import themes.TreasureFactory;
 	
 	public class WorldGen 
 	{
@@ -11,6 +12,8 @@ package
 		
 		public function WorldGen(skipRooms:Boolean = false)
 		{
+			TreasureFactory.reset();
+			
 			this.skipRooms = skipRooms;
 			
 			addRooms();

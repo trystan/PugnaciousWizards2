@@ -60,7 +60,7 @@ package features
 			{
 				creature.moveBy(mx, my);
 				if (world.getTile(x + mx, y + my).blocksMovement)
-					creature.hurt(1000, "Crushed to death by a moving wall piece.");
+					creature.hurt(1000, "You've been crushed to death by a moving wall piece.");
 			}
 		}
 		
