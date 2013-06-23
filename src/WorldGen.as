@@ -1,14 +1,8 @@
 package  
 {
-	import spells.BlindingBlink;
-	import spells.BloodHeal;
-	import spells.BloodBurn;
-	import spells.BoneSplode;
 	import spells.FireJump;
 	import spells.HealAndWeaken;
 	import spells.MagicMissile;
-	import spells.TimedFlash;
-	import spells.Winter;
 	
 	public class WorldGen 
 	{
@@ -100,13 +94,6 @@ package
 			world.addItem(2, 28, new Scroll(new FireJump()));
 			world.addItem(3, 32, new Scroll(new MagicMissile()));
 			world.addItem(2, 36, new Scroll(new HealAndWeaken()));
-			
-			world.addItem(2, 40, new Scroll(new BloodHeal()));
-			world.addItem(2, 42, new Scroll(new BloodBurn()));
-			world.addItem(2, 44, new Scroll(new BlindingBlink()));
-			world.addItem(2, 46, new Scroll(new BoneSplode()));
-			world.addItem(2, 48, new Scroll(new Winter()));
-			world.addItem(2, 50, new Scroll(new TimedFlash()));
 		}
 		
 		private function addRooms():void 

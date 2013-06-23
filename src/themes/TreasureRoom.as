@@ -12,21 +12,21 @@ package themes
 				bigTreasure(room, world);
 			else
 				normalTreasure(room, world);
-				
+			
 			addRoomArchitecture(room, world);
 		}
 		
 		private function normalTreasure(room:Room, world:World):void 
 		{
-			world.addItem(room.worldPosition.x + 3, room.worldPosition.y + 3, new HealthContainer());
+			world.addItem(room.worldPosition.x + 3, room.worldPosition.y + 3, TreasureFactory.random());
 		}
 		
 		private function bigTreasure(room:Room, world:World):void 
 		{
-			world.addItem(room.worldPosition.x + 2, room.worldPosition.y + 2, new HealthContainer());
-			world.addItem(room.worldPosition.x + 2, room.worldPosition.y + 4, new HealthContainer());
-			world.addItem(room.worldPosition.x + 4, room.worldPosition.y + 4, new HealthContainer());
-			world.addItem(room.worldPosition.x + 4, room.worldPosition.y + 2, new HealthContainer());
+			world.addItem(room.worldPosition.x + 2, room.worldPosition.y + 2, TreasureFactory.random());
+			world.addItem(room.worldPosition.x + 2, room.worldPosition.y + 4, TreasureFactory.random());
+			world.addItem(room.worldPosition.x + 4, room.worldPosition.y + 4, TreasureFactory.random());
+			world.addItem(room.worldPosition.x + 4, room.worldPosition.y + 2, TreasureFactory.random());
 		}
 		
 		private function addPool(world:World, x:int, y:int):void 
