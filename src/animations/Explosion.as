@@ -45,7 +45,7 @@ package animations
 			{
 				var creature:Creature = world.getCreature(p.x, p.y);
 				if (creature != null)
-					payload.hit(creature);
+					payload.hitCreature(creature);
 			}
 		}
 		

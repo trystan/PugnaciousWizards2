@@ -19,33 +19,16 @@ package spells
 		
 		public function cast(caster:Creature, x:int, y:int):void 
 		{
-			for (var x:int = -caster.visionRadius-1; x <= caster.visionRadius+1; x++)
-			for (var y:int = -caster.visionRadius-1; y <= caster.visionRadius+1; y++)
-			{
-				if (!caster.canSee(x + caster.position.x, y + caster.position.y))
-					continue;
-				
-				var blood:int = caster.world.getBlood(x + caster.position.x, y + caster.position.y);
+			caster.foreachVisibleLocation(function (vx:int, vy:int):void {
+				var blood:int = caster.world.getBlood(vx, vy);
 				
 				if (blood == 0)
-					continue;
+					return;
 					
-				new Explosion(caster.world, x + caster.position.x, y + caster.position.y, new Fire(), blood * 3, true);
+				new Explosion(caster.world, vx, vy, new Fire(), blood * 3, true);
 				
-				caster.world.addBlood(x + caster.position.x, y + caster.position.y, -blood);
-			}
-		}
-		
-		private function getVisibleBloodCount(caster:Creature):int
-		{
-			var count:int = 0;
-			for (var x:int = -caster.visionRadius-1; x <= caster.visionRadius+1; x++)
-			for (var y:int = -caster.visionRadius-1; y <= caster.visionRadius+1; y++)
-			{
-				if (caster.canSee(x + caster.position.x, y + caster.position.y))
-					count += caster.world.getBlood(x + caster.position.x, y + caster.position.y);
-			}
-			return count;
+				caster.world.addBlood(vx, vy, -blood);
+			})
 		}
 		
 		public function aiGetAction(ai:Hero):SpellCastAction 

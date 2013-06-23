@@ -256,10 +256,27 @@ package
 		
 		public function freeze(amount:int):void 
 		{
+			if (freezeCounter > 0)
+				return;
+				
+			takeDamage(amount, "Froze to death.");
+			
 			if (fireCounter > 0)
 				fireCounter = 0;
-			else if (freezeCounter == 0)
+			else
 				freezeCounter += amount;
+		}
+		
+		public function foreachVisibleLocation(callback:Function):void 
+		{
+			for (var x:int = -visionRadius-1; x <= visionRadius+1; x++)
+			for (var y:int = -visionRadius-1; y <= visionRadius+1; y++)
+			{
+				if (!canSee(x + position.x, y + position.y))
+					continue;
+				
+				callback(x + position.x, y + position.y);
+			}
 		}
 		
 		public function blind(amount:int):void 

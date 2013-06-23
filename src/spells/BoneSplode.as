@@ -18,44 +18,37 @@ package spells
 		
 		public function cast(caster:Creature, x:int, y:int):void 
 		{
-			for (var x:int = -caster.visionRadius-1; x <= caster.visionRadius+1; x++)
-			for (var y:int = -caster.visionRadius-1; y <= caster.visionRadius+1; y++)
-			{
-				if (!caster.canSee(x + caster.position.x, y + caster.position.y))
-					continue;
-				
-				var bones:PileOfBones = caster.world.getItem(x + caster.position.x, y + caster.position.y) as PileOfBones;
+			caster.foreachVisibleLocation(function (vx:int, vy:int):void {
+				var bones:PileOfBones = caster.world.getItem(vx, vy) as PileOfBones;
 				if (bones == null)
-					continue;
+					return;
 					
-				new Explosion(caster.world, x + caster.position.x, y + caster.position.y, new Fire(), 13, true);
-				caster.world.removeItemAt(x + caster.position.x, y + caster.position.y);
-			}
+				new Explosion(caster.world, vx, vy, new Fire(), 13, true);
+				caster.world.removeItemAt(vx, vy);
+			});
 		}
 		
 		private function getCandidateCount(caster:Creature):int
 		{
 			var count:int = 0;
-			for (var x:int = -caster.visionRadius-1; x <= caster.visionRadius+1; x++)
-			for (var y:int = -caster.visionRadius-1; y <= caster.visionRadius+1; y++)
-			{
-				if (!caster.canSee(x + caster.position.x, y + caster.position.y))
-					continue;
-				
-				if (x >= -2 || x <= 2 || y <= -2 || y <= 2)
-					continue;
+			caster.foreachVisibleLocation(function (vx:int, vy:int):void {
+				//if (x >= -2 || x <= 2 || y <= -2 || y <= 2)
+				//	return;
 					
-				var bones:PileOfBones = caster.world.getItem(x + caster.position.x, y + caster.position.y) as PileOfBones;
+				var bones:PileOfBones = caster.world.getItem(vx, vy) as PileOfBones;
 				if (bones == null)
-					continue;
+					return;
 				
 				for each (var xoffset:int in [-2, -1, 0, 1, 2])
 				for each (var yoffset:int in [ -2, -1, 0, 1, 2])
 				{
-					if (caster.world.getCreature(x + caster.position.x + xoffset, y + caster.position.y + yoffset) != null)
+					var c:Creature = caster.world.getCreature(vx + xoffset, vy + yoffset);
+					if (c == caster)
+						count -= 8;
+					else if (c != null)
 						count++;	
 				}
-			}
+			});
 			return count;
 		}
 		

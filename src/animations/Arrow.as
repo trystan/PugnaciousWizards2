@@ -44,8 +44,8 @@ package animations
 			var creature:Creature = world.getCreature(x, y);
 			if (creature != null)
 			{
-				payload.hit(creature);
 				_done = true;
+				payload.hitCreature(creature);
 			}
 			else if (world.getTile(x, y).blocksArrows)
 			{

@@ -4,7 +4,7 @@ package payloads
 	
 	public class Fire implements Payload
 	{
-		public function hit(creature:Creature):void
+		public function hitCreature(creature:Creature):void
 		{
 			creature.takeDamage(2, "Burned to death.");
 			creature.burn(5);

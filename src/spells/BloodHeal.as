@@ -19,40 +19,40 @@ package spells
 		{
 			var total:int = 0;
 			
-			for (var x:int = -caster.visionRadius-1; x <= caster.visionRadius+1; x++)
-			for (var y:int = -caster.visionRadius-1; y <= caster.visionRadius+1; y++)
-			{
-				if (!caster.canSee(x + caster.position.x, y + caster.position.y))
-					continue;
-				
-				var blood:int = caster.world.getBlood(x + caster.position.x, y + caster.position.y);
+			caster.foreachVisibleLocation(function (vx:int, vy:int):void {
+				var blood:int = caster.world.getBlood(vx, vy);
 				
 				if (blood == 0)
-					continue;
+					return;
 					
-				new Flash(caster.world, x + caster.position.x, y + caster.position.y);
+				new Flash(caster.world, vx, vy);
 				
-				caster.world.addBlood(x + caster.position.x, y + caster.position.y, -blood);
+				caster.world.addBlood(vx, vy, -blood);
 				total += blood;
-			}
+			});
 			caster.healBy(total / 2);
 		}
 		
 		private function getVisibleBloodCount(caster:Creature):int
 		{
 			var count:int = 0;
-			for (var x:int = -caster.visionRadius-1; x <= caster.visionRadius+1; x++)
-			for (var y:int = -caster.visionRadius-1; y <= caster.visionRadius+1; y++)
-			{
-				if (caster.canSee(x + caster.position.x, y + caster.position.y))
-					count += caster.world.getBlood(x + caster.position.x, y + caster.position.y);
-			}
-			return count;
+			caster.foreachVisibleLocation(function (vx:int, vy:int):void {
+					count += caster.world.getBlood(vx, vy);
+			});
+			return count / 2;
 		}
 		
 		public function aiGetAction(ai:Hero):SpellCastAction 
 		{
-			return new SpellCastAction(ai.health < 30 && getVisibleBloodCount(ai) > 2 ? 0.5 : 0, function():void {
+			var chance:Number = 0.00;
+			if (ai.health < 30 && getVisibleBloodCount(ai) > 5)
+				chance = 0.80;
+			else if (ai.health < 60 && getVisibleBloodCount(ai) > 5)
+				chance = 0.40;
+			else if (ai.health < 90 && getVisibleBloodCount(ai) > 5)
+				chance = 0.10;
+					
+			return new SpellCastAction(chance, function():void {
 				new BloodHeal().cast(ai, 0, 0);
 			});
 		}

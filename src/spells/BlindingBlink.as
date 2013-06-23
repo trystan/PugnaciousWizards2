@@ -8,7 +8,6 @@ package spells
 		
 		public function get description():String { return "You and everyone you see swaps positions and is blinded for a few turns. You are blinded for only half as long."; }
 		
-		
 		public function playerCast(player:Creature, callback:Function):void 
 		{
 			cast(player, 0, 0);

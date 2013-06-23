@@ -21,12 +21,12 @@ version 0.1 (done)
 version 0.2 (done)
 * guards and archers
 
-version 0.3
+version 0.3 (done)
 * examine screen
 * help screen
 * help popups
 
-version 0.4
+version 0.4 (in progress)
 * more spells. Eventually have 18 random scrolls in each castle and 27 total spells
 
 version 0.5
@@ -36,7 +36,7 @@ version 0.6
 * themed areas (fire, ice, etc)
 
 version 0.7
-* score system with gold
+* score system with gold?
 
 version 0.8
 * save/continue

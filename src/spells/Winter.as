@@ -33,7 +33,7 @@ package spells
 		
 		public function aiGetAction(ai:Hero):SpellCastAction
 		{	
-			return new SpellCastAction(0, function():void
+			return new SpellCastAction(ai.fireCounter > 0 ? 0.1 : 0.01, function():void
 			{
 				cast(ai, ai.position.x, ai.position.y);
 			});
