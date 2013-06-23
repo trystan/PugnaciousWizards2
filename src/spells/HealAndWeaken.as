@@ -28,7 +28,7 @@ package spells
 			
 			return new SpellCastAction(chance, function():void
 			{
-				new HealAndWeaken().cast(ai, ai.position.x, ai.position.y);
+				cast(ai, ai.position.x, ai.position.y);
 			});
 		}
 	}

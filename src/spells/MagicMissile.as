@@ -49,7 +49,7 @@ package spells
 					
 				return new SpellCastAction(1.0 - ai.magic.length * 0.075, function():void
 				{
-					new MagicMissile().cast(ai, 
+					cast(ai, 
 								clamp(other.position.x - ai.position.x), 
 								clamp(other.position.y - ai.position.y));
 				});
@@ -57,7 +57,7 @@ package spells
 			
 			return new SpellCastAction(0, function():void
 			{
-				new MagicMissile().cast(ai, 0, 0);
+				cast(ai, 0, 0);
 			});
 		}
 		

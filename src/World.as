@@ -13,7 +13,7 @@ package
 		public var creatures:Array = [];
 		public var items:Array = [];
 		public var rooms:Array = [];
-		public var effects:Array = [];
+		public var featureList:Array = [];
 		public var animationEffects:Array = [];
 		private var blood:Dictionary = new Dictionary();
 		
@@ -22,16 +22,16 @@ package
 			return player.hasAllEndPieces && player.position.x < 4;
 		}
 		
-		public function addFeature(effect:CastleFeature):void
+		public function addFeature(feature:CastleFeature):void
 		{
-			effects.push(effect);
+			featureList.push(feature);
 		}
 		
 		public function removeFeature(feature:CastleFeature):void 
 		{
-			var index:int = effects.indexOf(feature);
+			var index:int = featureList.indexOf(feature);
 			if (index > -1)
-				effects.splice(index, 1);
+				featureList.splice(index, 1);
 		}
 		
 		public function addAnimationEffect(effect:Animation):void
@@ -201,8 +201,8 @@ package
 		
 		public function update():void
 		{
-			for each (var effect:CastleFeature in effects)
-				effect.update();
+			for each (var feature:CastleFeature in featureList)
+				feature.update();
 			
 			for each (var placedItem:Object in items)
 				placedItem.item.update();

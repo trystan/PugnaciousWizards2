@@ -85,7 +85,7 @@ package spells
 		public function aiGetAction(ai:Hero):SpellCastAction 
 		{
 			return new SpellCastAction(getVisibleCreatures(ai).length > 1 ? 0.1 : 0, function():void {
-				new BlindingBlink().cast(ai, 0, 0);
+				cast(ai, 0, 0);
 			});
 		}
 	}

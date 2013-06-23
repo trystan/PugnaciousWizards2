@@ -32,9 +32,6 @@ package spells
 		{
 			var count:int = 0;
 			caster.foreachVisibleLocation(function (vx:int, vy:int):void {
-				//if (x >= -2 || x <= 2 || y <= -2 || y <= 2)
-				//	return;
-					
 				var bones:PileOfBones = caster.world.getItem(vx, vy) as PileOfBones;
 				if (bones == null)
 					return;
@@ -44,7 +41,7 @@ package spells
 				{
 					var c:Creature = caster.world.getCreature(vx + xoffset, vy + yoffset);
 					if (c == caster)
-						count -= 8;
+						count -= 8; // try not to burn yourself....
 					else if (c != null)
 						count++;	
 				}

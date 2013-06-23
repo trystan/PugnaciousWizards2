@@ -23,6 +23,14 @@ package
 			}
 		}
 		
+		public function see(x:int, y:int):void
+		{
+			var tile:Tile = viewer.world.getTile(x, y);
+			
+			if (tile != Tile.out_of_bounds)
+				seen[x][y] = tile;
+		}
+		
 		public function remembered(x:int, y:int):Tile
 		{
 			return seen[x][y];

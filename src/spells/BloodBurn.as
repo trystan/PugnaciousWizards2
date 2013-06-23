@@ -34,7 +34,7 @@ package spells
 		public function aiGetAction(ai:Hero):SpellCastAction 
 		{
 			return new SpellCastAction(0.01, function():void {
-				new BloodBurn().cast(ai, 0, 0);
+				cast(ai, 0, 0);
 			});
 		}
 	}

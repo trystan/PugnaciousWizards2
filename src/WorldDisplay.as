@@ -5,6 +5,8 @@ package
 	import animations.MagicMissileProjectile;
 	import animations.MagicMissileProjectileTrail;
 	import com.headchant.asciipanel.AsciiPanel;
+	import features.CastleFeature;
+	import features.TimedFlashEffect;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.geom.Point;
@@ -136,6 +138,8 @@ package
 						creature.description);
 			}
 			
+			drawFeatures(terminal);
+			
 			drawAnimations(terminal);
 			
 			drawHud(terminal);
@@ -204,6 +208,22 @@ package
 		private static var NW_SE:String = "\\";
 		private static var SW_NE:String = "/";
 		private static var floor_arrow:String = String.fromCharCode(24); // (94);
+		
+		private function drawFeatures(terminal:AsciiPanel):void 
+		{
+			for each (var feature:CastleFeature in world.featureList)
+			{
+				if (feature is TimedFlashEffect)
+				{
+					var effect:TimedFlashEffect = feature as TimedFlashEffect;
+					
+					if (!player.canSee(effect.x, effect.y))
+						continue;
+					
+					terminal.write(effect.timer.toString(), effect.x, effect.y, 0xffffff, bgAt(effect.x, effect.y).toInt());
+				}
+			}
+		}
 		
 		public function drawAnimations(terminal:AsciiPanel):Boolean 
 		{

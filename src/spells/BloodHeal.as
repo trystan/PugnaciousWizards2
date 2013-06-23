@@ -53,7 +53,7 @@ package spells
 				chance = 0.10;
 					
 			return new SpellCastAction(chance, function():void {
-				new BloodHeal().cast(ai, 0, 0);
+				cast(ai, 0, 0);
 			});
 		}
 	}

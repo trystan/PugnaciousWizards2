@@ -37,7 +37,7 @@ package spells
 			if (Math.random() < 0.75)
 				return new SpellCastAction(0, function():void
 				{
-					new FireJump().cast(ai, ai.position.x, ai.position.y);
+					cast(ai, ai.position.x, ai.position.y);
 				});
 			
 			for (var ox:int = -ai.visionRadius; ox < ai.visionRadius; ox++)
@@ -54,7 +54,7 @@ package spells
 						&& ai.world.getTile(x - 1, y + 1) == Tile.tree)
 					return new SpellCastAction(90, function():void
 						{
-							new FireJump().cast(ai, x + 2, y);
+							cast(ai, x + 2, y);
 						});
 						
 				if (ai.world.getTile(x + 1, y - 1) == Tile.tree
@@ -62,7 +62,7 @@ package spells
 						&& ai.world.getTile(x + 1, y + 1) == Tile.tree)
 					return new SpellCastAction(90, function():void
 						{
-							new FireJump().cast(ai, x - 2, y);
+							cast(ai, x - 2, y);
 						});
 						
 				if (ai.world.getTile(x - 1, y - 1) == Tile.tree
@@ -70,7 +70,7 @@ package spells
 						&& ai.world.getTile(x + 1, y - 1) == Tile.tree)
 					return new SpellCastAction(90, function():void
 						{
-							new FireJump().cast(ai, x, y + 2);
+							cast(ai, x, y + 2);
 						});
 						
 				if (ai.world.getTile(x - 1, y + 1) == Tile.tree
@@ -78,13 +78,13 @@ package spells
 						&& ai.world.getTile(x + 1, y + 1) == Tile.tree)
 					return new SpellCastAction(90, function():void
 						{
-							new FireJump().cast(ai, x, y - 2);
+							cast(ai, x, y - 2);
 						});
 			}
 			
 			return new SpellCastAction(0, function():void
 			{
-				new FireJump().cast(ai, ai.position.x, ai.position.y);
+				cast(ai, ai.position.x, ai.position.y);
 			});
 		}
 	}
