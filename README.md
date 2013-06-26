@@ -27,16 +27,16 @@ version 0.3 (done)
 * help popups
 
 version 0.4 (in progress)
-* more spells. Eventually have 18 random scrolls in each castle and 27 total spells
+* 9 total spells found in the castle.
 
 version 0.5
-* enemy wizards
+* 18 or so total, only 9 in each castle.
 
 version 0.6
-* themed areas (fire, ice, etc)
+* enemy wizards
 
 version 0.7
-* score system with gold?
+* themed areas (fire, ice, etc)
 
 version 0.8
 * save/continue

@@ -69,10 +69,24 @@ package screens
 			nextTurn();
 		}
 		
+		private var isUpdatingPlayer:Boolean = true;
+		
+		public function updateOthers():void
+		{
+			isUpdatingPlayer = false;
+			world.updateFeatures();
+			world.updateCreatures();
+			checkEnding();
+		}
+		
 		public function nextTurn():void
 		{
-			world.update();
-			
+			isUpdatingPlayer = true;
+			checkEnding();
+		}
+		
+		public function checkEnding():void
+		{
 			if (player.health < 1)
 				switchTo(new FailScreen(player, world));
 			else if (world.playerHasWon)
@@ -105,6 +119,8 @@ package screens
 				switchTo(new VictoryScreen(player, world));
 			else if (world.animationEffects.length > 0 || didUpdate)
 				RL.current.animate();
+			else if (isUpdatingPlayer)
+				updateOthers();
 		}
 	}
 }

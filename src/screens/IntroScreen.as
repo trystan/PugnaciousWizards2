@@ -41,7 +41,8 @@ package screens
 		public function autoPlay():void 
 		{
 			RL.current.interruptAnimations = true;
-			world.update();
+			world.updateCreatures();
+			world.updateFeatures();
 			
 			if (hero.health < 1)
 				switchTo(new IntroScreen());

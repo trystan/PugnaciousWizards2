@@ -199,16 +199,19 @@ package
 				return 0;
 		}
 		
-		public function update():void
+		public function updateCreatures():void
+		{
+			for each (var creature:Creature in creatures.slice())
+				creature.update();
+		}
+		
+		public function updateFeatures():void
 		{
 			for each (var feature:CastleFeature in featureList)
 				feature.update();
 			
 			for each (var placedItem:Object in items)
 				placedItem.item.update();
-				
-			for each (var creature:Creature in creatures.slice())
-				creature.update();
 		}
 		
 		public function animate():void 

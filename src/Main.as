@@ -46,6 +46,13 @@ package
 			rl.bind('numpad 8', 'up');
 			rl.bind('numpad 9', 'up right');
 			
+			// update player
+			// animate player
+			// update creatures
+			// animate creatures
+			// update features
+			// animate features
+			
 			rl.enter(new IntroScreen());
 			
 			addChild(rl);

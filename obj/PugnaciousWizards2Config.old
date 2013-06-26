@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'6/23/2013'</value>
+      <value>'6/25/2013'</value>
     </define>
     <optimize>true</optimize>
     <omit-trace-statements>true</omit-trace-statements>
@@ -31,7 +31,7 @@
     <path-element>Z:\Projects\flash\PugnaciousWizards2\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
-  <default-frame-rate>45</default-frame-rate>
+  <default-frame-rate>60</default-frame-rate>
   <default-size>
     <width>800</width>
     <height>640</height>
