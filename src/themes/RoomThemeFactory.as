@@ -33,7 +33,7 @@ package themes
 		
 		public static function random():RoomTheme
 		{
-			return new TrapWalls(); // themeList[Math.floor(Math.random() * themeList.length)];
+			return themeList[Math.floor(Math.random() * themeList.length)];
 		}
 	}
 }

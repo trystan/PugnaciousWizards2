@@ -16,6 +16,7 @@ package themes
 				new Scroll(new Winter()),
 				new Scroll(new TimedFlash()),
 				new Scroll(new PullAndFreeze()),
+				new Scroll(new TreeAlly()),
 			];
 		}
 		

@@ -27,7 +27,7 @@ package animations
 			
 			world.addAnimationEffect(this);
 			
-			hit();
+			update();
 		}
 		
 		public function update():void

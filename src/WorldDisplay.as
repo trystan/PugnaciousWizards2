@@ -126,7 +126,14 @@ package
 					continue;
 				
 				var creatureGlyph:String = creature.isGoodGuy ? "@" : creature.type.charAt(0).toLowerCase();
+				if (creature is MovingTree)
+					creatureGlyph = tile(Tile.tree);
+				
 				var creatureColor:Color = Color.integer(creature.isGoodGuy ? 0xffffff : 0xc0c0c0);
+				
+				if (creature is MovingTree)
+					creatureColor = fg(Tile.tree, 1, 1);
+				
 				if (creature.fireCounter > 0)
 					creatureColor = creatureColor.lerp(fire, 0.20);
 				else if (creature.freezeCounter > 0)

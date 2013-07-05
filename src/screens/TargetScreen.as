@@ -14,14 +14,16 @@ package screens
 		private var player:Creature;
 		private var excludeOccupiedTiles:Boolean;
 		private var isOk:Boolean = true;
+		private var validateTarget:Function;
 		
-		public function TargetScreen(player:Creature, callback:Function, excludeOccupiedTiles:Boolean) 
+		public function TargetScreen(player:Creature, callback:Function, excludeOccupiedTiles:Boolean, okFunction:Function = null) 
 		{
 			this.tx = player.position.x;
 			this.ty = player.position.y;
 			this.player = player;
 			this.callback = callback;
 			this.excludeOccupiedTiles = excludeOccupiedTiles;
+			this.validateTarget = okFunction == null ? checkTarget : okFunction;
 			
 			bind('up', function():void { moveBy(0, -1); } );
 			bind('down', function():void { moveBy(0, 1); } );
@@ -36,7 +38,7 @@ package screens
 			bind('enter', function():void { if (isOk) { callback(player, tx, ty); exit(); } } );
 			bind('draw', draw);
 			
-			checkTarget();
+			validateTarget(tx, ty);
 		}
 		
 		private function moveBy(mx:int, my:int):void 
@@ -47,14 +49,14 @@ package screens
 			tx += mx;
 			ty += my;
 			
-			checkTarget();
+			validateTarget(tx, ty);
 		}
 		
-		private function checkTarget():void
+		private function checkTarget(x:int, y:int):void
 		{
-			isOk = player.canSee(tx, ty) 
-				&& !player.world.getTile(tx, ty).blocksMovement
-				&& (!excludeOccupiedTiles || player.world.getCreature(tx, ty) == null);
+			isOk = player.canSee(x, y) 
+				&& !player.world.getTile(x, y).blocksMovement
+				&& (!excludeOccupiedTiles || player.world.getCreature(x, y) == null);
 		}
 		
 		public function draw(terminal:AsciiPanel):void 

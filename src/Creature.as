@@ -213,8 +213,12 @@ package
 			{
 				this.causeOfDeath = causeOfDeath;
 				world.removeCreature(this);
-				world.addItem(position.x, position.y, new PileOfBones(this));
 			}
+		}
+		
+		public function die():void
+		{
+			world.addItem(position.x, position.y, new PileOfBones(this));
 		}
 		
 		public function heal(amount:int, increaseMaxHealth:Boolean = false):void 

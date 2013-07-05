@@ -1,7 +1,6 @@
 package  
 {
 	import flash.geom.Point;
-	import spells.PullAndFreeze;
 	
 	public class Player extends Creature
 	{
