@@ -1,5 +1,6 @@
 package themes 
 {
+	import features.WallTrap;
 	public class RoomThemeFactory 
 	{
 		private static var themeList:Array = [
@@ -32,7 +33,7 @@ package themes
 		
 		public static function random():RoomTheme
 		{
-			return themeList[Math.floor(Math.random() * themeList.length)];
+			return new TrapWalls(); // themeList[Math.floor(Math.random() * themeList.length)];
 		}
 	}
 }

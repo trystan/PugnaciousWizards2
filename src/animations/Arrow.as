@@ -26,6 +26,8 @@ package animations
 			this.payload = payload;
 			
 			world.addAnimationEffect(this);
+			
+			hit();
 		}
 		
 		public function update():void
@@ -41,6 +43,11 @@ package animations
 				}
 			}
 			
+			hit();
+		}
+		
+		private function hit():void
+		{
 			var creature:Creature = world.getCreature(x, y);
 			if (creature != null)
 			{

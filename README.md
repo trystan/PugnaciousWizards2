@@ -26,14 +26,16 @@ version 0.3 (done)
 * help screen
 * help popups
 
-version 0.4 (in progress)
+version 0.4 (done)
 * 9 total spells found in the castle.
 
-version 0.5
+version 0.5 (in progress)
 * 18 or so total, only 9 in each castle.
 
 version 0.6
 * enemy wizards
+* gold
+* spell shop
 
 version 0.7
 * themed areas (fire, ice, etc)
