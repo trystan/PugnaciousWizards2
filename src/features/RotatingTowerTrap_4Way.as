@@ -25,6 +25,9 @@ package features
 			this.directionIndex = (int)(Math.random() * 8);
 			this.payload = PayloadFactory.random();
 			
+			while (payload is Ice)
+				payload = PayloadFactory.random();
+			
 			updateWorld();
 		}
 		

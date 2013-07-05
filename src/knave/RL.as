@@ -33,6 +33,7 @@ package knave
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			stage.addEventListener(Event.ENTER_FRAME, onTick);
+			draw();
 		}
 		
 		private function onKeyDown(e:KeyboardEvent):void 

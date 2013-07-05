@@ -4,6 +4,9 @@ package
 	import animations.Flash;
 	import animations.MagicMissileProjectile;
 	import animations.MagicMissileProjectileTrail;
+	import animations.PullAndFreezeExpansion;
+	import animations.PullAndFreezeProjectile;
+	import animations.PullAndFreezeProjectileTrail;
 	import com.headchant.asciipanel.AsciiPanel;
 	import features.CastleFeature;
 	import features.TimedFlashEffect;
@@ -309,6 +312,51 @@ package
 						terminal.getBackgroundColor(effect.x, effect.y));
 						
 					addLight(terminal, effect.x, effect.y, magic, 2);
+				}
+				else if (effect is PullAndFreezeProjectile)
+				{
+					if (!player.canSee(effect.x, effect.y))
+						continue;
+					
+					didDrawAny = true;
+
+					terminal.write(
+						terminal.getCharacter(effect.x, effect.y), 
+						effect.x, 
+						effect.y, 
+						ice.lerp(Color.integer(terminal.getForegroundColor(effect.x, effect.y)), 0.5).toInt(),
+						ice.lerp(Color.integer(terminal.getBackgroundColor(effect.x, effect.y)), 0.5).toInt());
+				}
+				else if (effect is PullAndFreezeProjectileTrail)
+				{
+					if (!player.canSee(effect.x, effect.y))
+						continue;
+					
+					didDrawAny = true;
+
+					terminal.write(
+						terminal.getCharacter(effect.x, effect.y), 
+						effect.x, 
+						effect.y, 
+						ice.lerp(Color.integer(terminal.getForegroundColor(effect.x, effect.y)), effect.ticks / 12.0).toInt(),
+						ice.lerp(Color.integer(terminal.getBackgroundColor(effect.x, effect.y)), effect.ticks / 12.0).toInt());
+				}
+				else if (effect is PullAndFreezeExpansion)
+				{
+					for (var x0:int = effect.x - effect.radius; x0 < effect.x + effect.radius; x0++)
+					for (var y0:int = effect.y - effect.radius; y0 < effect.y + effect.radius; y0++)
+					{
+						if (!player.canSee(x0, y0))
+							continue;
+						
+						didDrawAny = true;
+
+						terminal.write(
+							terminal.getCharacter(x0, y0), 
+							x0, y0,  
+							ice.lerp(Color.integer(terminal.getForegroundColor(x0, y0)), 0.25).toInt(),
+							ice.lerp(Color.integer(terminal.getBackgroundColor(x0, y0)), 0.25).toInt());
+					}
 				}
 				else if (effect is Flash)
 				{

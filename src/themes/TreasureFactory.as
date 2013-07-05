@@ -15,6 +15,7 @@ package themes
 				new Scroll(new BoneSplode()),
 				new Scroll(new Winter()),
 				new Scroll(new TimedFlash()),
+				new Scroll(new PullAndFreeze()),
 			];
 		}
 		
