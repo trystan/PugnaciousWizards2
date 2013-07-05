@@ -14,6 +14,7 @@ package themes
 				new Scroll(new BlindingBlink()),
 				new Scroll(new BoneSplode()),
 				new Scroll(new Winter()),
+				new Scroll(new Inferno()),
 				new Scroll(new TimedFlash()),
 				new Scroll(new PullAndFreeze()),
 				new Scroll(new TreeAlly()),
