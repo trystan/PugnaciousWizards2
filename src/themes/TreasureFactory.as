@@ -5,9 +5,11 @@ package themes
 	public class TreasureFactory 
 	{
 		public static var spellList:Array = null;
+		private static var totalSpellsAdded:int = 0;
 		
 		public static function reset():void
 		{
+			totalSpellsAdded = 0;
 			spellList = [
 				new Scroll(new BloodHeal()),
 				new Scroll(new BloodBurn()),
@@ -18,6 +20,7 @@ package themes
 				new Scroll(new TimedFlash()),
 				new Scroll(new PullAndFreeze()),
 				new Scroll(new TreeAlly()),
+				new Scroll(new SummonElemental()),
 			];
 		}
 		
@@ -26,10 +29,12 @@ package themes
 			if (spellList == null)
 				reset();
 				
-			if (spellList.length == 0)
+			if (spellList.length == 0 || totalSpellsAdded >= 9)
 				return new HealthContainer();
 				
 			var index:int = Math.random() * spellList.length;
+			
+			totalSpellsAdded++;
 			
 			return spellList.splice(index, 1)[0];
 		}

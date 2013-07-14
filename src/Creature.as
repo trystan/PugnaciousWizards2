@@ -96,7 +96,7 @@ package
 			return this.isGoodGuy != other.isGoodGuy;
 		}
 		
-		private function melee(other:Creature):void 
+		protected function melee(other:Creature):void 
 		{
 			other.hurt(meleeDamage, "You've been slain by a " + type.toLowerCase());
 			other.bleed(5);

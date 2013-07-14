@@ -42,6 +42,7 @@ version 0.7
 
 version 0.8
 * save/continue
+* achievements
 
 version 0.9
 * a random effect for each game
