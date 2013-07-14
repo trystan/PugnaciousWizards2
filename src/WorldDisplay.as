@@ -133,6 +133,16 @@ package
 				
 				if (creature is MovingTree)
 					creatureColor = fg(Tile.tree, 1, 1);
+				else if (creature is SummonedCreature)
+				{
+					switch ((creature as SummonedCreature).element)
+					{
+						case "fire": creatureColor = creatureColor.lerp(fire, 0.5); break;
+						case "ice": creatureColor = creatureColor.lerp(ice, 0.5); break;
+						case "stone": creatureColor = creatureColor.lerp(fg(Tile.wall), 0.5); break;
+						case "air": creatureColor = creatureColor.lerp(water_fg, 0.5); break;
+					}
+				}
 				
 				if (creature.fireCounter > 0)
 					creatureColor = creatureColor.lerp(fire, 0.20);

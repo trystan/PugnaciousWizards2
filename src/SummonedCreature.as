@@ -9,8 +9,8 @@ package
 	public class SummonedCreature extends Creature
 	{
 		public var path:Array = [];
+		public var element:String;
 		private var summoner:Creature;
-		private var element:String;
 		
 		public function SummonedCreature(position:Point, summoner:Creature, element:String)
 		{
@@ -54,6 +54,8 @@ package
 		{
 			if (element == "water")
 				element = "ice";
+			else if (element == "ice")
+				heal(5);
 			// super.freeze(amount);
 		}
 		
