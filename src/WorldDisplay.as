@@ -451,6 +451,8 @@ package
 				terminal.write("bleeding!", x + 1, y += 2, blood.lerp(white, 0.5).toInt());
 			if (player.blindCounter > 0)
 				terminal.write("blind!", x + 1, y += 2, 0xc0c0ff);
+			if (player.poisonCounter > 0)
+				terminal.write("poisoned!", x + 1, y += 2, 0xc0ffc0);
 			y += 2;
 			
 			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2, item_color(null).toInt());
@@ -511,10 +513,14 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.sparcePoisonFog:
+				case Tile.densePoisonFog: return String.fromCharCode(177);
+				case Tile.poison_water:
 				case Tile.shallow_water: return water;
 				case Tile.frozen_water: return "="; // String.fromCharCode(240);
 				case Tile.portal: return String.fromCharCode(177);
 				case Tile.out_of_bounds: return " ";
+				case Tile.dirt: return dot;
 				case Tile.grass: return dot;
 				case Tile.grass_fire: return dot;
 				case Tile.burnt_ground: return dot;
@@ -578,6 +584,9 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.sparcePoisonFog:
+				case Tile.densePoisonFog: return Color.hsv(90, 66, 66);
+				case Tile.poison_water: return Color.hsv(90, 66, 66).lerp(water_fg, 0.5);
 				case Tile.shallow_water: return water_fg;
 				case Tile.frozen_water: return ice;
 				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
@@ -621,6 +630,7 @@ package
 				case Tile.fire_tower_5:
 				case Tile.fire_tower_6:
 					return fire;
+				case Tile.dirt: return ash.lerp(Color.integer(grassForegroundBitmap.getPixel(x, y)), 0.25);
 				case Tile.burnt_ground: return ash.lerp(Color.integer(grassForegroundBitmap.getPixel(x, y)), 0.5);
 				case Tile.track_light_ns:
 				case Tile.track_dark_ns:
@@ -647,7 +657,10 @@ package
 		private function bg(tile:Tile, x:int = 0, y:int = 0):Color
 		{
 			switch (tile)
-			{				
+			{
+				case Tile.sparcePoisonFog:
+				case Tile.densePoisonFog: return Color.hsv(90, 33, 33);
+				case Tile.poison_water: return Color.hsv(90, 33, 33).lerp(water_bg, 0.5);
 				case Tile.shallow_water: return water_bg;
 				case Tile.frozen_water: return water_fg;
 				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
@@ -689,6 +702,7 @@ package
 				case Tile.tower_5:
 				case Tile.tower_6:
 					return stone_fg;
+				case Tile.dirt: return ash.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.25);
 				case Tile.burnt_ground: return ash.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.5);
 				case Tile.track_light_ns: return tile_2;
 				case Tile.track_dark_ns: return tile_1;

@@ -5,11 +5,14 @@ package
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import features.CastleFeature; 
+	import payloads.Payload;
+	import payloads.Poison;
 	
 	public class World 
 	{
 		public var player:Creature;
 		private var tiles:Dictionary = new Dictionary();
+		private var poisonFog:Dictionary = new Dictionary();
 		public var creatures:Array = [];
 		public var items:Array = [];
 		public var rooms:Array = [];
@@ -51,11 +54,20 @@ package
 			tiles[x + "," + y] = tile;
 		}
 		
-		public function getTile(x:int, y:int):Tile
+		public function getTile(x:int, y:int, ignoreFog:Boolean = false):Tile
 		{
 			if (isOutOfBounds(x, y))
 				return Tile.out_of_bounds;
 				
+			if (!ignoreFog) 
+			{
+				var fog:Object = poisonFog[x + "," + y];
+				if (fog > 3)
+					return Tile.densePoisonFog;
+				if (fog > 0)
+					return Tile.sparcePoisonFog;
+			}
+			
 			var t:Tile = tiles[x + "," + y];
 			if (t != null)
 				return t;
@@ -212,6 +224,8 @@ package
 			
 			for each (var placedItem:Object in items)
 				placedItem.item.update();
+				
+			disipateFog();
 		}
 		
 		public function animate():void 
@@ -224,6 +238,69 @@ package
 					nextAnimations.push(animation);
 			}
 			animationEffects = nextAnimations;
+		}
+		
+		public function addPoisonFog(x:int, y:int, amount:int):void 
+		{
+			var key:String = x + "," + y;
+			
+			if (poisonFog[key] == null)
+				poisonFog[key] = 0;
+				
+			poisonFog[key] += amount
+		}
+		
+		public function disipateFog():void
+		{
+			var newFog:Dictionary = new Dictionary();
+			
+			for (var key:String in poisonFog)
+			{
+				var amount:int = poisonFog[key] - 1;
+				
+				if (amount < 1)
+					continue;
+					
+				var x:int = key.split(",")[0];
+				var y:int = key.split(",")[1];
+				
+				for each (var offsets:Array in [[ -1, 0], [1, 0], [0, -1], [0, 1]])
+				{
+					if (Math.random() < 0.25)
+						continue;
+						
+					if (amount < 3 || getTile(x + offsets[0], y + offsets[1]).blocksMovement)
+						continue;
+						
+					var key2:String = (x + offsets[0]) + "," + (y + offsets[1]);
+					var diff:int = poisonFog[key2] == null ? amount : amount - poisonFog[key2];
+					
+					if (diff < 1)
+						continue;
+						
+					amount -= diff / 2;
+					
+					if (newFog[key2] == null)
+						newFog[key2] = diff / 2;
+					else
+						newFog[key2] = newFog[key2] + diff / 2;
+				}
+				
+				if (amount > 0)
+				{
+					newFog[key] = amount;
+				}
+			}
+			
+			poisonFog = newFog;
+			
+			var payload:Poison = new Poison();
+			for (key in poisonFog)
+			{
+				x = key.split(",")[0];
+				y = key.split(",")[1];
+				payload.hitTile(this, x, y);
+			}
 		}
 	}
 }

@@ -29,6 +29,7 @@ package
 		public var bleedingCounter:int = 0;
 		private var vision:SimpleLineOfSight;
 		
+		public var poisonCounter:int = 0;
 		public var fireCounter:int = 0;
 		public var freezeCounter:int = 0;
 		public var blindCounter:int = 0;
@@ -140,6 +141,13 @@ package
 			if (health < 1)
 				return;
 				
+			if (poisonCounter > 0)
+			{
+				popup("you're poisoned", "You're poisoned!", "One of the many hazards of being an adventurer is the occasional poisoning.\n\nThe poison will wear off after a few turns. Or kill you.");
+				hurt(2, "You have been poisoned to death.");
+				poisonCounter--;
+			}
+			
 			if (fireCounter > 0)
 			{
 				if (Math.random() < 0.1)
@@ -271,6 +279,11 @@ package
 		public function memory(x:int, y:int):Tile 
 		{
 			return vision.remembered(x, y);
+		}
+		
+		public function poison(amount:int):void
+		{
+			poisonCounter += amount;
 		}
 		
 		public function burn(amount:int):void 

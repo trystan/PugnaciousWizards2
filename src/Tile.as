@@ -1,8 +1,11 @@
 package  
 {
 	import flash.geom.Point;
+	import payloads.Poison;
 	public class Tile 
 	{
+		public static var dirt:Tile = new Tile("dirt", null, false, false, false);
+		
 		public static var grass:Tile = new Tile("grass", null, false, false, false, 0.1);
 		public static var grass_fire:Tile = new Tile("burning grass", null, false, false, false);
 		public static var tree:Tile = new Tile("tree", null, true, false, false, 0.25);
@@ -28,7 +31,13 @@ package
 		static public var tower_6:Tile = new Tile("rotating arrow tower", "This tower rotates and shoots arrows in four directions.", true, true, false);
 		static public var burnt_ground:Tile = new Tile("burt ground", null, false, false, false);
 		static public var shallow_water:Tile = new Tile("shallow water", "There is a shallow pool of water here.", false, false, false, 0, waterEffect);
+		static public var poison_water:Tile = new Tile("poison water", "There is a shallow pool of poisoned water here.", false, false, false, 0, poisonedWaterEffect);
 		static public var frozen_water:Tile = new Tile("ice", "There is some very slippery ice here.", false, false, false, 0, iceEffect);
+		
+		public static var sparcePoisonFog:Tile = new Tile("poison fog", "Poisonous fog", false, false, false, 0, poisonedFogEffect);
+		public static var densePoisonFog:Tile = new Tile("poison fog", "Poisonous fog", false, false, true, 0, poisonedFogEffect);
+		
+		
 		
 		static public var portal:Tile = new Tile("glowing portal", "This portal glows brightly. You can't see where it leads.", false, false, false, 0, portalEffect);
 		
@@ -94,6 +103,17 @@ package
 		private static function waterEffect(creature:Creature):void
 		{
 			creature.fireCounter = 0;
+		}
+		
+		private static function poisonedWaterEffect(creature:Creature):void
+		{
+			waterEffect(creature);
+			new Poison().hitCreature(creature);
+		}
+		
+		private static function poisonedFogEffect(creature:Creature):void
+		{
+			new Poison().hitCreature(creature);
 		}
 		
 		private static function iceEffect(creature:Creature):void

@@ -2,6 +2,7 @@ package
 {
 	import flash.geom.Point;
 	import spells.BloodJellies;
+	import spells.PoisonFog;
 	import spells.SummonElemental;
 	
 	public class Player extends Creature

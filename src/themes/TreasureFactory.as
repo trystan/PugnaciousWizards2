@@ -22,6 +22,7 @@ package themes
 				new Scroll(new TreeAlly()),
 				new Scroll(new SummonElemental()),
 				new Scroll(new BloodJellies()),
+				new Scroll(new PoisonFog()),
 			];
 			
 			while (spellList.length < 9)
