@@ -46,8 +46,8 @@ package screens
 				var fg:int = terminal.getForegroundColor(left + x, top + y);
 				var bg:int = terminal.getBackgroundColor(left + x, top + y);
 				
-				fg = Color.integer(fg).lerp(background, 0.125).toInt();
-				bg = Color.integer(bg).lerp(background, 0.125).toInt();
+				fg = Color.integer(fg).lerp(background, 0.10).toInt();
+				bg = Color.integer(bg).lerp(background, 0.10).toInt();
 				
 				terminal.write(char, left + x, top + y, fg, bg);
 			}
@@ -102,6 +102,9 @@ package screens
 				line = " " + line;
 			for (i = 0; i < right; i++)
 				line = line + " ";
+				
+			if (line.length >= w)
+				line = line.substr(0, w);
 				
 			return line;
 		}
