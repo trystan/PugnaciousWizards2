@@ -72,7 +72,17 @@ package
 			else
 			{
 				var other:Creature = world.getCreature(position.x + x, position.y + y);
-				if (other != null)
+				
+				if (other != null && other.swapsPositionWith(this))
+				{
+					position.x += x;
+					position.y += y;
+					movedBy.x = x;
+					movedBy.y = y;
+					
+					other.moveTo(position.x - x, position.y - y);
+				}
+				else if (other != null)
 				{
 					if (isEnemy(other))
 						melee(other);
@@ -89,6 +99,11 @@ package
 			getStuffHere();
 			
 			world.getTile(position.x, position.y).apply(this);
+		}
+		
+		public function swapsPositionWith(other:Creature):Boolean
+		{
+			return false;
 		}
 		
 		public function isEnemy(other:Creature):Boolean

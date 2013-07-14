@@ -119,7 +119,6 @@ package
 				}
 			}
 			
-			
 			for each (var creature:Creature in world.creatures)
 			{
 				if (!player.canSee(creature.position.x, creature.position.y) && player != creature)
@@ -133,6 +132,8 @@ package
 				
 				if (creature is MovingTree)
 					creatureColor = fg(Tile.tree, 1, 1);
+				else if (creature is BloodJelly)
+					creatureColor = blood.lerp(Color.integer(0xffffff), 0.5);
 				else if (creature is SummonedCreature)
 				{
 					switch ((creature as SummonedCreature).element)

@@ -21,6 +21,7 @@ package themes
 				new Scroll(new PullAndFreeze()),
 				new Scroll(new TreeAlly()),
 				new Scroll(new SummonElemental()),
+				new Scroll(new BloodJellies()),
 			];
 			
 			while (spellList.length < 9)

@@ -64,6 +64,11 @@ package
 			return other != null && other != this && other != summoner;
 		}
 		
+		override public function swapsPositionWith(other:Creature):Boolean 
+		{
+			return other == summoner;
+		}
+		
 		override protected function melee(other:Creature):void 
 		{
 			super.melee(other);
@@ -102,7 +107,7 @@ package
 			if (canSeeCreature(world.player))
 				path = Dijkstra.pathTo(position, 
 									function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement },
-									function (x:int, y:int):Boolean { return isEnemy(world.getCreature(x, y)); });
+									function (x:int, y:int):Boolean { return canSee(x, y) && isEnemy(world.getCreature(x, y)); });
 		}
 		
 		private function moveToTarget():void 
