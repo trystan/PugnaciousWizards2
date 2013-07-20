@@ -35,7 +35,9 @@ package spells
 		{	
 			return new SpellCastAction(ai.fireCounter > 0 ? 0.1 : 0.01, function():void
 			{
-				cast(ai, ai.position.x, ai.position.y);
+				cast(ai, 
+					ai.position.x + (Math.random() * ai.visionRadius * 2) - ai.visionRadius,
+					ai.position.y + (Math.random() * ai.visionRadius * 2) - ai.visionRadius);
 			});
 		}
 	}

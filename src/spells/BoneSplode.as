@@ -23,7 +23,7 @@ package spells
 				if (bones == null)
 					return;
 					
-				new Explosion(caster.world, vx, vy, new Fire(), 13, true);
+				new Explosion(caster.world, vx, vy, new Fire(), 25, true);
 				caster.world.removeItemAt(vx, vy);
 			});
 		}

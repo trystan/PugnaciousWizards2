@@ -1,5 +1,6 @@
 package themes
 {
+	import features.CastleFeature;
 	import features.RotatingTowerTrap;
 	import features.RotatingTowerTrap_4Way;
 	import features.TowerTrap;
@@ -85,7 +86,9 @@ package themes
 				px = room.worldPosition.x + Math.random() * 7;
 				py = room.worldPosition.y + Math.random() * 7;
 			}
-			world.addFeature(new RotatingTowerTrap(world, px, py));
+			var f:CastleFeature = new RotatingTowerTrap(world, px, py);
+			room.roomFeatures.push(f);
+			world.addFeature(f);
 		}
 		
 		private function addTower4(room:Room, world:World):void 
@@ -98,7 +101,9 @@ package themes
 				px = room.worldPosition.x + Math.random() * 7;
 				py = room.worldPosition.y + Math.random() * 7;
 			}
-			world.addFeature(new RotatingTowerTrap_4Way(world, px, py));
+			var f:CastleFeature = new RotatingTowerTrap_4Way(world, px, py);
+			room.roomFeatures.push(f);
+			world.addFeature(f);
 		}
 		
 		private function addTower8(room:Room, world:World):void 
@@ -111,7 +116,9 @@ package themes
 				px = room.worldPosition.x + Math.random() * 7;
 				py = room.worldPosition.y + Math.random() * 7;
 			}
-			world.addFeature(new TowerTrap(world, px, py));
+			var f:CastleFeature = new TowerTrap(world, px, py);
+			room.roomFeatures.push(f);
+			world.addFeature(f);
 		}
 		
 		private function addWallTraps(room:Room, world:World):void 

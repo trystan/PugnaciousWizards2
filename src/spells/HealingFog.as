@@ -32,9 +32,13 @@ package spells
 				callback();
 		}
 		
+		private var cooldown:int = 0;
 		public function aiGetAction(ai:Hero):SpellCastAction
 		{
-			return new SpellCastAction(0.01, function():void
+			if (cooldown-- > 0)
+				return new SpellCastAction(0, function():void { } );
+			
+			return new SpellCastAction(ai.health < ai.maxHealth / 2 ? 0.1 : 0, function():void
 			{
 				var x:int = -1;
 				var y:int = -1;
@@ -42,12 +46,15 @@ package spells
 				
 				while (!ai.canSee(x, y) && tries++ < 100)
 				{
-					x = ai.position.x + (Math.random() * ai.visionRadius * 2) - ai.visionRadius; 
-					y = ai.position.y + (Math.random() * ai.visionRadius * 2) - ai.visionRadius;
+					x = ai.position.x + (Math.random() * ai.visionRadius) - ai.visionRadius / 2; 
+					y = ai.position.y + (Math.random() * ai.visionRadius) - ai.visionRadius / 2;
 				}
 				
 				if (ai.canSee(x, y))
+				{
 					cast(ai, x, y);
+					cooldown = 20;
+				}
 			});
 		}
 	}

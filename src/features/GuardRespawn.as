@@ -15,7 +15,7 @@ package features
 		
 		public override function update():void
 		{
-			if (Math.random() > 0.025)
+			if (Math.random() > 0.05)
 				return;
 			
 			var guardCount:int = 0;

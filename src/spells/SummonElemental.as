@@ -32,7 +32,7 @@ package spells
 			
 			if (creature != null)
 			{
-				creature.hurt(50, "You were seriously meesd up by a summing portal.");
+				creature.hurt(15, "You were seriously meesd up by a summing portal.");
 			}
 			else
 			{
@@ -70,9 +70,20 @@ package spells
 		
 		public function aiGetAction(ai:Hero):SpellCastAction
 		{
-			return new SpellCastAction(0, function():void
+			return new SpellCastAction(ai.maxHealth > 25 ? 0.01 : 0, function():void
 			{
-				cast(ai, ai.position.x, ai.position.y);
+				var x:int = -1;
+				var y:int = -1;
+				var tries:int = 0;
+				
+				while (!ai.canSee(x, y) && tries++ < 100)
+				{
+					x = ai.position.x + (Math.random() * ai.visionRadius * 2) - ai.visionRadius; 
+					y = ai.position.y + (Math.random() * ai.visionRadius * 2) - ai.visionRadius;
+				}
+				
+				if (ai.canSee(x, y))
+					cast(ai, x, y);
 			});
 		}
 	}

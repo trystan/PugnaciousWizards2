@@ -1,5 +1,6 @@
 package themes
 {
+	import features.CastleFeature;
 	import features.GuardRespawn;
 	import flash.geom.Point;
 	
@@ -29,7 +30,9 @@ package themes
 				world.addTile(x, y, t);
 			}
 			
-			world.addFeature(new GuardRespawn(room, world));
+			var f:CastleFeature = new GuardRespawn(room, world);
+			room.roomFeatures.push(f);
+			world.addFeature(f);
 		}
 	}
 }

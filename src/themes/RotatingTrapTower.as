@@ -1,5 +1,6 @@
 package themes
 {
+	import features.CastleFeature;
 	import features.RotatingTowerTrap;
 	
 	public class RotatingTrapTower implements RoomTheme
@@ -16,7 +17,9 @@ package themes
 				var px:int = Math.random() * 5 + 6;
 				var py:int = Math.random() * 5 + 6;
 				
-				world.addFeature(new RotatingTowerTrap(world, room.position.x * 8 + px, room.position.y * 8 + py));
+				var f:CastleFeature = new RotatingTowerTrap(world, room.position.x * 8 + px, room.position.y * 8 + py);
+				room.roomFeatures.push(f);
+				world.addFeature(f);
 			}
 		}
 	}

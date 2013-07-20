@@ -1,5 +1,6 @@
 package themes
 {
+	import features.CastleFeature;
 	import flash.geom.Point;
 	import features.WallTrap;
 	import payloads.Payload;
@@ -41,7 +42,9 @@ package themes
 			var payload:Payload = PayloadFactory.random();
 			var howOften:int = Math.random() < Globals.rarePercent ? 1 : 3;
 			
-			world.addFeature(new WallTrap(world, tiles, dir, ticks, payload, howOften));
+			var f:CastleFeature = new WallTrap(world, tiles, dir, ticks, payload, howOften);
+			room.roomFeatures.push(f);
+			world.addFeature(f);
 		}
 	}
 }

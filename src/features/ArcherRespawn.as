@@ -14,7 +14,7 @@ package features
 		
 		public override function update():void
 		{
-			if (Math.random() > 0.025)
+			if (Math.random() > 0.05)
 				return;
 			
 			var archerCount:int = 0;
@@ -30,7 +30,7 @@ package features
 					archerCount++;
 			}
 			
-			if (archerCount < room.distance / 9 + 1)
+			if (archerCount < room.distance / 8 + 1)
 			{
 				var cx:int = room.worldPosition.x + Math.random() * 7 + 1;
 				var cy:int = room.worldPosition.y + Math.random() * 7 + 1;

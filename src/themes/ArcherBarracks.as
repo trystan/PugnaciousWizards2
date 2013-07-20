@@ -1,6 +1,7 @@
 package themes
 {
 	import features.ArcherRespawn;
+	import features.CastleFeature;
 	import flash.geom.Point;
 	
 	public class ArcherBarracks implements RoomTheme
@@ -28,7 +29,9 @@ package themes
 				world.addTile(x, y, t);
 			}
 			
-			world.addFeature(new ArcherRespawn(room, world));
+			var f:CastleFeature = new ArcherRespawn(room, world);
+			room.roomFeatures.push(f);
+			world.addFeature(f);
 		}
 	}
 }

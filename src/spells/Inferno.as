@@ -34,9 +34,11 @@ package spells
 		
 		public function aiGetAction(ai:Hero):SpellCastAction
 		{	
-			return new SpellCastAction(0, function():void
+			return new SpellCastAction(0.01, function():void
 			{
-				cast(ai, ai.position.x, ai.position.y);
+				cast(ai, 
+					ai.position.x + (Math.random() * ai.visionRadius * 2) - ai.visionRadius,
+					ai.position.y + (Math.random() * ai.visionRadius * 2) - ai.visionRadius);
 			});
 		}
 	}

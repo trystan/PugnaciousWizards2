@@ -56,11 +56,14 @@ package spells
 			
 			for each (offsets in directions)
 			{
-				if (ai.world.getCreature(ai.position.x + offsets[0], ai.position.y + offsets[1]) != null)
-					return new SpellCastAction(50, function():void
-					{
-						castReal(ai, ai.position.x + offsets[0], ai.position.y + offsets[1], offsets[0], offsets[1]);
-					});
+				var c:Creature = ai.world.getCreature(ai.position.x + offsets[0], ai.position.y + offsets[1]);
+				if (c == null || c == ai)
+					continue;
+					
+				return new SpellCastAction(50, function():void
+				{
+					castReal(ai, ai.position.x + offsets[0], ai.position.y + offsets[1], offsets[0], offsets[1]);
+				});
 			}
 			
 			for each (offsets in directions)
@@ -73,18 +76,21 @@ package spells
 				{
 					x += offsets[0];
 					y += offsets[1];
+
 					var item:Item = ai.world.getItem(x, y);
-					if (item != null && item.canBePickedUpBy(ai))
-						return new SpellCastAction(80, function():void
-						{
-							castReal(ai, x, y, -offsets[0], -offsets[1]);
-						});
+					if (item == null || !item.canBePickedUpBy(ai))
+						continue;
+						
+					return new SpellCastAction(80, function():void
+					{
+						castReal(ai, x, y, -offsets[0], -offsets[1]);
+					});
 				}
 			}
 			
 			return new SpellCastAction(0, function():void
 			{
-				castReal(ai, ai.position.x, ai.position.y, 0, 0);
+				castReal(ai, ai.position.x, ai.position.y, 1, 0);
 			});
 		}
 	}

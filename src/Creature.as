@@ -59,6 +59,8 @@ package
 				return;
 			}
 			
+			var applyTileEffect:Boolean = true;
+			
 			if (world.isClosedDoor(position.x + x, position.y + y))
 			{
 				if (isGoodGuy)
@@ -71,6 +73,7 @@ package
 			else if (world.getTile(position.x + x, position.y + y).blocksMovement)
 			{
 				vision.see(position.x + x, position.y + y);
+				applyTileEffect = false;
 			}
 			else
 			{
@@ -101,7 +104,8 @@ package
 			
 			getStuffHere();
 			
-			world.getTile(position.x, position.y).apply(this);
+			if (applyTileEffect)
+				world.getTile(position.x, position.y).apply(this);
 		}
 		
 		public function swapsPositionWith(other:Creature):Boolean

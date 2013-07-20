@@ -1,5 +1,6 @@
 package themes
 {
+	import features.CastleFeature;
 	import flash.geom.Point;
 	import features.FloorTrap;
 	
@@ -76,7 +77,9 @@ package themes
 				world.addBlood(p.x, p.y, 2);
 			}
 			
-			world.addFeature(new FloorTrap(world, triggers));
+			var f:CastleFeature = new FloorTrap(world, triggers);
+			room.roomFeatures.push(f);
+			world.addFeature(f);
 		}
 	}
 }

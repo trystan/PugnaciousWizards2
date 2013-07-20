@@ -22,6 +22,8 @@ package themes
 			for (var x:int = room.worldPosition.x; x < room.worldPosition.x + 7; x++)
 			for (var y:int = room.worldPosition.y; y < room.worldPosition.y + 7; y++)
 				world.addTile(x, y, Tile.shallow_water);
+				
+			world.addTile(room.worldPosition.x + 3, room.worldPosition.y + 3, Tile.floor_light);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package  
 {
+	import features.CastleFeature;
 	import flash.display.InterpolationMethod;
 	import flash.geom.Point;
 	import knave.AStar;
@@ -12,6 +13,7 @@ package
 		public var worldPosition:Point;
 		public var position:Point;
 		public var theme:RoomTheme;
+		public var roomFeatures:Array = [];
 		
 		public var isConnectedNorth:Boolean = false;
 		public var isConnectedSouth:Boolean = false;
@@ -44,6 +46,8 @@ package
 		{
 			do
 			{
+				trace("applying " + position.x + "," + position.y);
+				
 				clear(world);
 				
 				if (isDeadEnd)
@@ -65,6 +69,9 @@ package
 		
 		private function clear(world:World):void 
 		{
+			for each (var feature:CastleFeature in roomFeatures)
+				world.removeFeature(feature);
+				
 			for (var x:int = 0; x < 7; x++)
 			for (var y:int = 0; y < 7; y++)
 				world.addTile(worldPosition.x + x, worldPosition.y + y, ((x + y) % 2) == 0 ? Tile.floor_light : Tile.floor_dark);
@@ -77,13 +84,13 @@ package
 			
 			var doors:Array = [];
 			if (isConnectedNorth)
-				doors.push(new Point(worldPosition.x + 4, worldPosition.y));
+				doors.push(new Point(worldPosition.x + 3, worldPosition.y));
 			if (isConnectedSouth)
-				doors.push(new Point(worldPosition.x + 4, worldPosition.y + 8));
+				doors.push(new Point(worldPosition.x + 3, worldPosition.y + 7));
 			if (isConnectedWest)
-				doors.push(new Point(worldPosition.x, worldPosition.y + 4));
+				doors.push(new Point(worldPosition.x, worldPosition.y + 3));
 			if (isConnectedEast)
-				doors.push(new Point(worldPosition.x + 8, worldPosition.y + 4));
+				doors.push(new Point(worldPosition.x + 7, worldPosition.y + 3));
 			
 			var cardinal:AStar = new AStar(
 				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement 
@@ -152,14 +159,17 @@ package
 		
 		private function addEnemies(world:World):void 
 		{
-			while (Math.random() < 0.4)
+			while (Math.random() < 0.5)
 			{
 				var px:int = Math.random() * 7 + 1;
 				var py:int = Math.random() * 7 + 1;
 				
 				if (world.getTile(worldPosition.x + px, worldPosition.y + py).blocksMovement)
 					continue;
-					
+				
+				if (world.getCreature(worldPosition.x + px, worldPosition.y + py) != null)
+					continue;
+				
 				if (Math.random() < 66)
 					world.addCreature(new Guard(new Point(worldPosition.x + px, worldPosition.y + py)));
 				else

@@ -9,7 +9,7 @@ package spells
 	{
 		public function get name():String { return "Blood Jellies"; }
 		
-		public function get description():String { return "Turn any blood you see into jelly minons. Kind of gross."; }
+		public function get description():String { return "Turn any blood you see into jelly minions. Kind of gross."; }
 		
 		
 		public function playerCast(player:Creature, callback:Function):void 

@@ -1,5 +1,6 @@
 package themes 
 {
+	import features.CastleFeature;
 	import features.MovingWall;
 	import flash.geom.Point;
 	public class MovingBlocks implements RoomTheme
@@ -57,7 +58,9 @@ package themes
 			
 			for each (var offset:int in [0,1,2,4,5,6])
 			{
-				world.addFeature(new MovingWall(world, room.worldPosition.x + offset, room.worldPosition.y + offset));
+				var f:CastleFeature = new MovingWall(world, room.worldPosition.x + offset, room.worldPosition.y + offset);
+				room.roomFeatures.push(f);
+				world.addFeature(f);
 			}
 		}
 		
@@ -76,7 +79,9 @@ package themes
 			for (var x:int = 0; x < 7; x++)
 			{
 				var y:int = Math.random() * 7;
-				world.addFeature(new MovingWall(world, room.worldPosition.x + x, room.worldPosition.y + y));
+				var f:CastleFeature = new MovingWall(world, room.worldPosition.x + x, room.worldPosition.y + y);
+				room.roomFeatures.push(f);
+				world.addFeature(f);
 			}
 		}
 		
@@ -95,7 +100,9 @@ package themes
 			for (var y:int = 0; y < 7; y++)
 			{
 				var x:int = Math.random() * 7;
-				world.addFeature(new MovingWall(world, room.worldPosition.x + x, room.worldPosition.y + y));
+				var f:CastleFeature = new MovingWall(world, room.worldPosition.x + x, room.worldPosition.y + y);
+				room.roomFeatures.push(f);
+				world.addFeature(f);
 			}
 		}
 		
@@ -111,9 +118,14 @@ package themes
 				"131-313",
 			]);
 			
-			world.addFeature(new MovingWall(world, room.worldPosition.x + 0, room.worldPosition.y + Math.random() * 7));
-			world.addFeature(new MovingWall(world, room.worldPosition.x + 2, room.worldPosition.y + Math.random() * 7));
-			world.addFeature(new MovingWall(world, room.worldPosition.x + 5, room.worldPosition.y + Math.random() * 7));
+			for each (var f:CastleFeature in [
+					new MovingWall(world, room.worldPosition.x + 0, room.worldPosition.y + Math.random() * 7),
+					new MovingWall(world, room.worldPosition.x + 2, room.worldPosition.y + Math.random() * 7),
+					new MovingWall(world, room.worldPosition.x + 5, room.worldPosition.y + Math.random() * 7)])
+			{
+				room.roomFeatures.push(f);
+				world.addFeature(f);
+			}
 		}
 		
 		private function rows(room:Room, world:World):void 
@@ -128,9 +140,14 @@ package themes
 				"1-----3",
 			]);
 			
-			world.addFeature(new MovingWall(world, room.worldPosition.x + Math.random() * 7, room.worldPosition.y + 0));
-			world.addFeature(new MovingWall(world, room.worldPosition.x + Math.random() * 7, room.worldPosition.y + 2));
-			world.addFeature(new MovingWall(world, room.worldPosition.x + Math.random() * 7, room.worldPosition.y + 5));
+			for each (var f:CastleFeature in [
+					new MovingWall(world, room.worldPosition.x + 7, room.worldPosition.y + Math.random() * 0),
+					new MovingWall(world, room.worldPosition.x + 7, room.worldPosition.y + Math.random() * 2),
+					new MovingWall(world, room.worldPosition.x + 7, room.worldPosition.y + Math.random() * 5)])
+			{
+				room.roomFeatures.push(f);
+				world.addFeature(f);
+			}
 		}
 	}
 }

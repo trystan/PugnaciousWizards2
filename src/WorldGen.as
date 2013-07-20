@@ -277,9 +277,18 @@ package
 		
 		private function addCastleRooms(world:World):void 
 		{
+			var roomList:Array = [];
+			
 			for (var x:int = 0; x < 9; x++)
 			for (var y:int = 0; y < 9; y++)
-				getRoom(x, y).apply(world);
+				roomList.push(getRoom(x, y));
+				
+			while (roomList.length > 0)
+			{
+				var i:int = (int)(Math.random() * roomList.length);
+				
+				roomList.splice(i, 1)[0].apply(world);
+			}
 		}
 	}
 }
