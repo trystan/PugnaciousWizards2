@@ -24,6 +24,7 @@ package themes
 				new Scroll(new BloodJellies()),
 				new Scroll(new PoisonFog()),
 				new Scroll(new Telekenesis()),
+				new Scroll(new HealingFog()),
 			];
 			
 			while (spellList.length < 9)

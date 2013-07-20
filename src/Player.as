@@ -18,9 +18,6 @@ package
 				
 			isGoodGuy = true;
 			usesMagic = true;
-			
-			addMagicSpell(new PoisonFog());
-			addMagicSpell(new HealingFog());
 		}
 	}
 }

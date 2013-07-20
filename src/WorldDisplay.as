@@ -613,8 +613,7 @@ package
 			switch (tile)
 			{
 				case Tile.sparceHealingFog:
-				case Tile.denseHealingFog:
-				case Tile.densePoisonFog: return Color.hsv(300, 66, 66);
+				case Tile.denseHealingFog: return Color.hsv(300, 66, 66);
 				case Tile.sparcePoisonFog:
 				case Tile.densePoisonFog: return Color.hsv(90, 66, 66);
 				case Tile.poison_water: return Color.hsv(90, 66, 66).lerp(water_fg, 0.5);
@@ -691,7 +690,6 @@ package
 			{
 				case Tile.sparceHealingFog:
 				case Tile.denseHealingFog: return Color.hsv(300, 33, 33);
-				case Tile.densePoisonFog:
 				case Tile.sparcePoisonFog:
 				case Tile.densePoisonFog: return Color.hsv(90, 33, 33);
 				case Tile.poison_water: return Color.hsv(90, 33, 33).lerp(water_bg, 0.5);

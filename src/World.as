@@ -267,7 +267,7 @@ package
 					if (Math.random() < 0.25)
 						continue;
 						
-					if (amount < 3 || getTile(x + offsets[0], y + offsets[1]).blocksMovement)
+					if (amount < 3 || getTile(x + offsets[0], y + offsets[1]).blocksArrows)
 						continue;
 						
 					var key2:String = (x + offsets[0]) + "," + (y + offsets[1]);
