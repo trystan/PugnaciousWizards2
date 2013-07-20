@@ -15,7 +15,7 @@ package
 			this.spell = spell;
 		}
 		
-		public function canBePickedUp():Boolean { return true; }
+		public function canBePickedUpBy(creature:Creature):Boolean { return creature.usesMagic && creature.magic.length < 9; }
 		
 		public function getPickedUpBy(creature:Creature):void 
 		{

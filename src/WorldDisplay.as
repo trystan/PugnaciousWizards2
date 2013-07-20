@@ -7,6 +7,7 @@ package
 	import animations.PullAndFreezeExpansion;
 	import animations.PullAndFreezeProjectile;
 	import animations.PullAndFreezeProjectileTrail;
+	import animations.TelekeneticMovement;
 	import com.headchant.asciipanel.AsciiPanel;
 	import features.CastleFeature;
 	import features.TimedFlashEffect;
@@ -124,31 +125,10 @@ package
 				if (!player.canSee(creature.position.x, creature.position.y) && player != creature)
 					continue;
 				
-				var creatureGlyph:String = creature.isGoodGuy ? "@" : creature.type.charAt(0).toLowerCase();
-				if (creature is MovingTree)
-					creatureGlyph = tile(Tile.tree);
+				var creatureGlyph:String = getCreatureGlyph(creature);
 				
-				var creatureColor:Color = Color.integer(creature.isGoodGuy ? 0xffffff : 0xc0c0c0);
+				var creatureColor:Color = getCreatureColor(creature);
 				
-				if (creature is MovingTree)
-					creatureColor = fg(Tile.tree, 1, 1);
-				else if (creature is BloodJelly)
-					creatureColor = blood.lerp(Color.integer(0xffffff), 0.5);
-				else if (creature is SummonedCreature)
-				{
-					switch ((creature as SummonedCreature).element)
-					{
-						case "fire": creatureColor = creatureColor.lerp(fire, 0.5); break;
-						case "ice": creatureColor = creatureColor.lerp(ice, 0.5); break;
-						case "stone": creatureColor = creatureColor.lerp(fg(Tile.wall), 0.5); break;
-						case "air": creatureColor = creatureColor.lerp(water_fg, 0.5); break;
-					}
-				}
-				
-				if (creature.fireCounter > 0)
-					creatureColor = creatureColor.lerp(fire, 0.20);
-				else if (creature.freezeCounter > 0)
-					creatureColor = creatureColor.lerp(ice, 0.20);
 				terminal.write(creatureGlyph, 
 					creature.position.x, creature.position.y, 
 					creatureColor.toInt(), 
@@ -166,6 +146,41 @@ package
 			drawHud(terminal);
 			
 			addGlowingTiles(terminal);
+		}
+		
+		private function getCreatureColor(creature:Creature):Color 
+		{
+			var creatureColor:Color = Color.integer(creature.isGoodGuy ? 0xffffff : 0xc0c0c0);
+				
+			if (creature is MovingTree)
+				creatureColor = fg(Tile.tree, 1, 1);
+			else if (creature is BloodJelly)
+				creatureColor = blood.lerp(Color.integer(0xffffff), 0.5);
+			else if (creature is SummonedCreature)
+			{
+				switch ((creature as SummonedCreature).element)
+				{
+					case "fire": creatureColor = creatureColor.lerp(fire, 0.5); break;
+					case "ice": creatureColor = creatureColor.lerp(ice, 0.5); break;
+					case "stone": creatureColor = creatureColor.lerp(fg(Tile.wall), 0.5); break;
+					case "air": creatureColor = creatureColor.lerp(water_fg, 0.5); break;
+				}
+			}
+			
+			if (creature.fireCounter > 0)
+				creatureColor = creatureColor.lerp(fire, 0.20);
+			else if (creature.freezeCounter > 0)
+				creatureColor = creatureColor.lerp(ice, 0.20);
+				
+			return creatureColor;
+		}
+		
+		private function getCreatureGlyph(creature:Creature):String 
+		{
+			var creatureGlyph:String = creature.isGoodGuy ? "@" : creature.type.charAt(0).toLowerCase();
+			if (creature is MovingTree)
+				creatureGlyph = tile(Tile.tree);
+			return creatureGlyph;
 		}
 		
 		private function popupTitle(thing:String, glyph:String):String
@@ -388,6 +403,17 @@ package
 					terminal.write(" ", effect.x, effect.y, 
 							white.lerp(Color.integer(terminal.getForegroundColor(effect.x, effect.y)), 0.5).toInt(), 
 							white.lerp(Color.integer(terminal.getBackgroundColor(effect.x, effect.y)), 0.5).toInt());
+				}
+				else if (effect is TelekeneticMovement)
+				{
+					if (!player.canSee(effect.x, effect.y))
+						continue;
+					
+					didDrawAny = true;
+					
+					var item:Item = effect.thing as Item;
+					if (item != null)
+						terminal.write(item_glyph(item), effect.x, effect.y, item_color(item).toInt(), bgAt(effect.x, effect.y).toInt());
 				}
 				else
 				{

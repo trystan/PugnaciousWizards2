@@ -6,7 +6,7 @@ package
 		
 		public function get description():String { return "This is one of the pieces you came here for.\nPick it up, find the others, and escape to win."; }
 		
-		public function canBePickedUp():Boolean { return true; }
+		public function canBePickedUpBy(creature:Creature):Boolean { return creature is Hero || creature is Player; }
 		
 		public function getPickedUpBy(creature:Creature):void 
 		{

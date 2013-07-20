@@ -4,6 +4,7 @@ package
 	import spells.Spell;
 	import spells.SpellCastAction;
 	import knave.Dijkstra;
+	import spells.Telekenesis;
 	
 	public class Hero extends Creature
 	{
@@ -15,6 +16,7 @@ package
 				"It's a brave - or foolish - hero who is attempting to find the pieces of the amulet.");
 			
 			isGoodGuy = true;
+			usesMagic = true;
 		}
 		
 		public override function doAi():void
@@ -90,12 +92,13 @@ package
 		
 		private function pathToVisibleItem():Array 
 		{
+			var self:Creature = this;
 			return Dijkstra.pathTo(
 				new Point(position.x, position.y),
 				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement && world.getTile(x, y) != Tile.door_closed; },
 				function (x:int, y:int):Boolean { 
 						var item:Item = world.getItem(x, y);
-						return item != null && item.canBePickedUp(); 
+						return item != null && item.canBePickedUpBy(self);
 					} );
 		}
 		

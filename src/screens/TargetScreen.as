@@ -35,10 +35,10 @@ package screens
 			bind('down right', function():void { moveBy(1, 1); } );
 			
 			bind('escape', function():void { exit(); } );
-			bind('enter', function():void { if (isOk) { callback(player, tx, ty); exit(); } } );
+			bind('enter', function():void { if (isOk) { exit(); callback(player, tx, ty); } } );
 			bind('draw', draw);
 			
-			validateTarget(tx, ty);
+			isOk = validateTarget(tx, ty);
 		}
 		
 		private function moveBy(mx:int, my:int):void 
@@ -49,12 +49,12 @@ package screens
 			tx += mx;
 			ty += my;
 			
-			validateTarget(tx, ty);
+			isOk = validateTarget(tx, ty);
 		}
 		
-		private function checkTarget(x:int, y:int):void
+		private function checkTarget(x:int, y:int):Boolean
 		{
-			isOk = player.canSee(x, y) 
+			return player.canSee(x, y) 
 				&& !player.world.getTile(x, y).blocksMovement
 				&& (!excludeOccupiedTiles || player.world.getCreature(x, y) == null);
 		}

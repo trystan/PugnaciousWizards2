@@ -6,7 +6,7 @@ package
 		
 		public function get description():String { return "This heart will give you 5 health, possibly increasing your maximum health in the process."; }
 		
-		public function canBePickedUp():Boolean { return true; }
+		public function canBePickedUpBy(creature:Creature):Boolean { return true; }
 		
 		public function getPickedUpBy(creature:Creature):void 
 		{

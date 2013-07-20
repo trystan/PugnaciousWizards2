@@ -23,6 +23,7 @@ package themes
 				new Scroll(new SummonElemental()),
 				new Scroll(new BloodJellies()),
 				new Scroll(new PoisonFog()),
+				new Scroll(new Telekenesis()),
 			];
 			
 			while (spellList.length < 9)

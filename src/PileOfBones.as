@@ -19,7 +19,7 @@ package
 			this.world = origin.world;
 		}
 		
-		public function canBePickedUp():Boolean { return false; }
+		public function canBePickedUpBy(creature:Creature):Boolean { return false; }
 		
 		public function getPickedUpBy(creature:Creature):void
 		{

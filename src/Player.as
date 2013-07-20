@@ -1,9 +1,7 @@
 package  
 {
 	import flash.geom.Point;
-	import spells.BloodJellies;
-	import spells.PoisonFog;
-	import spells.SummonElemental;
+	import spells.Telekenesis;
 	
 	public class Player extends Creature
 	{
@@ -17,6 +15,7 @@ package
 				"wits - and any items you find - to survive.");
 				
 			isGoodGuy = true;
+			usesMagic = true;
 		}
 	}
 }

@@ -37,6 +37,8 @@ package
 		
 		public var magic:Array = [];
 		
+		public var usesMagic:Boolean = false;
+		
 		public function Creature(position:Point, type:String, description:String) 
 		{
 			this.type = type;
@@ -194,7 +196,7 @@ package
 				return;
 				
 			var item:Item = world.getItem(position.x, position.y);
-			if (item != null && item.canBePickedUp())
+			if (item != null && item.canBePickedUpBy(this))
 				item.getPickedUpBy(this);
 		}
 		
