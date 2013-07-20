@@ -39,8 +39,6 @@ package spells
 			var c:Creature = caster.world.getCreature(x, y);
 			var i:Item = caster.world.getItem(x, y);
 			
-			trace(x + "," + y + "," + dx + "," + dy + " = " + c + " " + i);
-			
 			if (c != null)
 				new TelekeneticMovement(caster, caster.world, x, y, dx, dy, c);
 			
