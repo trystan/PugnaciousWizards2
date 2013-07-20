@@ -1,6 +1,8 @@
 package  
 {
 	import flash.geom.Point;
+	import payloads.Healing;
+	import payloads.Payload;
 	import payloads.Poison;
 	public class Tile 
 	{
@@ -36,6 +38,8 @@ package
 		
 		public static var sparcePoisonFog:Tile = new Tile("poison fog", "Poisonous fog", false, false, false, 0, poisonedFogEffect);
 		public static var densePoisonFog:Tile = new Tile("poison fog", "Poisonous fog", false, false, true, 0, poisonedFogEffect);
+		public static var sparceHealingFog:Tile = new Tile("healing fog", "Healing fog", false, false, false, 0, healingFogEffect);
+		public static var denseHealingFog:Tile = new Tile("healing fog", "Healing fog", false, false, true, 0, healingFogEffect);
 		
 		
 		
@@ -111,6 +115,11 @@ package
 			new Poison().hitCreature(creature);
 		}
 		
+		private static function healingFogEffect(creature:Creature):void
+		{
+			new Healing().hitCreature(creature);
+		}
+		
 		private static function poisonedFogEffect(creature:Creature):void
 		{
 			new Poison().hitCreature(creature);
@@ -144,6 +153,22 @@ package
 			while (creature.world.getTile(tx, ty) == Tile.portal || creature.world.getTile(tx, ty).blocksMovement);
 			
 			creature.moveTo(tx, ty);
+		}
+		
+		static public function denseFogFor(payload:Payload):Tile 
+		{
+			if (payload is Poison)
+				return Tile.densePoisonFog;
+			else
+				return Tile.denseHealingFog;
+		}
+		
+		static public function sparceFogFor(payload:Payload):Tile 
+		{
+			if (payload is Poison)
+				return Tile.sparcePoisonFog;
+			else
+				return Tile.sparceHealingFog;
 		}
 	}
 }

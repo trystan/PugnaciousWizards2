@@ -6,13 +6,12 @@ package
 	import flash.utils.Dictionary;
 	import features.CastleFeature; 
 	import payloads.Payload;
-	import payloads.Poison;
 	
 	public class World 
 	{
 		public var player:Creature;
 		private var tiles:Dictionary = new Dictionary();
-		private var poisonFog:Dictionary = new Dictionary();
+		private var fogAmount:Dictionary = new Dictionary();
 		public var creatures:Array = [];
 		public var items:Array = [];
 		public var rooms:Array = [];
@@ -61,11 +60,11 @@ package
 				
 			if (!ignoreFog) 
 			{
-				var fog:Object = poisonFog[x + "," + y];
-				if (fog > 3)
-					return Tile.densePoisonFog;
-				if (fog > 0)
-					return Tile.sparcePoisonFog;
+				var fog:Object = fogAmount[x + "," + y];
+				if (fog != null && fog.amount > 3)
+					return Tile.denseFogFor(fog.payload);
+				if (fog != null && fog.amount > 0)
+					return Tile.sparceFogFor(fog.payload);
 			}
 			
 			var t:Tile = tiles[x + "," + y];
@@ -240,23 +239,22 @@ package
 			animationEffects = nextAnimations;
 		}
 		
-		public function addPoisonFog(x:int, y:int, amount:int):void 
+		public function addFog(x:int, y:int, amount:int, payload:Payload):void 
 		{
 			var key:String = x + "," + y;
 			
-			if (poisonFog[key] == null)
-				poisonFog[key] = 0;
-				
-			poisonFog[key] += amount
+			if (fogAmount[key] == null)
+				fogAmount[key] = new Fog(amount, payload);
 		}
 		
 		public function disipateFog():void
 		{
 			var newFog:Dictionary = new Dictionary();
 			
-			for (var key:String in poisonFog)
+			for (var key:String in fogAmount)
 			{
-				var amount:int = poisonFog[key] - 1;
+				var fog:Fog = fogAmount[key];
+				var amount:int = fog.amount - 1;
 				
 				if (amount < 1)
 					continue;
@@ -273,34 +271,44 @@ package
 						continue;
 						
 					var key2:String = (x + offsets[0]) + "," + (y + offsets[1]);
-					var diff:int = poisonFog[key2] == null ? amount : amount - poisonFog[key2];
+					var diff:int = fogAmount[key2] == null ? amount : amount - fogAmount[key2].amount;
 					
 					if (diff < 1)
 						continue;
 						
 					amount -= diff / 2;
 					
+					
 					if (newFog[key2] == null)
-						newFog[key2] = diff / 2;
+						newFog[key2] = new Fog(diff / 2, fog.payload);
 					else
-						newFog[key2] = newFog[key2] + diff / 2;
+						newFog[key2].amount = newFog[key2].amount + diff / 2;
 				}
 				
 				if (amount > 0)
-				{
-					newFog[key] = amount;
-				}
+					newFog[key] = new Fog(amount, fog.payload);
 			}
 			
-			poisonFog = newFog;
+			fogAmount = newFog;
 			
-			var payload:Poison = new Poison();
-			for (key in poisonFog)
+			for (key in fogAmount)
 			{
 				x = key.split(",")[0];
 				y = key.split(",")[1];
-				payload.hitTile(this, x, y);
+				newFog[key].payload.hitTile(this, x, y);
 			}
 		}
+	}
+}
+
+class Fog
+{
+	public var amount:int;
+	public var payload:payloads.Payload;
+	
+	public function Fog(amount:int, payload:payloads.Payload)
+	{
+		this.amount = amount;
+		this.payload = payload;
 	}
 }

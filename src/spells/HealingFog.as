@@ -3,18 +3,18 @@ package spells
 	import animations.Explosion;
 	import knave.RL;
 	import payloads.Fire;
-	import payloads.Poison;
+	import payloads.Healing;
 	import screens.TargetScreen;
 	
-	public class PoisonFog implements Spell
+	public class HealingFog implements Spell
 	{
 		private var callback:Function;
 		
-		public function get name():String { return "Poison fog"; }
+		public function get name():String { return "Healing fog"; }
 		
 		public function get description():String
 		{
-			return "Create a dense fog of poison that slowly spreads and disipates.";
+			return "Create a dense fog of healing magic that slowly spreads and disipates.";
 		}
 		
 		public function playerCast(player:Creature, callback:Function):void
@@ -26,7 +26,7 @@ package spells
 		
 		public function cast(caster:Creature, x:int, y:int):void
 		{
-			caster.world.addFog(x, y, 2000, new Poison());
+			caster.world.addFog(x, y, 2000, new Healing());
 			
 			if (callback != null)
 				callback();
