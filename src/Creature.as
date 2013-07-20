@@ -234,6 +234,7 @@ package
 			
 			if (health < 1)
 			{
+				die();
 				this.causeOfDeath = causeOfDeath;
 				world.removeCreature(this);
 			}
