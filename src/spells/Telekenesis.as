@@ -60,6 +60,9 @@ package spells
 				if (c == null || c == ai)
 					continue;
 					
+				if (!ai.canSeeCreature(c))
+					continue;
+					
 				return new SpellCastAction(50, function():void
 				{
 					castReal(ai, ai.position.x + offsets[0], ai.position.y + offsets[1], offsets[0], offsets[1]);
@@ -79,6 +82,9 @@ package spells
 
 					var item:Item = ai.world.getItem(x, y);
 					if (item == null || !item.canBePickedUpBy(ai))
+						continue;
+						
+					if (!ai.canSee(x, y))
 						continue;
 						
 					return new SpellCastAction(80, function():void
