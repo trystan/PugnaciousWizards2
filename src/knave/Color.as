@@ -30,7 +30,7 @@ package knave
 				return hsv(value.h, value.s, value.v);
 			
 			if (!isNaN(value.r) && !isNaN(value.g) && !isNaN(value.b))
-				return hsv(value.r, value.g, value.b);
+				return rgb(value.r, value.g, value.b);
 				
 			return rgb(255, 0, 0);
 		}
