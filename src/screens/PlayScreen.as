@@ -59,8 +59,6 @@ package screens
 			
 			bind('draw', draw);
 			bind('animate', animate);
-			
-			RL.current.interruptAnimations = false;
 		}
 		
 		private function moveBy(mx:int, my:int):void
@@ -92,7 +90,7 @@ package screens
 			else if (world.playerHasWon)
 				switchTo(new VictoryScreen(player, world));
 			else
-				RL.current.animate();
+				animateOneFrame();
 		}
 		
 		public function draw(terminal:AsciiPanel):void
@@ -118,7 +116,7 @@ package screens
 			else if (world.playerHasWon)
 				switchTo(new VictoryScreen(player, world));
 			else if (world.animationEffects.length > 0 || didUpdate)
-				RL.current.animate();
+				animateOneFrame();
 			else if (isUpdatingPlayer)
 				updateOthers();
 		}

@@ -15,7 +15,7 @@ package knave
 		private var keyboardEvent:KeyboardEvent = null;
 		private var isAnimating:Boolean = false;
 		
-		public var interruptAnimations:Boolean = false;
+		private var interruptAnimations:Boolean = false;
 		
 		public function RL(terminal:AsciiPanel)
 		{
@@ -127,8 +127,9 @@ package knave
 				screenStack[0].trigger(message, args);
 		}
 		
-		public function animate():void
+		public function animateOneFrame(inputStopsAnimation:Boolean):void
 		{
+			interruptAnimations = inputStopsAnimation;
 			isAnimating = true;
 		}
 		

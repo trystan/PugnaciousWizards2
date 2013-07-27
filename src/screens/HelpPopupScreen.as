@@ -31,7 +31,7 @@ package screens
 		private function exitScreen(junk:*):void
 		{
 			exit();
-			RL.current.animate();
+			animateOneFrame();
 		}
 		
 		private function draw(terminal:AsciiPanel):void

@@ -40,7 +40,6 @@ package screens
 		
 		public function autoPlay():void 
 		{
-			RL.current.interruptAnimations = true;
 			world.updateCreatures();
 			world.updateFeatures();
 			
@@ -49,7 +48,7 @@ package screens
 			else if (world.playerHasWon)
 				switchTo(new IntroScreen());
 			else
-				RL.current.animate();
+				animateOneFrame(true);
 		}
 		
 		public function draw(terminal:AsciiPanel):void
@@ -73,7 +72,7 @@ package screens
 			}
 			
 			if (world.animationEffects.length > 0 || didUpdate)
-				RL.current.animate()
+				animateOneFrame(true);
 			else
 				setTimeout(RL.current.trigger, 1000 / 60.0, 'step');
 		}

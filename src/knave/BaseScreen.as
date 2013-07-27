@@ -25,5 +25,10 @@ package knave
 		{
 			RL.current.switchTo(newScreen);
 		}
+		
+		public function animateOneFrame(inputStopsAnimation:Boolean = false):void
+		{
+			RL.current.animateOneFrame(inputStopsAnimation);
+		}
 	}
 }
