@@ -46,8 +46,6 @@ package
 		{
 			do
 			{
-				trace("applying " + position.x + "," + position.y);
-				
 				clear(world);
 				
 				if (isDeadEnd)
@@ -72,6 +70,8 @@ package
 			for each (var feature:CastleFeature in roomFeatures)
 				world.removeFeature(feature);
 				
+			roomFeatures = [];
+			
 			for (var x:int = 0; x < 7; x++)
 			for (var y:int = 0; y < 7; y++)
 				world.addTile(worldPosition.x + x, worldPosition.y + y, ((x + y) % 2) == 0 ? Tile.floor_light : Tile.floor_dark);

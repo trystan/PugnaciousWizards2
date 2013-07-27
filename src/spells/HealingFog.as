@@ -33,7 +33,7 @@ package spells
 		}
 		
 		private var cooldown:int = 0;
-		public function aiGetAction(ai:Hero):SpellCastAction
+		public function aiGetAction(ai:Creature):SpellCastAction
 		{
 			if (cooldown-- > 0)
 				return new SpellCastAction(0, function():void { } );

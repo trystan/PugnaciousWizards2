@@ -22,7 +22,7 @@ package spells
 			caster.visionRadius--;
 		}
 		
-		public function aiGetAction(ai:Hero):SpellCastAction
+		public function aiGetAction(ai:Creature):SpellCastAction
 		{
 			var chance:Number = ai.maxHealth > 10 && ai.health < 15 ? 80 : 0;
 			

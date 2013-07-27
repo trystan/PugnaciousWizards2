@@ -29,10 +29,10 @@ version 0.3 (done)
 version 0.4 (done)
 * 9 total spells found in the castle.
 
-version 0.5 (in progress)
-* 18 or so total, only 9 in each castle.
+version 0.5 (done)
+* several spells - more than you can find in the castle in one play.
 
-version 0.6
+version 0.6 (in progress)
 * enemy wizards
 * gold
 * spell shop

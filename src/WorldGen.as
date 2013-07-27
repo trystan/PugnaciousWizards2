@@ -1,7 +1,11 @@
 package  
 {
+	import flash.geom.Point;
+	import spells.BloodBurn;
+	import spells.BoneSplode;
 	import spells.FireJump;
 	import spells.HealAndWeaken;
+	import spells.Inferno;
 	import spells.MagicMissile;
 	import themes.TreasureFactory;
 	

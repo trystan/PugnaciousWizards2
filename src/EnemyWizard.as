@@ -1,25 +1,25 @@
 package  
 {
 	import flash.geom.Point;
+	import knave.AStar;
 	import spells.Spell;
 	import spells.SpellCastAction;
 	import knave.Dijkstra;
 	import spells.Telekenesis;
 	
-	public class Hero extends Creature
+	public class EnemyWizard extends Creature
 	{
 		private var path:Array = [];
 		
-		public function Hero(position:Point)
+		public function EnemyWizard(position:Point)
 		{
-			super(position, "Hero", 
-				"It's a brave - or foolish - hero who is attempting to find the pieces of the amulet.");
+			super(position, "Wizard", 
+				"An enemy wizard who has sworn to protect the pieces of the amulet.");
 			
-			isGoodGuy = true;
-			usesMagic = true;
-			
-			maxHealth *= 2;
+			maxHealth = 5 * 10;
 			_health = maxHealth;
+			
+			usesMagic = true;
 		}
 		
 		public override function doAi():void
@@ -37,13 +37,11 @@ package
 				}
 			}
 			
-			if (path.length == 0)
+			if (canSeeCreature(world.player))
 				pathToNextTarget();
 			
 			if (path.length > 0)
 				moveToTarget();
-			else if (blindCounter > 0)
-				moveBy(0, 0);
 			else
 				wanderRandomly();
 		}
@@ -54,16 +52,12 @@ package
 			{
 				path = [];
 			}
-			else if (this.hasAllEndPieces)
-			{
-				path = pathBackHome();
-			}
 			else
 			{
 				path = pathToVisibleItem();
 					
 				if (path.length == 0)
-					path = pathToNearestDoor();
+					path = pathToNearestGoodGuy();
 			}
 		}
 		
@@ -85,14 +79,6 @@ package
 			return Math.max( -1, Math.min(n, 1));
 		}
 		
-		private function pathBackHome():Array 
-		{
-			return Dijkstra.pathTo(
-				new Point(position.x, position.y),
-				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
-				function (x:int, y:int):Boolean { return x < 3; } );
-		}
-		
 		private function pathToVisibleItem():Array 
 		{
 			var self:Creature = this;
@@ -105,12 +91,13 @@ package
 					} );
 		}
 		
-		private function pathToNearestDoor():Array 
+		private function pathToNearestGoodGuy():Array 
 		{
-			return Dijkstra.pathTo(
-				new Point(position.x, position.y),
-				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
-				function (x:int, y:int):Boolean { return world.isClosedDoor(x, y); } );
+			return AStar.pathTo(
+						function(x:int, y:int):Boolean { return !world.getTile(x, y, true).blocksMovement; },
+					    position,
+						world.player.position,
+						false);
 		}
 	}
 }

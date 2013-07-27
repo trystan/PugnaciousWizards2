@@ -32,7 +32,7 @@ package spells
 				callback();
 		}
 		
-		public function aiGetAction(ai:Hero):SpellCastAction
+		public function aiGetAction(ai:Creature):SpellCastAction
 		{
 			if (Math.random() < 0.75)
 				return new SpellCastAction(0, function():void

@@ -1,13 +1,14 @@
 package themes
 {
 	import flash.geom.Point;
+	import spells.*;
 	
 	public class TreasureRoom implements RoomTheme
 	{
 		public function apply(room:Room, world:World):void
 		{
 			if (room.isEndRoom)
-				world.addItem(room.worldPosition.x + 3, room.worldPosition.y + 3, new EndPiece());
+				endRoom(room, world);
 			else if (Math.random() < Globals.rarePercent)
 				bigTreasure(room, world);
 			else
@@ -16,6 +17,12 @@ package themes
 			addRoomArchitecture(room, world);
 		}
 		
+		private function endRoom(room:Room, world:World):void 
+		{
+			world.addItem(room.worldPosition.x + 3, room.worldPosition.y + 3, new EndPiece());
+			world.addCreature(TreasureFactory.randomWizard(room));
+		}
+	
 		private function normalTreasure(room:Room, world:World):void 
 		{
 			world.addItem(room.worldPosition.x + 3, room.worldPosition.y + 3, TreasureFactory.random());

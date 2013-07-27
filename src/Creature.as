@@ -211,7 +211,7 @@ package
 		
 		public function get canCastMagic():Boolean 
 		{
-			if (freezeCounter > 0)
+			if (freezeCounter > 0 || !usesMagic)
 				return false;
 				
 			var room:Room = world.getRoom(position.x, position.y);

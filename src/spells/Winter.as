@@ -31,7 +31,7 @@ package spells
 				callback();
 		}
 		
-		public function aiGetAction(ai:Hero):SpellCastAction
+		public function aiGetAction(ai:Creature):SpellCastAction
 		{	
 			return new SpellCastAction(ai.fireCounter > 0 ? 0.1 : 0.01, function():void
 			{

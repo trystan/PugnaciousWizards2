@@ -49,7 +49,7 @@ package spells
 				callback();
 		}
 		
-		public function aiGetAction(ai:Hero):SpellCastAction
+		public function aiGetAction(ai:Creature):SpellCastAction
 		{
 			var directions:Array = [[ -1, 0], [ -1, -1], [ -1, 1], [0, -1], [0, 1], [1, 0], [1, -1], [1, 1]];
 			var offsets:Array;

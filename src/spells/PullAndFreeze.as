@@ -33,7 +33,7 @@ package spells
 				callback();
 		}
 		
-		public function aiGetAction(ai:Hero):SpellCastAction
+		public function aiGetAction(ai:Creature):SpellCastAction
 		{	
 			for (var ox:int = -ai.visionRadius; ox < ai.visionRadius; ox++)
 			for (var oy:int = -ai.visionRadius; oy < ai.visionRadius; oy++)

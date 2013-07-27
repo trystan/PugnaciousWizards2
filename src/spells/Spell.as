@@ -8,6 +8,6 @@ package spells
 		function playerCast(player:Creature, callback:Function):void;
 		function cast(caster:Creature, x:int, y:int):void;
 		
-		function aiGetAction(ai:Hero):SpellCastAction;
+		function aiGetAction(ai:Creature):SpellCastAction;
 	}	
 }

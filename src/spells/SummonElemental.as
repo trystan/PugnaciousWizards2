@@ -7,6 +7,7 @@ package spells
 	public class SummonElemental implements Spell
 	{
 		private var callback:Function;
+		private var summoned:Creature = null;
 		
 		public function get name():String { return "Summon elemental"; }
 		
@@ -42,7 +43,8 @@ package spells
 				{
 					case Tile.wall:
 					case Tile.moving_wall:
-						caster.world.addCreature(new SummonedCreature(new Point(x, y), caster, "stone"));
+						summoned = new SummonedCreature(new Point(x, y), caster, "stone");
+						caster.world.addCreature(summoned);
 						break;
 					case Tile.grass_fire:
 					case Tile.tree_fire_1:
@@ -50,16 +52,20 @@ package spells
 					case Tile.tree_fire_3:
 					case Tile.door_closed_fire:
 					case Tile.door_opened_fire:
-						caster.world.addCreature(new SummonedCreature(new Point(x, y), caster, "fire"));
+						summoned = new SummonedCreature(new Point(x, y), caster, "fire");
+						caster.world.addCreature(summoned);
 						break;
 					case Tile.shallow_water:
-						caster.world.addCreature(new SummonedCreature(new Point(x, y), caster, "water"));
+						summoned = new SummonedCreature(new Point(x, y), caster, "water");
+						caster.world.addCreature(summoned);
 						break;
 					case Tile.frozen_water:
-						caster.world.addCreature(new SummonedCreature(new Point(x, y), caster, "ice"));
+						summoned = new SummonedCreature(new Point(x, y), caster, "ice");
+						caster.world.addCreature(summoned);
 						break;
 					default:
-						caster.world.addCreature(new SummonedCreature(new Point(x, y), caster, "air"));
+						summoned = new SummonedCreature(new Point(x, y), caster, "air");
+						caster.world.addCreature(summoned);
 						break
 				}
 			}
@@ -68,9 +74,11 @@ package spells
 				callback();
 		}
 		
-		public function aiGetAction(ai:Hero):SpellCastAction
+		public function aiGetAction(ai:Creature):SpellCastAction
 		{
-			return new SpellCastAction(ai.maxHealth > 25 ? 0.01 : 0, function():void
+			var chance:Number = ai.maxHealth > 25 && (summoned == null || summoned.health < 5) ? 0.5 : 0.01;
+			
+			return new SpellCastAction(chance, function():void
 			{
 				var x:int = -1;
 				var y:int = -1;

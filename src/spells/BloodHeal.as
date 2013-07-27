@@ -42,7 +42,7 @@ package spells
 			return count / 2;
 		}
 		
-		public function aiGetAction(ai:Hero):SpellCastAction 
+		public function aiGetAction(ai:Creature):SpellCastAction 
 		{
 			var chance:Number = 0.00;
 			if (ai.health < 30 && getVisibleBloodCount(ai) > 5)

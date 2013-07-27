@@ -36,10 +36,10 @@ package
 		static public var poison_water:Tile = new Tile("poison water", "There is a shallow pool of poisoned water here.", false, false, false, 0, poisonedWaterEffect);
 		static public var frozen_water:Tile = new Tile("ice", "There is some very slippery ice here.", false, false, false, 0, iceEffect);
 		
-		public static var sparcePoisonFog:Tile = new Tile("poison fog", "Poisonous fog", false, false, false, 0, poisonedFogEffect);
-		public static var densePoisonFog:Tile = new Tile("poison fog", "Poisonous fog", false, false, true, 0, poisonedFogEffect);
-		public static var sparceHealingFog:Tile = new Tile("healing fog", "Healing fog", false, false, false, 0, healingFogEffect);
-		public static var denseHealingFog:Tile = new Tile("healing fog", "Healing fog", false, false, true, 0, healingFogEffect);
+		public static var sparcePoisonFog:Tile = new Tile("poison fog", "Poisonous fog", false, false, false, 0, poisonedFogEffect, false);
+		public static var densePoisonFog:Tile = new Tile("poison fog", "Poisonous fog", false, false, true, 0, poisonedFogEffect, false);
+		public static var sparceHealingFog:Tile = new Tile("healing fog", "Healing fog", false, false, false, 0, healingFogEffect, false);
+		public static var denseHealingFog:Tile = new Tile("healing fog", "Healing fog", false, false, true, 0, healingFogEffect, false);
 		
 		
 		
