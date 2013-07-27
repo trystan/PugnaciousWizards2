@@ -32,27 +32,27 @@ package screens
 			
 			display = new WorldDisplay(player, world);
 			
-			bind('up', function():void { moveBy(0, -1); } );
-			bind('down', function():void { moveBy(0, 1); } );
-			bind('left', function():void { moveBy(-1, 0); } );
-			bind('right', function():void { moveBy(1, 0); } );
-			bind('up left', function():void { moveBy(-1, -1); } );
-			bind('up right', function():void { moveBy(1, -1); } );
-			bind('down left', function():void { moveBy(-1, 1); } );
-			bind('down right', function():void { moveBy(1, 1); } );
-			bind('wait', function():void { moveBy(0, 0); } );
+			bind('up', moveBy, 0, -1);
+			bind('down', moveBy, 0, 1);
+			bind('left', moveBy, -1, 0);
+			bind('right', moveBy, 1, 0);
+			bind('up left', moveBy, -1, -1);
+			bind('up right', moveBy, 1, -1);
+			bind('down left', moveBy, -1, 1);
+			bind('down right', moveBy, 1, 1);
+			bind('wait', moveBy, 0, 0);
 			
-			bind('1', function():void { player.castSpell(0, nextTurn); } );
-			bind('2', function():void { player.castSpell(1, nextTurn); } );
-			bind('3', function():void { player.castSpell(2, nextTurn); } );
-			bind('4', function():void { player.castSpell(3, nextTurn); } );
-			bind('5', function():void { player.castSpell(4, nextTurn); } );
-			bind('6', function():void { player.castSpell(5, nextTurn); } );
-			bind('7', function():void { player.castSpell(6, nextTurn); } );
-			bind('8', function():void { player.castSpell(7, nextTurn); } );
-			bind('9', function():void { player.castSpell(8, nextTurn); } );
+			bind('1', player.castSpell, 0, nextTurn);
+			bind('2', player.castSpell, 1, nextTurn);
+			bind('3', player.castSpell, 2, nextTurn);
+			bind('4', player.castSpell, 3, nextTurn);
+			bind('5', player.castSpell, 4, nextTurn);
+			bind('6', player.castSpell, 5, nextTurn);
+			bind('7', player.castSpell, 6, nextTurn);
+			bind('8', player.castSpell, 7, nextTurn);
+			bind('9', player.castSpell, 8, nextTurn);
 			
-			bind('?', function():void { enter(new HelpScreen()); } );
+			bind('?', enter, new HelpScreen());
 			bind('x', 'examine');
 			bind('X', 'examine');
 			bind('examine', function():void { enter(new ExamineScreen(world, player)); } );

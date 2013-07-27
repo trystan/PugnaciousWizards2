@@ -23,8 +23,8 @@ package screens
 					HelpSystem.showHelpPopups = false;
 				exitScreen("this is junk");
 			});
-			bind('enter', exitScreen);
 			
+			bind('enter', exitScreen);
 			bind('draw', draw);
 		}
 		

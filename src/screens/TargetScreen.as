@@ -25,16 +25,16 @@ package screens
 			this.excludeOccupiedTiles = excludeOccupiedTiles;
 			this.validateTarget = okFunction == null ? checkTarget : okFunction;
 			
-			bind('up', function():void { moveBy(0, -1); } );
-			bind('down', function():void { moveBy(0, 1); } );
-			bind('left', function():void { moveBy(-1, 0); } );
-			bind('right', function():void { moveBy(1, 0); } );
-			bind('up left', function():void { moveBy(-1, -1); } );
-			bind('up right', function():void { moveBy(1, -1); } );
-			bind('down left', function():void { moveBy(-1, 1); } );
-			bind('down right', function():void { moveBy(1, 1); } );
+			bind('up', moveBy, 0, -1);
+			bind('down', moveBy, 0, 1);
+			bind('left', moveBy, -1, 0);
+			bind('right', moveBy, 1, 0);
+			bind('up left', moveBy, -1, -1);
+			bind('up right', moveBy, 1, -1);
+			bind('down left', moveBy, -1, 1);
+			bind('down right', moveBy, 1, 1);
 			
-			bind('escape', function():void { exit(); } );
+			bind('escape', exit);
 			bind('enter', function():void { if (isOk) { exit(); callback(player, tx, ty); } } );
 			bind('draw', draw);
 			

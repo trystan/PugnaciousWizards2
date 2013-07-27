@@ -7,13 +7,15 @@ package knave
 		private var messageQueue:Array = [];
 		private var isProcessingMessages:Boolean = false;
 		private var bindings:Dictionary = new Dictionary();
+		private var bindingsExtras:Dictionary = new Dictionary();
 		
-		public function bind(message:String, messageOrHandler:Object):void
+		public function bind(message:String, messageOrHandler:Object, handlerArguments:Array):void
 		{
 			if (bindings[message] == null)
 				bindings[message] = [];
 			
 			bindings[message].push(messageOrHandler);
+			bindingsExtras[message] = handlerArguments;
 		}
 		
 		public function trigger(message:String, args:Array):void
@@ -35,7 +37,19 @@ package knave
 			{
 				var item:Object = messageQueue.shift();
 				var message:String = item.message;
-				var args:Array = item.args;
+				var args:Array = [];
+				
+				if (bindingsExtras[message] != null)
+				{
+					for each (var specificArgument:Object in bindingsExtras[message])
+						args.push(specificArgument);
+				}
+				
+				if (args.length == 0)
+				{
+					for each (var passedInArgument:Object in item.args)
+						args.push(passedInArgument);
+				}
 				
 				for each (var thing:Object in bindings[message])
 				{

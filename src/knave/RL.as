@@ -116,9 +116,9 @@ package knave
 			terminal.paint();
 		}
 		
-		public function bind(message:String, messageOrHandler:Object):void
+		public function bind(message:String, messageOrHandler:Object, ... extras:Array):void
 		{
-			bindings.bind(message, messageOrHandler);
+			bindings.bind(message, messageOrHandler, extras);
 		}
 		public function trigger(message:String, args:Array=null):void
 		{

@@ -26,24 +26,24 @@ package screens
 			bind('X', exitScreen);
 			
 			
-			bind('up', function():void { moveBy(0, -1); } );
-			bind('down', function():void { moveBy(0, 1); } );
-			bind('left', function():void { moveBy(-1, 0); } );
-			bind('right', function():void { moveBy(1, 0); } );
-			bind('up left', function():void { moveBy(-1, -1); } );
-			bind('up right', function():void { moveBy(1, -1); } );
-			bind('down left', function():void { moveBy(-1, 1); } );
-			bind('down right', function():void { moveBy(1, 1); } );
+			bind('up', moveBy, 0, -1);
+			bind('down', moveBy, 0, 1);
+			bind('left', moveBy, -1, 0);
+			bind('right', moveBy, 1, 0);
+			bind('up left', moveBy, -1, -1);
+			bind('up right', moveBy, 1, -1);
+			bind('down left', moveBy, -1, 1);
+			bind('down right', moveBy, 1, 1);
 			
-			bind('1', function():void { describeMagic(0); } );
-			bind('2', function():void { describeMagic(1); } );
-			bind('3', function():void { describeMagic(2); } );
-			bind('4', function():void { describeMagic(3); } );
-			bind('5', function():void { describeMagic(4); } );
-			bind('6', function():void { describeMagic(5); } );
-			bind('7', function():void { describeMagic(6); } );
-			bind('8', function():void { describeMagic(7); } );
-			bind('9', function():void { describeMagic(8); } );
+			bind('1', describeMagic, 0);
+			bind('2', describeMagic, 1);
+			bind('3', describeMagic, 2);
+			bind('4', describeMagic, 3);
+			bind('5', describeMagic, 4);
+			bind('6', describeMagic, 5);
+			bind('7', describeMagic, 6);
+			bind('8', describeMagic, 7);
+			bind('9', describeMagic, 8);
 			
 			bind('draw', draw);
 		}

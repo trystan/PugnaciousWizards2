@@ -4,9 +4,9 @@ package knave
 	{
 		private var bindings:Bindings = new Bindings();
 		
-		public function bind(message:String, messageOrHandler:Object):void 
+		public function bind(message:String, messageOrHandler:Object, ...handlerArguments:Array):void 
 		{
-			bindings.bind(message, messageOrHandler);
+			bindings.bind(message, messageOrHandler, handlerArguments);
 		}
 		public function trigger(message:String, args:Array=null):void 
 		{
