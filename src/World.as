@@ -10,18 +10,37 @@ package
 	public class World 
 	{
 		public var player:Creature;
-		private var tiles:Dictionary = new Dictionary();
+		private var tiles:Array = [];
 		private var fogAmount:Dictionary = new Dictionary();
 		public var creatures:Array = [];
 		public var items:Array = [];
 		public var rooms:Array = [];
 		public var featureList:Array = [];
 		public var animationEffects:Array = [];
-		private var blood:Dictionary = new Dictionary();
+		private var blood:Array = []
 		
 		public function get playerHasWon():Boolean 
 		{
 			return player.hasAllEndPieces && player.position.x < 4;
+		}
+		
+		public function World()
+		{
+			tiles = grid(Tile.dirt);
+			blood = grid(0);
+		}
+		
+		private function grid(defaultValue:Object):Array
+		{
+			var g:Array = [];
+			for (var x:int = 0; x < 80; x++)
+			{
+				var row:Array = [];
+				for (var y:int = 0; y < 80; y++)
+					row.push(defaultValue);
+				g.push(row);
+			}
+			return g;
 		}
 		
 		public function addFeature(feature:CastleFeature):void
@@ -50,7 +69,7 @@ package
 		
 		public function addTile(x:int, y:int, tile:Tile):void
 		{
-			tiles[x + "," + y] = tile;
+			tiles[x][y] = tile;
 		}
 		
 		public function getTile(x:int, y:int, ignoreFog:Boolean = false):Tile
@@ -67,7 +86,7 @@ package
 					return Tile.sparceFogFor(fog.payload);
 			}
 			
-			var t:Tile = tiles[x + "," + y];
+			var t:Tile = tiles[x][y];
 			if (t != null)
 				return t;
 				
