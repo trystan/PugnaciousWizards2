@@ -141,8 +141,6 @@ package
 			
 			drawFeatures(terminal);
 			
-			drawAnimations(terminal);
-			
 			drawHud(terminal);
 			
 			addGlowingTiles(terminal);
