@@ -144,6 +144,8 @@ package
 		
 		public function update():void
 		{	
+			vision.update();
+			
 			if (health < 1)
 				return;
 				
