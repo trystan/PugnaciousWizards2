@@ -139,6 +139,8 @@ package
 			
 			getStuffHere();
 			
+			vision.update();
+			
 			world.getTile(position.x, position.y).apply(this);
 		}
 		
