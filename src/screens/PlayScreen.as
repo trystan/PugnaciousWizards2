@@ -100,15 +100,13 @@ package screens
 		
 		public function animate(terminal:AsciiPanel):void
 		{
-			draw(terminal);
-			
 			var didUpdate:Boolean = false;
 			while (world.animationEffects.length > 0 && !didUpdate)
 			{
+				world.animate();
+				
 				if (display.drawAnimations(terminal))
 					didUpdate = true;
-					
-				world.animate();
 			}
 			
 			if (player.health < 1)

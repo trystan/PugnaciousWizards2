@@ -60,8 +60,6 @@ package screens
 		
 		public function animate(terminal:AsciiPanel):void
 		{
-			draw(terminal);
-			
 			var didUpdate:Boolean = false;
 			while (world.animationEffects.length > 0 && !didUpdate)
 			{

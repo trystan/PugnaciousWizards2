@@ -69,6 +69,9 @@ package
 		
 		public function addTile(x:int, y:int, tile:Tile):void
 		{
+			if (isOutOfBounds(x, y))
+				return;
+				
 			tiles[x][y] = tile;
 		}
 		
