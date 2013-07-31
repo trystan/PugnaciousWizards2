@@ -15,7 +15,7 @@ package spells
 		
 		public function get description():String
 		{
-			return "Throw creatures and items around with just your mind.";
+			return "Throw creatures and items around with the power of your mind.";
 		}
 		
 		public function playerCast(player:Creature, callback:Function):void
@@ -63,7 +63,7 @@ package spells
 				if (!ai.canSeeCreature(c))
 					continue;
 					
-				return new SpellCastAction(50, function():void
+				return new SpellCastAction(0.9, function():void
 				{
 					castReal(ai, ai.position.x + offsets[0], ai.position.y + offsets[1], offsets[0], offsets[1]);
 				});
@@ -87,7 +87,7 @@ package spells
 					if (!ai.canSee(x, y))
 						continue;
 						
-					return new SpellCastAction(80, function():void
+					return new SpellCastAction(0.8, function():void
 					{
 						castReal(ai, x, y, -offsets[0], -offsets[1]);
 					});

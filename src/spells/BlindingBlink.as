@@ -84,7 +84,9 @@ package spells
 		
 		public function aiGetAction(ai:Creature):SpellCastAction 
 		{
-			return new SpellCastAction(getVisibleCreatures(ai).length > 1 ? 0.1 : 0, function():void {
+			var doIt:Boolean = Math.random() < 0.1 && getVisibleCreatures(ai).length > 1;
+			
+			return new SpellCastAction(doIt ? 0.5 : 0, function():void {
 				cast(ai, 0, 0);
 			});
 		}

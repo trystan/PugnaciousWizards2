@@ -50,8 +50,8 @@ package spells
 				return new SpellCastAction(1.0 - ai.magic.length * 0.075, function():void
 				{
 					cast(ai, 
-								clamp(other.position.x - ai.position.x), 
-								clamp(other.position.y - ai.position.y));
+						clamp(other.position.x - ai.position.x), 
+						clamp(other.position.y - ai.position.y));
 				});
 			}
 			

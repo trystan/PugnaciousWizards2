@@ -34,7 +34,7 @@ package spells
 		
 		public function aiGetAction(ai:Creature):SpellCastAction
 		{
-			if (Math.random() < 0.75)
+			if (Math.random() < 0.8)
 				return new SpellCastAction(0, function():void
 				{
 					cast(ai, ai.position.x, ai.position.y);
@@ -52,7 +52,7 @@ package spells
 				if (ai.world.getTile(x - 1, y - 1) == Tile.tree
 						&& ai.world.getTile(x - 1, y - 0) == Tile.tree
 						&& ai.world.getTile(x - 1, y + 1) == Tile.tree)
-					return new SpellCastAction(90, function():void
+					return new SpellCastAction(1, function():void
 						{
 							cast(ai, x + 2, y);
 						});
@@ -60,7 +60,7 @@ package spells
 				if (ai.world.getTile(x + 1, y - 1) == Tile.tree
 						&& ai.world.getTile(x + 1, y - 0) == Tile.tree
 						&& ai.world.getTile(x + 1, y + 1) == Tile.tree)
-					return new SpellCastAction(90, function():void
+					return new SpellCastAction(1, function():void
 						{
 							cast(ai, x - 2, y);
 						});
@@ -68,7 +68,7 @@ package spells
 				if (ai.world.getTile(x - 1, y - 1) == Tile.tree
 						&& ai.world.getTile(x + 0, y - 1) == Tile.tree
 						&& ai.world.getTile(x + 1, y - 1) == Tile.tree)
-					return new SpellCastAction(90, function():void
+					return new SpellCastAction(1, function():void
 						{
 							cast(ai, x, y + 2);
 						});
@@ -76,7 +76,7 @@ package spells
 				if (ai.world.getTile(x - 1, y + 1) == Tile.tree
 						&& ai.world.getTile(x + 0, y + 1) == Tile.tree
 						&& ai.world.getTile(x + 1, y + 1) == Tile.tree)
-					return new SpellCastAction(90, function():void
+					return new SpellCastAction(1, function():void
 						{
 							cast(ai, x, y - 2);
 						});

@@ -51,7 +51,9 @@ package spells
 		
 		public function aiGetAction(ai:Creature):SpellCastAction 
 		{
-			return new SpellCastAction(getCandidateCount(ai) / 5.0, function():void {
+			var chance:Number = Math.random() < 0.25 ? getCandidateCount(ai) / 5.0 : 0;
+			
+			return new SpellCastAction(chance, function():void {
 				cast(ai, 0, 0);
 			});
 		}

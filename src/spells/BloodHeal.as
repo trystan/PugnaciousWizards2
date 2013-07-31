@@ -45,13 +45,16 @@ package spells
 		public function aiGetAction(ai:Creature):SpellCastAction 
 		{
 			var chance:Number = 0.00;
-			if (ai.health < 30 && getVisibleBloodCount(ai) > 5)
+			if (ai.health < 30)
 				chance = 0.80;
-			else if (ai.health < 60 && getVisibleBloodCount(ai) > 5)
+			else if (ai.health < 60)
 				chance = 0.40;
-			else if (ai.health < 90 && getVisibleBloodCount(ai) > 5)
+			else if (ai.health < 90)
 				chance = 0.10;
 					
+			if (chance > 0 && getVisibleBloodCount(ai) == 0)
+				chance = 0;
+			
 			return new SpellCastAction(chance, function():void {
 				cast(ai, 0, 0);
 			});

@@ -51,6 +51,12 @@ package spells
 		
 		public function aiGetAction(ai:Creature):SpellCastAction
 		{
+			if (Math.random() < 0.9)
+				return new SpellCastAction(0, function():void
+				{
+					cast(ai, ai.position.x, ai.position.y);
+				});
+				
 			for (var ox:int = -ai.visionRadius; ox < ai.visionRadius; ox++)
 			for (var oy:int = -ai.visionRadius; oy < ai.visionRadius; oy++)
 			{

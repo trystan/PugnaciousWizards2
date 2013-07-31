@@ -43,7 +43,7 @@ package spells
 				
 				var other:Creature = ai.world.getCreature(x, y);
 				
-				if (other == null || !ai.isEnemy(other))
+				if (other == null || !ai.isEnemy(other) || other.freezeCounter > 0)
 					continue;
 				
 				if (!canShootTarget(ai, other))
@@ -52,8 +52,8 @@ package spells
 				return new SpellCastAction(1.0 - ai.magic.length * 0.075, function():void
 				{
 					cast(ai, 
-								clamp(other.position.x - ai.position.x), 
-								clamp(other.position.y - ai.position.y));
+						clamp(other.position.x - ai.position.x), 
+						clamp(other.position.y - ai.position.y));
 				});
 			}
 			
