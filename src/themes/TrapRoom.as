@@ -21,8 +21,8 @@ package themes
 				{ cost:3, func:addArcher },
 				{ cost:2, func:addTower2 },
 				{ cost:4, func:addTower4 },
+				{ cost:6, func:addWallTraps },
 				{ cost:8, func:addTower8 },
-				{ cost:10, func:addWallTraps },
 			];
 			
 			while (tries++ < 100 && points > 0)

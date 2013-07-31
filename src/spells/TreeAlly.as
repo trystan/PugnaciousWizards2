@@ -63,9 +63,9 @@ package spells
 				var x:int = ai.position.x + ox;
 				var y:int = ai.position.y + oy;
 				
-				if (ai.world.getTile(x, y) != Tile.tree)
+				if (ai.world.getTile(x, y) != Tile.tree || !ai.canSee(x, y))
 					continue;
-				
+					
 				if (Math.random() < 0.01)
 					return new SpellCastAction(10, function():void
 					{

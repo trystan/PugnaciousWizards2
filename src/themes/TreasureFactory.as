@@ -61,18 +61,22 @@ package themes
 					w.addMagicSpell(new BloodBurn());
 					w.addMagicSpell(new BoneSplode());
 					w.addMagicSpell(new Inferno());
+					w.aura = "fire";
 					break;
 				case 1:
 					w.addMagicSpell(new PullAndFreeze());
 					w.addMagicSpell(new Winter());
+					w.addMagicSpell(new HealingFog());
 					w.addMagicSpell(new PoisonFog());
-					w.addMagicSpell(new TimedFlash());
+					w.aura = "cold & fog";
 					break;
 				case 2:
-					w.addMagicSpell(new HealingFog());
 					w.addMagicSpell(new BloodHeal());
 					w.addMagicSpell(new MagicMissile());
 					w.addMagicSpell(new Telekenesis());
+					w.addMagicSpell(new BlindingBlink());
+					w.addMagicSpell(new TimedFlash());
+					w.aura = "magic";
 					break;
 			}
 			

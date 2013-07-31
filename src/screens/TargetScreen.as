@@ -34,7 +34,7 @@ package screens
 			bind('down left', moveBy, -1, 1);
 			bind('down right', moveBy, 1, 1);
 			
-			bind('escape', exit);
+			bind('escape', function():void { exit(); } );
 			bind('enter', function():void { if (isOk) { exit(); callback(player, tx, ty); } } );
 			bind('draw', draw);
 			

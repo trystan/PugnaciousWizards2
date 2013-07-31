@@ -52,6 +52,10 @@ package
 			}
 		}
 		
+		override public function die():void
+		{
+		}
+		
 		override public function bleed(amount:int):void 
 		{
 			// super.bleed(amount);

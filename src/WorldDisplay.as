@@ -1,5 +1,6 @@
 package  
 {
+	import adobe.utils.CustomActions;
 	import animations.Explosion;
 	import animations.Flash;
 	import animations.MagicMissileProjectile;
@@ -439,6 +440,24 @@ package
 					addLight(terminal, x, y, fgAt(x, y), 3);
 				else if (isOnFileTiles.indexOf(tile) > -1)
 					addLight(terminal, x, y, fire, 3);
+			}
+			
+			var light:Color = Color.hsv(60, 90, 90);
+			
+			for each (var creature:Creature in world.creatures)
+			{
+				if (!(creature is EnemyWizard))
+					continue;
+				
+				var c:EnemyWizard = creature as EnemyWizard;
+				
+				var color:Color = magic.lerp(light, 0.5);
+				if (c.aura == "fire")
+					color = fire.lerp(light, 0.5);
+				else if (c.aura == "ice & fog")
+					color = ice.lerp(light, 0.5);
+					
+				addLight(terminal, c.position.x, c.position.y, color, 5);
 			}
 		}
 		

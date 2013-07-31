@@ -36,9 +36,19 @@ package spells
 		{	
 			return new SpellCastAction(0.01, function():void
 			{
-				cast(ai, 
-					ai.position.x + (Math.random() * ai.visionRadius * 2) - ai.visionRadius,
-					ai.position.y + (Math.random() * ai.visionRadius * 2) - ai.visionRadius);
+				var x:int = -1;
+				var y:int = -1;
+				var tries:int = 0;
+				
+				do 
+				{
+					x = ai.position.x + (Math.random() * ai.visionRadius * 2) - ai.visionRadius;
+					y = ai.position.y + (Math.random() * ai.visionRadius * 2) - ai.visionRadius;
+				}
+				while (!ai.canSee(x, y) && tries++ < 100)
+				
+				if (ai.canSee(x, y))
+					cast(ai, x, y);
 			});
 		}
 	}
