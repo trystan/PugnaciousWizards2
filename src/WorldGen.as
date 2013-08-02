@@ -1,5 +1,6 @@
 package  
 {
+	import flash.geom.Orientation3D;
 	import flash.geom.Point;
 	import spells.BloodBurn;
 	import spells.BoneSplode;
@@ -16,8 +17,6 @@ package
 		
 		public function WorldGen(skipRooms:Boolean = false)
 		{
-			TreasureFactory.reset();
-			
 			this.skipRooms = skipRooms;
 			
 			addRooms();
@@ -101,6 +100,30 @@ package
 			world.addItem(2, 28, new Scroll(new FireJump()));
 			world.addItem(3, 32, new Scroll(new MagicMissile()));
 			world.addItem(2, 36, new Scroll(new HealAndWeaken()));
+			
+			addGold(world);
+		}
+		
+		private function addGold(world:World):void
+		{
+			var added:int = 0;
+			while (added < 50)
+			{
+				var x:int = Math.random() * 7 * 8 + 5;
+				var y:int = Math.random() * 7 * 8 + 5;
+				
+				if (world.getTile(x, y).blocksMovement)
+					continue;
+					
+				if (world.getCreature(x, y) != null)
+					continue;
+					
+				if (world.getItem(x, y) != null)
+					continue;
+					
+				world.addItem(x, y, new Gold());
+				added++;
+			}
 		}
 		
 		private function addRooms():void 

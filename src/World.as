@@ -180,6 +180,17 @@ package
 			}
 			return null;
 		}
+				
+		public function getItems(x:int, y:int):Array 
+		{
+			var list:Array = [];
+			for each (var placedItem:Object in items)
+			{
+				if (placedItem.x == x && placedItem.y == y)
+					list.push(placedItem.item as Item);
+			}
+			return list;
+		}
 		
 		public function addCreature(creature:Creature):void
 		{

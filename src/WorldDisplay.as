@@ -13,6 +13,7 @@ package
 	import features.CastleFeature;
 	import features.TimedFlashEffect;
 	import flash.display.BitmapData;
+	import flash.display.GraphicsSolidFill;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import animations.FloorSpike;
@@ -485,7 +486,12 @@ package
 			var y:int = 1;
 			var white:Color = Color.integer(0xffffff);
 			var color:Color = white.lerp(Color.integer(0xff6666), 1.0 * player.health / player.maxHealth);
-			terminal.write(player.health + "/" + player.maxHealth + " health", x, y += 2, color.toInt());
+			terminal.write(String.fromCharCode(3) + " ", x, y += 2, Color.integer(0xff6666).toInt());
+			terminal.write(player.health + "/" + player.maxHealth, x + 2, y, color.toInt());
+			
+			terminal.write("$ " + player.gold, x, y += 2, Color.hsv(60, 50, 80).toInt());
+			
+			terminal.write("* " + player.endPiecesPickedUp + "/3", x, y += 2, Color.hsv(60, 90, 90).toInt());
 			
 			if (player.fireCounter > 0)
 				terminal.write("on fire!", x + 1, y + 2, fire.lerp(white, 0.5).toInt());
@@ -498,14 +504,11 @@ package
 				terminal.write("blind!", x + 1, y += 2, 0xc0c0ff);
 			if (player.poisonCounter > 0)
 				terminal.write("poisoned!", x + 1, y += 2, 0xc0ffc0);
-			y += 2;
 			
-			terminal.write(player.endPiecesPickedUp + "/3 amulet pieces", x, y += 2, item_color(null).toInt());
-			
-			y += 2;
+			y = 17;
 			terminal.write("--- help ---", x, y += 2);
-			terminal.write("?   help screen", x, y += 2);
-			terminal.write("x   examine", x, y += 2);
+			terminal.write("? help screen", x, y += 2);
+			terminal.write("x examine", x, y += 2);
 			
 			y += 2;
 			
@@ -536,6 +539,9 @@ package
 			if (item is PileOfBones)
 				return "%";
 				
+			if (item is Gold)
+				return "$";
+				
 			return item is EndPiece ? "*" : "?";
 		}
 		
@@ -547,6 +553,9 @@ package
 			if (item is PileOfBones)
 				return Color.integer(0x909090);
 				
+			if (item is Gold)
+				return Color.hsv(60, 50, 80);
+				
 			return item is EndPiece ? Color.hsv(60, 90, 90) : Color.integer(0xffffff);
 		}
 		
@@ -554,6 +563,7 @@ package
 		{
 			return tile(world.getTile(x, y), x, y);
 		}
+		
 		private function tile(tile:Tile, x:int = 0, y:int = 0):String
 		{
 			switch (tile)

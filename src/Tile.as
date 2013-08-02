@@ -127,7 +127,8 @@ package
 		
 		private static function iceEffect(creature:Creature):void
 		{
-			creature.moveBy(creature.movedBy.x, creature.movedBy.y);
+			if (!creature.world.getTile(creature.position.x + creature.movedBy.x, creature.position.y + creature.movedBy.y).blocksMovement)
+				creature.moveBy(creature.movedBy.x, creature.movedBy.y);
 		}
 		
 		private static function portalEffect(creature:Creature):void

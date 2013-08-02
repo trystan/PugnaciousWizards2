@@ -94,6 +94,8 @@ package
 					currentlySeen[x][y] = NOT_VISIBLE;
 					return;
 				}
+				else
+					currentlySeen[p.x][p.y] = VISIBLE;
 			}
 			
 			var tile:Tile = viewer.world.getTile(x, y);

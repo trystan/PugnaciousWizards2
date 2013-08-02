@@ -20,6 +20,7 @@ package
 		public var maxHealth:int;
 		public var causeOfDeath:String = "";
 		public var meleeDamage:int = 5;
+		public var gold:int = 0;
 		
 		public function get visionRadius():int { return blindCounter == 0 ? _visionRadius : 0; }
 		public function set visionRadius(amount:int):void { _visionRadius = amount; }
@@ -202,10 +203,16 @@ package
 		{
 			if (blindCounter > 0)
 				return;
-				
-			var item:Item = world.getItem(position.x, position.y);
-			if (item != null && item.canBePickedUpBy(this))
+			
+			for each (var item:Item in world.getItems(position.x, position.y))
+			{
+				if (!item.canBePickedUpBy(this))
+					continue;
+					
 				item.getPickedUpBy(this);
+					
+				item = world.getItem(position.x, position.y);
+			}
 		}
 		
 		public function addMagicSpell(spell:Spell):void
@@ -244,9 +251,31 @@ package
 			
 			if (health < 1)
 			{
-				die();
 				this.causeOfDeath = causeOfDeath;
 				world.removeCreature(this);
+				die();
+				dropGold();
+			}
+		}
+		
+		private function dropGold():void
+		{
+			if (gold > 0)
+			{
+				world.addItem(position.x, position.y, new Gold());
+				gold--;
+			}
+			
+			while (gold > 0)
+			{
+				var x:int = position.x + Math.random() * 3 - 1;
+				var y:int = position.y + Math.random() * 3 - 1;
+				
+				if (world.getTile(x, y, true).blocksMovement)
+					continue;
+				
+				world.addItem(x, y, new Gold());
+				gold--;
 			}
 		}
 		

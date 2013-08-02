@@ -8,6 +8,7 @@ package screens
 	import knave.RL;
 	import knave.BaseScreen;
 	import knave.Screen;
+	import themes.TreasureFactory;
 	
 	public class IntroScreen extends BaseScreen
 	{
@@ -15,16 +16,12 @@ package screens
 		public var world:World;
 		public var display:WorldDisplay;
 		
-		public function IntroScreen(hero:Hero = null, world:World = null) 
+		public function IntroScreen() 
 		{
-			if (hero == null)
-				hero = new Hero(new Point(1, 19));
-				
-			if (world == null)
-				world = new World().addWorldGen(new WorldGen());
+			TreasureFactory.reset();
 			
-			this.hero = hero;
-			this.world = world;
+			hero = new Hero(new Point(1, 19));
+			world = new World().addWorldGen(new WorldGen());
 			
 			world.addCreature(hero);
 			

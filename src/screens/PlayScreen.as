@@ -9,24 +9,26 @@ package screens
 	import flash.utils.setTimeout;
 	import knave.BaseScreen;
 	import knave.RL;
+	import themes.TreasureFactory;
 	
 	public class PlayScreen extends BaseScreen
 	{
-		public var player:Creature;
+		public var player:Player;
 		public var world:World;
 		public var display:WorldDisplay;
 		private var animateInterval:int;
 		
-		public function PlayScreen(player:Player = null, world:World = null) 
+		public function PlayScreen() 
 		{
-			if (player == null)
-				player = new Player(new Point(1, 19));
-				
-			if (world == null)
-				world = new World().addWorldGen(new WorldGen());
+			TreasureFactory.reset();
 			
-			this.player = player;
-			this.world = world;
+			var spellsForSale:Array = [];
+			spellsForSale.push((TreasureFactory.random() as Scroll).spell);
+			spellsForSale.push((TreasureFactory.random() as Scroll).spell);
+			spellsForSale.push((TreasureFactory.random() as Scroll).spell);
+			
+			player = new Player(new Point(1, 19));
+			world = new World().addWorldGen(new WorldGen());
 			
 			world.addCreature(player);
 			
@@ -56,6 +58,7 @@ package screens
 			bind('x', 'examine');
 			bind('X', 'examine');
 			bind('examine', function():void { enter(new ExamineScreen(world, player)); } );
+			bind('$', function():void { enter(new StoreScreen(player, spellsForSale)); } );
 			
 			bind('draw', draw);
 			bind('animate', animate);
