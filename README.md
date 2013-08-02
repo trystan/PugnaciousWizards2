@@ -32,12 +32,12 @@ version 0.4 (done)
 version 0.5 (done)
 * several spells - more than you can find in the castle in one play.
 
-version 0.6 (in progress)
+version 0.6 (done)
 * enemy wizards
 * gold
 * spell shop
 
-version 0.7
+version 0.7 (in progress)
 * themed areas (fire, ice, etc)
 
 version 0.8
