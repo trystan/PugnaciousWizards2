@@ -75,8 +75,9 @@ package screens
 				
 				while (line.length > w)
 				{
-					text.push(line.substr(0, w));
-					line = line.substr(w);
+					var i:int = line.substr(0, w).lastIndexOf(" ");
+					text.push(line.substr(0, i));
+					line = line.substr(i + 1);
 				}
 				while (line.length > 0 && line.charAt(0) == " ")
 					line = line.substr(1);
