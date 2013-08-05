@@ -28,6 +28,7 @@ package
 		{
 			if (canCastMagic)
 			{
+				for (var tries:int = 0; tries < 3; tries++)
 				for each (var spell:Spell in magic)
 				{
 					var action:SpellCastAction = spell.aiGetAction(this);
