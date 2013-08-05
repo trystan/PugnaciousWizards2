@@ -295,6 +295,10 @@ package
 			{
 				var room:Room = getRoom(x, y);
 				
+				if (room.isConnectedWest)
+					world.addTile(room.position.x * 8 + 4, room.position.y * 8 + 8, getDoorTile());
+				if (room.isConnectedNorth)
+					world.addTile(room.position.x * 8 + 8, room.position.y * 8 + 4, getDoorTile());
 				if (room.isConnectedEast)
 					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 8, getDoorTile());
 				if (room.isConnectedSouth)
