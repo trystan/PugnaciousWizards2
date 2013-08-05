@@ -24,7 +24,7 @@ package
 		
 		public function get visionRadius():int { return blindCounter == 0 ? _visionRadius : 0; }
 		public function set visionRadius(amount:int):void { _visionRadius = amount; }
-		
+		public function reduceVisionRadius():void { _visionRadius--; }
 		
 		private var _visionRadius:int = 13;
 		public var bleedingCounter:int = 0;
@@ -53,13 +53,16 @@ package
 		}
 		
 		public function moveBy(x:Number, y:Number, isBeingPushed:Boolean = false):void 
-		{
+		{			
 			if (freezeCounter > 0 && !isBeingPushed)
 			{
 				world.getTile(position.x, position.y).apply(this);
 				return;
 			}
-			
+
+			movedBy.x = 0;
+			movedBy.y = 0;
+	
 			if (world.isClosedDoor(position.x + x, position.y + y))
 			{
 				if (isGoodGuy)

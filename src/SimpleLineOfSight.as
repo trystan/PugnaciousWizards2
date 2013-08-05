@@ -69,7 +69,7 @@ package
 		}
 		
 		private function check(x:int, y:int):void
-		{
+		{	
 			var r:int = Math.max(1, viewer.visionRadius);
 			
 			if (Math.abs(viewer.position.x - x) > r || Math.abs(viewer.position.y - y) > r)

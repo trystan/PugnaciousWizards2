@@ -19,7 +19,7 @@ package spells
 		{
 			caster.maxHealth -= 10;
 			caster.heal(caster.maxHealth);
-			caster.visionRadius--;
+			caster.reduceVisionRadius();
 		}
 		
 		public function aiGetAction(ai:Creature):SpellCastAction
