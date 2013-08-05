@@ -89,13 +89,20 @@ package
 				if (currentlySeen[x][y] != UNKNOWN)
 					return;
 					
-				if (viewer.world.getTile(p.x, p.y).blocksVision && !(p.x == x && p.y == y))
+				var tileInLos:Tile = viewer.world.getTile(p.x, p.y);
+				
+				if (tileInLos.blocksVision && !(p.x == x && p.y == y))
 				{
 					currentlySeen[x][y] = NOT_VISIBLE;
 					return;
 				}
 				else
+				{
 					currentlySeen[p.x][p.y] = VISIBLE;
+					
+					if (tileInLos.remember)
+						seen[p.x][p.y] = tileInLos;
+				}
 			}
 			
 			var tile:Tile = viewer.world.getTile(x, y);
