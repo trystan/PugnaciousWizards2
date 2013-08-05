@@ -494,16 +494,16 @@ package
 			terminal.write("* " + player.endPiecesPickedUp + "/3", x, y += 2, Color.hsv(60, 90, 90).toInt());
 			
 			if (player.fireCounter > 0)
-				terminal.write("on fire!", x + 1, y + 2, fire.lerp(white, 0.5).toInt());
+				terminal.write("on fire! (" + player.fireCounter + ")", x + 1, y + 2, fire.lerp(white, 0.5).toInt());
 			else if (player.freezeCounter > 0)
-				terminal.write("frozen!", x + 1, y + 2, ice.lerp(white, 0.5).toInt());
+				terminal.write("frozen! (" + player.freezeCounter + ")", x + 1, y + 2, ice.lerp(white, 0.5).toInt());
 			y += 2;
 			if (player.bleedingCounter > 0)
-				terminal.write("bleeding!", x + 1, y += 2, blood.lerp(white, 0.5).toInt());
+				terminal.write("bleeding! (" + player.bleedingCounter + ")", x + 1, y += 2, blood.lerp(white, 0.5).toInt());
 			if (player.blindCounter > 0)
-				terminal.write("blind!", x + 1, y += 2, 0xc0c0ff);
+				terminal.write("blind! (" + player.blindCounter + ")", x + 1, y += 2, 0xc0c0ff);
 			if (player.poisonCounter > 0)
-				terminal.write("poisoned!", x + 1, y += 2, 0xc0ffc0);
+				terminal.write("poisoned! (" + player.poisonCounter + ")", x + 1, y += 2, 0xc0ffc0);
 			
 			y = 17;
 			terminal.write("--- help ---", x, y += 2);
