@@ -9,13 +9,11 @@ package themes
 		{
 			room.allowsVariation = false;
 			
-			switch ((int)(Math.random() * 5))
+			switch ((int)(Math.random() * 3))
 			{
 				case 0: circles(room, world); break;
-				case 1: rows(room, world); break;
-				case 2: columns(room, world); break;
-				case 3: northSouth(room, world); break;
-				case 4: westEast(room, world); break;
+				case 1: northSouth(room, world); break;
+				case 2: westEast(room, world); break;
 			}
 			
 			for (var i:int = 0; i < 7; i++)
@@ -103,50 +101,6 @@ package themes
 			{
 				var x:int = Math.random() * 7;
 				var f:CastleFeature = new MovingWall(world, room.worldPosition.x + x, room.worldPosition.y + y);
-				room.roomFeatures.push(f);
-				world.addFeature(f);
-			}
-		}
-		
-		private function columns(room:Room, world:World):void 
-		{
-			layTrack(room, world, [
-				"797-979",
-				"||| |||",
-				"||| |||",
-				"||| |||",
-				"||| |||",
-				"||| |||",
-				"131-313",
-			]);
-			
-			for each (var f:CastleFeature in [
-					new MovingWall(world, room.worldPosition.x + 0, room.worldPosition.y + Math.random() * 7),
-					new MovingWall(world, room.worldPosition.x + 2, room.worldPosition.y + Math.random() * 7),
-					new MovingWall(world, room.worldPosition.x + 5, room.worldPosition.y + Math.random() * 7)])
-			{
-				room.roomFeatures.push(f);
-				world.addFeature(f);
-			}
-		}
-		
-		private function rows(room:Room, world:World):void 
-		{
-			layTrack(room, world, [
-				"7-----9",
-				"1-----3",
-				"7-----9",
-				"|     |",
-				"1-----3",
-				"7-----9",
-				"1-----3",
-			]);
-			
-			for each (var f:CastleFeature in [
-					new MovingWall(world, room.worldPosition.x + 7, room.worldPosition.y + Math.random() * 0),
-					new MovingWall(world, room.worldPosition.x + 7, room.worldPosition.y + Math.random() * 2),
-					new MovingWall(world, room.worldPosition.x + 7, room.worldPosition.y + Math.random() * 5)])
-			{
 				room.roomFeatures.push(f);
 				world.addFeature(f);
 			}
