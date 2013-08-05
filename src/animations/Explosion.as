@@ -36,17 +36,6 @@ package animations
 		public function update():void 
 		{
 			spread();
-			applyEffect();
-		}
-		
-		private function applyEffect():void 
-		{
-			for each (var p:Point in tiles)
-			{
-				var creature:Creature = world.getCreature(p.x, p.y);
-				if (creature != null)
-					payload.hitCreature(creature);
-			}
 		}
 		
 		private function spread():void 
@@ -84,6 +73,10 @@ package animations
 			
 			payload.hitTile(world, n.x, n.y);
 			
+			var creature:Creature = world.getCreature(n.x, n.y);
+			if (creature != null)
+				payload.hitCreature(creature);
+					
 			if (world.getTile(n.x, n.y).blocksArrows)
 				return;
 				

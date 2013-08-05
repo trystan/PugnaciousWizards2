@@ -6,15 +6,8 @@ package payloads
 	{
 		public function hitCreature(creature:Creature):void
 		{
-			if (creature.fireCounter == 0)
-			{
-				creature.hurt(5, "You burned to death.");
-				creature.burn(5);
-			}
-			else
-			{
-				creature.burn(2);
-			}
+			creature.hurt(5, "You burned to death.");
+			creature.burn(5);
 			hitTile(creature.world, creature.position.x, creature.position.y);
 		}
 		
