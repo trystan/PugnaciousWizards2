@@ -24,6 +24,7 @@ package
 	import payloads.Ice;
 	import payloads.Payload;
 	import payloads.Pierce;
+	import payloads.Poison;
 	import spells.FireJump;
 	import spells.Spell;
 	import knave.Color;
@@ -57,6 +58,7 @@ package
 		private var memory:Color = Color.hsv(240, 75, 5);
 		private var ice:Color = Color.hsv(220, 50, 80);
 		private var fire:Color = Color.hsv(0, 75, 80);
+		private var poison:Color = Color.hsv(90, 50, 80);
 		private var magic:Color = Color.hsv(270, 50, 80);
 		private var ash:Color = Color.hsv(30, 66, 20);
 		private var water_fg:Color = Color.hsv(220, 70, 50);
@@ -288,7 +290,7 @@ package
 					terminal.write(arrowTile(effect.direction), effect.x, effect.y, fgc.toInt(), terminal.getBackgroundColor(effect.x, effect.y));
 					
 					if (!(effect.payload is Pierce))
-						addLight(terminal, effect.x, effect.y, payloadColor(effect.payload), 2);
+						addLight(terminal, effect.x, effect.y, fgc, 2);
 				}
 				else if (effect is Explosion)
 				{
@@ -534,6 +536,8 @@ package
 				return ice;
 			else if (payload is Fire)
 				return fire;
+			else if (payload is Poison)
+				return poison;
 			else
 				return metal_fg;
 		}
@@ -606,24 +610,31 @@ package
 				case Tile.mystic_floor_dark: return String.fromCharCode((x * 11 + y * 23) % 250);
 				case Tile.ice_tower:
 				case Tile.fire_tower:
+				case Tile.poison_tower:
 				case Tile.tower: return tower;
 				case Tile.ice_tower_1:
 				case Tile.fire_tower_1:
+				case Tile.poison_tower_1:
 				case Tile.tower_1: return NS;
 				case Tile.ice_tower_2:
 				case Tile.fire_tower_2:
+				case Tile.poison_tower_2:
 				case Tile.tower_2: return SW_NE;
 				case Tile.ice_tower_3:
 				case Tile.fire_tower_3:
+				case Tile.poison_tower_3:
 				case Tile.tower_3: return WE;
 				case Tile.ice_tower_4:
 				case Tile.fire_tower_4:
+				case Tile.poison_tower_4:
 				case Tile.tower_4: return NW_SE;
 				case Tile.ice_tower_5:
 				case Tile.fire_tower_5:
+				case Tile.poison_tower_5:
 				case Tile.tower_5: return String.fromCharCode(197);
 				case Tile.ice_tower_6:
 				case Tile.fire_tower_6:
+				case Tile.poison_tower_6:
 				case Tile.tower_6: return "X";
 				case Tile.track_light_ns: return String.fromCharCode(179);
 				case Tile.track_dark_ns: return String.fromCharCode(179);
@@ -651,8 +662,8 @@ package
 			switch (tile)
 			{
 				case Tile.healingFog: return Color.hsv(300, 66, 66);
-				case Tile.poisonFog: return Color.hsv(90, 66, 66);
-				case Tile.poison_water: return Color.hsv(90, 66, 66).lerp(water_fg, 0.5);
+				case Tile.poisonFog: return poison.lerp(Color.integer(0xffffff), 0.5);
+				case Tile.poison_water: return poison.lerp(water_fg, 0.5);
 				case Tile.shallow_water: return water_fg;
 				case Tile.frozen_water: return ice;
 				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
@@ -692,6 +703,14 @@ package
 				case Tile.tower_5:
 				case Tile.tower_6:
 					return metal_fg;
+				case Tile.poison_tower:
+				case Tile.poison_tower_1:
+				case Tile.poison_tower_2:
+				case Tile.poison_tower_3:
+				case Tile.poison_tower_4:
+				case Tile.poison_tower_5:
+				case Tile.poison_tower_6:
+					return poison;
 				case Tile.fire_tower:
 				case Tile.fire_tower_1:
 				case Tile.fire_tower_2:
@@ -729,8 +748,8 @@ package
 			switch (tile)
 			{
 				case Tile.healingFog: return Color.hsv(300, 33, 33);
-				case Tile.poisonFog: return Color.hsv(90, 33, 33);
-				case Tile.poison_water: return Color.hsv(90, 33, 33).lerp(water_bg, 0.5);
+				case Tile.poisonFog: return poison;
+				case Tile.poison_water: return poison.lerp(water_bg, 0.5);
 				case Tile.shallow_water: return water_bg;
 				case Tile.frozen_water: return water_fg;
 				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
@@ -768,6 +787,13 @@ package
 				case Tile.fire_tower_4:
 				case Tile.fire_tower_5:
 				case Tile.fire_tower_6:
+				case Tile.poison_tower:
+				case Tile.poison_tower_1:
+				case Tile.poison_tower_2:
+				case Tile.poison_tower_3:
+				case Tile.poison_tower_4:
+				case Tile.poison_tower_5:
+				case Tile.poison_tower_6:
 				case Tile.tower:
 				case Tile.tower_1:
 				case Tile.tower_2:

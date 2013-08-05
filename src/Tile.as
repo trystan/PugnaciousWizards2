@@ -60,6 +60,14 @@ package
 		static public var fire_tower_5:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows in four directions.", true, true, 0.0);
 		static public var fire_tower_6:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows in four directions.", true, true, 0.0);
 		
+		static public var poison_tower:Tile = new Tile("poison tower", "This tower shoots poison arrows in eight directions.", true, true, 0.0);
+		static public var poison_tower_1:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in two directions.", true, true, 0.0);
+		static public var poison_tower_2:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in two directions.", true, true, 0.0);
+		static public var poison_tower_3:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in two directions.", true, true, 0.0);
+		static public var poison_tower_4:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in two directions.", true, true, 0.0);
+		static public var poison_tower_5:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in four directions.", true, true, 0.0);
+		static public var poison_tower_6:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in four directions.", true, true, 0.0);
+		
 		static public var out_of_bounds:Tile = new Tile("**OUT OF BOUNDS**", null, true, true, 1.0);
 		
 		static public var track_light_ns:Tile = new Tile("floor with a track in it", null, false, false, 0.0);

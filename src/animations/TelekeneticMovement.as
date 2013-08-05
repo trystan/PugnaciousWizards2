@@ -56,7 +56,7 @@ package animations
 			else
 			{
 				c.hurt(5, "Telekenetically slammed into a " + caster.world.getTile(c.position.x + dx, c.position.y + dy).name + ".");
-				c.bleed(5);
+				c.bleed(2);
 				_done = true;
 			}
 		}
@@ -88,7 +88,7 @@ package animations
 				else if (other != null)
 				{
 					other.hurt(5, "Hit by a flying " + i.name + ".");
-					other.bleed(5);
+					other.bleed(2);
 				}
 			}
 			if (!_done)

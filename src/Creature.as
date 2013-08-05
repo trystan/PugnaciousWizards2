@@ -128,7 +128,7 @@ package
 		protected function melee(other:Creature):void 
 		{
 			other.hurt(meleeDamage, "You've been slain by a " + type.toLowerCase());
-			other.bleed(5);
+			other.bleed(2);
 		}
 		
 		public function moveTo(x:int, y:int):void

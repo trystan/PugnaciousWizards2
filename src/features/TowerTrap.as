@@ -5,6 +5,7 @@ package features
 	import payloads.Ice;
 	import payloads.Payload;
 	import payloads.PayloadFactory;
+	import payloads.Poison;
 	
 	public class TowerTrap extends CastleFeature
 	{
@@ -25,6 +26,8 @@ package features
 			
 			if (payload is Fire)
 				world.addTile(x, y, Tile.fire_tower);
+			else if (payload is Poison)
+				world.addTile(x, y, Tile.poison_tower);
 			else
 				world.addTile(x, y, Tile.tower);
 		}

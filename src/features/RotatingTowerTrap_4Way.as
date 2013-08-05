@@ -5,6 +5,7 @@ package features
 	import payloads.Ice;
 	import payloads.Payload;
 	import payloads.PayloadFactory;
+	import payloads.Poison;
 	
 	public class RotatingTowerTrap_4Way extends CastleFeature
 	{
@@ -51,6 +52,8 @@ package features
 				updateWorld_ice();
 			else if (payload is Fire)
 				updateWorld_fire();
+			else if (payload is Poison)
+				updateWorld_poison();
 			else
 				updateWorld_piercing();
 		}
@@ -89,6 +92,25 @@ package features
 				case "SE":
 				case "NW":
 					world.addTile(x, y, Tile.fire_tower_6);
+					break;
+			}
+		}
+		
+		private function updateWorld_poison():void
+		{
+			switch (direction)
+			{
+				case "N":
+				case "S":
+				case "E":
+				case "W":
+					world.addTile(x, y, Tile.poison_tower_5);
+					break;
+				case "NE":
+				case "SW":
+				case "SE":
+				case "NW":
+					world.addTile(x, y, Tile.poison_tower_6);
 					break;
 			}
 		}
