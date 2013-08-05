@@ -127,11 +127,13 @@ package
 		private static function healingFogEffect(creature:Creature):void
 		{
 			new Healing().hitCreature(creature);
+			creature.world.getTile(creature.position.x, creature.position.y, true).apply(creature);
 		}
 		
 		private static function poisonedFogEffect(creature:Creature):void
 		{
 			new Poison().hitCreature(creature);
+			creature.world.getTile(creature.position.x, creature.position.y, true).apply(creature);
 		}
 		
 		private static function iceEffect(creature:Creature):void

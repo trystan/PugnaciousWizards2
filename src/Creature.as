@@ -78,7 +78,7 @@ package
 			{
 				// stand still
 			}
-			else if (world.getTile(position.x + x, position.y + y).blocksMovement)
+			else if (world.getTile(position.x + x, position.y + y, true).blocksMovement)
 			{
 				vision.see(position.x + x, position.y + y);
 			}
