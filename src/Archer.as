@@ -18,6 +18,8 @@ package
 			maxHealth = 5 * 3;
 			_health = maxHealth;
 			meleeDamage = 2;
+			
+			isAsleep = true;
 		}
 		
 		public override function doAi():void

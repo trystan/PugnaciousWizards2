@@ -14,6 +14,8 @@ package
 			
 			maxHealth = 5 * 4;
 			_health = maxHealth;
+			
+			isAsleep = true;
 		}
 		
 		public override function doAi():void

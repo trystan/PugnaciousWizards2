@@ -17,6 +17,8 @@ package
 			maxHealth = 5;
 			_health = maxHealth;
 			meleeDamage = 1;
+			
+			isAsleep = true;
 		}
 		
 		override public function bleed(amount:int):void 

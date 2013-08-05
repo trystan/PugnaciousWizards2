@@ -21,6 +21,7 @@ package
 		public var causeOfDeath:String = "";
 		public var meleeDamage:int = 5;
 		public var gold:int = 0;
+		public var isAsleep:Boolean = false;
 		
 		public function get visionRadius():int { return blindCounter == 0 ? _visionRadius : 0; }
 		public function set visionRadius(amount:int):void { _visionRadius = amount; }
@@ -192,7 +193,12 @@ package
 			if (blindCounter > 0)
 				blindCounter--;
 			
-			if (freezeCounter < 1 && health > 0)
+				
+			if (isAsleep && (world.player.canSeeCreature(this) || this.canSeeCreature(world.player)))
+				isAsleep = false;
+			
+			
+			if (freezeCounter < 1 && health > 0 && !isAsleep)
 				doAi();
 		}
 		
@@ -253,6 +259,7 @@ package
 		
 		public function hurt(amount:int, causeOfDeath:String):void 
 		{
+			isAsleep = false;
 			_health -= amount;
 			
 			if (health < 1)

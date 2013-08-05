@@ -22,6 +22,7 @@ package
 			_health = maxHealth;
 			
 			usesMagic = true;
+			isAsleep = true;
 		}
 		
 		public override function doAi():void
