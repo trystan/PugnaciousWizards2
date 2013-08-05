@@ -52,21 +52,23 @@ package
 			vision = new SimpleLineOfSight(this);
 		}
 		
-		public function moveBy(x:Number, y:Number, isSlidingOnIce:Boolean = false, isBeingPushed:Boolean = false):void 
+		public function moveBy(x:Number, y:Number, isBeingPushed:Boolean = false):void 
 		{
-			if (freezeCounter > 0 && !isBeingPushed && !isSlidingOnIce)
+			if (freezeCounter > 0 && !isBeingPushed)
 			{
 				world.getTile(position.x, position.y).apply(this);
 				return;
 			}
 			
-			var applyTileEffect:Boolean = true;
-			
 			if (world.isClosedDoor(position.x + x, position.y + y))
 			{
 				if (isGoodGuy)
+				{
 					world.openDoor(position.x + x, position.y + y);
-				applyTileEffect = false;
+					
+					if (world.getTile(position.x + x, position.y + y, true).isOnFire)
+						burn(5);
+				}
 			}
 			else if (x == 0 && y == 0)
 			{
@@ -75,7 +77,6 @@ package
 			else if (world.getTile(position.x + x, position.y + y).blocksMovement)
 			{
 				vision.see(position.x + x, position.y + y);
-				applyTileEffect = false;
 			}
 			else
 			{
@@ -106,12 +107,7 @@ package
 			
 			getStuffHere();
 			
-			var here:Tile = world.getTile(position.x, position.y);
-			
-			if (here == Tile.frozen_water && isSlidingOnIce && !applyTileEffect)
-				; // nothing
-			else
-				here.apply(this);
+			world.getTile(position.x, position.y).apply(this);
 		}
 		
 		public function swapsPositionWith(other:Creature):Boolean
@@ -186,7 +182,7 @@ package
 			if (freezeCounter > 0)
 			{
 				popup("you're frozen", "You're frozen!", "One of the many hazards of being an adventurer is getting frozen solid every once in a while.\n\nYou'll thaw out in a couple turns - if you're still alive.");
-				hurt(1, "You have froze to death.");
+				hurt(1, "You have frozen to death.");
 				freezeCounter--;
 			}
 			
@@ -330,7 +326,7 @@ package
 		
 		public function poison(amount:int):void
 		{
-			poisonCounter += amount;
+			poisonCounter = Math.min(999, poisonCounter + amount);
 		}
 		
 		public function burn(amount:int):void 
@@ -338,7 +334,7 @@ package
 			if (freezeCounter > 0)
 				freezeCounter = 0;
 			else
-				fireCounter += amount;
+				fireCounter = Math.min(999, fireCounter + amount);
 		}
 		
 		public function freeze(amount:int):void 
@@ -349,7 +345,7 @@ package
 			if (fireCounter > 0)
 				fireCounter = 0;
 			else
-				freezeCounter += amount;
+				freezeCounter = Math.min(999, freezeCounter + amount);
 		}
 		
 		public function foreachVisibleLocation(callback:Function):void 

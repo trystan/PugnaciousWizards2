@@ -8,11 +8,11 @@ package
 	{
 		public static var dirt:Tile = new Tile("dirt", null, false, false, false);
 		public static var grass:Tile = new Tile("grass", null, false, false, false, 0.1);
-		public static var grass_fire:Tile = new Tile("burning grass", null, false, false, false);
+		public static var grass_fire:Tile = new Tile("burning grass", null, false, false, false, 0, null, true, true);
 		public static var tree:Tile = new Tile("tree", null, true, false, false, 0.25);
-		public static var tree_fire_3:Tile = new Tile("burning tree", null, true, false, false);
-		public static var tree_fire_2:Tile = new Tile("burning tree", null, true, false, false);
-		public static var tree_fire_1:Tile = new Tile("burning tree", null, true, false, false);
+		public static var tree_fire_3:Tile = new Tile("burning tree", null, true, false, false, 0, null, true, true);
+		public static var tree_fire_2:Tile = new Tile("burning tree", null, true, false, false, 0, null, true, true);
+		public static var tree_fire_1:Tile = new Tile("burning tree", null, true, false, false, 0, null, true, true);
 		public static var floor_light:Tile = new Tile("floor", null, false, false, false);
 		public static var floor_dark:Tile = new Tile("floor", null, false, false, false);
 		public static var mystic_floor_light:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic.", false, false, false);
@@ -25,8 +25,8 @@ package
 		public static var stone_door_opened:Tile = new Tile("open door", null, false, false, false, 0.25);
 		public static var wood_door_closed:Tile = new Tile("closed wooden door", "Bump into this wooden door to open it. Like all wooden things, it can be burnt.", true, true, true, 0.25);
 		public static var wood_door_opened:Tile = new Tile("open door", null, false, false, false, 0.25);
-		public static var door_closed_fire:Tile = new Tile("burning closed door", null, true, true, true);
-		public static var door_opened_fire:Tile = new Tile("burning open door", null, false, false, false);
+		public static var door_closed_fire:Tile = new Tile("burning closed door", null, true, true, true, 0, null, true, true);
+		public static var door_opened_fire:Tile = new Tile("burning open door", null, false, false, false, 0, null, true, true);
 		static public var tower:Tile = new Tile("arrow tower", "This tower shoots arrows in eight direction.", true, true, false);
 		static public var tower_1:Tile = new Tile("rotating arrow tower", "This tower rotates and shoots arrows in two directions.", true, true, false);
 		static public var tower_2:Tile = new Tile("rotating arrow tower", "This tower rotates and shoots arrows in two directions.", true, true, false);
@@ -43,8 +43,6 @@ package
 		public static var densePoisonFog:Tile = new Tile("poison fog", "This poisonous fog is too thick to see through.", false, false, true, 0, poisonedFogEffect, false);
 		public static var sparceHealingFog:Tile = new Tile("healing fog", "This healing fog is too thick to see through.", false, false, false, 0, healingFogEffect, false);
 		public static var denseHealingFog:Tile = new Tile("healing fog", "This healing fog is too thick to see through.", false, false, true, 0, healingFogEffect, false);
-		
-		
 		
 		static public var portal:Tile = new Tile("glowing portal", "This portal glows brightly. You can't see where it leads.", false, false, false, 0, portalEffect);
 		
@@ -88,8 +86,9 @@ package
 		public var blocksVision:Boolean;
 		public var standOnFunction:Function;
 		public var remember:Boolean;
+		public var isOnFire:Boolean;
 		
-		public function Tile(name:String, description:String, blocksMovement:Boolean, blocksArrows:Boolean, blocksVision:Boolean, burnChance:Number = 0.0, standOnFunction:Function = null, remember:Boolean = true) 
+		public function Tile(name:String, description:String, blocksMovement:Boolean, blocksArrows:Boolean, blocksVision:Boolean, burnChance:Number = 0.0, standOnFunction:Function = null, remember:Boolean = true, isOnFire:Boolean = false) 
 		{
 			this.name = name;
 			this.description = description;
@@ -99,6 +98,7 @@ package
 			this.burnChance = burnChance;
 			this.standOnFunction = standOnFunction;
 			this.remember = remember;
+			this.isOnFire = isOnFire;
 		}
 		
 		public function apply(creature:Creature):void
@@ -130,8 +130,13 @@ package
 		
 		private static function iceEffect(creature:Creature):void
 		{
-			if (!creature.world.getTile(creature.position.x + creature.movedBy.x, creature.position.y + creature.movedBy.y).blocksMovement)
-				creature.moveBy(creature.movedBy.x, creature.movedBy.y, true);
+			if (creature.movedBy.x == 0 && creature.movedBy.y == 0)
+				return;
+				
+			if (creature.world.getTile(creature.position.x + creature.movedBy.x, creature.position.y + creature.movedBy.y).blocksMovement)
+				return;
+				
+			creature.moveBy(creature.movedBy.x, creature.movedBy.y);
 		}
 		
 		private static function portalEffect(creature:Creature):void

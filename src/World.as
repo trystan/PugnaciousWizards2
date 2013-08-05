@@ -98,7 +98,18 @@ package
 		
 		public function openDoor(x:int, y:int):void
 		{
-			addTile(x, y, getTile(x, y, true) == Tile.wood_door_closed ? Tile.wood_door_opened : Tile.stone_door_opened);
+			switch (getTile(x, y, true))
+			{
+				case Tile.stone_door_closed:
+					addTile(x, y, Tile.stone_door_opened);
+					break;
+				case Tile.wood_door_closed:
+					addTile(x, y, Tile.wood_door_opened);
+					break;
+				case Tile.door_closed_fire:
+					addTile(x, y, Tile.door_opened_fire);
+					break;
+			}
 		}
 		
 		public function isClosedDoor(x:int, y:int):Boolean 
