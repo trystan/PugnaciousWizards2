@@ -25,6 +25,10 @@ package
 		{
 		}
 		
+		override public function poison(amount:int):void 
+		{
+		}
+		
 		public override function doAi():void
 		{
 			pathToNextTarget();
