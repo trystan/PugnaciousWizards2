@@ -21,8 +21,6 @@ package
 			
 			maxHealth *= 2;
 			_health = maxHealth;
-			
-			addMagicSpell(new PoisonFog());
 		}
 		
 		public override function doAi():void
