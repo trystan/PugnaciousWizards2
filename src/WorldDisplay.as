@@ -1,6 +1,7 @@
 package  
 {
 	import adobe.utils.CustomActions;
+	import animations.Animation;
 	import animations.Explosion;
 	import animations.Flash;
 	import animations.MagicMissileProjectile;
@@ -272,6 +273,9 @@ package
 			
 			for each (var effect:Object in world.animationEffects)
 			{
+				if ((effect as Animation).done)
+					continue;
+					
 				if (effect is Arrow)
 				{
 					if (!player.canSee(effect.x, effect.y))
