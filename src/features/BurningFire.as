@@ -1,10 +1,12 @@
 package features 
 {
+	import payloads.Fire;
 	public class BurningFire extends CastleFeature
 	{
 		public var x:int;
 		public var y:int;
 		public var world:World;
+		public var payload:Fire = new Fire();
 		
 		public function BurningFire(world:World, x:int, y:int) 
 		{
@@ -19,7 +21,12 @@ package features
 		{
 			var creature:Creature = world.getCreature(x, y);
 			if (creature != null)
-				creature.burn(5);
+			{
+				if (creature.fireCounter == 0)
+					creature.burn(5);
+				else
+					creature.burn(2);
+			}
 			
 			if (Math.random() < world.getTile(x, y - 1).burnChance)
 				world.addFeature(new BurningFire(world, x, y - 1));
@@ -70,13 +77,10 @@ package features
 					break;
 					
 				case Tile.grass:
-					if (Math.random() < 0.2)
-						world.addTile(x, y, Tile.grass_fire);
-					else
-						world.removeFeature(this);
+					world.addTile(x, y, Tile.grass_fire);
 					break;
 				case Tile.grass_fire:
-					if (Math.random() < 0.33)
+					if (Math.random() < 0.5)
 					{
 						world.addTile(x, y, Tile.burnt_ground);
 						world.removeFeature(this);

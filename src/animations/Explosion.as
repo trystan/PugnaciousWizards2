@@ -81,9 +81,9 @@ package animations
 		{
 			if (tiles.length > max || occupied.indexOf(n.x + "," + n.y) > -1)
 				return;
-				
+			
 			payload.hitTile(world, n.x, n.y);
-				
+			
 			if (world.getTile(n.x, n.y).blocksArrows)
 				return;
 				

@@ -63,7 +63,7 @@ package animations
 			if (creature != null)
 			{
 				creature.hurt(5, "You've been killed by a magic missile.");
-				creature.bleed(5);
+				creature.bleed(2);
 				_done = true;
 				
 				if (vx == 0 || vy == 0)
