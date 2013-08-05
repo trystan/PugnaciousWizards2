@@ -28,15 +28,15 @@ package screens
 			display = new WorldDisplay(hero, world);
 			
 			bind('enter', function():void { switchTo(new PlayScreen()); } );
-			bind('step', autoPlay);
 			bind('draw', draw);
 			bind('animate', animate);
 			
-			setTimeout(RL.current.trigger, 1000, 'step');
+			animateOneFrame(true);
 		}
 		
 		public function autoPlay():void 
 		{
+			doStep = false;
 			world.updateCreatures();
 			world.updateFeatures();
 			
@@ -55,7 +55,17 @@ package screens
 			terminal.writeCenter("-- press enter to begin --", 78);
 		}
 		
+		private var doStep:Boolean = true;
+		
 		public function animate(terminal:AsciiPanel):void
+		{
+			if (doStep)
+				autoPlay();
+			else
+				doAnimation(terminal);
+		}
+		
+		public function doAnimation(terminal:AsciiPanel):void
 		{
 			var didUpdate:Boolean = false;
 			while (world.animationEffects.length > 0 && !didUpdate)
@@ -66,10 +76,10 @@ package screens
 					didUpdate = true;
 			}
 			
-			if (world.animationEffects.length > 0 || didUpdate)
-				animateOneFrame(true);
-			else
-				setTimeout(RL.current.trigger, 1000 / 60.0, 'step');
+			if (world.animationEffects.length == 0 || !didUpdate)
+				doStep = true;
+				
+			animateOneFrame(true);
 		}
 	}
 }
