@@ -2,7 +2,7 @@ package
 {
 	public class Gold implements Item
 	{
-		public function get name():String { return "gold"; }
+		public function get name():String { return "piece of gold"; }
 		
 		public function get description():String { return "It's gold. Press the \"$\" key to buy spells with it."; }
 		

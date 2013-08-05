@@ -283,24 +283,25 @@ package
 				world.addTile(x2 * 8 + 4, y2 + 4, Tile.wall);
 		}
 		
+		private function getDoorTile():Tile
+		{
+			return Math.random() < 0.25 ? Tile.stone_door_closed : Tile.wood_door_closed;
+		}
+		
 		private function addCastleDoors(world:World):void 
 		{
-			for (var x:int = 0; x < 9; x++)
-			for (var y:int = 0; y < 9; y++)
+			for (var x:int = 0; x < 8; x++)
+			for (var y:int = 0; y < 8; y++)
 			{
 				var room:Room = getRoom(x, y);
 				
 				if (room.isConnectedEast)
-					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 8, Tile.door_closed);
-				if (room.isConnectedWest)
-					world.addTile(room.position.x * 8 + 4, room.position.y * 8 + 8, Tile.door_closed);
+					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 8, getDoorTile());
 				if (room.isConnectedSouth)
-					world.addTile(room.position.x * 8 + 8, room.position.y * 8 + 12, Tile.door_closed);
-				if (room.isConnectedNorth)
-					world.addTile(room.position.x * 8 + 8, room.position.y * 8 + 4, Tile.door_closed);
+					world.addTile(room.position.x * 8 + 8, room.position.y * 8 + 12, getDoorTile());
 			}
 			
-			world.addTile(4, 8 * 4 + 8, Tile.door_closed);
+			world.addTile(4, 8 * 4 + 8, Tile.wood_door_closed);
 		}
 		
 		private function addCastleBars(world:World):void 

@@ -34,10 +34,10 @@ package features
 				
 			switch (world.getTile(x, y))
 			{
-				case Tile.door_closed:
+				case Tile.wood_door_closed:
 					world.addTile(x, y, Tile.door_closed_fire);
 					break;
-				case Tile.door_opened:
+				case Tile.wood_door_opened:
 					world.addTile(x, y, Tile.door_opened_fire);
 					break;
 				case Tile.door_closed_fire:

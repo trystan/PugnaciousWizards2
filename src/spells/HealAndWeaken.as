@@ -6,7 +6,7 @@ package spells
 		
 		public function get description():String
 		{
-			return "Reduce you maximum health and vision to fully heal yourself.";
+			return "Reduce your maximum health and vision to fully heal yourself.";
 		}
 		
 		public function playerCast(player:Creature, callback:Function):void 

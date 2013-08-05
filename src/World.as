@@ -98,17 +98,21 @@ package
 		
 		public function openDoor(x:int, y:int):void
 		{
-			addTile(x, y, Tile.door_opened);
+			addTile(x, y, getTile(x, y, true) == Tile.wood_door_closed ? Tile.wood_door_opened : Tile.stone_door_opened);
 		}
 		
 		public function isClosedDoor(x:int, y:int):Boolean 
 		{
-			return getTile(x, y) == Tile.door_closed || getTile(x, y) == Tile.door_closed_fire;
+			return getTile(x, y) == Tile.stone_door_closed
+			    || getTile(x, y) == Tile.wood_door_closed
+			    || getTile(x, y) == Tile.door_closed_fire;
 		}
 		
 		public function isOpenedDoor(x:int, y:int):Boolean 
 		{
-			return getTile(x, y) == Tile.door_opened || getTile(x, y) == Tile.door_opened_fire;
+			return getTile(x, y) == Tile.stone_door_opened 
+			    || getTile(x, y) == Tile.wood_door_opened 
+			    || getTile(x, y) == Tile.door_opened_fire;
 		}
 		
 		private function isOutOfBounds(x:int, y:int):Boolean 

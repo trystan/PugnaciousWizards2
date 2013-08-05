@@ -588,9 +588,11 @@ package
 				case Tile.tree_fire_3: return tree;
 				case Tile.tree_fire_2: return tree;
 				case Tile.tree_fire_1: return tree;
-				case Tile.door_opened:
+				case Tile.stone_door_opened:
+				case Tile.wood_door_opened:
 				case Tile.door_opened_fire: return "/";
-				case Tile.door_closed:
+				case Tile.stone_door_closed:
+				case Tile.wood_door_closed:
 				case Tile.door_closed_fire: return "+";
 				case Tile.wall: return "#";
 				case Tile.bars_h: return String.fromCharCode(205);
@@ -660,8 +662,10 @@ package
 				case Tile.tree_fire_3: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.1);
 				case Tile.tree_fire_2: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.3);
 				case Tile.tree_fire_1: return fire.lerp(Color.integer(treeBitmap.getPixel(x, y)), 0.5);
-				case Tile.door_opened: return wood_fg;
-				case Tile.door_closed: return wood_fg;
+				case Tile.stone_door_opened: return metal_fg;
+				case Tile.stone_door_closed: return metal_fg;
+				case Tile.wood_door_opened: return wood_fg;
+				case Tile.wood_door_closed: return wood_fg;
 				case Tile.door_opened_fire: return fire.lerp(wood_bg, 0.2);
 				case Tile.door_closed_fire: return fire.lerp(wood_bg, 0.2);
 				case Tile.wall: return stone_fg;
@@ -738,8 +742,10 @@ package
 				case Tile.tree_fire_3: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.1);
 				case Tile.tree_fire_2: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.3);
 				case Tile.tree_fire_1: return fire.lerp(Color.integer(grassBackgroundBitmap.getPixel(x, y)), 0.5);
-				case Tile.door_opened: return wood_bg;
-				case Tile.door_closed: return wood_bg;
+				case Tile.stone_door_opened: return tile_4;
+				case Tile.stone_door_closed: return tile_4;
+				case Tile.wood_door_opened: return wood_bg;
+				case Tile.wood_door_closed: return wood_bg;
 				case Tile.door_opened_fire: return fire.lerp(wood_bg, 0.1);
 				case Tile.door_closed_fire: return fire.lerp(wood_bg, 0.1);
 				case Tile.wall: return stone_bg;

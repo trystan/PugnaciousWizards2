@@ -95,7 +95,7 @@ package
 				doors.push(new Point(worldPosition.x + 7, worldPosition.y + 3));
 			
 			var cardinal:AStar = new AStar(
-				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement && world.getTile(x, y) != Tile.door_closed; },
+				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement || world.isClosedDoor(x, y); },
 				doors.shift(), false);
 			
 			cardinal.offsets = [[ -1, 0], [1, 0], [0, -1], [0, 1]];

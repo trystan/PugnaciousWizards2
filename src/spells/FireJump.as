@@ -46,7 +46,7 @@ package spells
 				var x:int = ai.position.x + ox;
 				var y:int = ai.position.y + oy;
 				
-				if (ai.world.getTile(x, y) != Tile.door_opened || ai.world.getTile(x, y).blocksMovement)
+				if (ai.world.getTile(x, y) != Tile.wood_door_opened || ai.world.getTile(x, y).blocksMovement)
 					continue;
 				
 				if (ai.world.getTile(x - 1, y - 1) == Tile.tree

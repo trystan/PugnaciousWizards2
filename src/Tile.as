@@ -7,7 +7,6 @@ package
 	public class Tile 
 	{
 		public static var dirt:Tile = new Tile("dirt", null, false, false, false);
-		
 		public static var grass:Tile = new Tile("grass", null, false, false, false, 0.1);
 		public static var grass_fire:Tile = new Tile("burning grass", null, false, false, false);
 		public static var tree:Tile = new Tile("tree", null, true, false, false, 0.25);
@@ -22,8 +21,10 @@ package
 		public static var bars_v:Tile = new Tile("bars", null, true, false, false);
 		public static var wall:Tile = new Tile("wall", null, true, true, true);
 		public static var moving_wall:Tile = new Tile("moving wall on a track", "This giant block moves on a track etched into the floor.", true, true, false, 0, null, false);
-		public static var door_closed:Tile = new Tile("closed door", "Bump into this wooden door to open it.", true, true, true, 0.25);
-		public static var door_opened:Tile = new Tile("open door", null, false, false, false, 0.25);
+		public static var stone_door_closed:Tile = new Tile("closed stone door", "Bump into this stone door to open it. Like all stone, it can't be burnt.", true, true, true, 0.25);
+		public static var stone_door_opened:Tile = new Tile("open door", null, false, false, false, 0.25);
+		public static var wood_door_closed:Tile = new Tile("closed wooden door", "Bump into this wooden door to open it. Like all wooden things, it can be burnt.", true, true, true, 0.25);
+		public static var wood_door_opened:Tile = new Tile("open door", null, false, false, false, 0.25);
 		public static var door_closed_fire:Tile = new Tile("burning closed door", null, true, true, true);
 		public static var door_opened_fire:Tile = new Tile("burning open door", null, false, false, false);
 		static public var tower:Tile = new Tile("arrow tower", "This tower shoots arrows in eight direction.", true, true, false);
@@ -38,10 +39,10 @@ package
 		static public var poison_water:Tile = new Tile("poison water", "There is a shallow pool of poisoned water here.", false, false, false, 0, poisonedWaterEffect);
 		static public var frozen_water:Tile = new Tile("ice", "There is some very slippery ice here.", false, false, false, 0, iceEffect);
 		
-		public static var sparcePoisonFog:Tile = new Tile("poison fog", "Poisonous fog", false, false, false, 0, poisonedFogEffect, false);
-		public static var densePoisonFog:Tile = new Tile("poison fog", "Poisonous fog", false, false, true, 0, poisonedFogEffect, false);
-		public static var sparceHealingFog:Tile = new Tile("healing fog", "Healing fog", false, false, false, 0, healingFogEffect, false);
-		public static var denseHealingFog:Tile = new Tile("healing fog", "Healing fog", false, false, true, 0, healingFogEffect, false);
+		public static var sparcePoisonFog:Tile = new Tile("poison fog", "This poisonous fog is too thick to see through.", false, false, false, 0, poisonedFogEffect, false);
+		public static var densePoisonFog:Tile = new Tile("poison fog", "This poisonous fog is too thick to see through.", false, false, true, 0, poisonedFogEffect, false);
+		public static var sparceHealingFog:Tile = new Tile("healing fog", "This healing fog is too thick to see through.", false, false, false, 0, healingFogEffect, false);
+		public static var denseHealingFog:Tile = new Tile("healing fog", "This healing fog is too thick to see through.", false, false, true, 0, healingFogEffect, false);
 		
 		
 		
