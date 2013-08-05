@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Point;
+	import spells.PoisonFog;
 	import spells.Spell;
 	import spells.SpellCastAction;
 	import knave.Dijkstra;
@@ -20,6 +21,8 @@ package
 			
 			maxHealth *= 2;
 			_health = maxHealth;
+			
+			addMagicSpell(new PoisonFog());
 		}
 		
 		public override function doAi():void

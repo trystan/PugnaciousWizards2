@@ -83,10 +83,8 @@ package
 			if (!ignoreFog) 
 			{
 				var fog:Object = fogAmount[x + "," + y];
-				if (fog != null && fog.amount > 3)
-					return Tile.denseFogFor(fog.payload);
 				if (fog != null && fog.amount > 0)
-					return Tile.sparceFogFor(fog.payload);
+					return Tile.fogFor(fog.payload);
 			}
 			
 			var t:Tile = tiles[x][y];

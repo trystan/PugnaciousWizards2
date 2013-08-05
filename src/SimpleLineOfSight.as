@@ -84,14 +84,17 @@ package
 				return;
 			}
 			
+			var vision:Number = 1.0;
 			for each (var p:Point in Line.betweenCoordinates(viewer.position.x, viewer.position.y, x, y).points)
 			{
 				if (currentlySeen[x][y] != UNKNOWN)
 					return;
-					
+				
 				var tileInLos:Tile = viewer.world.getTile(p.x, p.y);
 				
-				if (tileInLos.blocksVision && !(p.x == x && p.y == y))
+				vision -= tileInLos.blocksVision;
+				
+				if (vision <= 0 && !(p.x == x && p.y == y))
 				{
 					currentlySeen[x][y] = NOT_VISIBLE;
 					return;

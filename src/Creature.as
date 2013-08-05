@@ -363,6 +363,17 @@ package
 			}
 		}
 		
+		public function foreachVisibleCreature(callback:Function):void 
+		{
+			for each (var other:Creature in world.creatures)
+			{
+				if (!canSeeCreature(other))
+					continue;
+				
+				callback(other);
+			}
+		}
+		
 		public function blind(amount:int):void 
 		{
 			if (blindCounter == 0)

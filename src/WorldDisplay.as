@@ -575,10 +575,8 @@ package
 		{
 			switch (tile)
 			{
-				case Tile.sparceHealingFog:
-				case Tile.denseHealingFog:
-				case Tile.sparcePoisonFog:
-				case Tile.densePoisonFog: return String.fromCharCode(177);
+				case Tile.poisonFog:
+				case Tile.healingFog: return String.fromCharCode(177);
 				case Tile.poison_water:
 				case Tile.shallow_water: return water;
 				case Tile.frozen_water: return "="; // String.fromCharCode(240);
@@ -652,10 +650,8 @@ package
 		{
 			switch (tile)
 			{
-				case Tile.sparceHealingFog:
-				case Tile.denseHealingFog: return Color.hsv(300, 66, 66);
-				case Tile.sparcePoisonFog:
-				case Tile.densePoisonFog: return Color.hsv(90, 66, 66);
+				case Tile.healingFog: return Color.hsv(300, 66, 66);
+				case Tile.poisonFog: return Color.hsv(90, 66, 66);
 				case Tile.poison_water: return Color.hsv(90, 66, 66).lerp(water_fg, 0.5);
 				case Tile.shallow_water: return water_fg;
 				case Tile.frozen_water: return ice;
@@ -732,10 +728,8 @@ package
 		{
 			switch (tile)
 			{
-				case Tile.sparceHealingFog:
-				case Tile.denseHealingFog: return Color.hsv(300, 33, 33);
-				case Tile.sparcePoisonFog:
-				case Tile.densePoisonFog: return Color.hsv(90, 33, 33);
+				case Tile.healingFog: return Color.hsv(300, 33, 33);
+				case Tile.poisonFog: return Color.hsv(90, 33, 33);
 				case Tile.poison_water: return Color.hsv(90, 33, 33).lerp(water_bg, 0.5);
 				case Tile.shallow_water: return water_bg;
 				case Tile.frozen_water: return water_fg;
