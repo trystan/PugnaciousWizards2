@@ -26,7 +26,7 @@ package
 		
 		public function World()
 		{
-			tiles = grid(Tile.dirt);
+			tiles = grid(Tile.grass);
 			blood = grid(0);
 		}
 		
