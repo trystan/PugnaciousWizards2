@@ -32,6 +32,14 @@ package features
 			updateWorld();
 		}
 		
+		override public function retheme(payload:Payload):void
+		{
+			if (payload is Ice)
+				return;
+				
+			this.payload = payload;
+		}
+		
 		override public function update():void
 		{
 			directionIndex++;

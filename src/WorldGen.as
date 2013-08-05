@@ -2,6 +2,10 @@ package
 {
 	import flash.geom.Orientation3D;
 	import flash.geom.Point;
+	import payloads.Fire;
+	import payloads.Ice;
+	import payloads.Payload;
+	import payloads.Poison;
 	import spells.BloodBurn;
 	import spells.BoneSplode;
 	import spells.FireJump;
@@ -98,11 +102,36 @@ package
 			
 			world.rooms = roomList;
 			
+			addThemedAreas(world);
+			
 			world.addItem(2, 33, new Scroll(new FireJump()));
 			world.addItem(3, 35, new Scroll(new MagicMissile()));
 			world.addItem(2, 37, new Scroll(new HealAndWeaken()));
 			
 			addGold(world);
+		}
+		
+		private function addThemedAreas(world:World):void
+		{
+			for each (var payload:Payload in [new Fire(), new Ice(), new Poison()])
+			{
+				var rooms:Array = [getRoom((int)(Math.random() * 9), (int)(Math.random() * 9))];
+				var count:int = 0;
+				while (count++ < 4)
+				{
+					var room:Room = rooms.shift();
+					room.retheme(world, payload);
+					
+					if (room.isConnectedNorth)
+						rooms.push(getRoom(room.position.x, room.position.y - 1));
+					if (room.isConnectedSouth)
+						rooms.push(getRoom(room.position.x, room.position.y + 1));
+					if (room.isConnectedWest)
+						rooms.push(getRoom(room.position.x - 1, room.position.y));
+					if (room.isConnectedEast)
+						rooms.push(getRoom(room.position.x + 1, room.position.y));
+				}
+			}
 		}
 		
 		private function addGold(world:World):void

@@ -24,6 +24,21 @@ package features
 			while (payload is Ice)
 				payload = PayloadFactory.random();
 			
+			addTile();
+		}
+		
+		override public function retheme(payload:Payload):void
+		{
+			if (payload is Ice)
+				return;
+				
+			this.payload = payload;
+			
+			addTile();
+		}
+		
+		private function addTile():void
+		{
 			if (payload is Fire)
 				world.addTile(x, y, Tile.fire_tower);
 			else if (payload is Poison)

@@ -38,7 +38,7 @@ version 0.6 (done)
 * spell shop
 
 version 0.7 (in progress)
-* themed areas (fire, ice, etc)
+* themed areas (fire, ice, poison)
 
 version 0.8
 * save/continue

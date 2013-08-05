@@ -4,6 +4,7 @@ package
 	import flash.display.InterpolationMethod;
 	import flash.geom.Point;
 	import knave.AStar;
+	import payloads.Payload;
 	import themes.RoomTheme;
 	import themes.RoomThemeFactory;
 	import themes.TreasureRoom;
@@ -42,6 +43,18 @@ package
 			if (isConnectedEast) connections++;
 			
 			return connections == 1;
+		}
+		
+		public function retheme(world:World, payload:Payload):void
+		{
+			for each (var feature:CastleFeature in roomFeatures)
+				feature.retheme(payload);
+				
+			for (var x:int = 0; x < 7; x++)
+			for (var y:int = 0; y < 7; y++)
+			{
+				payload.hitTile(world, worldPosition.x + x, worldPosition.y + y);
+			}
 		}
 		
 		public function apply(world:World):void

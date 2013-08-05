@@ -29,6 +29,11 @@ package features
 			updateWorld();
 		}
 		
+		override public function retheme(payload:Payload):void
+		{
+			this.payload = payload;
+		}
+		
 		override public function update():void
 		{
 			directionIndex++;

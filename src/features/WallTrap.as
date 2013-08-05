@@ -2,6 +2,7 @@ package features
 {
 	import animations.Arrow;
 	import flash.geom.Point;
+	import payloads.Ice;
 	import payloads.Payload;
 	
 	public class WallTrap extends CastleFeature
@@ -21,6 +22,14 @@ package features
 			this.ticks = ticks;
 			this.payload = payload;
 			this.howOften = howOften;
+		}
+		
+		override public function retheme(payload:Payload):void
+		{
+			if (payload is Ice)
+				howOften = 3;
+				
+			this.payload = payload;
 		}
 		
 		override public function update():void
