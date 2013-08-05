@@ -35,9 +35,9 @@ package
 		static public var tower_5:Tile = new Tile("rotating arrow tower", "This tower rotates and shoots arrows in four directions.", true, true, false);
 		static public var tower_6:Tile = new Tile("rotating arrow tower", "This tower rotates and shoots arrows in four directions.", true, true, false);
 		static public var burnt_ground:Tile = new Tile("burt ground", null, false, false, false);
-		static public var shallow_water:Tile = new Tile("shallow water", "There is a shallow pool of water here.", false, false, false, 0, waterEffect);
-		static public var poison_water:Tile = new Tile("poison water", "There is a shallow pool of poisoned water here.", false, false, false, 0, poisonedWaterEffect);
-		static public var frozen_water:Tile = new Tile("ice", "There is some very slippery ice here.", false, false, false, 0, iceEffect);
+		static public var shallow_water:Tile = new Tile("pool of shallow water", "There is a shallow pool of water here.", false, false, false, 0, waterEffect);
+		static public var poison_water:Tile = new Tile("pool of poison water", "There is a shallow pool of poisoned water here.", false, false, false, 0, poisonedWaterEffect);
+		static public var frozen_water:Tile = new Tile("pool of frozen water", "There is some very slippery ice here.", false, false, false, 0, iceEffect);
 		
 		public static var sparcePoisonFog:Tile = new Tile("poison fog", "This poisonous fog is too thick to see through.", false, false, false, 0, poisonedFogEffect, false);
 		public static var densePoisonFog:Tile = new Tile("poison fog", "This poisonous fog is too thick to see through.", false, false, true, 0, poisonedFogEffect, false);
@@ -131,7 +131,7 @@ package
 		private static function iceEffect(creature:Creature):void
 		{
 			if (!creature.world.getTile(creature.position.x + creature.movedBy.x, creature.position.y + creature.movedBy.y).blocksMovement)
-				creature.moveBy(creature.movedBy.x, creature.movedBy.y);
+				creature.moveBy(creature.movedBy.x, creature.movedBy.y, true);
 		}
 		
 		private static function portalEffect(creature:Creature):void

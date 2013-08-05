@@ -26,7 +26,7 @@ package
 		public function set visionRadius(amount:int):void { _visionRadius = amount; }
 		
 		
-		private var _visionRadius:int = 9;
+		private var _visionRadius:int = 13;
 		public var bleedingCounter:int = 0;
 		private var vision:SimpleLineOfSight;
 		
@@ -52,9 +52,9 @@ package
 			vision = new SimpleLineOfSight(this);
 		}
 		
-		public function moveBy(x:Number, y:Number):void 
+		public function moveBy(x:Number, y:Number, isSlidingOnIce:Boolean = false, isBeingPushed:Boolean = false):void 
 		{
-			if (freezeCounter > 0)
+			if (freezeCounter > 0 && !isBeingPushed && !isSlidingOnIce)
 			{
 				world.getTile(position.x, position.y).apply(this);
 				return;
@@ -66,6 +66,7 @@ package
 			{
 				if (isGoodGuy)
 					world.openDoor(position.x + x, position.y + y);
+				applyTileEffect = false;
 			}
 			else if (x == 0 && y == 0)
 			{
@@ -105,8 +106,12 @@ package
 			
 			getStuffHere();
 			
-			if (applyTileEffect)
-				world.getTile(position.x, position.y).apply(this);
+			var here:Tile = world.getTile(position.x, position.y);
+			
+			if (here == Tile.frozen_water && isSlidingOnIce && !applyTileEffect)
+				; // nothing
+			else
+				here.apply(this);
 		}
 		
 		public function swapsPositionWith(other:Creature):Boolean
@@ -116,7 +121,8 @@ package
 		
 		public function isEnemy(other:Creature):Boolean
 		{
-			return this.isGoodGuy != other.isGoodGuy;
+			return this.isGoodGuy != other.isGoodGuy 
+						&& !(other.swapsPositionWith(this) || this.swapsPositionWith(other));
 		}
 		
 		protected function melee(other:Creature):void 
@@ -174,6 +180,7 @@ package
 				popup("you're bleeding", "You're bleeding!", "One of the many hazards of being an adventurer is getting hurt too much at once and bleeding.\n\nYour wounds will stop bleeding in a few turns - hopefully you'l still be alive.");
 				hurt(1, "You have bleed to death.");
 				bleedingCounter--;
+				world.addBlood(position.x, position.y, 1);
 			}
 			
 			if (freezeCounter > 0)
@@ -294,8 +301,8 @@ package
 		
 		public function bleed(amount:int):void
 		{
-			bleedingCounter += amount;
-			world.addBlood(position.x, position.y, amount + 1);
+			bleedingCounter = Math.min(999, bleedingCounter + amount);
+			world.addBlood(position.x, position.y, amount);
 		}
 		
 		public function canSeeCreature(other:Creature):Boolean

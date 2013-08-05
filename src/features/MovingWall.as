@@ -58,7 +58,7 @@ package features
 			var creature:Creature = world.getCreature(x, y);
 			if (creature != null)
 			{
-				creature.moveBy(mx, my);
+				creature.moveBy(mx, my, false, true);
 				if (world.getTile(x + mx, y + my).blocksMovement)
 					creature.hurt(1000, "You've been crushed to death by a moving wall piece.");
 			}

@@ -111,78 +111,80 @@ package
 		}
 		
 		public function addRoomArchitecture(world:World):void
-		{
-			var chance:Number = 0.075;
-			var r:Number = Math.random();
-			
+		{	
 			var tile:Tile = Math.random() < 0.125 ? Tile.tree : Tile.wall;
 			
-			if (r < chance * 2)
+			var r:Number = Math.random();
+			
+			if (r < 0.50)
+				return;
+				
+			if (r < 0.75)
 			{
 				world.addTile(worldPosition.x + 0, worldPosition.y + 0, tile);
 				world.addTile(worldPosition.x + 6, worldPosition.y + 0, tile);
 				world.addTile(worldPosition.x + 6, worldPosition.y + 6, tile);
 				world.addTile(worldPosition.x + 0, worldPosition.y + 6, tile);
+				return;
 			}
-			else if (r < chance * 3)
+			
+			switch ((int)(Math.random() * 5))
 			{
-				world.addTile(worldPosition.x + 1, worldPosition.y + 1, tile);
-				world.addTile(worldPosition.x + 5, worldPosition.y + 1, tile);
-				world.addTile(worldPosition.x + 5, worldPosition.y + 5, tile);
-				world.addTile(worldPosition.x + 1, worldPosition.y + 5, tile);
-				
-				if (Math.random() < 0.25)
-				{
+				case 0:
+					world.addTile(worldPosition.x + 1, worldPosition.y + 1, tile);
+					world.addTile(worldPosition.x + 5, worldPosition.y + 1, tile);
+					world.addTile(worldPosition.x + 5, worldPosition.y + 5, tile);
+					world.addTile(worldPosition.x + 1, worldPosition.y + 5, tile);
+					
+					if (Math.random() < 0.25)
+					{
+						world.addTile(worldPosition.x + 1, worldPosition.y + 3, tile);
+						world.addTile(worldPosition.x + 3, worldPosition.y + 1, tile);
+						world.addTile(worldPosition.x + 3, worldPosition.y + 5, tile);
+						world.addTile(worldPosition.x + 5, worldPosition.y + 3, tile);
+					}
+				break;
+				case 1:
+					if (isConnectedNorth && Math.random() < 0.5)
+					{
+						tile = Math.random() < 0.5 ? Tile.tree : Tile.wall;
+						world.addTile(worldPosition.x + 2, worldPosition.y + 0, tile);
+						world.addTile(worldPosition.x + 4, worldPosition.y + 0, tile);
+					}
+					if (isConnectedSouth  && Math.random() < 0.5)
+					{
+						tile = Math.random() < 0.5 ? Tile.tree : Tile.wall;
+						world.addTile(worldPosition.x + 2, worldPosition.y + 6, tile);
+						world.addTile(worldPosition.x + 4, worldPosition.y + 6, tile);
+					}
+					if (isConnectedWest && Math.random() < 0.5)
+					{
+						tile = Math.random() < 0.5 ? Tile.tree : Tile.wall;
+						world.addTile(worldPosition.x + 0, worldPosition.y + 2, tile);
+						world.addTile(worldPosition.x + 0, worldPosition.y + 4, tile);
+					}
+					if (isConnectedEast  && Math.random() < 0.5)
+					{
+						tile = Math.random() < 0.5 ? Tile.tree : Tile.wall;
+						world.addTile(worldPosition.x + 6, worldPosition.y + 2, tile);
+						world.addTile(worldPosition.x + 6, worldPosition.y + 4, tile);
+					}
+					break;
+				case 2:
+					world.addTile(worldPosition.x + 3, worldPosition.y + 3, tile);
+					break;
+				case 3:
 					world.addTile(worldPosition.x + 1, worldPosition.y + 3, tile);
 					world.addTile(worldPosition.x + 3, worldPosition.y + 1, tile);
 					world.addTile(worldPosition.x + 3, worldPosition.y + 5, tile);
 					world.addTile(worldPosition.x + 5, worldPosition.y + 3, tile);
-				}
-			}
-			else if (r < chance * 4)
-			{
-				if (isConnectedNorth && Math.random() < 0.5)
-				{
-					tile = Math.random() < 0.5 ? Tile.tree : Tile.wall;
-					world.addTile(worldPosition.x + 2, worldPosition.y + 0, tile);
-					world.addTile(worldPosition.x + 4, worldPosition.y + 0, tile);
-				}
-				if (isConnectedSouth  && Math.random() < 0.5)
-				{
-					tile = Math.random() < 0.5 ? Tile.tree : Tile.wall;
-					world.addTile(worldPosition.x + 2, worldPosition.y + 6, tile);
-					world.addTile(worldPosition.x + 4, worldPosition.y + 6, tile);
-				}
-				if (isConnectedWest && Math.random() < 0.5)
-				{
-					tile = Math.random() < 0.5 ? Tile.tree : Tile.wall;
-					world.addTile(worldPosition.x + 0, worldPosition.y + 2, tile);
-					world.addTile(worldPosition.x + 0, worldPosition.y + 4, tile);
-				}
-				if (isConnectedEast  && Math.random() < 0.5)
-				{
-					tile = Math.random() < 0.5 ? Tile.tree : Tile.wall;
-					world.addTile(worldPosition.x + 6, worldPosition.y + 2, tile);
-					world.addTile(worldPosition.x + 6, worldPosition.y + 4, tile);
-				}
-			}
-			else if (r < chance * 5)
-			{
-				world.addTile(worldPosition.x + 3, worldPosition.y + 3, tile);
-			}
-			else if (Math.random() < chance * 6)
-			{
-				world.addTile(worldPosition.x + 1, worldPosition.y + 3, tile);
-				world.addTile(worldPosition.x + 3, worldPosition.y + 1, tile);
-				world.addTile(worldPosition.x + 3, worldPosition.y + 5, tile);
-				world.addTile(worldPosition.x + 5, worldPosition.y + 3, tile);
-			}
-			else if (Math.random() < chance * 7)
-			{
-				world.addTile(worldPosition.x + 2, worldPosition.y + 2, tile);
-				world.addTile(worldPosition.x + 2, worldPosition.y + 4, tile);
-				world.addTile(worldPosition.x + 4, worldPosition.y + 4, tile);
-				world.addTile(worldPosition.x + 4, worldPosition.y + 2, tile);
+					break;
+				case 4:
+					world.addTile(worldPosition.x + 2, worldPosition.y + 2, tile);
+					world.addTile(worldPosition.x + 2, worldPosition.y + 4, tile);
+					world.addTile(worldPosition.x + 4, worldPosition.y + 4, tile);
+					world.addTile(worldPosition.x + 4, worldPosition.y + 2, tile);
+					break;
 			}
 		}
 				

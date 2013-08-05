@@ -98,9 +98,9 @@ package
 			
 			world.rooms = roomList;
 			
-			world.addItem(2, 28, new Scroll(new FireJump()));
-			world.addItem(3, 32, new Scroll(new MagicMissile()));
-			world.addItem(2, 36, new Scroll(new HealAndWeaken()));
+			world.addItem(2, 33, new Scroll(new FireJump()));
+			world.addItem(3, 35, new Scroll(new MagicMissile()));
+			world.addItem(2, 37, new Scroll(new HealAndWeaken()));
 			
 			addGold(world);
 		}

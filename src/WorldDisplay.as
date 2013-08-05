@@ -49,8 +49,8 @@ package
 		private var stone_fg:Color = Color.hsv(200, 5, 45);
 		private var tile_1:Color = Color.hsv(200, 5, 10);
 		private var tile_2:Color = Color.hsv(200, 5, 13);
-		private var tile_3:Color = Color.hsv(200, 5, 13);
-		private var tile_4:Color = Color.hsv(200, 5, 16);
+		private var tile_3:Color = Color.hsv(200, 5, 15);
+		private var tile_4:Color = Color.hsv(200, 5, 18);
 		private var metal_fg:Color = Color.hsv(240, 20, 90);
 		private var blood:Color = Color.hsv(0, 66, 35);
 		private var memory:Color = Color.hsv(240, 75, 5);
