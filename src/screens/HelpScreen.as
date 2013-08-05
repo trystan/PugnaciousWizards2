@@ -39,12 +39,14 @@ package screens
 			"    s          b j n",
 			"",
 			"Press ? to view this help",
-			"Press 1 through 9 to cast a spell",
+			"Press x to examine your surroundings",
+			"Press $ to buy spells",
+			"Press 1 through 9 to cast that spell",
 			"",
 			"Bump into others to attack them",
-			"Stand on items to pick them up",
+			"Stand on gold, scrolls, and amulet pieces to pick them up",
 			"",
-			"Be careful with your magic and don't give up.",
+			"  Be careful with your magic and don't give up.",
 		];
 		
 		private function draw(terminal:AsciiPanel):void
