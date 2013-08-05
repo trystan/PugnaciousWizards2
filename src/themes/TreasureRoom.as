@@ -7,6 +7,8 @@ package themes
 	{
 		public function apply(room:Room, world:World):void
 		{
+			room.allowsVariation = false;
+			
 			if (room.isEndRoom)
 				endRoom(room, world);
 			else if (Math.random() < Globals.rarePercent)

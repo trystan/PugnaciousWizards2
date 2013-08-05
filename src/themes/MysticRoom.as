@@ -6,6 +6,8 @@ package themes
 	{
 		public function apply(room:Room, world:World):void
 		{
+			room.allowsVariation = false;
+			
 			room.forbidMagic = true;
 			
 			for (var x:int = room.position.x * 8 + 5; x < room.position.x * 8 + 12; x++)

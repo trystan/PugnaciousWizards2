@@ -8,6 +8,7 @@ package themes
 	{
 		public function apply(room:Room, world:World):void
 		{
+			room.allowsVariation = false;
 			
 			var blueprint:Array = [
 				"0000000",

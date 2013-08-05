@@ -7,6 +7,8 @@ package themes
 	{
 		public function apply(room:Room, world:World):void 
 		{
+			room.allowsVariation = false;
+			
 			switch ((int)(Math.random() * 5))
 			{
 				case 0: circles(room, world); break;

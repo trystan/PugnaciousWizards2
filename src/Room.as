@@ -15,6 +15,8 @@ package
 		public var theme:RoomTheme;
 		public var roomFeatures:Array = [];
 		
+		public var allowsVariation:Boolean = true;
+		
 		public var isConnectedNorth:Boolean = false;
 		public var isConnectedSouth:Boolean = false;
 		public var isConnectedWest:Boolean = false;
@@ -86,11 +88,11 @@ package
 			if (isConnectedNorth)
 				doors.push(new Point(worldPosition.x + 3, worldPosition.y));
 			if (isConnectedSouth)
-				doors.push(new Point(worldPosition.x + 3, worldPosition.y + 7));
+				doors.push(new Point(worldPosition.x + 3, worldPosition.y + 6));
 			if (isConnectedWest)
 				doors.push(new Point(worldPosition.x, worldPosition.y + 3));
 			if (isConnectedEast)
-				doors.push(new Point(worldPosition.x + 7, worldPosition.y + 3));
+				doors.push(new Point(worldPosition.x + 6, worldPosition.y + 3));
 			
 			var cardinal:AStar = new AStar(
 				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement 
@@ -115,26 +117,54 @@ package
 		{
 			var r:Number = Math.random();
 			
+			var tile:Tile = Math.random() < 0.125 ? Tile.tree : Tile.wall;
+			
 			if (r < 0.125 * 2)
 			{
-				world.addTile(worldPosition.x + 0, worldPosition.y + 0, Tile.wall);
-				world.addTile(worldPosition.x + 6, worldPosition.y + 0, Tile.wall);
-				world.addTile(worldPosition.x + 6, worldPosition.y + 6, Tile.wall);
-				world.addTile(worldPosition.x + 0, worldPosition.y + 6, Tile.wall);
+				world.addTile(worldPosition.x + 0, worldPosition.y + 0, tile);
+				world.addTile(worldPosition.x + 6, worldPosition.y + 0, tile);
+				world.addTile(worldPosition.x + 6, worldPosition.y + 6, tile);
+				world.addTile(worldPosition.x + 0, worldPosition.y + 6, tile);
 			}
 			else if (r < 0.125 * 3)
 			{
-				world.addTile(worldPosition.x + 1, worldPosition.y + 1, Tile.wall);
-				world.addTile(worldPosition.x + 5, worldPosition.y + 1, Tile.wall);
-				world.addTile(worldPosition.x + 5, worldPosition.y + 5, Tile.wall);
-				world.addTile(worldPosition.x + 1, worldPosition.y + 5, Tile.wall);
+				world.addTile(worldPosition.x + 1, worldPosition.y + 1, tile);
+				world.addTile(worldPosition.x + 5, worldPosition.y + 1, tile);
+				world.addTile(worldPosition.x + 5, worldPosition.y + 5, tile);
+				world.addTile(worldPosition.x + 1, worldPosition.y + 5, tile);
 				
 				if (Math.random() < 0.25)
 				{
-					world.addTile(worldPosition.x + 1, worldPosition.y + 3, Tile.wall);
-					world.addTile(worldPosition.x + 3, worldPosition.y + 1, Tile.wall);
-					world.addTile(worldPosition.x + 3, worldPosition.y + 5, Tile.wall);
-					world.addTile(worldPosition.x + 5, worldPosition.y + 3, Tile.wall);
+					world.addTile(worldPosition.x + 1, worldPosition.y + 3, tile);
+					world.addTile(worldPosition.x + 3, worldPosition.y + 1, tile);
+					world.addTile(worldPosition.x + 3, worldPosition.y + 5, tile);
+					world.addTile(worldPosition.x + 5, worldPosition.y + 3, tile);
+				}
+			}
+			else if (r < 0.125 * 5)
+			{
+				tile = Math.random() < 0.5 ? Tile.tree : Tile.wall;
+				
+				if (isConnectedNorth && Math.random() < 0.5)
+				{
+					world.addTile(worldPosition.x + 2, worldPosition.y + 0, Tile.tree);
+					world.addTile(worldPosition.x + 4, worldPosition.y + 0, Tile.tree);
+				}
+				if (isConnectedSouth  && Math.random() < 0.5)
+				{
+					world.addTile(worldPosition.x + 2, worldPosition.y + 6, Tile.tree);
+					world.addTile(worldPosition.x + 4, worldPosition.y + 6, Tile.tree);
+				}
+				
+				if (isConnectedWest && Math.random() < 0.5)
+				{
+					world.addTile(worldPosition.x + 0, worldPosition.y + 2, Tile.tree);
+					world.addTile(worldPosition.x + 0, worldPosition.y + 4, Tile.tree);
+				}
+				if (isConnectedEast  && Math.random() < 0.5)
+				{
+					world.addTile(worldPosition.x + 6, worldPosition.y + 2, Tile.tree);
+					world.addTile(worldPosition.x + 6, worldPosition.y + 4, Tile.tree);
 				}
 			}
 		}
