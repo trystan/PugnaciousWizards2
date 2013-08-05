@@ -41,14 +41,14 @@ package features
 					world.addTile(x, y, Tile.door_opened_fire);
 					break;
 				case Tile.door_closed_fire:
-					if (Math.random() < 0.33)
+					if (Math.random() < 0.25)
 					{
 						world.addTile(x, y, Tile.floor_light);
 						world.removeFeature(this);
 					}
 					break;
 				case Tile.door_opened_fire:
-					if (Math.random() < 0.33)
+					if (Math.random() < 0.25)
 					{
 						world.addTile(x, y, Tile.floor_light);
 						world.removeFeature(this);
@@ -59,15 +59,15 @@ package features
 					world.addTile(x, y, Tile.tree_fire_3);
 					break;
 				case Tile.tree_fire_3:
-					if (Math.random() < 0.5)
+					if (Math.random() < 0.25)
 						world.addTile(x, y, Tile.tree_fire_2);
 					break;
 				case Tile.tree_fire_2:
-					if (Math.random() < 0.5)
+					if (Math.random() < 0.25)
 						world.addTile(x, y, Tile.tree_fire_1);
 					break;
 				case Tile.tree_fire_1:
-					if (Math.random() < 0.5)
+					if (Math.random() < 0.25)
 						world.addTile(x, y, Tile.grass_fire);
 					break;
 					
@@ -75,7 +75,7 @@ package features
 					world.addTile(x, y, Tile.grass_fire);
 					break;
 				case Tile.grass_fire:
-					if (Math.random() < 0.5)
+					if (Math.random() < 0.25)
 					{
 						world.addTile(x, y, Tile.burnt_ground);
 						world.removeFeature(this);

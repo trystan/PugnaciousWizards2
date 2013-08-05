@@ -26,7 +26,8 @@ package spells
 		
 		public function cast(caster:Creature, x:int, y:int):void
 		{
-			new Explosion(caster.world, x, y, new Fire(), 7 * 7 * 4, true);
+			if (caster.canSee(x, y))
+				new Explosion(caster.world, x, y, new Fire(), 7 * 7 * 4, true);
 			
 			if (callback != null)
 				callback();

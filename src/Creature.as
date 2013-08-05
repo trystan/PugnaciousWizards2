@@ -167,7 +167,7 @@ package
 			
 			if (fireCounter > 0)
 			{
-				if (Math.random() < 0.1)
+				if (Math.random() < 0.5)
 					world.addFeature(new BurningFire(world, position.x, position.y));
 				
 				popup("you're burning", "You're on fire!", "One of the many hazards of being an adventurer is catching on fire every once in a while.\n\nThe fire will subside after a few turns - if you're still alive.");
