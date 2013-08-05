@@ -85,6 +85,7 @@ package
 			addCastleFloor(world)
 			addCastleWalls(world);
 			addCastleDoors(world);
+			addCastleBars(world);
 			
 			if (!skipRooms)
 				addCastleRooms(world);
@@ -300,6 +301,28 @@ package
 			}
 			
 			world.addTile(4, 8 * 4 + 8, Tile.door_closed);
+		}
+		
+		private function addCastleBars(world:World):void 
+		{
+			var barChance:Number = 1.0 / 14.0;
+			
+			for (var x:int = 0; x < 8; x++)
+			for (var y:int = 0; y < 8; y++)
+			{
+				var room:Room = getRoom(x, y);
+
+				if (Math.random() < barChance)
+				{
+					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 6, Tile.bars);
+					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 10, Tile.bars);
+				}
+				if (Math.random() < barChance)
+				{
+					world.addTile(room.position.x * 8 + 6, room.position.y * 8 + 12, Tile.bars);
+					world.addTile(room.position.x * 8 + 10, room.position.y * 8 + 12, Tile.bars);
+				}
+			}
 		}
 		
 		private function addCastleRooms(world:World):void 

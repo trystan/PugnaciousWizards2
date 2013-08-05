@@ -27,6 +27,9 @@ package
 	import spells.Spell;
 	import knave.Color;
 	
+	/*
+	 * I tried to keep the display details out of the domain classes and ended up with this montrosity. :( 
+	 */
 	public class WorldDisplay extends Sprite
 	{
 		public var player:Creature;
@@ -590,6 +593,7 @@ package
 				case Tile.door_closed:
 				case Tile.door_closed_fire: return "+";
 				case Tile.wall: return "#";
+				case Tile.bars: return String.fromCharCode(186);
 				case Tile.moving_wall: return "#";
 				case Tile.floor_light: return dot;
 				case Tile.floor_dark: return dot;
@@ -660,6 +664,7 @@ package
 				case Tile.door_opened_fire: return fire.lerp(wood_bg, 0.2);
 				case Tile.door_closed_fire: return fire.lerp(wood_bg, 0.2);
 				case Tile.wall: return stone_fg;
+				case Tile.bars: return metal_fg;
 				case Tile.moving_wall: return Color.integer(0xffffff).lerp(stone_fg, 0.50);
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
@@ -736,6 +741,7 @@ package
 				case Tile.door_opened_fire: return fire.lerp(wood_bg, 0.1);
 				case Tile.door_closed_fire: return fire.lerp(wood_bg, 0.1);
 				case Tile.wall: return stone_bg;
+				case Tile.bars: return tile_2;
 				case Tile.moving_wall: return Color.integer(0xffffff).lerp(stone_bg, 0.25);
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;

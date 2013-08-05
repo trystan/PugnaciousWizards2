@@ -18,6 +18,7 @@ package
 		public static var floor_dark:Tile = new Tile("floor", null, false, false, false);
 		public static var mystic_floor_light:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic.", false, false, false);
 		public static var mystic_floor_dark:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic.", false, false, false);
+		public static var bars:Tile = new Tile("bars", null, true, false, false);
 		public static var wall:Tile = new Tile("wall", null, true, true, true);
 		public static var moving_wall:Tile = new Tile("moving wall on a track", "This giant block moves on a track etched into the floor.", true, true, false, 0, null, false);
 		public static var door_closed:Tile = new Tile("closed door", "Bump into this wooden door to open it.", true, true, true, 0.25);
