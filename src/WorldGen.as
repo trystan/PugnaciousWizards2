@@ -314,13 +314,13 @@ package
 
 				if (Math.random() < barChance)
 				{
-					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 6, Tile.bars);
-					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 10, Tile.bars);
+					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 6, Tile.bars_v);
+					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 10, Tile.bars_v);
 				}
 				if (Math.random() < barChance)
 				{
-					world.addTile(room.position.x * 8 + 6, room.position.y * 8 + 12, Tile.bars);
-					world.addTile(room.position.x * 8 + 10, room.position.y * 8 + 12, Tile.bars);
+					world.addTile(room.position.x * 8 + 6, room.position.y * 8 + 12, Tile.bars_h);
+					world.addTile(room.position.x * 8 + 10, room.position.y * 8 + 12, Tile.bars_h);
 				}
 			}
 		}

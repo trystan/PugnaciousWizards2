@@ -10,7 +10,7 @@ package themes
 	{
 		public function apply(room:Room, world:World):void
 		{
-			var points:int = 2 + room.distance / 2;
+			var points:int = 2 + room.distance / 3 * 2;
 			
 			if (Math.random() < Globals.rarePercent)
 				points *= 2;

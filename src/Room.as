@@ -112,18 +112,19 @@ package
 		
 		public function addRoomArchitecture(world:World):void
 		{
+			var chance:Number = 0.075;
 			var r:Number = Math.random();
 			
 			var tile:Tile = Math.random() < 0.125 ? Tile.tree : Tile.wall;
 			
-			if (r < 0.125 * 2)
+			if (r < chance * 2)
 			{
 				world.addTile(worldPosition.x + 0, worldPosition.y + 0, tile);
 				world.addTile(worldPosition.x + 6, worldPosition.y + 0, tile);
 				world.addTile(worldPosition.x + 6, worldPosition.y + 6, tile);
 				world.addTile(worldPosition.x + 0, worldPosition.y + 6, tile);
 			}
-			else if (r < 0.125 * 3)
+			else if (r < chance * 3)
 			{
 				world.addTile(worldPosition.x + 1, worldPosition.y + 1, tile);
 				world.addTile(worldPosition.x + 5, worldPosition.y + 1, tile);
@@ -138,7 +139,7 @@ package
 					world.addTile(worldPosition.x + 5, worldPosition.y + 3, tile);
 				}
 			}
-			else if (r < 0.125 * 4)
+			else if (r < chance * 4)
 			{
 				if (isConnectedNorth && Math.random() < 0.5)
 				{
@@ -165,18 +166,18 @@ package
 					world.addTile(worldPosition.x + 6, worldPosition.y + 4, tile);
 				}
 			}
-			else if (r < 0.125 * 5)
+			else if (r < chance * 5)
 			{
 				world.addTile(worldPosition.x + 3, worldPosition.y + 3, tile);
 			}
-			else if (Math.random() < 0.125 * 6)
+			else if (Math.random() < chance * 6)
 			{
 				world.addTile(worldPosition.x + 1, worldPosition.y + 3, tile);
 				world.addTile(worldPosition.x + 3, worldPosition.y + 1, tile);
 				world.addTile(worldPosition.x + 3, worldPosition.y + 5, tile);
 				world.addTile(worldPosition.x + 5, worldPosition.y + 3, tile);
 			}
-			else if (Math.random() < 0.125 * 6)
+			else if (Math.random() < chance * 7)
 			{
 				world.addTile(worldPosition.x + 2, worldPosition.y + 2, tile);
 				world.addTile(worldPosition.x + 2, worldPosition.y + 4, tile);
