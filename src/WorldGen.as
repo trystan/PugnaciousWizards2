@@ -114,9 +114,17 @@ package
 		private function addThemedAreas(world:World):void
 		{
 			var alreadyThemed:Array = [];
-			for each (var payload:Payload in [new Fire(), new Ice(), new Poison()])
+			var startRooms:Array = [];
+			for each (var c:Creature in world.creatures)
 			{
-				var rooms:Array = [getRoom((int)(Math.random() * 8) + 1, (int)(Math.random() * 8) + 1)];
+				if (c is EnemyWizard)
+					startRooms.push({ room: world.getRoom(c.position.x, c.position.y), payload: (c as EnemyWizard).aura });
+			}
+			
+			for each (var start:Object in startRooms)
+			{
+				var rooms:Array = [start.room as Room];
+				var payload:Payload = start.payload as Payload;
 				var count:int = 0;
 				while (count++ < 4 && rooms.length > 0)
 				{
@@ -240,7 +248,7 @@ package
 		private function connectExtraRooms():void 
 		{
 			var tries:int = 0;
-			while (tries++ < 21)
+			while (tries++ < 14)
 			{
 				var x:int = Math.random() * 9;
 				var y:int = Math.random() * 9;

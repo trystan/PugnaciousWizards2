@@ -64,6 +64,8 @@ package
 		private var water_fg:Color = Color.hsv(220, 70, 50);
 		private var water_bg:Color = Color.hsv(220, 50, 30);
 		
+		private var viewAllMode:Boolean = false;
+			
 		private var tileDisplay:Dictionary = new Dictionary();
 		
 		public function WorldDisplay(player:Creature, world:World) 
@@ -79,6 +81,11 @@ package
 			precalculateTreeForeground();
 		}
 		
+		private function canSee(x:int, y:int):Boolean
+		{
+			return viewAllMode || player.canSee(x, y);
+		}
+		
 		public function draw(terminal:AsciiPanel):void
 		{
 			terminal.clear();
@@ -86,7 +93,7 @@ package
 			for (var x:int = 0; x < 80; x++)
 			for (var y:int = 0; y < 80; y++)
 			{
-				if (player.canSee(x, y))
+				if (canSee(x, y))
 				{
 					terminal.write(tileAt(x, y), x, y, fgAt(x, y).toInt(), bgAt(x, y).toInt());
 					
@@ -114,7 +121,7 @@ package
 			
 			for each (var placedItem:Object in world.items)
 			{
-				if (player.canSee(placedItem.x, placedItem.y))
+				if (canSee(placedItem.x, placedItem.y))
 				{
 					popup(placedItem.item.name, 
 						popupTitle(placedItem.item.name, item_glyph(placedItem.item)),
@@ -130,7 +137,7 @@ package
 			
 			for each (var creature:Creature in world.creatures)
 			{
-				if (!player.canSee(creature.position.x, creature.position.y) && player != creature)
+				if (!canSee(creature.position.x, creature.position.y) && player != creature)
 					continue;
 				
 				var creatureGlyph:String = getCreatureGlyph(creature);
@@ -231,7 +238,7 @@ package
 				if (dist > radius * radius)
 					continue;
 				
-				if (!player.canSee(tx, ty))
+				if (!canSee(tx, ty))
 					continue;
 					
 				var mult:Number = (1.0 - dist / (radius * radius)) * 0.1;
@@ -261,7 +268,7 @@ package
 				{
 					var effect:TimedFlashEffect = feature as TimedFlashEffect;
 					
-					if (!player.canSee(effect.x, effect.y))
+					if (!canSee(effect.x, effect.y))
 						continue;
 					
 					terminal.write(effect.timer.toString(), effect.x, effect.y, 0xffffff, bgAt(effect.x, effect.y).toInt());
@@ -280,7 +287,7 @@ package
 					
 				if (effect is Arrow)
 				{
-					if (!player.canSee(effect.x, effect.y))
+					if (!canSee(effect.x, effect.y))
 						continue;
 					
 					didDrawAny = true;
@@ -298,7 +305,7 @@ package
 					
 					for each (var t:Point in effect.tiles)
 					{
-						if (!player.canSee(t.x, t.y))
+						if (!canSee(t.x, t.y))
 							continue;
 					
 						didDrawAny = true;
@@ -312,7 +319,7 @@ package
 					}
 					for each (var t2:Point in effect.frontiers)
 					{
-						if (!player.canSee(t2.x, t2.y))
+						if (!canSee(t2.x, t2.y))
 							continue;
 					
 						didDrawAny = true;
@@ -327,7 +334,7 @@ package
 				}
 				else if (effect is MagicMissileProjectile)
 				{
-					if (!player.canSee(effect.x, effect.y))
+					if (!canSee(effect.x, effect.y))
 						continue;
 					
 					didDrawAny = true;
@@ -343,7 +350,7 @@ package
 				}
 				else if (effect is MagicMissileProjectileTrail)
 				{
-					if (!player.canSee(effect.x, effect.y))
+					if (!canSee(effect.x, effect.y))
 						continue;
 					
 					didDrawAny = true;
@@ -359,7 +366,7 @@ package
 				}
 				else if (effect is PullAndFreezeProjectile)
 				{
-					if (!player.canSee(effect.x, effect.y))
+					if (!canSee(effect.x, effect.y))
 						continue;
 					
 					didDrawAny = true;
@@ -373,7 +380,7 @@ package
 				}
 				else if (effect is PullAndFreezeProjectileTrail)
 				{
-					if (!player.canSee(effect.x, effect.y))
+					if (!canSee(effect.x, effect.y))
 						continue;
 					
 					didDrawAny = true;
@@ -390,7 +397,7 @@ package
 					for (var x0:int = effect.x - effect.radius; x0 < effect.x + effect.radius; x0++)
 					for (var y0:int = effect.y - effect.radius; y0 < effect.y + effect.radius; y0++)
 					{
-						if (!player.canSee(x0, y0))
+						if (!canSee(x0, y0))
 							continue;
 						
 						didDrawAny = true;
@@ -404,7 +411,7 @@ package
 				}
 				else if (effect is Flash)
 				{
-					if (!player.canSee(effect.x, effect.y))
+					if (!canSee(effect.x, effect.y))
 						continue;
 					
 					didDrawAny = true;
@@ -417,7 +424,7 @@ package
 				}
 				else if (effect is TelekeneticMovement)
 				{
-					if (!player.canSee(effect.x, effect.y))
+					if (!canSee(effect.x, effect.y))
 						continue;
 					
 					didDrawAny = true;
@@ -428,7 +435,7 @@ package
 				}
 				else
 				{
-					if (!player.canSee(effect.x, effect.y))
+					if (!canSee(effect.x, effect.y))
 						continue;
 					
 					didDrawAny = true;
@@ -461,12 +468,7 @@ package
 				
 				var c:EnemyWizard = creature as EnemyWizard;
 				
-				var color:Color = magic.lerp(light, 0.5);
-				if (c.aura == "fire")
-					color = fire.lerp(light, 0.5);
-				else if (c.aura == "ice & fog")
-					color = ice.lerp(light, 0.5);
-					
+				var color:Color = payloadColor(c.aura).lerp(light, 0.66);
 				addLight(terminal, c.position.x, c.position.y, color, 5);
 			}
 		}
@@ -579,6 +581,9 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.fire_trap:
+				case Tile.ice_trap:
+				case Tile.poison_trap: return "^";
 				case Tile.poisonFog:
 				case Tile.healingFog: return String.fromCharCode(177);
 				case Tile.poison_water:
@@ -661,6 +666,9 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.fire_trap: return fire;
+				case Tile.ice_trap: return ice;
+				case Tile.poison_trap: return poison;
 				case Tile.healingFog: return Color.hsv(300, 66, 66);
 				case Tile.poisonFog: return poison.lerp(Color.integer(0xffffff), 0.5);
 				case Tile.poison_water: return poison.lerp(water_fg, 0.125);
@@ -747,6 +755,9 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.ice_trap:
+				case Tile.poison_trap:
+				case Tile.fire_trap: return tile_2;
 				case Tile.healingFog: return Color.hsv(300, 33, 33);
 				case Tile.poisonFog: return poison;
 				case Tile.poison_water: return poison.lerp(water_bg, 0.125);

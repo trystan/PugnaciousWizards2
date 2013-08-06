@@ -3,6 +3,7 @@ package
 	import flash.geom.Point;
 	import knave.AStar;
 	import knave.Color;
+	import payloads.Payload;
 	import spells.Spell;
 	import spells.SpellCastAction;
 	import knave.Dijkstra;
@@ -11,7 +12,7 @@ package
 	public class EnemyWizard extends Creature
 	{
 		private var path:Array = [];
-		public var aura:String = "magic";
+		public var aura:Payload;
 		
 		public function EnemyWizard(position:Point)
 		{

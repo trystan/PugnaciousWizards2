@@ -83,6 +83,9 @@ package
 		static public var track_light_se:Tile = new Tile("floor with a track in it", null, false, false, 0.0);
 		static public var track_dark_se:Tile = new Tile("floor with a track in it", null, false, false, 0.0);
 		
+		static public var fire_trap:Tile = new Tile("fire trap", null, false, false, 0.0);
+		static public var ice_trap:Tile = new Tile("ice trap", null, false, false, 0.0);
+		static public var poison_trap:Tile = new Tile("poison trap", null, false, false, 0.0);
 		
 		public var name:String;
 		public var description:String;

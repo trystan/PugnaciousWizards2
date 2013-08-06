@@ -4,7 +4,9 @@ package
 	import flash.display.InterpolationMethod;
 	import flash.geom.Point;
 	import knave.AStar;
+	import payloads.Ice;
 	import payloads.Payload;
+	import payloads.Poison;
 	import themes.RoomTheme;
 	import themes.RoomThemeFactory;
 	import themes.TreasureRoom;
@@ -50,11 +52,20 @@ package
 			for each (var feature:CastleFeature in roomFeatures)
 				feature.retheme(payload);
 				
+			var trap:Tile = Tile.fire_trap;
+			if (payload is Ice)
+				trap = Tile.ice_trap;
+			else if (payload is Poison)
+				trap = Tile.poison_trap;
+				
+			world.addTile(worldPosition.x + 1, worldPosition.y + 1, trap);
+			world.addTile(worldPosition.x + 1, worldPosition.y + 5, trap);
+			world.addTile(worldPosition.x + 5, worldPosition.y + 5, trap);
+			world.addTile(worldPosition.x + 5, worldPosition.y + 1, trap);
+				
 			for (var x:int = 0; x < 7; x++)
 			for (var y:int = 0; y < 7; y++)
-			{
 				payload.hitTile(world, worldPosition.x + x, worldPosition.y + y);
-			}
 		}
 		
 		public function apply(world:World):void

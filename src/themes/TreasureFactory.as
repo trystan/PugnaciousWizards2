@@ -1,6 +1,9 @@
 package themes 
 {
 	import flash.geom.Point;
+	import payloads.Fire;
+	import payloads.Ice;
+	import payloads.Poison;
 	import spells.*;
 	
 	public class TreasureFactory 
@@ -61,22 +64,19 @@ package themes
 					w.addMagicSpell(new BloodBurn());
 					w.addMagicSpell(new BoneSplode());
 					w.addMagicSpell(new Inferno());
-					w.aura = "fire";
+					w.aura = new Fire();
 					break;
 				case 1:
 					w.addMagicSpell(new PullAndFreeze());
 					w.addMagicSpell(new Winter());
 					w.addMagicSpell(new HealingFog());
-					w.addMagicSpell(new PoisonFog());
-					w.aura = "cold & fog";
+					w.aura = new Ice();
 					break;
 				case 2:
-					w.addMagicSpell(new BloodHeal());
-					w.addMagicSpell(new MagicMissile());
+					w.addMagicSpell(new PoisonFog());
 					w.addMagicSpell(new Telekenesis());
-					w.addMagicSpell(new BlindingBlink());
-					w.addMagicSpell(new TimedFlash());
-					w.aura = "magic";
+					w.addMagicSpell(new SummonElemental());
+					w.aura = new Poison();
 					break;
 			}
 			
