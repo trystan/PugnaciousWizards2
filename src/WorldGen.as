@@ -113,20 +113,28 @@ package
 		
 		private function addThemedAreas(world:World):void
 		{
+			var alreadyThemed:Array = [];
 			for each (var payload:Payload in [new Fire(), new Ice(), new Poison()])
 			{
-				var rooms:Array = [getRoom((int)(Math.random() * 9), (int)(Math.random() * 9))];
+				var rooms:Array = [getRoom((int)(Math.random() * 8) + 1, (int)(Math.random() * 8) + 1)];
 				var count:int = 0;
 				while (count++ < 4)
 				{
 					var room:Room = rooms.shift();
+					if (alreadyThemed.indexOf(room) > -1 || room == null)
+					{
+						count--;
+						continue;
+					}
+					
 					room.retheme(world, payload);
+					alreadyThemed.push(room);
 					
 					if (room.isConnectedNorth)
 						rooms.push(getRoom(room.position.x, room.position.y - 1));
 					if (room.isConnectedSouth)
 						rooms.push(getRoom(room.position.x, room.position.y + 1));
-					if (room.isConnectedWest)
+					if (room.isConnectedWest && room.position.x > 0) // the front door
 						rooms.push(getRoom(room.position.x - 1, room.position.y));
 					if (room.isConnectedEast)
 						rooms.push(getRoom(room.position.x + 1, room.position.y));

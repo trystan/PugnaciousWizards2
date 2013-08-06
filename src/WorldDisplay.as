@@ -663,7 +663,7 @@ package
 			{
 				case Tile.healingFog: return Color.hsv(300, 66, 66);
 				case Tile.poisonFog: return poison.lerp(Color.integer(0xffffff), 0.5);
-				case Tile.poison_water: return poison.lerp(water_fg, 0.5);
+				case Tile.poison_water: return poison.lerp(water_fg, 0.125);
 				case Tile.shallow_water: return water_fg;
 				case Tile.frozen_water: return ice;
 				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
@@ -749,7 +749,7 @@ package
 			{
 				case Tile.healingFog: return Color.hsv(300, 33, 33);
 				case Tile.poisonFog: return poison;
-				case Tile.poison_water: return poison.lerp(water_bg, 0.5);
+				case Tile.poison_water: return poison.lerp(water_bg, 0.125);
 				case Tile.shallow_water: return water_bg;
 				case Tile.frozen_water: return water_fg;
 				case Tile.portal: return Color.hsv(Math.random() * 360, 50, 90);
