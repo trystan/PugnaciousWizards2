@@ -1,7 +1,10 @@
 package  
 {
+	import animations.Explosion;
 	import flash.geom.Point;
+	import payloads.Fire;
 	import payloads.Healing;
+	import payloads.Ice;
 	import payloads.Payload;
 	import payloads.Poison;
 	public class Tile 
@@ -83,9 +86,9 @@ package
 		static public var track_light_se:Tile = new Tile("floor with a track in it", null, false, false, 0.0);
 		static public var track_dark_se:Tile = new Tile("floor with a track in it", null, false, false, 0.0);
 		
-		static public var fire_trap:Tile = new Tile("fire trap", null, false, false, 0.0);
-		static public var ice_trap:Tile = new Tile("ice trap", null, false, false, 0.0);
-		static public var poison_trap:Tile = new Tile("poison trap", null, false, false, 0.0);
+		static public var fire_trap:Tile = new Tile("fire trap", null, false, false, 0.0, 0, fireTrap);
+		static public var ice_trap:Tile = new Tile("ice trap", null, false, false, 0.0, 0, iceTrap);
+		static public var poison_trap:Tile = new Tile("poison trap", null, false, false, 0.0, 0, poisonTrap);
 		
 		public var name:String;
 		public var description:String;
@@ -114,6 +117,27 @@ package
 		{
 			if (standOnFunction != null)
 				standOnFunction(creature);
+		}
+		
+		private static function fireTrap(creature:Creature):void
+		{
+			creature.world.addAnimationEffect(
+				new Explosion(creature.world, creature.position.x, creature.position.y, new Fire(), 25, true));
+		}
+		
+		private static function iceTrap(creature:Creature):void
+		{
+			if (creature.freezeCounter > 0)
+				return;
+				
+			creature.world.addAnimationEffect(
+				new Explosion(creature.world, creature.position.x, creature.position.y, new Ice(), 25, true));
+		}
+		
+		private static function poisonTrap(creature:Creature):void
+		{
+			creature.world.addAnimationEffect(
+				new Explosion(creature.world, creature.position.x, creature.position.y, new Poison(), 25, true));
 		}
 		
 		private static function waterEffect(creature:Creature):void

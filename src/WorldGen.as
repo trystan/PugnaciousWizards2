@@ -248,7 +248,6 @@ package
 		private function connectExtraRooms():void 
 		{
 			var deadEnds:Array = [];
-			
 			for (var x:int = 0; x < 9; x++)
 			for (var y:int = 0; y < 9; y++)
 			{
@@ -257,7 +256,6 @@ package
 					deadEnds.push(room);
 			}
 			
-			// remove 3 + 9 + 6
 			var removedCount:int = 0;
 			while (deadEnds.length > 1 && removedCount < 3 + 6 + 6)
 			{
@@ -266,7 +264,6 @@ package
 				removedCount++;
 			}
 			
-			// connect remaining rooms
 			while (deadEnds.length > 0)
 			{
 				i = Math.random() * deadEnds.length;
