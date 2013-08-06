@@ -4,6 +4,7 @@ package screens
 	import knave.BaseScreen;
 	import knave.Color;
 	import knave.RL;
+	import knave.Text;
 	
 	public class HelpPopupScreen extends BaseScreen
 	{
@@ -67,25 +68,7 @@ package screens
 		
 		private function setTextLines(fullText:String, canDismiss:Boolean):void 
 		{
-			text = [];
-			for each (var line:String in fullText.split("\n"))
-			{
-				if (line.length == 0)
-					text.push("");
-				
-				while (line.length > w)
-				{
-					var i:int = line.substr(0, w).lastIndexOf(" ");
-					text.push(line.substr(0, i));
-					line = line.substr(i + 1);
-				}
-				while (line.length > 0 && line.charAt(0) == " ")
-					line = line.substr(1);
-					
-				if (line.length > 0)
-					text.push(line);
-			}
-			
+			text = Text.wordWrap(w, fullText);
 			text.push("");
 			text.push("");
 			if (canDismiss)

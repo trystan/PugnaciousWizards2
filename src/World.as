@@ -124,16 +124,16 @@ package
 		
 		public function isClosedDoor(x:int, y:int):Boolean 
 		{
-			return getTile(x, y) == Tile.stone_door_closed
-			    || getTile(x, y) == Tile.wood_door_closed
-			    || getTile(x, y) == Tile.door_closed_fire;
+			return getTile(x, y, true) == Tile.stone_door_closed
+			    || getTile(x, y, true) == Tile.wood_door_closed
+			    || getTile(x, y, true) == Tile.door_closed_fire;
 		}
 		
 		public function isOpenedDoor(x:int, y:int):Boolean 
 		{
-			return getTile(x, y) == Tile.stone_door_opened 
-			    || getTile(x, y) == Tile.wood_door_opened 
-			    || getTile(x, y) == Tile.door_opened_fire;
+			return getTile(x, y, true) == Tile.stone_door_opened 
+			    || getTile(x, y, true) == Tile.wood_door_opened 
+			    || getTile(x, y, true) == Tile.door_opened_fire;
 		}
 		
 		private function isOutOfBounds(x:int, y:int):Boolean 

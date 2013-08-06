@@ -26,7 +26,7 @@ package themes
 				new Scroll(new TimedFlash()),
 				new Scroll(new PullAndFreeze()),
 				new Scroll(new TreeAlly()),
-				new Scroll(new SummonElemental()),
+				new Scroll(new SummonGolem()),
 				new Scroll(new BloodJellies()),
 				new Scroll(new PoisonFog()),
 				new Scroll(new Telekenesis()),
@@ -77,8 +77,9 @@ package themes
 				case 2:
 					w.addMagicSpell(new PoisonFog());
 					w.addMagicSpell(new Telekenesis());
-					w.addMagicSpell(new SummonElemental());
+					w.addMagicSpell(new SummonGolem());
 					w.aura = new Poison();
+					w.gold += 20; // for golem upgrades
 					break;
 			}
 			

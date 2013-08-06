@@ -6,6 +6,7 @@ package
 	import spells.Spell;
 	import spells.SpellCastAction;
 	import knave.Dijkstra;
+	import spells.SummonGolem;
 	import spells.Telekenesis;
 	
 	public class Hero extends Creature

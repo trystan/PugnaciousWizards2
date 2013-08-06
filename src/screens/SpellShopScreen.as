@@ -4,9 +4,10 @@ package screens
 	import knave.BaseScreen;
 	import knave.Color;
 	import knave.RL;
+	import knave.Text;
 	import spells.Spell;
 	
-	public class StoreScreen extends BaseScreen
+	public class SpellShopScreen extends BaseScreen
 	{
 		private var w:int = 0;
 		private var h:int = 0;
@@ -16,7 +17,7 @@ package screens
 		private var player:Creature;
 		private var failedToBuy:Boolean = false;
 		
-		public function StoreScreen(player:Creature, spellList:Array) 
+		public function SpellShopScreen(player:Creature, spellList:Array) 
 		{
 			this.player = player;
 			this.spellList = spellList;
@@ -24,13 +25,14 @@ package screens
 			w = 80;
 			text = [];
 			text.push(padToCenter("-- Spell shop --"));
-			text.push("Buy any spell for 20$");
+			text.push("");
+			text.push("Spend extra gold to gain new spells. Each spell cost 20$");
 			text.push("");
 			var i:int = 0;
 			for each (var spell:Spell in spellList)
 			{
 				i++;
-				text.push(i + " " + spell.name);
+				text.push(" " + i + " " + spell.name);
 				addSpell(spell.description, text);
 				text.push("");
 				bind('' + i, buy, i - 1); 
@@ -49,21 +51,10 @@ package screens
 			bind('draw', draw);
 		}
 		
-		private function addSpell(line:String, text:Array):void
+		private function addSpell(fullText:String, text:Array):void
 		{
-			if (line.length == 0)
-				text.push("");
-			
-			while (line.length > w)
-			{
-				text.push("    " + line.substr(0, w));
-				line = line.substr(w);
-			}
-			while (line.length > 0 && line.charAt(0) == " ")
-				line = line.substr(1);
-				
-			if (line.length > 0)
-				text.push("    " + line);
+			for each (var line:String in Text.wordWrap(w, fullText))
+				text.push("   " + line);
 		}
 		
 		private function buy(index:int):void

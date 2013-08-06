@@ -58,7 +58,7 @@ package screens
 			bind('x', 'examine');
 			bind('X', 'examine');
 			bind('examine', function():void { enter(new ExamineScreen(world, player)); } );
-			bind('$', function():void { enter(new StoreScreen(player, spellsForSale)); } );
+			bind('$', function():void { enter(new SpellShopScreen(player, spellsForSale)); } );
 			
 			bind('draw', draw);
 			bind('animate', animate);

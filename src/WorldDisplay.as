@@ -173,16 +173,8 @@ package
 				creatureColor = fg(Tile.tree, 1, 1);
 			else if (creature is BloodJelly)
 				creatureColor = blood.lerp(Color.integer(0xffffff), 0.5);
-			else if (creature is SummonedCreature)
-			{
-				switch ((creature as SummonedCreature).element)
-				{
-					case "fire": creatureColor = creatureColor.lerp(fire, 0.5); break;
-					case "ice": creatureColor = creatureColor.lerp(ice, 0.5); break;
-					case "stone": creatureColor = creatureColor.lerp(fg(Tile.wall), 0.5); break;
-					case "air": creatureColor = creatureColor.lerp(water_fg, 0.5); break;
-				}
-			}
+			else if (creature is Golem)
+				creatureColor = stone_fg;
 			
 			if (creature.fireCounter > 0)
 				creatureColor = creatureColor.lerp(fire, 0.20);
@@ -197,6 +189,8 @@ package
 			var creatureGlyph:String = creature.isGoodGuy ? "@" : creature.type.charAt(0).toLowerCase();
 			if (creature is MovingTree)
 				creatureGlyph = tile(Tile.tree);
+			if (creature is Golem)
+				creatureGlyph = "G";
 			return creatureGlyph;
 		}
 		
