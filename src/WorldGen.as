@@ -247,35 +247,58 @@ package
 		
 		private function connectExtraRooms():void 
 		{
-			var tries:int = 0;
-			while (tries++ < 14)
+			var deadEnds:Array = [];
+			
+			for (var x:int = 0; x < 9; x++)
+			for (var y:int = 0; y < 9; y++)
 			{
-				var x:int = Math.random() * 9;
-				var y:int = Math.random() * 9;
 				var room:Room = getRoom(x, y);
+				if (room.isDeadEnd)
+					deadEnds.push(room);
+			}
+			
+			// remove 3 + 9 + 6
+			var removedCount:int = 0;
+			while (deadEnds.length > 1 && removedCount < 3 + 6 + 6)
+			{
+				var i:int = Math.random() * deadEnds.length;
+				deadEnds.splice(i, 1);
+				removedCount++;
+			}
+			
+			// connect remaining rooms
+			while (deadEnds.length > 0)
+			{
+				i = Math.random() * deadEnds.length;
+				room = deadEnds.splice(i, 1)[0];
+				x = room.position.x;
+				y = room.position.y;
 				
-				if (x > 0 && Math.random() < 0.33)
+				while (room.isDeadEnd)
 				{
-					room.isConnectedWest = true;
-					getRoom(x - 1, y).isConnectedEast = true;
-				}
-				
-				if (x < 8 && Math.random() < 0.33)
-				{
-					room.isConnectedEast = true;
-					getRoom(x + 1, y).isConnectedWest = true;
-				}
-				
-				if (y > 0 && Math.random() < 0.33)
-				{
-					room.isConnectedNorth = true;
-					getRoom(x, y - 1).isConnectedSouth = true;
-				}
-				
-				if (y < 8 && Math.random() < 0.33)
-				{
-					room.isConnectedSouth = true;
-					getRoom(x, y + 1).isConnectedNorth = true;
+					if (x > 0 && Math.random() < 0.25)
+					{
+						room.isConnectedWest = true;
+						getRoom(x - 1, y).isConnectedEast = true;
+					}
+					
+					if (x < 8 && Math.random() < 0.25)
+					{
+						room.isConnectedEast = true;
+						getRoom(x + 1, y).isConnectedWest = true;
+					}
+					
+					if (y > 0 && Math.random() < 0.25)
+					{
+						room.isConnectedNorth = true;
+						getRoom(x, y - 1).isConnectedSouth = true;
+					}
+					
+					if (y < 8 && Math.random() < 0.25)
+					{
+						room.isConnectedSouth = true;
+						getRoom(x, y + 1).isConnectedNorth = true;
+					}
 				}
 			}
 		}

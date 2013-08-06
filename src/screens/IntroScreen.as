@@ -20,6 +20,11 @@ package screens
 		{
 			TreasureFactory.reset();
 			
+			var spellsForSale:Array = [];
+			spellsForSale.push((TreasureFactory.random() as Scroll).spell);
+			spellsForSale.push((TreasureFactory.random() as Scroll).spell);
+			spellsForSale.push((TreasureFactory.random() as Scroll).spell);
+			
 			hero = new Hero(new Point(1, 19));
 			world = new World().addWorldGen(new WorldGen());
 			
