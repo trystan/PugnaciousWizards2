@@ -38,22 +38,27 @@ package themes
 			world.addItem(room.worldPosition.x + 4, room.worldPosition.y + 2, TreasureFactory.random());
 		}
 		
-		private function addPool(world:World, x:int, y:int):void 
+		private function addSquare(world:World, x:int, y:int, tile:Tile):void 
 		{
-			world.addTile(x + 0, y + 0, Tile.shallow_water);
-			world.addTile(x + 1, y + 0, Tile.shallow_water);
-			world.addTile(x + 1, y + 1, Tile.shallow_water);
-			world.addTile(x + 0, y + 1, Tile.shallow_water);
+			world.addTile(x + 0, y + 0, tile);
+			world.addTile(x + 1, y + 0, tile);
+			world.addTile(x + 1, y + 1, tile);
+			world.addTile(x + 0, y + 1, tile);
 		}
 		
 		public function addRoomArchitecture(room:Room, world:World):void
 		{
 			var r:Number = Math.random();
 			
+			var tile:Tile = Math.random() < 0.5 ? Tile.tree : Tile.shallow_water;
+			
+			if (Math.random() < 0.1)
+				tile = Tile.grass;
+			
 			if (r < 0.1)
 			{
-				for (var x:int = 0; x < 7; x++)
-				for (var y:int = 0; y < 7; y++)
+				for (var x:int = 1; x < 6; x++)
+				for (var y:int = 1; y < 6; y++)
 					world.addTile(room.worldPosition.x + x, room.worldPosition.y + y, Tile.grass);
 			}
 			else if (r < 0.3)
@@ -64,18 +69,53 @@ package themes
 				world.addTile(room.worldPosition.x + 0, room.worldPosition.y + 6, Tile.wall);
 			}
 			else if (r < 0.5)
-			{
-				addPool(world, room.worldPosition.x + 1, room.worldPosition.y + 1);
-				addPool(world, room.worldPosition.x + 4, room.worldPosition.y + 1);
-				addPool(world, room.worldPosition.x + 4, room.worldPosition.y + 4);
-				addPool(world, room.worldPosition.x + 1, room.worldPosition.y + 4);
+			{	
+				addSquare(world, room.worldPosition.x + 1, room.worldPosition.y + 1, tile);
+				addSquare(world, room.worldPosition.x + 4, room.worldPosition.y + 1, tile);
+				addSquare(world, room.worldPosition.x + 4, room.worldPosition.y + 4, tile);
+				addSquare(world, room.worldPosition.x + 1, room.worldPosition.y + 4, tile);
 			}
 			else if (r < 0.6)
 			{
-				world.addTile(room.worldPosition.x + 1, room.worldPosition.y + 1, Tile.tree);
-				world.addTile(room.worldPosition.x + 5, room.worldPosition.y + 1, Tile.tree);
-				world.addTile(room.worldPosition.x + 5, room.worldPosition.y + 5, Tile.tree);
-				world.addTile(room.worldPosition.x + 1, room.worldPosition.y + 5, Tile.tree);
+				world.addTile(room.worldPosition.x + 1, room.worldPosition.y + 1, tile);
+				world.addTile(room.worldPosition.x + 5, room.worldPosition.y + 1, tile);
+				world.addTile(room.worldPosition.x + 5, room.worldPosition.y + 5, tile);
+				world.addTile(room.worldPosition.x + 1, room.worldPosition.y + 5, tile);
+			}
+			else if (r < 0.7)
+			{
+				for (x = 1; x < 6; x++)
+					world.addTile(room.worldPosition.x + x, room.worldPosition.y + 1, tile);
+				for (x = 1; x < 6; x++)
+					world.addTile(room.worldPosition.x + x, room.worldPosition.y + 5, tile);
+				for (y = 1; y < 6; y++)
+					world.addTile(room.worldPosition.x + 1, room.worldPosition.y + y, tile);
+				for (y = 1; y < 6; y++)
+					world.addTile(room.worldPosition.x + 5, room.worldPosition.y + y, tile);
+			}
+			else if (r < 0.8)
+			{
+				world.addTile(room.worldPosition.x + 0, room.worldPosition.y + 0, Tile.wall);
+				world.addTile(room.worldPosition.x + 6, room.worldPosition.y + 0, Tile.wall);
+				world.addTile(room.worldPosition.x + 6, room.worldPosition.y + 6, Tile.wall);
+				world.addTile(room.worldPosition.x + 0, room.worldPosition.y + 6, Tile.wall);
+				
+				world.addTile(room.worldPosition.x + 1, room.worldPosition.y + 0, Tile.wall);
+				world.addTile(room.worldPosition.x + 5, room.worldPosition.y + 0, Tile.wall);
+				world.addTile(room.worldPosition.x + 5, room.worldPosition.y + 6, Tile.wall);
+				world.addTile(room.worldPosition.x + 1, room.worldPosition.y + 6, Tile.wall);
+				
+				world.addTile(room.worldPosition.x + 0, room.worldPosition.y + 1, Tile.wall);
+				world.addTile(room.worldPosition.x + 6, room.worldPosition.y + 1, Tile.wall);
+				world.addTile(room.worldPosition.x + 6, room.worldPosition.y + 5, Tile.wall);
+				world.addTile(room.worldPosition.x + 0, room.worldPosition.y + 5, Tile.wall);
+			}
+			else if (r < 0.9)
+			{
+				for (x = 0; x < 7; x++)
+				for (y = 0; y < 7; y++)
+					if (x % 2 == 0 && y % 2 == 0)
+						world.addTile(room.worldPosition.x + x, room.worldPosition.y + y, tile);
 			}
 		}
 	}

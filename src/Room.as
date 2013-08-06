@@ -232,7 +232,7 @@ package
 				var py:int = Math.random() * 7;
 				world.addTile(worldPosition.x + px, worldPosition.y + py, Tile.wall);
 				
-				chance = 0.50;
+				chance = 0.25;
 			}
 		}
 		
