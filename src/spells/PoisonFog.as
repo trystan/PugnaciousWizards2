@@ -35,10 +35,7 @@ package spells
 		public function aiGetAction(ai:Creature):SpellCastAction
 		{
 			if (Math.random() < 0.8)
-				return new SpellCastAction(0.00, function():void
-				{
-					cast(ai, ai.position.x, ai.position.y);
-				});
+				return new SpellCastAction(0.0, function():void { });
 				
 			var candidates:Array = [];
 			
@@ -48,14 +45,11 @@ package spells
 			});
 			
 			if (candidates.length == 0)
-				return new SpellCastAction(0.00, function():void
-				{
-					cast(ai, ai.position.x, ai.position.y);
-				});
+				return new SpellCastAction(0.0, function():void { });
 			
 			var target:Creature = candidates[(int)(Math.random() * candidates.length)];
 			
-			return new SpellCastAction(0.1, function():void
+			return new SpellCastAction(1, function():void
 			{
 				cast(ai, target.position.x, target.position.y);
 			});

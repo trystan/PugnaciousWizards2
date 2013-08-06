@@ -133,18 +133,13 @@ package
 		
 		public function moveTo(x:int, y:int):void
 		{
-			if (freezeCounter > 0)
-			{
-				world.getTile(position.x, position.y).apply(this);
-				return;
-			}
-				
 			position.x = x;
 			position.y = y;
 			movedBy.x = 0;
 			movedBy.y = 0;
 			
-			getStuffHere();
+			if (freezeCounter == 0)
+				getStuffHere();
 			
 			vision.update();
 			

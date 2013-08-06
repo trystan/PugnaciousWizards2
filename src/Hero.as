@@ -2,6 +2,7 @@ package
 {
 	import flash.geom.Point;
 	import spells.PoisonFog;
+	import spells.PullAndFreeze;
 	import spells.Spell;
 	import spells.SpellCastAction;
 	import knave.Dijkstra;

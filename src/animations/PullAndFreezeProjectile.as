@@ -68,7 +68,7 @@ package animations
 			else if (world.getTile(x, y).blocksArrows)
 			{
 				_done = true;
-				world.addAnimationEffect(new PullAndFreezeExpansion(world, x, y));
+				world.addAnimationEffect(new PullAndFreezeExpansion(world, x - vx, y - vy));
 			}
 		}
 	}

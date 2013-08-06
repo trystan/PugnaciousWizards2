@@ -53,21 +53,21 @@ package animations
 				var i:int = Math.random() * affected.length;
 				var target:Creature = affected.splice(i, 1)[0];
 				
-				target.freeze(6);
+				ice.hitCreature(target);
 				
 				var path:Array = new Line(target.position.x, target.position.y, x, y).points;
-					
-				while (path.length > 1)
+				path.shift() // skip the starting point
+				
+				while (path.length > 0)
 				{
-					var next:Point = path.splice(0,1)[0] as Point;
+					var next:Point = path.shift();
 					if (world.getCreature(next.x, next.y) != null)
-						continue;
+						break;
 						
 					if (world.getTile(next.x, next.y).blocksMovement)
-						continue;
+						break;
 					
-					target.position.x = next.x;
-					target.position.y = next.y;
+					target.moveTo(next.x, next.y);
 				}
 			}
 		}

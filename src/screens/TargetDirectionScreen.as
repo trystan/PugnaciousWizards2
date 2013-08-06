@@ -15,6 +15,7 @@ package screens
 			bind('up right', function():void { callback(player, 1, -1); exit(); } );
 			bind('down left', function():void { callback(player, -1, 1); exit(); } );
 			bind('down right', function():void { callback(player, 1, 1); exit(); } );
+			bind('wait', function():void { callback(player, 0, 0); exit(); } );
 			bind('escape', function():void { exit(); } );
 			bind('draw', draw);
 		}
