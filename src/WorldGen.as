@@ -327,8 +327,8 @@ package
 		
 		private function addCastleDoors(world:World):void 
 		{
-			for (var x:int = 0; x < 8; x++)
-			for (var y:int = 0; y < 8; y++)
+			for (var x:int = 0; x < 9; x++)
+			for (var y:int = 0; y < 9; y++)
 			{
 				var room:Room = getRoom(x, y);
 				
@@ -336,10 +336,6 @@ package
 					world.addTile(room.position.x * 8 + 4, room.position.y * 8 + 8, getDoorTile());
 				if (room.isConnectedNorth)
 					world.addTile(room.position.x * 8 + 8, room.position.y * 8 + 4, getDoorTile());
-				if (room.isConnectedEast)
-					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 8, getDoorTile());
-				if (room.isConnectedSouth)
-					world.addTile(room.position.x * 8 + 8, room.position.y * 8 + 12, getDoorTile());
 			}
 			
 			world.addTile(4, 8 * 4 + 8, Tile.wood_door_closed);
