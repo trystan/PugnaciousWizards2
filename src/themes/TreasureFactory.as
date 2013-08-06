@@ -32,6 +32,7 @@ package themes
 				new Scroll(new Telekenesis()),
 				new Scroll(new HealingFog()),
 				new Scroll(new TimedMeteor()),
+				new Scroll(new MidasBones()),
 			];
 			
 			while (spellList.length < 9)

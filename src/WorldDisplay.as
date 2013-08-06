@@ -61,6 +61,7 @@ package
 		private var fire:Color = Color.hsv(0, 75, 80);
 		private var poison:Color = Color.hsv(90, 50, 80);
 		private var magic:Color = Color.hsv(270, 50, 80);
+		private var gold:Color = Color.hsv(60, 50, 80);
 		private var ash:Color = Color.hsv(30, 66, 20);
 		private var water_fg:Color = Color.hsv(220, 70, 50);
 		private var water_bg:Color = Color.hsv(220, 50, 30);
@@ -501,7 +502,7 @@ package
 			terminal.write(String.fromCharCode(3) + " ", x, y += 2, Color.integer(0xff6666).toInt());
 			terminal.write(player.health + "/" + player.maxHealth, x + 2, y, color.toInt());
 			
-			terminal.write("$ " + player.gold, x, y += 2, Color.hsv(60, 50, 80).toInt());
+			terminal.write("$ " + player.gold, x, y += 2, gold.toInt());
 			
 			terminal.write("* " + player.endPiecesPickedUp + "/3", x, y += 2, Color.hsv(60, 90, 90).toInt());
 			
@@ -568,7 +569,7 @@ package
 				return Color.integer(0x909090);
 				
 			if (item is Gold)
-				return Color.hsv(60, 50, 80);
+				return gold;
 				
 			return item is EndPiece ? Color.hsv(60, 90, 90) : Color.integer(0xffffff);
 		}
@@ -582,6 +583,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.golden_statue: return "s";
 				case Tile.fire_trap:
 				case Tile.ice_trap:
 				case Tile.poison_trap: return "^";
@@ -667,6 +669,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.golden_statue: return gold;
 				case Tile.fire_trap: return fire;
 				case Tile.ice_trap: return ice;
 				case Tile.poison_trap: return poison;
@@ -756,6 +759,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.golden_statue: return stone_bg;
 				case Tile.ice_trap:
 				case Tile.poison_trap:
 				case Tile.fire_trap: return tile_2;

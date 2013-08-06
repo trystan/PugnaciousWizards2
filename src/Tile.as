@@ -90,6 +90,8 @@ package
 		static public var ice_trap:Tile = new Tile("ice trap", null, false, false, 0.0, 0, iceTrap);
 		static public var poison_trap:Tile = new Tile("poison trap", null, false, false, 0.0, 0, poisonTrap);
 		
+		static public var golden_statue:Tile = new Tile("golden statue", "This statue of a skeleton is made of pure gold.", true, true, 1.0);
+		
 		public var name:String;
 		public var description:String;
 		public var blocksMovement:Boolean;

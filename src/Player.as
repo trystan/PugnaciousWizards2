@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Point;
+	import spells.MidasBones;
 	import spells.PullAndFreeze;
 	import spells.TimedFlash;
 	import spells.TimedMeteor;
