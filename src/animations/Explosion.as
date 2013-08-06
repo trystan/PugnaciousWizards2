@@ -14,7 +14,7 @@ package animations
 		public var max:int = 7 * 7;
 		public var payload:Payload;
 		
-		public function Explosion(world:World, x:int, y:int, payload:Payload, amount:int = 49, includeOrigin:Boolean = false) 
+		public function Explosion(world:World, x:int, y:int, payload:Payload, amount:int = 36, includeOrigin:Boolean = false) 
 		{
 			this.world = world;
 			this.frontiers = [new Point(x, y)];
