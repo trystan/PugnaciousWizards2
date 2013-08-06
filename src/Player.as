@@ -2,6 +2,8 @@ package
 {
 	import flash.geom.Point;
 	import spells.PullAndFreeze;
+	import spells.TimedFlash;
+	import spells.TimedMeteor;
 	
 	public class Player extends Creature
 	{

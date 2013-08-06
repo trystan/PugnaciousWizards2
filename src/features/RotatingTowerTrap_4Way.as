@@ -32,6 +32,11 @@ package features
 			updateWorld();
 		}
 		
+		override public function contains(x:int, y:int):Boolean
+		{
+			return this.x == x && this.y == y;
+		}
+		
 		override public function retheme(payload:Payload):void
 		{
 			if (payload is Ice)

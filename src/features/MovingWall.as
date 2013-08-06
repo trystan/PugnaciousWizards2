@@ -20,6 +20,11 @@ package features
 			update();
 		}
 		
+		override public function contains(x:int, y:int):Boolean
+		{
+			return this.x == x && this.y == y;
+		}
+		
 		override public function update():void
 		{
 			followTrack(oldTile);

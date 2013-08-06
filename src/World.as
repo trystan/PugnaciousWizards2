@@ -55,6 +55,18 @@ package
 				featureList.splice(index, 1);
 		}
 		
+		public function removeFeatureAt(x:int, y:int):void 
+		{
+			var toRemove:Array = [];
+			for each (var feature:CastleFeature in featureList)
+			{
+				if (feature.contains(x,y))
+					toRemove.push(feature);
+			}
+			for each (feature in toRemove)
+				removeFeature(feature);
+		}
+		
 		public function addAnimationEffect(effect:Animation):void
 		{
 			animationEffects.push(effect);

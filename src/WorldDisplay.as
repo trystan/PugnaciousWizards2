@@ -11,6 +11,7 @@ package
 	import animations.PullAndFreezeProjectileTrail;
 	import animations.TelekeneticMovement;
 	import com.headchant.asciipanel.AsciiPanel;
+	import features.BaseTimedEffect;
 	import features.CastleFeature;
 	import features.TimedFlashEffect;
 	import flash.display.BitmapData;
@@ -264,9 +265,9 @@ package
 		{
 			for each (var feature:CastleFeature in world.featureList)
 			{
-				if (feature is TimedFlashEffect)
+				if (feature is BaseTimedEffect)
 				{
-					var effect:TimedFlashEffect = feature as TimedFlashEffect;
+					var effect:BaseTimedEffect = feature as BaseTimedEffect;
 					
 					if (!canSee(effect.x, effect.y))
 						continue;

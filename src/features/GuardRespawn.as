@@ -13,6 +13,11 @@ package features
 			this.room = room;
 		}
 		
+		override public function contains(x:int, y:int):Boolean
+		{
+			return room.contains(x, y);
+		}
+		
 		public override function update():void
 		{
 			if (Math.random() > 0.05)

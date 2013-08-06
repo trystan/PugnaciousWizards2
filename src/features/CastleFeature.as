@@ -12,5 +12,10 @@ package features
 		{
 		
 		}
+		
+		public function contains(x:int, y:int):Boolean
+		{
+			throw new Error("not implemented.");
+		}
 	}
 }

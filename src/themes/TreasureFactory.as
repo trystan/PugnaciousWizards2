@@ -31,6 +31,7 @@ package themes
 				new Scroll(new PoisonFog()),
 				new Scroll(new Telekenesis()),
 				new Scroll(new HealingFog()),
+				new Scroll(new TimedMeteor()),
 			];
 			
 			while (spellList.length < 9)

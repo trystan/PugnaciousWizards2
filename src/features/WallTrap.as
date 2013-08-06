@@ -24,6 +24,13 @@ package features
 			this.howOften = howOften;
 		}
 		
+		override public function contains(x:int, y:int):Boolean
+		{
+			return sources.filter(function (p:Point, i:int, a:Array):Boolean {
+				return p.x == x && p.y == y;
+			}).length > 0;
+		}
+		
 		override public function retheme(payload:Payload):void
 		{
 			if (payload is Ice)

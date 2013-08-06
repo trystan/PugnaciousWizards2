@@ -14,6 +14,13 @@ package features
 			this.triggers = triggers;
 		}
 		
+		override public function contains(x:int, y:int):Boolean
+		{
+			return triggers.filter(function (p:Point, i:int, a:Array):Boolean {
+				return p.x == x && p.y == y;
+			}).length > 0;
+		}
+		
 		override public function update():void
 		{
 			for each (var p:Point in triggers)
