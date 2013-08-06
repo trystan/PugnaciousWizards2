@@ -46,14 +46,14 @@ package spells
 				
 				while (!ai.canSee(x, y) && tries++ < 100)
 				{
-					x = ai.position.x + (Math.random() * ai.visionRadius) - ai.visionRadius / 2; 
-					y = ai.position.y + (Math.random() * ai.visionRadius) - ai.visionRadius / 2;
+					x = ai.position.x + (Math.random() * 3) - 1; 
+					y = ai.position.y + (Math.random() * 3) - 1;
 				}
 				
 				if (ai.canSee(x, y))
 				{
 					cast(ai, x, y);
-					cooldown = 20;
+					cooldown = 10;
 				}
 			});
 		}
