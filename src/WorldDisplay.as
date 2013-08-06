@@ -169,7 +169,7 @@ package
 		{
 			var creatureColor:Color = Color.integer(creature.isGoodGuy ? 0xffffff : 0xc0c0c0);
 				
-			if (creature is MovingTree)
+			if (creature is AngryTree)
 				creatureColor = fg(Tile.tree, 1, 1);
 			else if (creature is BloodJelly)
 				creatureColor = blood.lerp(Color.integer(0xffffff), 0.5);
@@ -187,7 +187,7 @@ package
 		private function getCreatureGlyph(creature:Creature):String 
 		{
 			var creatureGlyph:String = creature.isGoodGuy ? "@" : creature.type.charAt(0).toLowerCase();
-			if (creature is MovingTree)
+			if (creature is AngryTree)
 				creatureGlyph = tile(Tile.tree);
 			if (creature is Golem)
 				creatureGlyph = "G";

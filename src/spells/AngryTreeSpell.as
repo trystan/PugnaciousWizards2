@@ -6,15 +6,15 @@ package spells
 	import payloads.Fire;
 	import screens.TargetScreen;
 	
-	public class TreeAlly implements Spell
+	public class AngryTreeSpell implements Spell
 	{
 		private var callback:Function;
 		
-		public function get name():String { return "Tree's revenge"; }
+		public function get name():String { return "Angry tree"; }
 		
 		public function get description():String
 		{
-			return "Give a tree the ability to walk and smash.";
+			return "Give a tree the ability to wander around and smash stuff.";
 		}
 		
 		public function playerCast(player:Creature, callback:Function):void
@@ -32,14 +32,14 @@ package spells
 			{
 				case Tile.tree:
 					caster.world.addTile(x, y, Tile.grass);
-					caster.world.addCreature(new MovingTree(new Point(x, y)));
+					caster.world.addCreature(new AngryTree(new Point(x, y)));
 					break;
 				case Tile.tree_fire_1:
 				case Tile.tree_fire_2:
 				case Tile.tree_fire_3:
 					caster.world.addTile(x, y, Tile.grass_fire);
 					
-					var c:MovingTree = new MovingTree(new Point(x, y));
+					var c:MovingTree = new AngryTree(new Point(x, y));
 					c.burn(100);
 					caster.world.addCreature(c);
 					break;
@@ -51,32 +51,23 @@ package spells
 		
 		public function aiGetAction(ai:Creature):SpellCastAction
 		{
-			if (Math.random() < 0.9)
-				return new SpellCastAction(0, function():void
-				{
-					cast(ai, ai.position.x, ai.position.y);
-				});
+			if (Math.random() < 0.95)
+				return new SpellCastAction(0, function():void { } );
 				
-			for (var ox:int = -ai.visionRadius; ox < ai.visionRadius; ox++)
-			for (var oy:int = -ai.visionRadius; oy < ai.visionRadius; oy++)
+			var candidates:Array = [];
+			ai.foreachVisibleLocation(function (x:int, y:int):void
 			{
-				var x:int = ai.position.x + ox;
-				var y:int = ai.position.y + oy;
-				
-				if (ai.world.getTile(x, y) != Tile.tree || !ai.canSee(x, y))
-					continue;
-					
-				if (Math.random() < 0.01)
-					return new SpellCastAction(10, function():void
-					{
-						cast(ai, x + 2, y);
-					});
-			}
-			
-			return new SpellCastAction(0, function():void
-			{
-				cast(ai, ai.position.x, ai.position.y);
+				if (ai.world.getTile(x, y) == Tile.tree)
+					candidates.push(new Point(x, y));
 			});
+			
+			if (candidates.length == 0)
+				return new SpellCastAction(0, function():void { } );
+
+			var target:Point = candidates[(int)(Math.random() * candidates.length)];
+			return new SpellCastAction(0.9, function():void {
+					cast(ai, target.x, target.y);
+				} );
 		}
 	}
 }

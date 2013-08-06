@@ -25,7 +25,7 @@ package themes
 				new Scroll(new Inferno()),
 				new Scroll(new TimedFlash()),
 				new Scroll(new PullAndFreeze()),
-				new Scroll(new TreeAlly()),
+				new Scroll(new AngryTreeSpell()),
 				new Scroll(new SummonGolem()),
 				new Scroll(new BloodJellies()),
 				new Scroll(new PoisonFog()),
