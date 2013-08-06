@@ -60,7 +60,7 @@ package spells
 				if (c == null || c == ai)
 					continue;
 					
-				if (!ai.canSeeCreature(c))
+				if (!ai.canSeeCreature(c) || !ai.isEnemy(c))
 					continue;
 					
 				return new SpellCastAction(0.9, function():void
