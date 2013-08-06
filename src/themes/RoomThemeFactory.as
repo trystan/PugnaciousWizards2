@@ -27,6 +27,8 @@ package themes
 			new PortalRoom(),
 			new TrapRoom(),
 			new TrapRoom(),
+			new TrapRoom(),
+			new TrapRoom(),
 		];
 		
 		public static function random():RoomTheme

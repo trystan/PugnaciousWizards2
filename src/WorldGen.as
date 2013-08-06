@@ -118,7 +118,7 @@ package
 			{
 				var rooms:Array = [getRoom((int)(Math.random() * 8) + 1, (int)(Math.random() * 8) + 1)];
 				var count:int = 0;
-				while (count++ < 4 || rooms.length > 0)
+				while (count++ < 4 && rooms.length > 0)
 				{
 					var room:Room = rooms.shift();
 					if (alreadyThemed.indexOf(room) > -1 || room == null)
