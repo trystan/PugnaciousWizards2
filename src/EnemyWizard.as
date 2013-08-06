@@ -19,7 +19,7 @@ package
 			super(position, "Wizard", 
 				"An enemy wizard who has sworn to protect the pieces of the amulet.");
 			
-			maxHealth = 5 * 10;
+			maxHealth = 9 * 10;
 			_health = maxHealth;
 			
 			usesMagic = true;
@@ -30,7 +30,7 @@ package
 		{
 			if (canCastMagic)
 			{
-				for (var tries:int = 0; tries < 3; tries++)
+				for (var tries:int = 0; tries < 5; tries++)
 				for each (var spell:Spell in magic)
 				{
 					var action:SpellCastAction = spell.aiGetAction(this);
@@ -42,13 +42,58 @@ package
 				}
 			}
 			
+			var candidates:Array = [wanderRandomly];
+			
 			if (canSeeCreature(world.player))
 				pathToNextTarget();
 			
 			if (path.length > 0)
-				moveToTarget();
-			else
-				wanderRandomly();
+				candidates.push(moveToTarget);
+				
+			var pathTo8Directions:Array = pathIntoEightDirections();
+			if (pathTo8Directions.length > 0)
+				candidates.push(function():void {
+					path = pathTo8Directions;
+					moveToTarget();
+				});
+				
+			var pathFrom8Directions:Array = pathOutOfHarmsWay();
+			if (pathFrom8Directions.length > 0)
+				candidates.push(function():void {
+					path = pathFrom8Directions;
+					moveToTarget();
+				});
+				
+			candidates[(int)(Math.random() * candidates.length)]();
+		}
+		
+		private function pathIntoEightDirections():Array
+		{
+			if (canSeeCreature(world.player))
+				return Dijkstra.pathTo(position, 
+									function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
+									function (x:int, y:int):Boolean { 
+										return world.player.position.x == x && world.player.position.y == y
+											|| isInArcherLine(new Point(x, y), world.player.position); } );
+			return [];
+		}
+		
+		private function pathOutOfHarmsWay():Array
+		{
+			if (canSeeCreature(world.player))
+				return Dijkstra.pathTo(position, 
+									function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
+									function (x:int, y:int):Boolean { 
+										return world.player.position.x == x && world.player.position.y == y
+											|| !isInArcherLine(new Point(x, y), world.player.position); } );
+			return [];
+		}
+		
+		private function isInArcherLine(from:Point, to:Point):Boolean
+		{
+			return from.x - to.x == 0 
+					|| from.y == to.y
+					|| Math.abs(from.x - to.x) - Math.abs(from.y - to.y) == 0
 		}
 		
 		private function pathToNextTarget():void 
