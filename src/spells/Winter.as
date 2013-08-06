@@ -34,21 +34,28 @@ package spells
 		
 		public function aiGetAction(ai:Creature):SpellCastAction
 		{	
-			return new SpellCastAction(ai.fireCounter > 0 ? 0.75 : 0.01, function():void
-			{
-				var x:int = -1;
-				var y:int = -1;
-				var tries:int = 0;
-				
-				do 
+			if (Math.random() < 0.9)
+				return new SpellCastAction(0.0, function():void
 				{
-					x = ai.position.x + (Math.random() * ai.visionRadius * 2) - ai.visionRadius;
-					y = ai.position.y + (Math.random() * ai.visionRadius * 2) - ai.visionRadius;
-				}
-				while (!ai.canSee(x, y) && tries++ < 100)
-				
-				if (ai.canSee(x, y))
-					cast(ai, x, y);
+				});
+
+			var candidates:Array = [];
+			ai.foreachVisibleCreature(function(other:Creature):void {
+				if (other.isEnemy(ai) || ai.isEnemy(other))
+					candidates.push(other);
+			});
+			
+			if (candidates.length > 0)
+			{
+				var other:Creature = candidates[(int)(Math.random() * candidates.length)];
+				return new SpellCastAction(other.freezeCounter > 5 ? 0.01 : 0.66, function():void
+				{
+					cast(ai, other.position.x, other.position.y);
+				});
+			}
+			
+			return new SpellCastAction(0.0, function():void
+			{
 			});
 		}
 	}
