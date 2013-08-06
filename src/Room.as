@@ -100,14 +100,16 @@ package
 			
 			for (var x:int = 0; x < 7; x++)
 			for (var y:int = 0; y < 7; y++)
+			{
 				world.addTile(worldPosition.x + x, worldPosition.y + y, ((x + y) % 2) == 0 ? Tile.floor_light : Tile.floor_dark);
+				
+				world.removeCreatureAt(worldPosition.x + x, worldPosition.y + y);
+				world.removeItemAt(worldPosition.x + x, worldPosition.y + y);
+			}
 		}
 		
 		private function anyDoorIsBlocked(world:World):Boolean 
 		{
-			if (isDeadEnd)
-				return false;
-			
 			var doors:Array = [];
 			if (isConnectedNorth)
 				doors.push(new Point(worldPosition.x + 3, worldPosition.y - 1));
@@ -118,16 +120,25 @@ package
 			if (isConnectedEast)
 				doors.push(new Point(worldPosition.x + 7, worldPosition.y + 3));
 			
+			var firstPoint:Point = new Point( -1, -1);
+			while (world.getTile(firstPoint.x, firstPoint.y).blocksMovement)
+			{
+				firstPoint.x = worldPosition.x + (int)(Math.random() * 6);
+				firstPoint.y = worldPosition.y + (int)(Math.random() * 6);
+			}
+			
 			var cardinal:AStar = new AStar(
-				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement || world.isClosedDoor(x, y); },
-				doors.shift(), false);
+				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement 
+															|| world.isClosedDoor(x, y)
+															|| world.getTile(x, y) == Tile.tree; },
+				firstPoint, false);
 			
 			cardinal.offsets = [[ -1, 0], [1, 0], [0, -1], [0, 1]];
 			
 			for each (var other:Point in doors)
 			{
 				var path:Array = cardinal.pathTo(other);
-						
+				
 				if (path == null || path.length == 0)
 					return true;
 			}

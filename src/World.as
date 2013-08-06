@@ -184,15 +184,15 @@ package
 		
 		public function removeItemAt(x:int, y:int):void 
 		{
-			var index:int = -1;
+			var indices:Array = [];
 			for (var i:int = 0; i < items.length; i++)
 			{
 				var placedItem:Object = items[i];
 				if (placedItem.x == x && placedItem.y == y)
-					index = i;
+					indices.push(i);
 			}
 			
-			if (index > -1)
+			for each (var index:int in indices)
 				items.splice(index, 1);
 		}
 		
@@ -231,6 +231,18 @@ package
 			var index:int = creatures.indexOf(creature);
 			if (index > -1)
 				creatures.splice(index, 1);
+		}
+		
+		public function removeCreatureAt(x:int, y:int):void 
+		{
+			var toRemove:Array = [];
+			for each (var creature:Creature in creatures)
+			{
+				if (creature.position.x == x && creature.position.y == y && creature.health > 0)
+					toRemove.push(creature);
+			}
+			for each (var c:Creature in toRemove)
+				removeCreature(c);
 		}
 		
 		public function getCreature(x:int, y:int):Creature 

@@ -22,11 +22,7 @@ package themes
 			new TrapRoom(),
 			
 			// some rooms are more common
-			new GuardBarracks(),
-			new ArcherBarracks(),
 			new PortalRoom(),
-			new TrapRoom(),
-			new TrapRoom(),
 			new TrapRoom(),
 			new TrapRoom(),
 		];
