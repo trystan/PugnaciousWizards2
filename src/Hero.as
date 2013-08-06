@@ -62,7 +62,7 @@ package
 			}
 			else
 			{
-				path = pathToVisibleItem();
+				path = pathToNearestItem();
 					
 				if (path.length == 0)
 					path = pathToNearestDoor();
@@ -95,12 +95,12 @@ package
 				function (x:int, y:int):Boolean { return x < 3; } );
 		}
 		
-		private function pathToVisibleItem():Array 
+		private function pathToNearestItem():Array 
 		{
 			var self:Creature = this;
 			return Dijkstra.pathTo(
 				new Point(position.x, position.y),
-				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement && self.canSee(x, y); },
+				function (x:int, y:int):Boolean { return !world.getTile(x, y).blocksMovement; },
 				function (x:int, y:int):Boolean { 
 						var item:Item = world.getItem(x, y);
 						return item != null && item.canBePickedUpBy(self);
