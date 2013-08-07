@@ -10,8 +10,8 @@ package
 		
 		public function BloodJelly(position:Point, summoner:Creature, blood:int)
 		{
-			super(position, "Blood  jelly",
-				"This blood has been magically animated into jelly form. They slowly lose health over time.");
+			super(position, "Blood jelly",
+				"This blood has been magically animated into jelly form. It splits when hurt.");
 			
 			this.summoner = summoner;
 				
@@ -68,8 +68,6 @@ package
 		
 		public override function doAi():void
 		{
-			super.hurt(1, "Lost all your magic blood.");
-			
 			pathToNextTarget();
 			
 			if (path.length > 0)

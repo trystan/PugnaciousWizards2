@@ -140,9 +140,15 @@ package screens
 				if (creature.bleedingCounter > 0)
 					attribs.push("bleeding");
 					
+				if (creature.poisonCounter > 0)
+					attribs.push("poisoned");
+					
 				if (creature.blindCounter > 0)
 					attribs.push("blind");
 				
+				if (!player.isEnemy(creature) && player != creature)
+					attribs.push("friendly (" + String.fromCharCode(3) + " " + creature.health + "/" + creature.maxHealth + ")");
+					
 				if (attribs.length > 0)
 					text += " (" + attribs.join(", ") + ")"
 					
