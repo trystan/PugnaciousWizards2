@@ -26,7 +26,7 @@ package features
 		{
 			var creature:Creature = world.getCreature(x, y);
 			if (creature != null)
-				creature.burn(5);
+				creature.burn(2);
 			
 			if (Math.random() < world.getTile(x, y - 1).burnChance)
 				world.addFeature(new BurningFire(world, x, y - 1));

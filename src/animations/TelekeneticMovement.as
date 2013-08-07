@@ -64,7 +64,7 @@ package animations
 		private function throwItem(i:Item):void 
 		{
 			caster.world.removeItem(i);
-			if (!caster.world.getTile(x + dx, y + dy).blocksMovement)
+			if (!caster.world.getTile(x + dx, y + dy).blocksArrows)
 			{
 				x += dx;
 				y += dy;

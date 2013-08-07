@@ -24,9 +24,9 @@ package
 		public static var bars_v:Tile = new Tile("bars", null, true, false, 0.0);
 		public static var wall:Tile = new Tile("wall", null, true, true, 1.0);
 		public static var moving_wall:Tile = new Tile("moving wall on a track", "This giant block moves on a track etched into the floor.", true, true, 0.0, 0, null, false);
-		public static var stone_door_closed:Tile = new Tile("closed stone door", "Bump into this stone door to open it. Like all stone, it can't be burnt.", true, true, 1.0, 0.25);
+		public static var stone_door_closed:Tile = new Tile("closed stone door", "Bump into this door to open it. Wooden doors can be burnt but stone ones can't.", true, true, 1.0, 0.25);
 		public static var stone_door_opened:Tile = new Tile("open door", null, false, false, 0.0, 0.25);
-		public static var wood_door_closed:Tile = new Tile("closed wooden door", "Bump into this wooden door to open it. Like all wooden things, it can be burnt.", true, true, 1.0, 0.25);
+		public static var wood_door_closed:Tile = new Tile("closed wooden door", null, true, true, 1.0, 0.25);
 		public static var wood_door_opened:Tile = new Tile("open door", null, false, false, 0.0, 0.25);
 		public static var door_closed_fire:Tile = new Tile("burning closed door", null, true, true, 1.0, 0, null, true, true);
 		public static var door_opened_fire:Tile = new Tile("burning open door", null, false, false, 0.0, 0, null, true, true);
@@ -45,31 +45,31 @@ package
 		public static var poisonFog:Tile = new Tile("poison fog", "This poisonous fog is so thick that you can't see very far through it.", false, false, 0.5, 0, poisonedFogEffect, false);
 		public static var healingFog:Tile = new Tile("healing fog", "This healing fog is so thick that you can't see very far through it.", false, false, 0.5, 0, healingFogEffect, false);
 		
-		static public var portal:Tile = new Tile("glowing portal", "This portal glows brightly. You can't see where it leads.", false, false, 0.0, 0, portalEffect);
+		static public var portal:Tile = new Tile("glowing portal", "This portal glows brightly. You can't see where it leads to.", false, false, 0.0, 0, portalEffect);
 		
 		static public var ice_tower:Tile = new Tile("ice tower", "This tower shoots freezing arrows in eight directions.", true, true, 0.0);
-		static public var ice_tower_1:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows in two directions.", true, true, 0.0);
-		static public var ice_tower_2:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows in two directions.", true, true, 0.0);
-		static public var ice_tower_3:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows in two directions.", true, true, 0.0);
-		static public var ice_tower_4:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows in two directions.", true, true, 0.0);
-		static public var ice_tower_5:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows in four directions.", true, true, 0.0);
-		static public var ice_tower_6:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows in four directions.", true, true, 0.0);
+		static public var ice_tower_1:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows.", true, true, 0.0);
+		static public var ice_tower_2:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows.", true, true, 0.0);
+		static public var ice_tower_3:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows.", true, true, 0.0);
+		static public var ice_tower_4:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows.", true, true, 0.0);
+		static public var ice_tower_5:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows.", true, true, 0.0);
+		static public var ice_tower_6:Tile = new Tile("rotating ice tower", "This rotating tower shoots freezing arrows.", true, true, 0.0);
 		
 		static public var fire_tower:Tile = new Tile("fire tower", "This tower shoots fiery arrows in eight directions.", true, true, 0.0);
-		static public var fire_tower_1:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows in two directions.", true, true, 0.0);
-		static public var fire_tower_2:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows in two directions.", true, true, 0.0);
-		static public var fire_tower_3:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows in two directions.", true, true, 0.0);
-		static public var fire_tower_4:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows in two directions.", true, true, 0.0);
-		static public var fire_tower_5:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows in four directions.", true, true, 0.0);
-		static public var fire_tower_6:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows in four directions.", true, true, 0.0);
+		static public var fire_tower_1:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows.", true, true, 0.0);
+		static public var fire_tower_2:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows.", true, true, 0.0);
+		static public var fire_tower_3:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows.", true, true, 0.0);
+		static public var fire_tower_4:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows.", true, true, 0.0);
+		static public var fire_tower_5:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows.", true, true, 0.0);
+		static public var fire_tower_6:Tile = new Tile("rotating fire tower", "This rotating tower shoots fiery arrows.", true, true, 0.0);
 		
 		static public var poison_tower:Tile = new Tile("poison tower", "This tower shoots poison arrows in eight directions.", true, true, 0.0);
-		static public var poison_tower_1:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in two directions.", true, true, 0.0);
-		static public var poison_tower_2:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in two directions.", true, true, 0.0);
-		static public var poison_tower_3:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in two directions.", true, true, 0.0);
-		static public var poison_tower_4:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in two directions.", true, true, 0.0);
-		static public var poison_tower_5:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in four directions.", true, true, 0.0);
-		static public var poison_tower_6:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows in four directions.", true, true, 0.0);
+		static public var poison_tower_1:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows.", true, true, 0.0);
+		static public var poison_tower_2:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows.", true, true, 0.0);
+		static public var poison_tower_3:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows.", true, true, 0.0);
+		static public var poison_tower_4:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows.", true, true, 0.0);
+		static public var poison_tower_5:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows.", true, true, 0.0);
+		static public var poison_tower_6:Tile = new Tile("rotating poison tower", "This rotating tower shoots poison arrows.", true, true, 0.0);
 		
 		static public var out_of_bounds:Tile = new Tile("**OUT OF BOUNDS**", null, true, true, 1.0);
 		

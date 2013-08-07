@@ -371,7 +371,7 @@ package
 		
 		private function addCastleBars(world:World):void 
 		{
-			var barChance:Number = 1.0 / 14.0;
+			var barChance:Number = 1.0 / 9.0;
 			
 			for (var x:int = 0; x < 8; x++)
 			for (var y:int = 0; y < 8; y++)

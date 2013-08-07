@@ -55,6 +55,9 @@ package themes
 			if (Math.random() < 0.1)
 				tile = Tile.grass;
 			
+			if (Math.random() < Globals.rarePercent)
+				tile = Tile.golden_statue;
+				
 			if (r < 0.1)
 			{
 				for (var x:int = 1; x < 6; x++)

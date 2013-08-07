@@ -40,17 +40,18 @@ package screens
 		}
 		
 		public function autoPlay():void 
-		{
-			doStep = false;
-			world.updateCreatures();
-			world.updateFeatures();
-			
+		{	
 			if (hero.health < 1)
 				switchTo(new IntroScreen());
 			else if (world.playerHasWon)
 				switchTo(new IntroScreen());
 			else
+			{				
+				doStep = false;
+				world.updateCreatures();
+				world.updateFeatures();
 				animateOneFrame(true);
+			}
 		}
 		
 		public function draw(terminal:AsciiPanel):void

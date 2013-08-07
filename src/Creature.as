@@ -71,7 +71,9 @@ package
 					world.openDoor(position.x + x, position.y + y);
 					
 					if (world.getTile(position.x + x, position.y + y, true).isOnFire)
-						burn(5);
+						burn(2);
+					else if (fireCounter > 0 && world.getTile(position.x + x, position.y + y, true) == Tile.wood_door_opened)
+						world.addTile(position.x + x, position.y + y, Tile.door_opened_fire);
 				}
 			}
 			else if (x == 0 && y == 0)
@@ -129,6 +131,11 @@ package
 		{
 			other.hurt(meleeDamage, "You've been slain by a " + type.toLowerCase());
 			other.bleed(2);
+			
+			if (fireCounter > 0 && other.fireCounter == 0)
+				other.burn(2);
+			else if (fireCounter == 0 && other.fireCounter > 0)
+				burn(2);
 		}
 		
 		public function moveTo(x:int, y:int):void
@@ -166,7 +173,7 @@ package
 					world.addFeature(new BurningFire(world, position.x, position.y));
 				
 				popup("you're burning", "You're on fire!", "One of the many hazards of being an adventurer is catching on fire every once in a while.\n\nThe fire will subside after a few turns - if you're still alive.");
-				hurt(3, "You have burned to death.");
+				hurt(5, "You have burned to death.");
 				fireCounter--;
 			}
 			

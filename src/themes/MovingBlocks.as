@@ -9,18 +9,11 @@ package themes
 		{
 			room.allowsVariation = false;
 			
-			switch ((int)(Math.random() * 3))
+			switch ((int)(Math.random() * 2))
 			{
-				case 0: circles(room, world); break;
-				case 1: northSouth(room, world); break;
-				case 2: westEast(room, world); break;
-			}
-			
-			for (var i:int = 0; i < 7; i++)
-			{
-				var x:int = Math.random() * 7;
-				var y:int = Math.random() * 7;
-				world.addBlood(room.worldPosition.x + x, room.worldPosition.y + y);
+				case 0: northSouth(room, world); break;
+				case 1: westEast(room, world); break;
+				case 2: circles(room, world); break; // was causing unexpeceted deaths
 			}
 		}
 		
