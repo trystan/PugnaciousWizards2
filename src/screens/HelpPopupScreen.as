@@ -10,7 +10,7 @@ package screens
 	{
 		private var w:int = 0;
 		private var h:int = 0;
-		private var background:Color = Color.integer(0x11111f);
+		private var background:int = Color.integer(0x101020).toInt();
 		private var text:Array;
 		
 		public function HelpPopupScreen(text:String, canDismiss:Boolean = true) 
@@ -42,26 +42,14 @@ package screens
 			
 			for (var x:int = 0; x < w + 4; x++)
 			for (var y:int = 0; y < h; y++)
-			{
-				var char:String = terminal.getCharacter(left + x, top + y);
-				var fg:int = terminal.getForegroundColor(left + x, top + y);
-				var bg:int = terminal.getBackgroundColor(left + x, top + y);
-				
-				fg = Color.integer(fg).lerp(background, 0.10).toInt();
-				bg = Color.integer(bg).lerp(background, 0.10).toInt();
-				
-				terminal.write(char, left + x, top + y, fg, bg);
-			}
+				terminal.write(" ", left + x, top + y, null, background);
 			
 			for (var i:int = 0; i < text.length; i++)
 			{
 				for (x = 0; x < text[i].length; x++)
 				{
-					y = i * 2;
-					
-					bg = terminal.getBackgroundColor(left + x, top + y);
-					
-					terminal.write(text[i].charAt(x), left + x + 2, top + y + 2, 0xffffff, bg);
+					y = i * 2
+					terminal.write(text[i].charAt(x), left + x + 2, top + y + 2, 0xffffff, background);
 				}
 			}
 		}
@@ -69,8 +57,10 @@ package screens
 		private function setTextLines(fullText:String, canDismiss:Boolean):void 
 		{
 			text = Text.wordWrap(w, fullText);
-			text.push("");
-			text.push("");
+			
+			while (text.length < 10)
+				text.push("");
+				
 			if (canDismiss)
 				text.push(padToCenter("-- press escape to dismiss all popups --"));
 			text.push(padToCenter("-- press enter to continue --"));

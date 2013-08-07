@@ -49,6 +49,7 @@ package screens
 			else
 			{				
 				doStep = false;
+				
 				if (hero.gold >= 20 && spellsForSale.length > 0)
 					buyASpell();
 				else
