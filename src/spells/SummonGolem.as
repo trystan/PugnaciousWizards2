@@ -36,56 +36,59 @@ package spells
 			var creature:Creature = caster.world.getCreature(x, y);
 			
 			if (creature != null)
+			{
 				creature.hurt(15, "You were torn to shreds by a summoning portal.");
+				if (callback != null)
+					callback();
+			}
 			else
 			{
 				summoned = new Golem(new Point(x, y), caster);
 				caster.world.addCreature(summoned);
-			}
-			
-			if (caster is Player)
-			{
-				RL.current.enter(new GolemShopScreen(caster, summoned, callback));
-			}
-			else
-			{
-				if (caster.gold > 5 && Math.random() < 0.80)
+				if (caster is Player)
 				{
-					summoned.isImmuneToFire = true;
-					caster.gold -= 5;
+					RL.current.enter(new GolemShopScreen(caster, summoned, callback));
 				}
-				if (caster.gold > 5 && Math.random() < 0.50)
+				else
 				{
-					summoned.isImmuneToBleeding = true;
-					caster.gold -= 5;
+					if (caster.gold > 5 && Math.random() < 0.80)
+					{
+						summoned.isImmuneToFire = true;
+						caster.gold -= 5;
+					}
+					if (caster.gold > 5 && Math.random() < 0.50)
+					{
+						summoned.isImmuneToBleeding = true;
+						caster.gold -= 5;
+					}
+					if (caster.gold > 5 && Math.random() < 0.50)
+					{
+						summoned.heal(15, true);
+						caster.gold -= 5;
+					}
+					if (caster.gold > 5 && Math.random() < 0.50)
+					{
+						summoned.meleeDamage += 5;
+						caster.gold -= 5;
+					}
+					if (caster.gold > 5 && Math.random() < 0.25)
+					{
+						summoned.isImmuneToIce = true;
+						caster.gold -= 5;
+					}
+					if (caster.gold > 5 && Math.random() < 0.25)
+					{
+						summoned.isImmuneToPoison = true;
+						caster.gold -= 5;
+					}
+					if (caster.gold > 5 && Math.random() < 0.15)
+					{
+						summoned.isImmuneToBlinding = true;
+						caster.gold -= 5;
+					}
+					if (callback != null)
+						callback();
 				}
-				if (caster.gold > 5 && Math.random() < 0.50)
-				{
-					summoned.heal(15, true);
-					caster.gold -= 5;
-				}
-				if (caster.gold > 5 && Math.random() < 0.50)
-				{
-					summoned.meleeDamage += 5;
-					caster.gold -= 5;
-				}
-				if (caster.gold > 5 && Math.random() < 0.25)
-				{
-					summoned.isImmuneToIce = true;
-					caster.gold -= 5;
-				}
-				if (caster.gold > 5 && Math.random() < 0.25)
-				{
-					summoned.isImmuneToPoison = true;
-					caster.gold -= 5;
-				}
-				if (caster.gold > 5 && Math.random() < 0.15)
-				{
-					summoned.isImmuneToBlinding = true;
-					caster.gold -= 5;
-				}
-				if (callback != null)
-					callback();
 			}
 		}
 		
