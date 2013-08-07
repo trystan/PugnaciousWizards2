@@ -41,9 +41,9 @@ package
 			
 			var tile:Tile = world.getTile(position.x + nx, position.y + ny);
 			if (tile != Tile.tree && tile.blocksMovement)
-				world.addTile(position.x + nx, position.y + ny, Tile.grass);
-				
-			moveBy(nx, ny);
+				world.addTile(position.x + nx, position.y + ny, Tile.dirt);
+			else
+				moveBy(nx, ny);
 		}
 	}
 }

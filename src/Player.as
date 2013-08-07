@@ -1,6 +1,8 @@
 package  
 {
 	import flash.geom.Point;
+	import spells.HealingFog;
+	import spells.PoisonFog;
 	
 	public class Player extends Creature
 	{
@@ -15,6 +17,9 @@ package
 				
 			isGoodGuy = true;
 			usesMagic = true;
+			
+			addMagicSpell(new HealingFog());
+			addMagicSpell(new PoisonFog());
 		}
 	}
 }

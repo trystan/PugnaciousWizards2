@@ -4,5 +4,6 @@ package payloads
 	{
 		function hitCreature(creature:Creature):void;
 		function hitTile(world:World, x:int, y:int):void;
+		function isSameAs(other:Payload):Boolean;
 	}
 }

@@ -15,5 +15,10 @@ package payloads
 			if (world.getTile(x, y, true).burnChance > 0)
 				world.addFeature(new BurningFire(world, x, y));
 		}
+		
+		public function isSameAs(other:Payload):Boolean
+		{
+			return other is Fire;
+		}
 	}
 }

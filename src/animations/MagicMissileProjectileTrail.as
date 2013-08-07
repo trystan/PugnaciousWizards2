@@ -2,19 +2,23 @@ package animations
 {
 	public class MagicMissileProjectileTrail implements Animation
 	{
-		public var x:int;
-		public var y:int;
+		public function get x():int { return _x; }
+		public function get y():int { return _y; }
+		public function get direction():String { return _direction; }
+		
+		public var _x:int;
+		public var _y:int;
 		public var ticks:int;
 		public var world:World;
-		public var direction:String;
+		public var _direction:String;
 		
 		public function MagicMissileProjectileTrail(world:World, x:int, y:int, direction:String, ticks:int) 
 		{
 			this.world = world;
-			this.x = x;
-			this.y = y;
+			this._x = x;
+			this._y = y;
 			this.ticks = ticks;
-			this.direction = direction;
+			this._direction = direction;
 			
 			world.addAnimationEffect(this);
 		}

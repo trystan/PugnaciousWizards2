@@ -1,34 +1,17 @@
 package  
 {
 	import adobe.utils.CustomActions;
-	import animations.Animation;
-	import animations.Explosion;
-	import animations.Flash;
-	import animations.MagicMissileProjectile;
-	import animations.MagicMissileProjectileTrail;
-	import animations.PullAndFreezeExpansion;
-	import animations.PullAndFreezeProjectile;
-	import animations.PullAndFreezeProjectileTrail;
-	import animations.TelekeneticMovement;
 	import com.headchant.asciipanel.AsciiPanel;
-	import features.BaseTimedEffect;
-	import features.CastleFeature;
-	import features.TimedFlashEffect;
 	import flash.display.BitmapData;
 	import flash.display.GraphicsSolidFill;
 	import flash.display.Sprite;
 	import flash.geom.Point;
-	import animations.FloorSpike;
-	import animations.Arrow;
 	import flash.utils.Dictionary;
-	import payloads.Fire;
-	import payloads.Ice;
-	import payloads.Payload;
-	import payloads.Pierce;
-	import payloads.Poison;
-	import spells.FireJump;
-	import spells.Spell;
+	import animations.*;
+	import features.*;
+	import payloads.*;
 	import knave.Color;
+	import spells.Spell;
 	
 	/*
 	 * I tried to keep the display details out of the domain classes and ended up with this montrosity. :( 
@@ -65,10 +48,12 @@ package
 		private var ash:Color = Color.hsv(30, 66, 20);
 		private var water_fg:Color = Color.hsv(220, 70, 50);
 		private var water_bg:Color = Color.hsv(220, 50, 30);
+		private var white:Color = Color.integer(0xffffff);
+		private var black:Color = Color.integer(0x000000);
+		private var dark:Color = Color.integer(0x333333);
+		private var light:Color = Color.hsv(60, 90, 90);
 		
 		private var viewAllMode:Boolean = false;
-			
-		private var tileDisplay:Dictionary = new Dictionary();
 		
 		public function WorldDisplay(player:Creature, world:World) 
 		{
@@ -121,7 +106,7 @@ package
 				}
 			}
 			
-			for each (var placedItem:Object in world.items)
+			for each (var placedItem:ItemInWorld in world.items)
 			{
 				if (canSee(placedItem.x, placedItem.y))
 				{
@@ -172,7 +157,7 @@ package
 			if (creature is AngryTree)
 				creatureColor = fg(Tile.tree, 1, 1);
 			else if (creature is BloodJelly)
-				creatureColor = blood.lerp(Color.integer(0xffffff), 0.5);
+				creatureColor = blood.lerp(white, 0.5);
 			else if (creature is Golem)
 				creatureColor = stone_fg;
 			
@@ -276,74 +261,18 @@ package
 		{
 			var didDrawAny:Boolean = false;
 			
-			for each (var effect:Object in world.animationEffects)
+			for each (var effect:Animation in world.animationList)
 			{
-				if ((effect as Animation).done)
+				if (effect.done)
 					continue;
-					
+				
 				if (effect is Arrow)
-				{
-					if (!canSee(effect.x, effect.y))
-						continue;
-					
-					didDrawAny = true;
-					
-					var fgc:Color = payloadColor(effect.payload);
-					
-					terminal.write(arrowTile(effect.direction), effect.x, effect.y, fgc.toInt(), terminal.getBackgroundColor(effect.x, effect.y));
-					
-					if (!(effect.payload is Pierce))
-						addLight(terminal, effect.x, effect.y, fgc, 2);
-				}
+					didDrawAny = didDrawAny || drawArrow(terminal, effect as Arrow);
 				else if (effect is Explosion)
-				{
-					var color:Color = payloadColor(effect.payload);
-					
-					for each (var t:Point in effect.tiles)
-					{
-						if (!canSee(t.x, t.y))
-							continue;
-					
-						didDrawAny = true;
-						
-						terminal.write(
-							terminal.getCharacter(t.x, t.y),
-							t.x, 
-							t.y, 
-							color.lerp(Color.integer(terminal.getForegroundColor(t.x, t.y)), 0.5).toInt(), 
-							color.lerp(Color.integer(terminal.getBackgroundColor(t.x, t.y)), 0.5).toInt());
-					}
-					for each (var t2:Point in effect.frontiers)
-					{
-						if (!canSee(t2.x, t2.y))
-							continue;
-					
-						didDrawAny = true;
-						
-						terminal.write(
-							terminal.getCharacter(t2.x, t2.y),
-							t2.x, 
-							t2.y, 
-							color.lerp(Color.integer(terminal.getForegroundColor(t2.x, t2.y)), 0.25).toInt(), 
-							color.lerp(Color.integer(terminal.getBackgroundColor(t2.x, t2.y)), 0.25).toInt());
-					}
-				}
+					didDrawAny = didDrawAny || drawExplosion(terminal, effect as Explosion);
 				else if (effect is MagicMissileProjectile)
-				{
-					if (!canSee(effect.x, effect.y))
-						continue;
-					
-					didDrawAny = true;
-
-					terminal.write(
-						arrowTile(effect.direction), 
-						effect.x, 
-						effect.y, 
-						magic.toInt(), 
-						terminal.getBackgroundColor(effect.x, effect.y));
-						
-					addLight(terminal, effect.x, effect.y, magic, 2);
-				}
+					didDrawAny = didDrawAny || drawMagicMissileProjectile(terminal, effect as MagicMissileProjectile);
+				
 				else if (effect is MagicMissileProjectileTrail)
 				{
 					if (!canSee(effect.x, effect.y))
@@ -381,17 +310,19 @@ package
 					
 					didDrawAny = true;
 
+					var trail:PullAndFreezeProjectileTrail = effect as PullAndFreezeProjectileTrail;
 					terminal.write(
 						terminal.getCharacter(effect.x, effect.y), 
 						effect.x, 
 						effect.y, 
-						ice.lerp(Color.integer(terminal.getForegroundColor(effect.x, effect.y)), effect.ticks / 12.0).toInt(),
-						ice.lerp(Color.integer(terminal.getBackgroundColor(effect.x, effect.y)), effect.ticks / 12.0).toInt());
+						ice.lerp(Color.integer(terminal.getForegroundColor(effect.x, effect.y)), trail.ticks / 12.0).toInt(),
+						ice.lerp(Color.integer(terminal.getBackgroundColor(effect.x, effect.y)), trail.ticks / 12.0).toInt());
 				}
 				else if (effect is PullAndFreezeExpansion)
 				{
-					for (var x0:int = effect.x - effect.radius; x0 < effect.x + effect.radius; x0++)
-					for (var y0:int = effect.y - effect.radius; y0 < effect.y + effect.radius; y0++)
+					var expansionRadius:int = (effect as PullAndFreezeExpansion).radius;
+					for (var x0:int = effect.x - expansionRadius; x0 < effect.x + expansionRadius; x0++)
+					for (var y0:int = effect.y - expansionRadius; y0 < effect.y + expansionRadius; y0++)
 					{
 						if (!canSee(x0, y0))
 							continue;
@@ -412,8 +343,6 @@ package
 					
 					didDrawAny = true;
 					
-					var white:Color = Color.integer(0xffffff);
-					
 					terminal.write(" ", effect.x, effect.y, 
 							white.lerp(Color.integer(terminal.getForegroundColor(effect.x, effect.y)), 0.5).toInt(), 
 							white.lerp(Color.integer(terminal.getBackgroundColor(effect.x, effect.y)), 0.5).toInt());
@@ -425,7 +354,7 @@ package
 					
 					didDrawAny = true;
 					
-					var item:Item = effect.thing as Item;
+					var item:Item = (effect as TelekeneticMovement).thing as Item;
 					if (item != null)
 						terminal.write(item_glyph(item), effect.x, effect.y, item_color(item).toInt(), bgAt(effect.x, effect.y).toInt());
 				}
@@ -454,8 +383,6 @@ package
 				else if (isOnFileTiles.indexOf(tile) > -1)
 					addLight(terminal, x, y, fire, 3);
 			}
-			
-			var light:Color = Color.hsv(60, 90, 90);
 			
 			for each (var creature:Creature in world.creatures)
 			{
@@ -491,7 +418,6 @@ package
 		{
 			var x:int = 81;
 			var y:int = 1;
-			var white:Color = Color.integer(0xffffff);
 			var color:Color = white.lerp(Color.integer(0xff6666), 1.0 * player.health / player.maxHealth);
 			terminal.write(String.fromCharCode(3) + " ", x, y += 2, Color.integer(0xff6666).toInt());
 			terminal.write(player.health + "/" + player.maxHealth, x + 2, y, color.toInt());
@@ -565,7 +491,7 @@ package
 			if (item is Gold)
 				return gold;
 				
-			return item is EndPiece ? Color.hsv(60, 90, 90) : Color.integer(0xffffff);
+			return item is EndPiece ? gold : white;
 		}
 		
 		private function tileAt(x:int, y:int):String
@@ -668,7 +594,7 @@ package
 				case Tile.ice_trap: return ice;
 				case Tile.poison_trap: return poison;
 				case Tile.healingFog: return Color.hsv(300, 66, 66);
-				case Tile.poisonFog: return poison.lerp(Color.integer(0xffffff), 0.5);
+				case Tile.poisonFog: return poison.lerp(white, 0.5);
 				case Tile.poison_water: return poison.lerp(water_fg, 0.125);
 				case Tile.shallow_water: return water_fg;
 				case Tile.frozen_water: return ice;
@@ -688,11 +614,11 @@ package
 				case Tile.wall: return stone_fg;
 				case Tile.bars_h:
 				case Tile.bars_v: return metal_fg;
-				case Tile.moving_wall: return Color.integer(0xffffff).lerp(stone_fg, 0.50);
+				case Tile.moving_wall: return white.lerp(stone_fg, 0.50);
 				case Tile.floor_dark: return tile_3;
 				case Tile.floor_light: return tile_4;
-				case Tile.mystic_floor_dark: return magic.lerp(Color.integer(0x000000), 0.33);
-				case Tile.mystic_floor_light: return magic.lerp(Color.integer(0x000000), 0.33);
+				case Tile.mystic_floor_dark: return magic.lerp(black, 0.33);
+				case Tile.mystic_floor_light: return magic.lerp(black, 0.33);
 				case Tile.ice_tower:
 				case Tile.ice_tower_1:
 				case Tile.ice_tower_2:
@@ -739,7 +665,7 @@ package
 				case Tile.track_dark_sw:
 				case Tile.track_light_se:
 				case Tile.track_dark_se:
-					return Color.integer(0x111111);
+					return Color.integer(0x333333);
 				default: return Color.integer(0x110000);
 			}
 		}
@@ -778,7 +704,7 @@ package
 				case Tile.wall: return stone_bg;
 				case Tile.bars_h:
 				case Tile.bars_v: return tile_2;
-				case Tile.moving_wall: return Color.integer(0xffffff).lerp(stone_bg, 0.25);
+				case Tile.moving_wall: return white.lerp(stone_bg, 0.25);
 				case Tile.floor_dark: return tile_1;
 				case Tile.floor_light: return tile_2;
 				case Tile.mystic_floor_dark: return tile_1;
@@ -855,6 +781,75 @@ package
 			for (var x:int = 0; x < 80; x++)
 			for (var y:int = 0; y < 80; y++)
 				treeBitmap.setPixel(x, y, Color.hsv(30 + Math.floor((perlinBitmap.getPixel(y, x) & 0xFF) / 255.0 * 90), 40, 40).toInt());
+		}
+		
+		private function drawArrow(terminal:AsciiPanel, effect:Arrow):Boolean 
+		{
+			if (!canSee(effect.x, effect.y))
+				return false;
+			
+			var fgc:Color = payloadColor(effect.payload);
+			
+			terminal.write(arrowTile(effect.direction), effect.x, effect.y, fgc.toInt(), terminal.getBackgroundColor(effect.x, effect.y));
+			
+			if (!(effect.payload is Pierce))
+				addLight(terminal, effect.x, effect.y, fgc, 2);
+				
+			return true;
+		}
+		
+		private function drawExplosion(terminal:AsciiPanel, effect:Explosion):Boolean 
+		{
+			var color:Color = payloadColor(effect.payload);
+			var didDrawAny:Boolean = false;
+			
+			for each (var t:Point in effect.tiles)
+			{
+				if (!canSee(t.x, t.y))
+					continue;
+			
+				didDrawAny = true;
+				
+				terminal.write(
+					terminal.getCharacter(t.x, t.y),
+					t.x, 
+					t.y, 
+					color.lerp(Color.integer(terminal.getForegroundColor(t.x, t.y)), 0.5).toInt(), 
+					color.lerp(Color.integer(terminal.getBackgroundColor(t.x, t.y)), 0.5).toInt());
+			}
+			for each (var t2:Point in effect.frontiers)
+			{
+				if (!canSee(t2.x, t2.y))
+					continue;
+			
+				didDrawAny = true;
+				
+				terminal.write(
+					terminal.getCharacter(t2.x, t2.y),
+					t2.x, 
+					t2.y, 
+					color.lerp(Color.integer(terminal.getForegroundColor(t2.x, t2.y)), 0.25).toInt(), 
+					color.lerp(Color.integer(terminal.getBackgroundColor(t2.x, t2.y)), 0.25).toInt());
+			}
+			
+			return didDrawAny;s
+		}
+		
+		private function drawMagicMissileProjectile(terminal:AsciiPanel, effect:MagicMissileProjectile):Boolean 
+		{
+			if (!canSee(effect.x, effect.y))
+				return false;
+				
+			terminal.write(
+				arrowTile(effect.direction), 
+				effect.x, 
+				effect.y, 
+				magic.toInt(), 
+				terminal.getBackgroundColor(effect.x, effect.y));
+				
+			addLight(terminal, effect.x, effect.y, magic, 2);
+			
+			return true;
 		}
 	}
 }

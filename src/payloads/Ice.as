@@ -12,6 +12,7 @@ package payloads
 			switch (world.getTile(x, y))
 			{
 				case Tile.shallow_water:
+				case Tile.poison_water:
 					world.addTile(x, y, Tile.frozen_water);
 					break;
 				case Tile.tree_fire_1:
@@ -22,8 +23,18 @@ package payloads
 				case Tile.grass_fire:
 					world.addTile(x, y, Tile.grass);
 					break;
-					
+				case Tile.door_closed_fire:
+					world.addTile(x, y, Tile.wood_door_closed);
+					break;
+				case Tile.door_opened_fire:
+					world.addTile(x, y, Tile.wood_door_opened);
+					break;
 			}
+		}
+		
+		public function isSameAs(other:Payload):Boolean
+		{
+			return other is Ice;
 		}
 	}
 }

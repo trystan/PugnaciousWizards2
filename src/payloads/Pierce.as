@@ -11,5 +11,10 @@ package payloads
 		public function hitTile(world:World, x:int, y:int):void 
 		{
 		}
+		
+		public function isSameAs(other:Payload):Boolean
+		{
+			return other is Pierce;
+		}
 	}
 }

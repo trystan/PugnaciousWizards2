@@ -12,7 +12,7 @@ package
 		{
 			if (creature is Player || creature is Hero)
 			{
-				creature.world.removeItemAt(creature.position.x, creature.position.y);
+				creature.world.removeItemsAt(creature.position.x, creature.position.y);
 				creature.endPiecesPickedUp++;
 			}
 		}

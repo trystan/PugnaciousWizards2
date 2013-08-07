@@ -5,16 +5,20 @@ package animations
 	
 	public class Flash implements Animation
 	{
+		public function get x():int { return _x; }
+		public function get y():int { return _y; }
+		public function get direction():String { return ""; }
+		
 		public var world:World;
-		public var x:int;
-		public var y:int;
+		public var _x:int;
+		public var _y:int;
 		public var ticks:int;
 		
 		public function Flash(world:World, x:int, y:int) 
 		{
 			this.world = world;
-			this.x = x;
-			this.y = y;
+			this._x = x;
+			this._y = y;
 			this.ticks = 0;
 			
 			world.addAnimationEffect(this);

@@ -67,19 +67,23 @@ package themes
 					w.addMagicSpell(new BoneSplode());
 					w.addMagicSpell(new Inferno());
 					w.aura = new Fire();
+					w.type = "Wizard of fire";
 					break;
 				case 1:
 					w.addMagicSpell(new PullAndFreeze());
 					w.addMagicSpell(new Winter());
 					w.addMagicSpell(new HealingFog());
 					w.aura = new Ice();
+					w.type = "Wizard of ice";
 					break;
 				case 2:
 					w.addMagicSpell(new PoisonFog());
 					w.addMagicSpell(new Telekenesis());
 					w.addMagicSpell(new SummonGolem());
+					w.addMagicSpell(new BloodJellies());
 					w.aura = new Poison();
 					w.gold += 20; // for golem upgrades
+					w.type = "Wizard of poison & summons";
 					break;
 			}
 			

@@ -6,8 +6,12 @@ package animations
 	
 	public class TelekeneticMovement implements Animation
 	{
-		public var x:int;
-		public var y:int;
+		public function get x():int { return _x; }
+		public function get y():int { return _y; }
+		public function get direction():String { return ""; }
+		
+		public var _x:int;
+		public var _y:int;
 		public var dx:int;
 		public var dy:int;
 		public var caster:Creature;
@@ -20,8 +24,8 @@ package animations
 		
 		public function TelekeneticMovement(caster:Creature, world:World, x:int, y:int, dx:int, dy:int, thing:Object) 
 		{
-			this.x = x;
-			this.y = y;
+			this._x = x;
+			this._y = y;
 			this.caster = caster;
 			this.world = world;
 			this.dx = dx;
@@ -66,8 +70,8 @@ package animations
 			caster.world.removeItem(i);
 			if (!caster.world.getTile(x + dx, y + dy).blocksArrows)
 			{
-				x += dx;
-				y += dy;
+				_x += dx;
+				_y += dy;
 				
 				var other:Creature = caster.world.getCreature(x, y);
 				if (other == caster)
@@ -78,8 +82,8 @@ package animations
 					}
 					else
 					{
-						x -= dx;
-						y -= dy;
+						_x -= dx;
+						_y -= dy;
 						caster.world.addItem(x, y, i);
 					}
 					_done = true;

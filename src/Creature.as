@@ -194,13 +194,11 @@ package
 			
 			if (blindCounter > 0)
 				blindCounter--;
-			
 				
 			if (isAsleep && (world.player.canSeeCreature(this) || this.canSeeCreature(world.player)))
 				isAsleep = false;
 			
-			
-			if (freezeCounter < 1 && health > 0 && !isAsleep)
+			if (!isAsleep && freezeCounter < 1 && health > 0)
 				doAi();
 		}
 		

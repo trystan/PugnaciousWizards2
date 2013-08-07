@@ -104,7 +104,7 @@ package
 				world.addTile(worldPosition.x + x, worldPosition.y + y, ((x + y) % 2) == 0 ? Tile.floor_light : Tile.floor_dark);
 				
 				world.removeCreatureAt(worldPosition.x + x, worldPosition.y + y);
-				world.removeItemAt(worldPosition.x + x, worldPosition.y + y);
+				world.removeItemsAt(worldPosition.x + x, worldPosition.y + y);
 			}
 		}
 		

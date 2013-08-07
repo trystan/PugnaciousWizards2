@@ -6,6 +6,10 @@ package animations
 	
 	public class Explosion implements Animation
 	{
+		public function get x():int { return -1; }
+		public function get y():int { return -1; }
+		public function get direction():String { return ""; }
+		
 		public var world:World;
 		public var tiles:Array = [];
 		public var frontiers:Array = [];

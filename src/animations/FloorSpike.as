@@ -2,8 +2,12 @@ package animations
 {
 	public class FloorSpike implements Animation
 	{
-		public var x:int;
-		public var y:int;
+		public function get x():int { return _x; }
+		public function get y():int { return _y; }
+		public function get direction():String { return ""; }
+		
+		public var _x:int;
+		public var _y:int;
 		public var world:World;
 		public var ticks:int = 0;
 		
@@ -13,8 +17,8 @@ package animations
 		
 		public function FloorSpike(world:World, x:int, y:int) 
 		{
-			this.x = x;
-			this.y = y;
+			this._x = x;
+			this._y = y;
 			this.world = world;
 			
 			world.addAnimationEffect(this);

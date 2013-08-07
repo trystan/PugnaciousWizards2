@@ -61,7 +61,7 @@ package
 		{
 			if (x < 0 || y < 0 || x > 79 || y > 79)
 				return false;
-				
+			
 			if (currentlySeen[x][y] == UNKNOWN)
 				check(x, y);
 				

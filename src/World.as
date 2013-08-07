@@ -10,14 +10,15 @@ package
 	public class World 
 	{
 		public var player:Creature;
-		private var tiles:Array = [];
-		private var fogAmount:Dictionary = new Dictionary();
+		private var tileGrid:Array;
+		private var bloodGrid:Array;
+		private var fogGrid:Array;
+		private var fogPoints:Array = [];
 		public var creatures:Array = [];
 		public var items:Array = [];
 		public var rooms:Array = [];
 		public var featureList:Array = [];
-		public var animationEffects:Array = [];
-		private var blood:Array = []
+		public var animationList:Array = [];
 		
 		public function get playerHasWon():Boolean 
 		{
@@ -26,8 +27,9 @@ package
 		
 		public function World()
 		{
-			tiles = grid(Tile.grass);
-			blood = grid(0);
+			tileGrid = grid(Tile.grass);
+			bloodGrid = grid(0);
+			fogGrid = grid(null);
 		}
 		
 		private function grid(defaultValue:Object):Array
@@ -69,14 +71,14 @@ package
 		
 		public function addAnimationEffect(effect:Animation):void
 		{
-			animationEffects.push(effect);
+			animationList.push(effect);
 		}
 		
 		public function removeAnimationEffect(effect:Animation):void
 		{
-			var index:int = animationEffects.indexOf(effect);
+			var index:int = animationList.indexOf(effect);
 			if (index > -1)
-				animationEffects.splice(index, 1);
+				animationList.splice(index, 1);
 		}
 		
 		public function addTile(x:int, y:int, tile:Tile):void
@@ -84,7 +86,7 @@ package
 			if (isOutOfBounds(x, y))
 				return;
 				
-			tiles[x][y] = tile;
+			tileGrid[x][y] = tile;
 		}
 		
 		public function getTile(x:int, y:int, ignoreFog:Boolean = false):Tile
@@ -94,16 +96,12 @@ package
 				
 			if (!ignoreFog) 
 			{
-				var fog:Object = fogAmount[x + "," + y];
+				var fog:Fog = fogGrid[x][y];
 				if (fog != null && fog.amount > 0)
 					return Tile.fogFor(fog.payload);
 			}
 			
-			var t:Tile = tiles[x][y];
-			if (t != null)
-				return t;
-				
-			return Tile.grass;
+			return tileGrid[x][y];
 		}
 		
 		public function openDoor(x:int, y:int):void
@@ -124,16 +122,18 @@ package
 		
 		public function isClosedDoor(x:int, y:int):Boolean 
 		{
-			return getTile(x, y, true) == Tile.stone_door_closed
-			    || getTile(x, y, true) == Tile.wood_door_closed
-			    || getTile(x, y, true) == Tile.door_closed_fire;
+			var tile:Tile = getTile(x, y, true);
+			return tile == Tile.stone_door_closed
+			    || tile == Tile.wood_door_closed
+			    || tile == Tile.door_closed_fire;
 		}
 		
 		public function isOpenedDoor(x:int, y:int):Boolean 
 		{
-			return getTile(x, y, true) == Tile.stone_door_opened 
-			    || getTile(x, y, true) == Tile.wood_door_opened 
-			    || getTile(x, y, true) == Tile.door_opened_fire;
+			var tile:Tile = getTile(x, y, true);
+			return tile == Tile.stone_door_opened 
+			    || tile == Tile.wood_door_opened 
+			    || tile == Tile.door_opened_fire;
 		}
 		
 		private function isOutOfBounds(x:int, y:int):Boolean 
@@ -159,7 +159,7 @@ package
 		
 		public function addItem(x:int, y:int, item:Item):void 
 		{
-			items.push({ x:x, y:y, item:item });
+			items.push(new ItemInWorld(x, y, item));
 		}
 		
 		public function removeItem(item:Item):Point
@@ -168,7 +168,7 @@ package
 			var pos:Point = null;
 			for (var i:int = 0; i < items.length; i++)
 			{
-				var placedItem:Object = items[i];
+				var placedItem:ItemInWorld = items[i];
 				if (placedItem.item == item)
 				{
 					index = i;
@@ -182,12 +182,12 @@ package
 			return pos;
 		}
 		
-		public function removeItemAt(x:int, y:int):void 
+		public function removeItemsAt(x:int, y:int):void 
 		{
 			var indices:Array = [];
 			for (var i:int = 0; i < items.length; i++)
 			{
-				var placedItem:Object = items[i];
+				var placedItem:ItemInWorld = items[i];
 				if (placedItem.x == x && placedItem.y == y)
 					indices.push(i);
 			}
@@ -198,10 +198,10 @@ package
 		
 		public function getItem(x:int, y:int):Item 
 		{
-			for each (var placedItem:Object in items)
+			for each (var placedItem:ItemInWorld in items)
 			{
 				if (placedItem.x == x && placedItem.y == y)
-					return placedItem.item as Item;
+					return placedItem.item;
 			}
 			return null;
 		}
@@ -209,10 +209,10 @@ package
 		public function getItems(x:int, y:int):Array 
 		{
 			var list:Array = [];
-			for each (var placedItem:Object in items)
+			for each (var placedItem:ItemInWorld in items)
 			{
 				if (placedItem.x == x && placedItem.y == y)
-					list.push(placedItem.item as Item);
+					list.push(placedItem.item);
 			}
 			return list;
 		}
@@ -255,13 +255,8 @@ package
 			return null;
 		}
 		
-		public function addBlood(x:int, y:int, amount:int = 1):void
+		public function addBlood(x:int, y:int, amount:int):void
 		{
-			if (amount < 1) {
-				addBlood1(x, y, amount);
-				return;
-			}
-			
 			addBlood1(x, y);
 			for (var i:int = 1; i < amount; i++)
 				addBlood1(x + (int)(Math.random() * 3) - 1, y + (int)(Math.random() * 3) - 1);
@@ -269,15 +264,12 @@ package
 		
 		private function addBlood1(x:int, y:int, amount:int = 1):void
 		{
-			blood[x + "," + y] = Math.min(Math.max(0, getBlood(x, y) + amount), 9);
+			bloodGrid[x][y] = Math.min(Math.max(0, getBlood(x, y) + amount), 9);
 		}
 		
 		public function getBlood(x:int, y:int):int
 		{
-			if (blood[x + "," + y] > 0)
-				return blood[x + "," + y];
-			else
-				return 0;
+			return bloodGrid[x][y];
 		}
 		
 		public function updateCreatures():void
@@ -300,73 +292,96 @@ package
 		public function animate():void 
 		{
 			var nextAnimations:Array = [];
-			for each (var animation:Animation in animationEffects)
+			for each (var animation:Animation in animationList)
 			{
 				animation.update();
 				if (!animation.done)
 					nextAnimations.push(animation);
 			}
-			animationEffects = nextAnimations;
+			animationList = nextAnimations;
 		}
 		
 		public function addFog(x:int, y:int, amount:int, payload:Payload):void 
 		{
-			var key:String = x + "," + y;
-			
-			if (fogAmount[key] == null)
-				fogAmount[key] = new Fog(amount, payload);
+			fogGrid[x][y] = new Fog(amount, payload);
+			fogPoints.push(new Point(x, y));
 		}
 		
 		public function disipateFog():void
 		{
-			var newFog:Dictionary = new Dictionary();
+			var newFog:Array = grid(null);
+			var newFogPoints:Array = [];
 			
-			for (var key:String in fogAmount)
+			for each (var fogPoint:Point in fogPoints)
 			{
-				var fog:Fog = fogAmount[key];
+				var x:int = fogPoint.x;
+				var y:int = fogPoint.y;
+				
+				var fog:Fog = fogGrid[x][y];
 				var amount:int = fog.amount - 1;
 				
 				if (amount < 1)
 					continue;
-					
-				var x:int = key.split(",")[0];
-				var y:int = key.split(",")[1];
 				
 				for each (var offsets:Array in [[ -1, 0], [1, 0], [0, -1], [0, 1]])
 				{
 					if (Math.random() < 0.25)
 						continue;
-						
-					if (amount < 3 || getTile(x + offsets[0], y + offsets[1]).blocksArrows)
+					
+					var x2:int = x + offsets[0];
+					var y2:int = y + offsets[1];
+					
+					if (amount < 3 || getTile(x2, y2).blocksArrows)
 						continue;
-						
-					var key2:String = (x + offsets[0]) + "," + (y + offsets[1]);
-					var diff:int = fogAmount[key2] == null ? amount : amount - fogAmount[key2].amount;
+					
+					var fog2:Fog = fogGrid[x2][y2];
+					var diff:int = fog2 == null ? amount : amount - fog2.amount;
 					
 					if (diff < 1)
 						continue;
-						
-					amount -= diff / 2;
 					
+					var spillOver:int = diff / 2;
 					
-					if (newFog[key2] == null)
-						newFog[key2] = new Fog(diff / 2, fog.payload);
-					else
-						newFog[key2].amount = newFog[key2].amount + diff / 2;
+					amount -= spillOver;
+					
+					if (newFog[x2][y2] == null)
+					{
+						newFog[x2][y2] = new Fog(spillOver, fog.payload);
+						newFogPoints.push(new Point(x2, y2));
+					}
+					else if (newFog[x2][y2].payload.isSameAs(fog.payload))
+					{
+						newFog[x2][y2].amount += spillOver;
+					}
+					else if (newFog[x2][y2].amount < spillOver)
+					{
+						newFog[x2][y2] = new Fog(spillOver, fog.payload);
+					}
 				}
 				
 				if (amount > 0)
-					newFog[key] = new Fog(amount, fog.payload);
+				{
+					if (newFog[x][y] == null)
+					{
+						newFog[x][y] = new Fog(amount, fog.payload);
+						newFogPoints.push(new Point(x, y));
+					}
+					else if (newFog[x][y].payload.isSameAs(fog.payload))
+					{
+						newFog[x][y].amount += amount;
+					}
+					else if (newFog[x][y].amount < amount)
+					{
+						newFog[x][y] = new Fog(amount, fog.payload);
+					}
+				}
 			}
 			
-			fogAmount = newFog;
+			fogGrid = newFog;
+			fogPoints = newFogPoints;
 			
-			for (key in fogAmount)
-			{
-				x = key.split(",")[0];
-				y = key.split(",")[1];
-				newFog[key].payload.hitTile(this, x, y);
-			}
+			for each (var p:Point in newFogPoints)
+				newFog[p.x][p.y].payload.hitTile(this, p.x, p.y);
 		}
 	}
 }

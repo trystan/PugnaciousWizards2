@@ -24,5 +24,10 @@ package payloads
 					break;
 			}
 		}
+		
+		public function isSameAs(other:Payload):Boolean
+		{
+			return other is Poison;
+		}
 	}
 }

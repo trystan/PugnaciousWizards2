@@ -6,9 +6,13 @@ package animations
 	
 	public class Arrow implements Animation
 	{
-		public var x:int;
-		public var y:int;
-		public var direction:String;
+		public function get x():int { return _x; }
+		public function get y():int { return _y; }
+		public function get direction():String { return _direction; }
+		
+		public var _x:int;
+		public var _y:int;
+		public var _direction:String;
 		public var world:World;
 		public var ticks:int;
 		public var payload:Payload;
@@ -18,10 +22,10 @@ package animations
 		
 		public function Arrow(world:World, x:int, y:int, dir:String, payload:Payload) 
 		{
-			this.x = x;
-			this.y = y;
+			this._x = x;
+			this._y = y;
 			this.world = world;
-			this.direction = dir;
+			this._direction = dir;
 			this.ticks = 0;
 			this.payload = payload;
 			
@@ -36,10 +40,10 @@ package animations
 			{
 				switch (direction.charAt(i))
 				{
-					case "N": y++; break;
-					case "S": y--; break;
-					case "W": x++; break;
-					case "E": x--; break;
+					case "N": _y++; break;
+					case "S": _y--; break;
+					case "W": _x++; break;
+					case "E": _x--; break;
 				}
 			}
 			

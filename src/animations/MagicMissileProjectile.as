@@ -6,37 +6,41 @@ package animations
 	
 	public class MagicMissileProjectile implements Animation
 	{
-		public var x:int;
-		public var y:int;
+		public function get x():int { return _x; }
+		public function get y():int { return _y; }
+		public function get direction():String { return _direction; }
+		
+		public var _x:int;
+		public var _y:int;
 		public var vx:int;
 		public var vy:int;
 		public var world:World;
 		public var ticks:int;
-		public var direction:String;
+		public var _direction:String;
 		
 		private var _done:Boolean = false;
 		public function get done():Boolean { return _done; }
 		
 		public function MagicMissileProjectile(world:World, x:int, y:int, vx:int, vy:int, ticks:int = 14) 
 		{
-			this.x = x;
-			this.y = y;
+			this._x = x;
+			this._y = y;
 			this.vx = vx;
 			this.vy = vy;
 			this.world = world;
 			this.ticks = ticks;
 			
-			this.direction = "";
+			this._direction = "";
 			
 			if (vy < 0)
-				this.direction += "N";
+				this._direction += "N";
 			else if (vy > 0)
-				this.direction += "S";
+				this._direction += "S";
 				
 			if (vx < 0)
-				this.direction += "W";
+				this._direction += "W";
 			else if (vx > 0)
-				this.direction += "E";
+				this._direction += "E";
 				
 			world.addAnimationEffect(this);
 		}
@@ -50,8 +54,8 @@ package animations
 				new MagicMissileProjectileTrail(world, x, y, direction, 5);
 			}
 			
-			x += vx;
-			y += vy;
+			_x += vx;
+			_y += vy;
 			
 			if (ticks < 1)
 			{
@@ -87,13 +91,13 @@ package animations
 				{
 					vx *= -1;
 					vy *= -1;
-					x += vx;
-					y += vy;
+					_x += vx;
+					_y += vy;
 				}
 				else
 				{		
-					x -= vx;
-					y -= vy;
+					_x -= vx;
+					_y -= vy;
 					_done = true;
 					
 					switch (direction)

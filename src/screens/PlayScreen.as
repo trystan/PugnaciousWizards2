@@ -104,7 +104,7 @@ package screens
 		public function animate(terminal:AsciiPanel):void
 		{
 			var didUpdate:Boolean = false;
-			while (world.animationEffects.length > 0 && !didUpdate)
+			while (world.animationList.length > 0 && !didUpdate)
 			{
 				if (display.drawAnimations(terminal))
 					didUpdate = true;
@@ -116,7 +116,7 @@ package screens
 				switchTo(new FailScreen(player, world));
 			else if (world.playerHasWon)
 				switchTo(new VictoryScreen(player, world));
-			else if (world.animationEffects.length > 0 || didUpdate)
+			else if (world.animationList.length > 0 || didUpdate)
 				animateOneFrame();
 			else if (isUpdatingPlayer)
 				updateOthers();

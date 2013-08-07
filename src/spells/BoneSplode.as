@@ -19,12 +19,15 @@ package spells
 		public function cast(caster:Creature, x:int, y:int):void 
 		{
 			caster.foreachVisibleLocation(function (vx:int, vy:int):void {
-				var bones:PileOfBones = caster.world.getItem(vx, vy) as PileOfBones;
-				if (bones == null)
-					return;
-					
-				new Explosion(caster.world, vx, vy, new Fire(), 25, true);
-				caster.world.removeItemAt(vx, vy);
+				for each (var item:Item in caster.world.getItems(vx, vy))
+				{
+					var bones:PileOfBones = item as PileOfBones;
+					if (bones == null)
+						return;
+						
+					new Explosion(caster.world, vx, vy, new Fire(), 25, true);
+					caster.world.removeItem(bones);
+				}
 			});
 		}
 		

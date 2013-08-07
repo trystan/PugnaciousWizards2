@@ -86,7 +86,7 @@ package screens
 		public function doAnimation(terminal:AsciiPanel):void
 		{
 			var didUpdate:Boolean = false;
-			while (world.animationEffects.length > 0 && !didUpdate)
+			while (world.animationList.length > 0 && !didUpdate)
 			{
 				world.animate();
 				
@@ -94,7 +94,7 @@ package screens
 					didUpdate = true;
 			}
 			
-			if (world.animationEffects.length == 0 || !didUpdate)
+			if (world.animationList.length == 0 || !didUpdate)
 				doStep = true;
 				
 			animateOneFrame(true);
