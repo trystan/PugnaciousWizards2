@@ -8,6 +8,7 @@ package screens
 	import knave.RL;
 	import knave.BaseScreen;
 	import knave.Screen;
+	import spells.Spell;
 	import themes.TreasureFactory;
 	
 	public class IntroScreen extends BaseScreen
@@ -15,12 +16,12 @@ package screens
 		public var hero:Hero;
 		public var world:World;
 		public var display:WorldDisplay;
+		public var spellsForSale:Array = [];
 		
 		public function IntroScreen() 
 		{
 			TreasureFactory.reset();
 			
-			var spellsForSale:Array = [];
 			spellsForSale.push((TreasureFactory.random() as Scroll).spell);
 			spellsForSale.push((TreasureFactory.random() as Scroll).spell);
 			spellsForSale.push((TreasureFactory.random() as Scroll).spell);
@@ -48,10 +49,20 @@ package screens
 			else
 			{				
 				doStep = false;
-				world.updateCreatures();
+				if (hero.gold >= 20 && spellsForSale.length > 0)
+					buyASpell();
+				else
+					world.updateCreatures();
+				
 				world.updateFeatures();
 				animateOneFrame(true);
 			}
+		}
+		
+		private function buyASpell():void 
+		{
+			hero.gold -= 20;
+			hero.addMagicSpell(spellsForSale.splice(0, 1)[0] as Spell);
 		}
 		
 		public function draw(terminal:AsciiPanel):void
