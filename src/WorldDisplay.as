@@ -267,11 +267,11 @@ package
 					continue;
 				
 				if (effect is Arrow)
-					didDrawAny = didDrawAny || drawArrow(terminal, effect as Arrow);
+					didDrawAny = drawArrow(terminal, effect as Arrow) || didDrawAny;
 				else if (effect is Explosion)
-					didDrawAny = didDrawAny || drawExplosion(terminal, effect as Explosion);
+					didDrawAny = drawExplosion(terminal, effect as Explosion) || didDrawAny;
 				else if (effect is MagicMissileProjectile)
-					didDrawAny = didDrawAny || drawMagicMissileProjectile(terminal, effect as MagicMissileProjectile);
+					didDrawAny = drawMagicMissileProjectile(terminal, effect as MagicMissileProjectile) || didDrawAny;
 				
 				else if (effect is MagicMissileProjectileTrail)
 				{

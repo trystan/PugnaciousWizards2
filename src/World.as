@@ -257,6 +257,12 @@ package
 		
 		public function addBlood(x:int, y:int, amount:int):void
 		{
+			if (amount < 1)
+			{
+				addBlood1(x, y, amount);
+				return;
+			}
+			
 			addBlood1(x, y);
 			for (var i:int = 1; i < amount; i++)
 				addBlood1(x + (int)(Math.random() * 3) - 1, y + (int)(Math.random() * 3) - 1);

@@ -12,6 +12,8 @@ package features
 			this.world = world;
 			this.x = x;
 			this.y = y;
+			
+			update();
 		}
 		
 		override public function contains(x:int, y:int):Boolean
