@@ -34,11 +34,15 @@ package spells
 				callback();
 		}
 		
+		private var cooldown:int = 0;
 		public function aiGetAction(ai:Creature):SpellCastAction
 		{	
 			if (ai.fireCounter > 0 && Math.random() < 0.5)
-				return new SpellCastAction(0.0, function():void { cast(ai, 0, 0); } );
+				return new SpellCastAction(1, function():void { cast(ai, 0, 0); } );
 			
+			if (cooldown-- > 0)
+				return new SpellCastAction(0.0, function():void { } );
+				
 			var directions:Array = [[ -1, 0], [ -1, -1], [ -1, 1], [0, -1], [0, 1], [1, 0], [1, -1], [1, 1]];
 			var offsets:Array;
 			
@@ -66,6 +70,7 @@ package spells
 					return new SpellCastAction(0.8, function():void
 					{
 						cast(ai, offsets[0], offsets[1]);
+						cooldown = 3;
 					});
 				}
 			}
