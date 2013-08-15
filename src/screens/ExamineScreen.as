@@ -1,6 +1,8 @@
 package screens 
 {
+	import animations.Flash;
 	import com.headchant.asciipanel.AsciiPanel;
+	import flash.events.MouseEvent;
 	import knave.BaseScreen;
 	import knave.Color;
 	
@@ -45,6 +47,8 @@ package screens
 			bind('8', describeMagic, 7);
 			bind('9', describeMagic, 8);
 			
+			bind('mouse', moveTo);
+			
 			bind('draw', draw);
 		}
 		
@@ -52,6 +56,12 @@ package screens
 		{
 			lookX = Math.max(0, Math.min(lookX + x, 79));
 			lookY = Math.max(0, Math.min(lookY + y, 79));
+		}
+		
+		private function moveTo(x:int, y:int, event:Object):void 
+		{
+			lookX = Math.max(0, Math.min(x / 8, 79));
+			lookY = Math.max(0, Math.min(y / 8, 79));
 		}
 		
 		private function describeMagic(index:int):void
@@ -88,7 +98,7 @@ package screens
 				case 1: spellRange = " or 1 for magic"; break;
 				default: spellRange = " or 1 through " + player.magic.length + " for magic"; break;
 			}
-			terminal.write("Examine what? (use movement keys" + spellRange + ")", 2, lookY > 75 ? 71 : 78);
+			terminal.write("Examine what? (use movement keys or mouse" + spellRange + ")", 2, lookY > 75 ? 71 : 78);
 		}
 		
 		private function describe():String 

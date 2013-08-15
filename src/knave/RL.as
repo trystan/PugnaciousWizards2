@@ -4,6 +4,7 @@ package knave
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	
 	public class RL extends Sprite implements Screen
 	{
@@ -13,6 +14,7 @@ package knave
 		private var bindings:Bindings = new Bindings();
 		private var terminal:AsciiPanel;
 		private var keyboardEvent:KeyboardEvent = null;
+		private var mouseEvent:MouseEvent = null;
 		private var isAnimating:Boolean = false;
 		
 		private var interruptAnimations:Boolean = false;
@@ -32,8 +34,15 @@ package knave
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseEvent);
+			stage.addEventListener(MouseEvent.CLICK, onMouseEvent);
 			stage.addEventListener(Event.ENTER_FRAME, onTick);
 			draw();
+		}
+		
+		private function onMouseEvent(e:MouseEvent):void 
+		{
+			mouseEvent = e;
 		}
 		
 		private function onKeyDown(e:KeyboardEvent):void 
@@ -50,6 +59,11 @@ package knave
 				update = true;
 				processKeyboardEvent();
 			}
+			else if (mouseEvent != null && (!isAnimating || interruptAnimations))
+			{
+				update = true;
+				processMouseEvent();
+			}
 			else
 			{
 				keyboardEvent = null;
@@ -64,6 +78,28 @@ package knave
 			
 			if (update)
 				draw();
+		}
+		
+		private function processMouseEvent():void
+		{
+			if (mouseEvent == null)
+				return;
+				
+			var key:String = "";
+			var event:MouseEvent = mouseEvent;
+			
+			mouseEvent = null;
+			
+			switch (event.type)
+			{
+				case MouseEvent.CLICK: key = "click"; break;
+				case MouseEvent.MOUSE_MOVE: key = "mouse"; break;
+			}
+			
+			if (key.length == 0)
+				return;
+				
+			trigger(key, [event.localX, event.localY, event]);
 		}
 		
 		private function processKeyboardEvent():void

@@ -13,8 +13,8 @@ package screens
 		private var ty:int;
 		private var player:Creature;
 		private var excludeOccupiedTiles:Boolean;
-		private var isOk:Boolean = true;
 		private var validateTarget:Function;
+		private var isOk:Boolean;
 		
 		public function TargetScreen(player:Creature, callback:Function, okFunction:Function) 
 		{
@@ -22,7 +22,6 @@ package screens
 			this.ty = player.position.y;
 			this.player = player;
 			this.callback = callback;
-			this.excludeOccupiedTiles = excludeOccupiedTiles;
 			this.validateTarget = okFunction;
 			
 			bind('up', moveBy, 0, -1);
@@ -35,8 +34,20 @@ package screens
 			bind('down right', moveBy, 1, 1);
 			
 			bind('escape', function():void { exit(); } );
-			bind('enter', function():void { if (isOk) { exit(); callback(player, tx, ty); } } );
+			bind('click', 'do it');
+			bind('enter', 'do it');
+			bind('do it', function():void { if (isOk) { exit(); callback(player, tx, ty); } } );
 			bind('draw', draw);
+			
+			bind('mouse', moveTo);
+			
+			isOk = validateTarget(tx, ty);
+		}
+		
+		private function moveTo(mx:int, my:int, event:Object):void 
+		{
+			tx = Math.min(mx / 8, 79);
+			ty = my / 8;
 			
 			isOk = validateTarget(tx, ty);
 		}
@@ -54,7 +65,7 @@ package screens
 		
 		public function draw(terminal:AsciiPanel):void 
 		{
-			terminal.write("Where? (use movement keys)", 2, 78, 0xffffff);
+			terminal.write("Where? (use movement keys or mouse)", 2, 78, 0xffffff);
 			
 			drawRecticle(terminal, tx, ty, isOk ? 0xffffff : 0xff3333, 0x000000);
 		}
