@@ -32,6 +32,7 @@ package themes
 			new HealingFog(),
 			new TimedMeteor(),
 			new MidasBones(),
+			new DarkJump(),
 		];
 		
 		public static function reset():void

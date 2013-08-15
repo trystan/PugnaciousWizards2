@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Point;
+	import spells.DarkJump;
 	import spells.HealingFog;
 	import spells.PoisonFog;
 	import spells.Spell;

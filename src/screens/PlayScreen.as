@@ -9,6 +9,7 @@ package screens
 	import flash.utils.setTimeout;
 	import knave.BaseScreen;
 	import knave.RL;
+	import knave.Screen;
 	import themes.TreasureFactory;
 	
 	public class PlayScreen extends BaseScreen
