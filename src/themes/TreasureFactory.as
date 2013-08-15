@@ -11,34 +11,40 @@ package themes
 		public static var spellList:Array = null;
 		public static var nextWizardNumber:int = 0;
 		
+		public static var allSpells:Array = [
+			new FireJump(),
+			new HealAndWeaken(),
+			new MagicMissile(),
+			
+			new BloodHeal(),
+			new BloodBurn(),
+			new BlindingBlink(),
+			new BoneSplode(),
+			new Winter(),
+			new Inferno(),
+			new TimedFlash(),
+			new PullAndFreeze(),
+			new AngryTreeSpell(),
+			new SummonGolem(),
+			new BloodJellies(),
+			new PoisonFog(),
+			new Telekenesis(),
+			new HealingFog(),
+			new TimedMeteor(),
+			new MidasBones(),
+		];
+		
 		public static function reset():void
 		{
 			nextWizardNumber = 0;
 			spellList = [];
 			
-			var list:Array = [
-				new Scroll(new BloodHeal()),
-				new Scroll(new BloodBurn()),
-				new Scroll(new BlindingBlink()),
-				new Scroll(new BoneSplode()),
-				new Scroll(new Winter()),
-				new Scroll(new Inferno()),
-				new Scroll(new TimedFlash()),
-				new Scroll(new PullAndFreeze()),
-				new Scroll(new AngryTreeSpell()),
-				new Scroll(new SummonGolem()),
-				new Scroll(new BloodJellies()),
-				new Scroll(new PoisonFog()),
-				new Scroll(new Telekenesis()),
-				new Scroll(new HealingFog()),
-				new Scroll(new TimedMeteor()),
-				new Scroll(new MidasBones()),
-			];
+			var list:Array = allSpells.slice(3); // skip the three spells outside the castle
 			
 			while (spellList.length < 9)
 			{
 				var index:int = Math.random() * list.length;
-				spellList.push(list.splice(index, 1)[0]);
+				spellList.push(new Scroll(list.splice(index, 1)[0]));
 			}
 		}
 		

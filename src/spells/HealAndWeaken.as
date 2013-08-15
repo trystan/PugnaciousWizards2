@@ -3,7 +3,7 @@ package spells
 	public class HealAndWeaken implements Spell
 	{
 		public function get name():String { return "Heal & weaken"; }
-		
+				
 		public function get description():String
 		{
 			return "Reduce your maximum health and vision to fully heal yourself.";

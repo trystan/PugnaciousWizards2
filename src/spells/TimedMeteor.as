@@ -7,7 +7,7 @@ package spells
 	{
 		public function get name():String { return "Timed meteor"; }
 		
-		public function get description():String { return "Summon a meteor from the skies. After 5 turns, it will crash to the ground where you summoned it."; }
+		public function get description():String { return "Drop a timer. After 5 turns, a meteor will crash to the ground and destroy everything nearby."; }
 		
 		public function playerCast(player:Creature, callback:Function):void 
 		{

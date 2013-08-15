@@ -11,7 +11,7 @@ package spells
 		private var callback:Function;
 		
 		public function get name():String { return "Poison fog"; }
-		
+				
 		public function get description():String
 		{
 			return "Create a dense fog of poison that slowly spreads and disipates.";

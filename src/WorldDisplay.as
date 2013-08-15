@@ -440,8 +440,9 @@ package
 			
 			y = 17;
 			terminal.write("--- help ---", x, y += 2);
-			terminal.write("? help screen", x, y += 2);
+			terminal.write("? help", x, y += 2);
 			terminal.write("x examine", x, y += 2);
+			terminal.write("D discoveries", x, y += 2);
 			
 			y += 2;
 			

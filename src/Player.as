@@ -3,6 +3,7 @@ package
 	import flash.geom.Point;
 	import spells.HealingFog;
 	import spells.PoisonFog;
+	import spells.Spell;
 	
 	public class Player extends Creature
 	{
@@ -13,10 +14,18 @@ package
 				"You are on a quest to enter the castle, find the three " +
 				"pieces of the amulet, and escape alive. There are many " +
 				"traps and defenders though so you must rely on your " +
-				"wits - and any items you find - to survive.");
+				"wits - and any items you find - to survive.\n\n" +
+				"You probably won't though....\n\n");
 				
 			isGoodGuy = true;
 			usesMagic = true;
+		}
+		
+		override public function addMagicSpell(spell:Spell):void 
+		{
+			super.addMagicSpell(spell);
+			
+			Globals.learnSpell(spell);
 		}
 	}
 }

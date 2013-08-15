@@ -14,7 +14,7 @@ package spells
 		
 		public function get description():String
 		{
-			return "Create a golem that will aid you. You can only have one at a time.";
+			return "Create a golem that will aid you and spend $ to upgrade it. You can only have one at a time.";
 		}
 		
 		public function playerCast(player:Creature, callback:Function):void

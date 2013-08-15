@@ -121,7 +121,8 @@ package
 				doors.push(new Point(worldPosition.x + 7, worldPosition.y + 3));
 			
 			var firstPoint:Point = new Point( -1, -1);
-			while (world.getTile(firstPoint.x, firstPoint.y).blocksMovement)
+			while (world.getTile(firstPoint.x, firstPoint.y) == Tile.tree
+				|| world.getTile(firstPoint.x, firstPoint.y).blocksMovement)
 			{
 				firstPoint.x = worldPosition.x + (int)(Math.random() * 6);
 				firstPoint.y = worldPosition.y + (int)(Math.random() * 6);

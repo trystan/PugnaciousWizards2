@@ -11,7 +11,7 @@ package spells
 		private var callback:Function;
 		
 		public function get name():String { return "Angry tree"; }
-		
+
 		public function get description():String
 		{
 			return "Give a tree the ability to wander around and smash stuff.";

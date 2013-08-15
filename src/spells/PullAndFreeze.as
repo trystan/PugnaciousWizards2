@@ -16,7 +16,7 @@ package spells
 		
 		public function get description():String
 		{
-			return "Shoot a ray that attracts and freezes anything near what it hits.";
+			return "Shoot a projectile that attracts and freezes anything near what it hits.";
 		}
 		
 		public function playerCast(player:Creature, callback:Function):void
