@@ -13,7 +13,7 @@ package spells
 				
 		public function get description():String
 		{
-			return "Teleport to any tile you haven't seen yet.\n\nMay end up stuck in a wall.";
+			return "Teleport to any tile you haven't seen yet - may end up stuck in a wall.";
 		}
 		
 		public function playerCast(player:Creature, callback:Function):void

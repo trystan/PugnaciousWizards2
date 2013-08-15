@@ -33,6 +33,7 @@ package themes
 			new TimedMeteor(),
 			new MidasBones(),
 			new DarkJump(),
+			new AlterReality(),
 		];
 		
 		public static function reset():void
