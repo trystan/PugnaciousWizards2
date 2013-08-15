@@ -49,7 +49,7 @@ package animations
 		{
 			ticks--;
 			
-			if (!(vx == 0 && vy == 0) && !world.getTile(x, y).blocksMovement)
+			if (!(vx == 0 && vy == 0) && !world.getTile(x, y, true).blocksMovement)
 			{
 				new PullAndFreezeProjectileTrail(world, x, y, 6);
 			}
@@ -69,7 +69,7 @@ package animations
 				_done = true;
 				world.addAnimationEffect(new PullAndFreezeExpansion(world, x, y));
 			}
-			else if (world.getTile(x, y).blocksArrows)
+			else if (world.getTile(x, y, true).blocksArrows)
 			{
 				_done = true;
 				world.addAnimationEffect(new PullAndFreezeExpansion(world, x - vx, y - vy));

@@ -41,7 +41,10 @@ version 0.7 (done)
 * themed areas (fire, ice, poison)
 * numerous chances to world gen
 
-version 0.8
+version 0.8 (in progress)
+* discoveries screen
+
+version 0.9
 * a random effect with related subtitle for each game (eg, Pugnacous Wizards 2: Revenge of the fire archers)
 	* extra hp for guards, archers, skeletons, or wizards
 	* fire, ice, poison, arrows, floor traps, or melee does double damage
@@ -51,10 +54,6 @@ version 0.8
 	* more doors, bars, tile type, or room type
 	* skeletons respawn in only 10 turns
 	* etc.
-
-version 0.9
-* save/continue
-* achievements
 
 version 1.0
 * extract common rogulike stuff into a framework

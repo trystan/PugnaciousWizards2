@@ -81,7 +81,7 @@ package animations
 			if (creature != null)
 				payload.hitCreature(creature);
 					
-			if (world.getTile(n.x, n.y).blocksArrows)
+			if (world.getTile(n.x, n.y, true).blocksArrows)
 				return;
 				
 			tiles.push(n);

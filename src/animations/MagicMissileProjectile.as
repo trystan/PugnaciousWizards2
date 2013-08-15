@@ -49,10 +49,8 @@ package animations
 		{
 			ticks--;
 			
-			if (!(vx == 0 && vy == 0) && !world.getTile(x, y).blocksMovement)
-			{
+			if (!(vx == 0 && vy == 0) && !world.getTile(x, y, true).blocksMovement)
 				new MagicMissileProjectileTrail(world, x, y, direction, 5);
-			}
 			
 			_x += vx;
 			_y += vy;
@@ -85,7 +83,7 @@ package animations
 					new MagicMissileProjectile(world, x, y, -1, 0, ticks-2);
 				}
 			}
-			else if (world.getTile(x, y).blocksArrows)
+			else if (world.getTile(x, y, true).blocksArrows)
 			{
 				if (vx == 0 || vy == 0)
 				{
@@ -103,28 +101,28 @@ package animations
 					switch (direction)
 					{
 						case "NW":
-							if (!world.getTile(x, y-1).blocksArrows)
+							if (!world.getTile(x, y-1, true).blocksArrows)
 								new MagicMissileProjectile(world, x-1, y-1, 1, -1, ticks-1);
-							if (!world.getTile(x-1, y).blocksArrows)
+							if (!world.getTile(x-1, y, true).blocksArrows)
 								new MagicMissileProjectile(world, x-1, y-1, -1, 1, ticks-1);
 							break;
 						case "NE":
-							if (!world.getTile(x, y-1).blocksArrows)
+							if (!world.getTile(x, y-1, true).blocksArrows)
 								new MagicMissileProjectile(world, x+1, y-1, -1, -1, ticks-1);
-							if (!world.getTile(x+1, y).blocksArrows)
+							if (!world.getTile(x+1, y, true).blocksArrows)
 								new MagicMissileProjectile(world, x+1, y-1, 1, 1, ticks-1);
 							break;
 							
 						case "SW":
-							if (!world.getTile(x, y+1).blocksArrows)
+							if (!world.getTile(x, y+1, true).blocksArrows)
 								new MagicMissileProjectile(world, x-1, y+1, 1, 1, ticks-1);
-							if (!world.getTile(x-1, y).blocksArrows)
+							if (!world.getTile(x-1, y, true).blocksArrows)
 								new MagicMissileProjectile(world, x-1, y+1, -1, -1, ticks-1);
 							break;
 						case "SE":
-							if (!world.getTile(x, y+1).blocksArrows)
+							if (!world.getTile(x, y+1, true).blocksArrows)
 								new MagicMissileProjectile(world, x+1, y+1, -1, 1, ticks-1);
-							if (!world.getTile(x+1, y).blocksArrows)
+							if (!world.getTile(x+1, y, true).blocksArrows)
 								new MagicMissileProjectile(world, x+1, y+1, 1, -1, ticks-1);
 							break;
 					}

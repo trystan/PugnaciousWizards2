@@ -68,7 +68,7 @@ package animations
 					if (world.getCreature(next.x, next.y) != null)
 						break;
 						
-					if (world.getTile(next.x, next.y).blocksMovement)
+					if (world.getTile(next.x, next.y, true).blocksMovement)
 						break;
 					
 					target.moveTo(next.x, next.y);

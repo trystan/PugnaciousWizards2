@@ -51,7 +51,7 @@ package animations
 		
 		private function throwCreature(c:Creature):void 
 		{
-			if (!caster.world.getTile(c.position.x + dx, c.position.y + dy).blocksMovement
+			if (!caster.world.getTile(c.position.x + dx, c.position.y + dy, true).blocksMovement
 					&& caster.world.getCreature(c.position.x + dx, c.position.y + dy) == null)
 			{
 				c.position.x += dx;
@@ -59,7 +59,7 @@ package animations
 			}
 			else
 			{
-				c.hurt(5, "Telekenetically slammed into a " + caster.world.getTile(c.position.x + dx, c.position.y + dy).name + ".");
+				c.hurt(5, "Telekenetically slammed into a " + caster.world.getTile(c.position.x + dx, c.position.y + dy, true).name + ".");
 				c.bleed(2);
 				_done = true;
 			}
@@ -68,7 +68,7 @@ package animations
 		private function throwItem(i:Item):void 
 		{
 			caster.world.removeItem(i);
-			if (!caster.world.getTile(x + dx, y + dy).blocksArrows)
+			if (!caster.world.getTile(x + dx, y + dy, true).blocksArrows)
 			{
 				_x += dx;
 				_y += dy;

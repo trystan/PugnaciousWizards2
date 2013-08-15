@@ -58,7 +58,7 @@ package animations
 				_done = true;
 				payload.hitCreature(creature);
 			}
-			else if (world.getTile(x, y).blocksArrows)
+			else if (world.getTile(x, y, true).blocksArrows)
 			{
 				_done = true;
 				payload.hitTile(world, x, y);

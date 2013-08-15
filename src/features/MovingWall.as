@@ -16,7 +16,7 @@ package features
 			this.y = y;
 			this.direction = "W";
 				
-			oldTile = world.getTile(x, y);
+			oldTile = world.getTile(x, y, true);
 			update();
 		}
 		
@@ -39,7 +39,7 @@ package features
 				case "E": mx = 1; break;
 			}
 			
-			if (!isTrack(world.getTile(x + mx, y + my)))
+			if (!isTrack(world.getTile(x + mx, y + my, true)))
 			{
 				reverseDirection(oldTile);
 				
@@ -57,7 +57,7 @@ package features
 			world.addTile(x, y, oldTile);
 			x += mx;
 			y += my;
-			oldTile = world.getTile(x, y);
+			oldTile = world.getTile(x, y, true);
 			world.addTile(x, y, Tile.moving_wall);
 			
 			var creature:Creature = world.getCreature(x, y);
