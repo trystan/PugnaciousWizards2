@@ -41,6 +41,7 @@ package
 		static public var shallow_water:Tile = new Tile("pool of shallow water", "There is a shallow pool of water here.", false, false, 0.0, 0, waterEffect);
 		static public var poison_water:Tile = new Tile("pool of poison water", "There is a shallow pool of poisoned water here.", false, false, 0.0, 0, poisonedWaterEffect);
 		static public var frozen_water:Tile = new Tile("pool of frozen water", "There is some very slippery ice here.", false, false, 0.0, 0, iceEffect);
+		static public var magma:Tile = new Tile("magma", null, false, false, 0, 0, magmaEffect, true, true);
 		
 		public static var poisonFog:Tile = new Tile("poison fog", "This poisonous fog is so thick that you can't see very far through it.", false, false, 0.5, 0, poisonedFogEffect, false);
 		public static var healingFog:Tile = new Tile("healing fog", "This healing fog is so thick that you can't see very far through it.", false, false, 0.5, 0, healingFogEffect, false);
@@ -174,6 +175,12 @@ package
 				return;
 				
 			creature.moveBy(creature.movedBy.x, creature.movedBy.y);
+		}
+		
+		private static function magmaEffect(creature:Creature):void
+		{
+			creature.hurt(20, "You stepped in molten magma.");
+			creature.burn(5);
 		}
 		
 		private static function portalEffect(creature:Creature):void

@@ -27,8 +27,13 @@ package features
 				
 				if (Math.random() < 0.5)
 					fire.hitTile(world, x2, y2);
-					
-				if (Math.random() < chance)
+				
+				if (Math.random() < chance / 2)
+				{
+					world.addTile(x2, y2, Tile.magma);
+					world.removeFeatureAt(x2, y2);
+				}
+				else if (Math.random() < chance)
 				{
 					world.addTile(x2, y2, Tile.burnt_ground);
 					world.removeFeatureAt(x2, y2);

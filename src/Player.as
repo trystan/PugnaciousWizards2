@@ -5,6 +5,7 @@ package
 	import spells.HealingFog;
 	import spells.PoisonFog;
 	import spells.Spell;
+	import spells.TimedMeteor;
 	
 	public class Player extends Creature
 	{

@@ -202,6 +202,7 @@ package
 		private var isOnFileTiles:Array = [
 			Tile.tree_fire_1, Tile.tree_fire_2, Tile.tree_fire_3,
 			Tile.grass_fire, Tile.door_closed_fire, Tile.door_opened_fire,
+			Tile.magma
 		];
 		
 		private function addLight(terminal:AsciiPanel, x:int, y:int, color:Color, radius:Number = 3.0):void
@@ -504,6 +505,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.magma: return String.fromCharCode(249);
 				case Tile.golden_statue: return "s";
 				case Tile.fire_trap:
 				case Tile.ice_trap:
@@ -590,6 +592,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.magma: return Color.hsv(50 + Math.random() * 10, 70 + Math.random() * 10, 50 + Math.random() * 10);
 				case Tile.golden_statue: return gold;
 				case Tile.fire_trap: return fire;
 				case Tile.ice_trap: return ice;
@@ -680,6 +683,7 @@ package
 		{
 			switch (tile)
 			{
+				case Tile.magma: return Color.hsv(20 + Math.random() * 10, 80 + Math.random() * 10, 30 + Math.random() * 10);
 				case Tile.golden_statue: return stone_bg;
 				case Tile.ice_trap:
 				case Tile.poison_trap:
