@@ -20,8 +20,8 @@ package spells
 		{
 			this.callback = callback;
 			
-			RL.current.enter(new TargetScreen(player, cast, false, function(x:int, y:int):Boolean {
-				return !player.hasSeen(x, y);
+			RL.current.enter(new TargetScreen(player, cast, function(x:int, y:int):Boolean {
+				return !player.canSee(x, y);
 			}));
 		}
 		

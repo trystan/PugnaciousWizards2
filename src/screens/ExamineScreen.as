@@ -4,7 +4,7 @@ package screens
 	import knave.BaseScreen;
 	import knave.Color;
 	
-	public class ExamineScreen extends BaseScreen
+	public class ExamineScreen extends DomainScreen
 	{
 		private var world:World;
 		private var player:Player;
@@ -77,28 +77,8 @@ package screens
 			
 			if (y < 0)
 				y = lookY + 3;
-				
-			var fg:int = 0xffffffff;
-			var bg:int = 0xff101010;
 			
-			if (lookY > 0 && lookX > 0)
-				terminal.write(String.fromCharCode(201), lookX - 1, lookY - 1, fg, bg);
-			if (lookY > 0)
-				terminal.write(String.fromCharCode(205), lookX - 0, lookY - 1, fg, bg);
-			if (lookY > 0 && lookX < 99)
-				terminal.write(String.fromCharCode(187), lookX + 1, lookY - 1, fg, bg);
-			
-			if (lookX > 0)
-				terminal.write(String.fromCharCode(186), lookX - 1, lookY, fg, bg);
-			if (lookX < 99)
-				terminal.write(String.fromCharCode(186), lookX + 1, lookY, fg, bg);
-			
-			if (lookY < 79 && lookX > 0)
-				terminal.write(String.fromCharCode(200), lookX - 1, lookY + 1, fg, bg);
-			if (lookY < 79)
-				terminal.write(String.fromCharCode(205), lookX - 0, lookY + 1, fg, bg);
-			if (lookY < 79 && lookX < 99)
-				terminal.write(String.fromCharCode(188), lookX + 1, lookY + 1, fg, bg);
+			drawRecticle(terminal, lookX, lookY);
 			
 			terminal.write(text, x, y, 0xffc0c0c0);
 			var spellRange:String = "";
@@ -108,7 +88,7 @@ package screens
 				case 1: spellRange = " or 1 for magic"; break;
 				default: spellRange = " or 1 through " + player.magic.length + " for magic"; break;
 			}
-			terminal.write("Examine what? (movement keys" + spellRange + ")", 2, lookY > 75 ? 71 : 78);
+			terminal.write("Examine what? (use movement keys" + spellRange + ")", 2, lookY > 75 ? 71 : 78);
 		}
 		
 		private function describe():String 

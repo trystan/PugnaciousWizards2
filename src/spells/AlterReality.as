@@ -22,7 +22,9 @@ package spells
 		{
 			this.callback = callback;
 			
-			RL.current.enter(new TargetScreen(player, cast, false, function(x:int, y:int):Boolean { return player.canSee(x, y); }));
+			RL.current.enter(new TargetScreen(player, cast, function(x:int, y:int):Boolean { 
+				return player.canSee(x, y);
+			}));
 		}
 		
 		public function cast(caster:Creature, x:int, y:int):void

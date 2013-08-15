@@ -21,7 +21,10 @@ package spells
 		{
 			this.callback = callback;
 			
-			RL.current.enter(new TargetScreen(player, cast, true));
+			RL.current.enter(new TargetScreen(player, cast, function (x:int, y:int):Boolean {
+				return player.canSee(x, y)
+					&& !player.world.getTile(x, y).blocksMovement;
+			}));
 		}
 		
 		public function cast(caster:Creature, x:int, y:int):void

@@ -18,13 +18,13 @@ package
 		public static var tree_fire_1:Tile = new Tile("burning tree", null, true, false, 0.0, 0, null, true, true);
 		public static var floor_light:Tile = new Tile("floor", null, false, false, 0.0);
 		public static var floor_dark:Tile = new Tile("floor", null, false, false, 0.0);
-		public static var mystic_floor_light:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic.", false, false, 0.0);
-		public static var mystic_floor_dark:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic.", false, false, 0.0);
+		public static var mystic_floor_light:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic. Used to keep thieving magic users like you away.", false, false, 0.0);
+		public static var mystic_floor_dark:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic. Used to keep thieving magic users like you away.", false, false, 0.0);
 		public static var bars_h:Tile = new Tile("bars", null, true, false, 0.0);
 		public static var bars_v:Tile = new Tile("bars", null, true, false, 0.0);
 		public static var wall:Tile = new Tile("wall", null, true, true, 1.0);
-		public static var moving_wall:Tile = new Tile("moving wall on a track", "This giant block moves on a track etched into the floor.", true, true, 0.0, 0, null, false);
-		public static var stone_door_closed:Tile = new Tile("closed stone door", "Bump into this door to open it. Wooden doors can be burnt but stone ones can't.", true, true, 1.0, 0.25);
+		public static var moving_wall:Tile = new Tile("moving wall on a track", null, true, true, 0.0, 0, null, false);
+		public static var stone_door_closed:Tile = new Tile("closed stone door", null, true, true, 1.0, 0.25);
 		public static var stone_door_opened:Tile = new Tile("open door", null, false, false, 0.0, 0.25);
 		public static var wood_door_closed:Tile = new Tile("closed wooden door", null, true, true, 1.0, 0.25);
 		public static var wood_door_opened:Tile = new Tile("open door", null, false, false, 0.0, 0.25);

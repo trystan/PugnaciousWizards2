@@ -24,6 +24,23 @@ package knave
 			}
 			return lines;
 		}
+		
+		public static function padToCenter(width:int, line:String):String
+		{
+			var left:int = (width - line.length) / 2;
+			var right:int = width - line.length;
+			
+			var i:int = 0;
+			for (i = 0; i < left; i++)
+				line = " " + line;
+			for (i = 0; i < right; i++)
+				line = line + " ";
+				
+			if (line.length >= width)
+				line = line.substr(0, width);
+				
+			return line;
+		}
 	}
 
 }

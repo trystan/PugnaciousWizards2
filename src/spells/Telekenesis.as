@@ -22,8 +22,9 @@ package spells
 		{
 			this.callback = callback;
 			
-			RL.current.enter(new TargetScreen(player, cast, false, function(x:int, y:int):Boolean {
-				return player.canSee(x, y) && player.world.getItem(x, y) != null || player.world.getCreature(x, y) != null;
+			RL.current.enter(new TargetScreen(player, cast, function(x:int, y:int):Boolean {
+				return player.canSee(x, y) 
+					&& (player.world.getItem(x, y) != null || player.world.getCreature(x, y) != null);
 			}));
 		}
 		

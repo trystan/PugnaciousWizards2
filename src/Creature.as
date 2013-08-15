@@ -12,8 +12,8 @@ package
 		public var position:Point;
 		public var movedBy:Point = new Point(0,0);
 		public var world:World;
-		public var endPiecesPickedUp:int = 0;
-		public function get hasAllEndPieces():Boolean { return endPiecesPickedUp == 3; }
+		public var numberOfAmuletsPickedUp:int = 0;
+		public function get hasAllAmulets():Boolean { return numberOfAmuletsPickedUp == 3; }
 		
 		protected var _health:int;
 		public function get health():int { return _health; };
@@ -179,7 +179,7 @@ package
 			
 			if (bleedingCounter > 0)
 			{
-				popup("you're bleeding", "You're bleeding!", "One of the many hazards of being an adventurer is getting hurt too much at once and bleeding.\n\nYour wounds will stop bleeding in a few turns - hopefully you'l still be alive.");
+				popup("you're bleeding", "You're bleeding!", "One of the many hazards of being an adventurer is bloodloss from arrows and melee.\n\nYour wounds will stop bleeding in a few turns - unless you run out of blood first.");
 				hurt(1, "You have bleed to death.");
 				bleedingCounter--;
 				world.addBlood(position.x, position.y, 1);

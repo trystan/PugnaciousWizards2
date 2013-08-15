@@ -22,7 +22,7 @@ package screens
 		
 		public function draw(terminal:AsciiPanel):void 
 		{
-			terminal.write("Which direction?", 2, 78, 0xffffff);
+			terminal.write("Which direction? (use movement keys)", 2, 78, 0xffffff);
 		}
 	}
 }

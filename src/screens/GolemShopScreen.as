@@ -4,6 +4,7 @@ package screens
 	import knave.BaseScreen;
 	import knave.Color;
 	import knave.RL;
+	import knave.Text;
 	import spells.Spell;
 	
 	public class GolemShopScreen extends BaseScreen
@@ -64,7 +65,7 @@ package screens
 		private function draw(terminal:AsciiPanel):void
 		{
 			text = [];
-			text.push(padToCenter("-- Golem shop --"));
+			text.push(Text.padToCenter(w, "-- Golem shop --"));
 			text.push("");
 			text.push("Spend extra gold to improve your golem. Each improvement costs 5$");
 			text.push("");
@@ -78,8 +79,8 @@ package screens
 			while (text.length < 15)
 				text.push("");
 			
-			text.push(padToCenter("-- press escape or enter to exit --"));
-			text.push(padToCenter("-- press 1 through " + i + " to buy a golem improvement --"));
+			text.push(Text.padToCenter(w, "-- press escape or enter to exit --"));
+			text.push(Text.padToCenter(w, "-- press 1 through " + i + " to buy an improvement for your golem --"));
 			
 			w = 80;
 			h = this.text.length * 2 + 3;
@@ -102,23 +103,6 @@ package screens
 			
 			if (failedToBuy)
 				terminal.write("You need at least 5$ to buy an improvement.", left + 2, top + y + 6, 0xffffff);
-		}
-		
-		private function padToCenter(line:String):String
-		{
-			var left:int = (w - line.length) / 2;
-			var right:int = w - line.length;
-			
-			var i:int = 0;
-			for (i = 0; i < left; i++)
-				line = " " + line;
-			for (i = 0; i < right; i++)
-				line = line + " ";
-				
-			if (line.length >= w)
-				line = line.substr(0, w);
-				
-			return line;
 		}
 	}
 }

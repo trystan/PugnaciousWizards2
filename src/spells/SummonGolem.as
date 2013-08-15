@@ -21,74 +21,70 @@ package spells
 		{
 			this.callback = callback;
 			
-			RL.current.enter(new TargetScreen(player, cast, false, function (x:int, y:int):Boolean { return true; }));
+			RL.current.enter(new TargetScreen(player, cast, function (x:int, y:int):Boolean { 
+				return player.canSee(x, y)
+					&& !player.world.getTile(x, y, true).blocksMovement
+					&& player.world.getCreature(x, y) == null;
+			}));
 		}
 		
 		public function cast(caster:Creature, x:int, y:int):void
 		{
+			if (caster.world.getCreature(x, y) != null)
+				return;
+				
 			if (summoned != null)
 				summoned.hurt(10000, "You were unsummoned. Bummer.");
 				
 			caster.maxHealth -= 5;
 			if (caster.health > caster.maxHealth)
 				caster.hurt(caster.health - caster.maxHealth, "You shared your life with too many summoned others.");
-				
-			var creature:Creature = caster.world.getCreature(x, y);
 			
-			if (creature != null)
+			summoned = new Golem(new Point(x, y), caster);
+			caster.world.addCreature(summoned);
+			if (caster is Player)
 			{
-				creature.hurt(15, "You were torn to shreds by a summoning portal.");
-				if (callback != null)
-					callback();
+				RL.current.enter(new GolemShopScreen(caster, summoned, callback));
 			}
 			else
 			{
-				summoned = new Golem(new Point(x, y), caster);
-				caster.world.addCreature(summoned);
-				if (caster is Player)
+				if (caster.gold > 5 && Math.random() < 0.80)
 				{
-					RL.current.enter(new GolemShopScreen(caster, summoned, callback));
+					summoned.isImmuneToFire = true;
+					caster.gold -= 5;
 				}
-				else
+				if (caster.gold > 5 && Math.random() < 0.50)
 				{
-					if (caster.gold > 5 && Math.random() < 0.80)
-					{
-						summoned.isImmuneToFire = true;
-						caster.gold -= 5;
-					}
-					if (caster.gold > 5 && Math.random() < 0.50)
-					{
-						summoned.isImmuneToBleeding = true;
-						caster.gold -= 5;
-					}
-					if (caster.gold > 5 && Math.random() < 0.50)
-					{
-						summoned.heal(15, true);
-						caster.gold -= 5;
-					}
-					if (caster.gold > 5 && Math.random() < 0.50)
-					{
-						summoned.meleeDamage += 5;
-						caster.gold -= 5;
-					}
-					if (caster.gold > 5 && Math.random() < 0.25)
-					{
-						summoned.isImmuneToIce = true;
-						caster.gold -= 5;
-					}
-					if (caster.gold > 5 && Math.random() < 0.25)
-					{
-						summoned.isImmuneToPoison = true;
-						caster.gold -= 5;
-					}
-					if (caster.gold > 5 && Math.random() < 0.15)
-					{
-						summoned.isImmuneToBlinding = true;
-						caster.gold -= 5;
-					}
-					if (callback != null)
-						callback();
+					summoned.isImmuneToBleeding = true;
+					caster.gold -= 5;
 				}
+				if (caster.gold > 5 && Math.random() < 0.50)
+				{
+					summoned.heal(15, true);
+					caster.gold -= 5;
+				}
+				if (caster.gold > 5 && Math.random() < 0.50)
+				{
+					summoned.meleeDamage += 5;
+					caster.gold -= 5;
+				}
+				if (caster.gold > 5 && Math.random() < 0.25)
+				{
+					summoned.isImmuneToIce = true;
+					caster.gold -= 5;
+				}
+				if (caster.gold > 5 && Math.random() < 0.25)
+				{
+					summoned.isImmuneToPoison = true;
+					caster.gold -= 5;
+				}
+				if (caster.gold > 5 && Math.random() < 0.15)
+				{
+					summoned.isImmuneToBlinding = true;
+					caster.gold -= 5;
+				}
+				if (callback != null)
+					callback();
 			}
 		}
 		

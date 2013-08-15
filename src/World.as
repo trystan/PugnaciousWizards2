@@ -22,7 +22,7 @@ package
 		
 		public function get playerHasWon():Boolean 
 		{
-			return player.hasAllEndPieces && player.position.x < 4;
+			return player.hasAllAmulets && player.position.x < 4;
 		}
 		
 		public function World()

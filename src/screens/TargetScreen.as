@@ -6,7 +6,7 @@ package screens
 	import knave.BaseScreen;
 	import knave.RL;
 	
-	public class TargetScreen extends BaseScreen
+	public class TargetScreen extends DomainScreen
 	{
 		private var callback:Function;
 		private var tx:int;
@@ -16,14 +16,14 @@ package screens
 		private var isOk:Boolean = true;
 		private var validateTarget:Function;
 		
-		public function TargetScreen(player:Creature, callback:Function, excludeOccupiedTiles:Boolean, okFunction:Function = null) 
+		public function TargetScreen(player:Creature, callback:Function, okFunction:Function) 
 		{
 			this.tx = player.position.x;
 			this.ty = player.position.y;
 			this.player = player;
 			this.callback = callback;
 			this.excludeOccupiedTiles = excludeOccupiedTiles;
-			this.validateTarget = okFunction == null ? checkTarget : okFunction;
+			this.validateTarget = okFunction;
 			
 			bind('up', moveBy, 0, -1);
 			bind('down', moveBy, 0, 1);
@@ -52,17 +52,11 @@ package screens
 			isOk = validateTarget(tx, ty);
 		}
 		
-		private function checkTarget(x:int, y:int):Boolean
-		{
-			return player.canSee(x, y) 
-				&& !player.world.getTile(x, y).blocksMovement
-				&& (!excludeOccupiedTiles || player.world.getCreature(x, y) == null);
-		}
-		
 		public function draw(terminal:AsciiPanel):void 
 		{
-			terminal.write("Which location?", 2, 78, 0xffffff);
-			terminal.write("X", tx, ty, 0xffffff, isOk ? 0x000000 : 0xff3333);
+			terminal.write("Where? (use movement keys)", 2, 78, 0xffffff);
+			
+			drawRecticle(terminal, tx, ty, isOk ? 0xffffff : 0xff3333, 0x000000);
 		}
 	}
 }

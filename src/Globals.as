@@ -5,6 +5,7 @@ package
 	{
 		public static var rarePercent:Number = 0.01;
 		
+		public static var numberOfTimesDied:int = 0;
 		
 		
 		

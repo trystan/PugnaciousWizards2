@@ -57,7 +57,7 @@ package
 			{
 				path = [];
 			}
-			else if (this.hasAllEndPieces)
+			else if (this.hasAllAmulets)
 			{
 				path = pathBackHome();
 			}

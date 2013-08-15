@@ -62,25 +62,8 @@ package screens
 				text.push("");
 				
 			if (canDismiss)
-				text.push(padToCenter("-- press escape to dismiss all popups --"));
-			text.push(padToCenter("-- press enter to continue --"));
-		}
-		
-		private function padToCenter(line:String):String
-		{
-			var left:int = (w - line.length) / 2;
-			var right:int = w - line.length;
-			
-			var i:int = 0;
-			for (i = 0; i < left; i++)
-				line = " " + line;
-			for (i = 0; i < right; i++)
-				line = line + " ";
-				
-			if (line.length >= w)
-				line = line.substr(0, w);
-				
-			return line;
+				text.push(Text.padToCenter(w, "-- press escape to dismiss all popups --"));
+			text.push(Text.padToCenter(w, "-- press enter to continue --"));
 		}
 	}
 }

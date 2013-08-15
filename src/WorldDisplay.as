@@ -93,7 +93,7 @@ package
 					if (isOnFileTiles.indexOf(visibleTile) > -1)
 						popup("something is on fire", 
 								popupTitle(visibleTile.name, tileAt(x, y)),
-								"Some things can catch on fire. Be careful - it can easy spread out of control.");
+								"Some things can catch on fire. Fire can easy spread out of control - which I'm sure you'll find out about.");
 				}
 				else if (player.hasSeen(x, y))
 				{
@@ -425,7 +425,7 @@ package
 			
 			terminal.write("$ " + player.gold, x, y += 2, gold.toInt());
 			
-			terminal.write("* " + player.endPiecesPickedUp + "/3", x, y += 2, Color.hsv(60, 90, 90).toInt());
+			terminal.write("* " + player.numberOfAmuletsPickedUp + "/3", x, y += 2, Color.hsv(60, 90, 90).toInt());
 			
 			if (player.fireCounter > 0)
 				terminal.write("on fire! (" + player.fireCounter + ")", x + 1, y + 2, fire.lerp(white, 0.5).toInt());

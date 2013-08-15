@@ -32,12 +32,12 @@ package screens
 			if (player.blindCounter > 0)
 				statuses.push("blind");
 			
-			switch (player.endPiecesPickedUp)
+			switch (player.numberOfAmuletsPickedUp)
 			{
-				case 0: statuses.push("with none of the amulet pieces"); break;
-				case 1: statuses.push("with one of the amulet pieces"); break;
-				case 2: statuses.push("with two of the amulet pieces"); break;
-				case 3: statuses.push("with all three of the amulet pieces"); break;
+				case 0: statuses.push("with none of the amulets"); break;
+				case 1: statuses.push("with one of the amulets"); break;
+				case 2: statuses.push("with two of the amulets"); break;
+				case 3: statuses.push("with all three of the amulets"); break;
 			}
 			
 			var status:String = statuses.length == 1 ? statuses[0] 
@@ -49,6 +49,12 @@ package screens
 			
 			terminal.writeCenter("R.I.P", terminal.getHeightInCharacters() / 2);
 			
+			if (Globals.numberOfTimesDied == 1)
+				terminal.writeCenter("Congratulations! Your first death!", terminal.getHeightInCharacters() / 2 + 2);
+			else
+				terminal.writeCenter("You've died " + Globals.numberOfTimesDied + " times.", terminal.getHeightInCharacters() / 2 + 2);
+			
+				
 			terminal.writeCenter("-- press enter to restart --", 78);
 		}
 	}

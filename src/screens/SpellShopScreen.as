@@ -24,7 +24,7 @@ package screens
 			
 			w = 80;
 			text = [];
-			text.push(padToCenter("-- Spell shop --"));
+			text.push(Text.padToCenter(w, "-- Spell shop --"));
 			text.push("");
 			text.push("Spend extra gold to gain new spells. Each spell cost 20$");
 			text.push("");
@@ -40,8 +40,8 @@ package screens
 			while (text.length < 15)
 				text.push("");
 				
-			text.push(padToCenter("-- press escape to cancel --"));
-			text.push(padToCenter("-- press 1 through " + i + " to buy a spell --"));
+			text.push(Text.padToCenter(w, "-- press escape to cancel --"));
+			text.push(Text.padToCenter(w, "-- press 1 through " + i + " to buy a spell --"));
 			
 			h = this.text.length * 2 + 3;
 			
@@ -91,23 +91,6 @@ package screens
 			
 			if (failedToBuy)
 				terminal.write("You need at least 20$ to buy a spell.", left + 2, top + y + 6, 0xffffff);
-		}
-		
-		private function padToCenter(line:String):String
-		{
-			var left:int = (w - line.length) / 2;
-			var right:int = w - line.length;
-			
-			var i:int = 0;
-			for (i = 0; i < left; i++)
-				line = " " + line;
-			for (i = 0; i < right; i++)
-				line = line + " ";
-				
-			if (line.length >= w)
-				line = line.substr(0, w);
-				
-			return line;
 		}
 	}
 }

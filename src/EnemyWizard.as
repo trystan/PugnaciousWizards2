@@ -17,7 +17,7 @@ package
 		public function EnemyWizard(position:Point)
 		{
 			super(position, "Wizard", 
-				"An enemy wizard who has sworn to protect the pieces of the amulet.");
+				"An enemy wizard who has sworn to protect the pieces of the amulet. Each wizard has a few spells related to their prefered element.");
 			
 			maxHealth = 9 * 10;
 			_health = maxHealth;

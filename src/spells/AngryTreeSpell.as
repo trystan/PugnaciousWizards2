@@ -21,8 +21,9 @@ package spells
 		{
 			this.callback = callback;
 			
-			RL.current.enter(new TargetScreen(player, cast, false, function (x:int, y:int):Boolean {
-				return [Tile.tree, Tile.tree_fire_1, Tile.tree_fire_2, Tile.tree_fire_3].indexOf(player.world.getTile(x, y)) > -1;
+			RL.current.enter(new TargetScreen(player, cast, function (x:int, y:int):Boolean {
+				return player.canSee(x, y) 
+					&& [Tile.tree, Tile.tree_fire_1, Tile.tree_fire_2, Tile.tree_fire_3].indexOf(player.world.getTile(x, y)) > -1;
 			}));
 		}
 		

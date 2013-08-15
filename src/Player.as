@@ -14,11 +14,11 @@ package
 		{
 			super(position, "Player",
 				"This is you!\n\n" +
-				"You are on a quest to enter the castle, find the three " +
-				"pieces of the amulet, and escape alive. There are many " +
-				"traps and defenders though so you must rely on your " +
+				"For whatever reason, you've decided to enter this castle, " +
+				"take the three amulets, and escape back outside. " +
+				"There are many traps and defenders so you must rely on your " +
 				"wits - and any items you find - to survive.\n\n" +
-				"You probably won't though....\n\n");
+				"You'll probably just die though....\n\n");
 				
 			isGoodGuy = true;
 			usesMagic = true;
@@ -29,6 +29,13 @@ package
 			super.addMagicSpell(spell);
 			
 			Globals.learnSpell(spell);
+		}
+		
+		override public function die():void 
+		{
+			super.die();
+			
+			Globals.numberOfTimesDied++;
 		}
 	}
 }
