@@ -110,7 +110,7 @@ package knave
 		
 		private function getHCost(from:Point, to:Point):int
 		{
-			return (Math.abs(from.x - to.x) + Math.abs(from.y - to.y)) / 2
+			return Math.abs(from.x - to.x) + Math.abs(from.y - to.y);
 		}
 		
 		private function getFromList(list:Array, loc:Point):AStarNode

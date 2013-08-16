@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Point;
+	import knave.AStar;
 	import spells.AlterReality;
 	import spells.DarkJump;
 	import spells.HealingFog;
@@ -10,6 +11,8 @@ package
 	
 	public class Player extends Creature
 	{
+		public var path:Array = [];
+		
 		public function Player(position:Point) 
 		{
 			super(position, "Player",
@@ -36,6 +39,30 @@ package
 			super.die();
 			
 			Globals.numberOfTimesDied++;
+		}
+		
+		public function pathTo(x:int, y:int):void
+		{
+			path = AStar.pathTo(
+					function(x0:int, y0:int):Boolean { return !world.getTile(x0, y0, true).blocksMovement || world.isClosedDoor(x0, y0); },
+					position,
+					new Point(x, y), 
+					false);
+		}
+		
+		public function stepOnce():void 
+		{
+			var next:Point = path.shift();
+			
+			moveBy(clamp(next.x - position.x), clamp(next.y - position.y));
+			
+			if (path.length == 1 && world.isOpenedDoor(path[0].x, path[0].y))
+				path.shift();
+		}
+		
+		private function clamp(n:int):int
+		{
+			return Math.max( -1, Math.min(n, 1));
 		}
 	}
 }

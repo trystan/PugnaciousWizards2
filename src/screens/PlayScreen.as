@@ -8,6 +8,7 @@ package screens
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
 	import knave.BaseScreen;
+	import knave.Color;
 	import knave.RL;
 	import knave.Screen;
 	import themes.TreasureFactory;
@@ -18,6 +19,7 @@ package screens
 		public var world:World;
 		public var display:WorldDisplay;
 		private var animateInterval:int;
+		private var isRunning:Boolean = false;
 		
 		public function PlayScreen() 
 		{
@@ -45,22 +47,39 @@ package screens
 			bind('down right', moveBy, 1, 1);
 			bind('wait', moveBy, 0, 0);
 			
-			bind('1', player.castSpell, 0, nextTurn);
-			bind('2', player.castSpell, 1, nextTurn);
-			bind('3', player.castSpell, 2, nextTurn);
-			bind('4', player.castSpell, 3, nextTurn);
-			bind('5', player.castSpell, 4, nextTurn);
-			bind('6', player.castSpell, 5, nextTurn);
-			bind('7', player.castSpell, 6, nextTurn);
-			bind('8', player.castSpell, 7, nextTurn);
-			bind('9', player.castSpell, 8, nextTurn);
+			bind('1', castSpell, 0);
+			bind('2', castSpell, 1);
+			bind('3', castSpell, 2);
+			bind('4', castSpell, 3);
+			bind('5', castSpell, 4);
+			bind('6', castSpell, 5);
+			bind('7', castSpell, 6);
+			bind('8', castSpell, 7);
+			bind('9', castSpell, 8);
 			
-			bind('?', function():void { enter(new HelpScreen()); } );
-			bind('D', function():void { enter(new DiscoveriesScreen()); } );
+			bind('?', function():void { isRunning = false; enter(new HelpScreen()); } );
+			bind('D', function():void { isRunning = false; enter(new DiscoveriesScreen()); } );
 			bind('x', 'examine');
 			bind('X', 'examine');
-			bind('examine', function():void { enter(new ExamineScreen(world, player)); } );
-			bind('$', function():void { enter(new SpellShopScreen(player, spellsForSale)); } );
+			bind('examine', function():void { isRunning = false; enter(new ExamineScreen(world, player)); } );
+			bind('$', function():void { isRunning = false; enter(new SpellShopScreen(player, spellsForSale)); } );
+			
+			bind('mouse', function(x:int, y:int, event:Object):void {
+				isRunning = false;
+				x = Math.min(x / 8, 79)
+				y = y / 8;
+				if (player.hasSeen(x, y)
+						&& (!world.getTile(x, y, true).blocksMovement
+						 || world.isClosedDoor(x, y)))
+					player.pathTo(x, y);
+				else
+					player.path = [];
+			});
+			
+			bind('click', function(x:int, y:int, event:Object):void {
+				isRunning = true;
+				animateOneFrame(true);
+			});
 			
 			bind('draw', draw);
 			bind('animate', animate);
@@ -68,8 +87,16 @@ package screens
 		
 		private function moveBy(mx:int, my:int):void
 		{
+			isRunning = false;
+			player.path = [];
 			player.moveBy(mx, my);
 			nextTurn();
+		}
+			
+		private function castSpell(i:int):void
+		{
+			isRunning = false;
+			player.castSpell(i, nextTurn);
 		}
 		
 		private var isUpdatingPlayer:Boolean = true;
@@ -95,12 +122,23 @@ package screens
 			else if (world.playerHasWon)
 				switchTo(new VictoryScreen(player, world));
 			else
-				animateOneFrame();
+				animateOneFrame(isRunning);
 		}
 		
 		public function draw(terminal:AsciiPanel):void
 		{
 			display.draw(terminal);
+			
+			var hilite:Color = Color.hsv(60, 75, 75);
+			
+			for each (var p:Point in player.path)
+			{
+				var glyph:String = terminal.getCharacter(p.x, p.y);
+				var fg:int = Color.integer(terminal.getForegroundColor(p.x, p.y)).lerp(hilite, 0.66).toInt();
+				var bg:int = Color.integer(terminal.getBackgroundColor(p.x, p.y)).lerp(hilite, 0.66).toInt();
+				
+				terminal.write(glyph, p.x, p.y, fg, bg);
+			}
 		}
 		
 		public function animate(terminal:AsciiPanel):void
@@ -122,6 +160,18 @@ package screens
 				animateOneFrame();
 			else if (isUpdatingPlayer)
 				updateOthers();
+			else if (isRunning)
+			{
+				if (player.path.length == 0)
+				{
+					isRunning = false;
+				}
+				else
+				{
+					player.stepOnce();
+					nextTurn();
+				}
+			}
 		}
 	}
 }
