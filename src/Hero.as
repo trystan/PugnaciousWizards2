@@ -16,7 +16,7 @@ package
 		public function Hero(position:Point)
 		{
 			super(position, "Hero", 
-				"It's a brave - or foolish - hero who is attempting to find the pieces of the amulet.");
+				"It's a brave - or foolish - hero who is attempting to find the amulets. Just like you!");
 			
 			isGoodGuy = true;
 			usesMagic = true;
@@ -49,6 +49,12 @@ package
 				moveToTarget();
 			else
 				wanderRandomly();
+		}
+		
+		override protected function wanderRandomly():void 
+		{
+			path = [];
+			super.wanderRandomly();
 		}
 		
 		private function pathToNextTarget():void 

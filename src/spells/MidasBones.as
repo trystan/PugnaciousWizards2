@@ -30,7 +30,8 @@ package spells
 			caster.foreachVisibleCreature(function (other:Creature):void {
 				if (!(other is Skeleton))
 					return;
-					
+				
+				caster.world.removeItemsAt(other.position.x, other.position.y);
 				caster.world.removeCreature(other);
 				caster.world.addTile(other.position.x, other.position.y, Tile.golden_statue);
 			});

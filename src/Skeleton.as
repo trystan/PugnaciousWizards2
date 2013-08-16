@@ -12,11 +12,11 @@ package
 			super(origin.position, "Skeleton",
 				origin is Skeleton 
 					? "This fallen skeleton has picked itself up and come back for more. More REVENGE!"
-					: "This dead " + origin.type + " has come back as a weak skeleton and decided to take arms against intruders.");
+					: "This dead " + origin.type + " has come back as a weak skeleton and decided to take arms against intruders. Intruders like you.");
 			
 			maxHealth = 5;
 			_health = maxHealth;
-			meleeDamage = 1;
+			meleeDamage = 5;
 			
 			isAsleep = true;
 		}

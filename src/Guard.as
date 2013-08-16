@@ -14,6 +14,7 @@ package
 			
 			maxHealth = 5 * 4;
 			_health = maxHealth;
+			meleeDamage = 10;
 			
 			isAsleep = true;
 		}
