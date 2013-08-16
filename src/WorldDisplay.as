@@ -55,6 +55,9 @@ package
 		
 		private var viewAllMode:Boolean = false;
 		
+		public var spellStart:Point = new Point(100,100);
+		public var helpStart:Point = new Point(100,100);
+		
 		public function WorldDisplay(player:Creature, world:World) 
 		{
 			this.player = player;
@@ -442,6 +445,8 @@ package
 			y = 17;
 			terminal.write("--- help ---", x, y += 2);
 			terminal.write("? help", x, y += 2);
+			helpStart.x = x;
+			helpStart.y = y;
 			terminal.write("x examine", x, y += 2);
 			terminal.write("D discoveries", x, y += 2);
 			
@@ -450,6 +455,9 @@ package
 			var magicColor:Color = player.canCastMagic ? white : Color.integer(0x909090);
 				
 			terminal.write("--- magic ---", x, y += 2, magicColor.toInt());
+			
+			spellStart.x = x;
+			spellStart.y = y + 2;
 			
 			var i:int = 1;
 			for each (var magic:Spell in player.magic)

@@ -261,14 +261,18 @@ package
 		{
 			isAsleep = false;
 			_health -= amount;
-			
-			if (health < 1)
-			{
-				this.causeOfDeath = causeOfDeath;
-				world.removeCreature(this);
-				die();
-				dropGold();
-			}
+			checkDeath(causeOfDeath);
+		}
+		
+		private function checkDeath(causeOfDeath:String):void
+		{
+			if (health > 0)
+				return;
+				
+			this.causeOfDeath = causeOfDeath;
+			world.removeCreature(this);
+			die();
+			dropGold();
 		}
 		
 		private function dropGold():void
@@ -303,6 +307,7 @@ package
 				maxHealth = Math.max(health + amount, maxHealth);
 			
 			_health = Math.min(health + amount, maxHealth);
+			checkDeath("You died from healing?");
 		}
 		
 		public function bleed(amount:int):void

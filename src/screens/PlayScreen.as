@@ -57,32 +57,64 @@ package screens
 			bind('8', castSpell, 7);
 			bind('9', castSpell, 8);
 			
-			bind('?', function():void { isRunning = false; enter(new HelpScreen()); } );
-			bind('D', function():void { isRunning = false; enter(new DiscoveriesScreen()); } );
+			bind('?', function():void { enter(new HelpScreen()); } );
+			bind('D', function():void { enter(new DiscoveriesScreen()); } );
 			bind('x', 'examine');
 			bind('X', 'examine');
-			bind('examine', function():void { isRunning = false; enter(new ExamineScreen(world, player)); } );
-			bind('$', function():void { isRunning = false; enter(new SpellShopScreen(player, spellsForSale)); } );
+			bind('examine', function():void { enter(new ExamineScreen(world, player)); } );
+			bind('$', function():void { enter(new SpellShopScreen(player, spellsForSale)); } );
 			
 			bind('mouse', function(x:int, y:int, event:Object):void {
-				isRunning = false;
-				x = Math.min(x / 8, 79)
+				x = x / 8;
 				y = y / 8;
+				
+				if (x > 79)
+					return;
+					
+				player.path = [];
+				isRunning = false;
 				if (player.hasSeen(x, y)
 						&& (!world.getTile(x, y, true).blocksMovement
 						 || world.isClosedDoor(x, y)))
 					player.pathTo(x, y);
-				else
-					player.path = [];
 			});
 			
 			bind('click', function(x:int, y:int, event:Object):void {
-				isRunning = true;
-				animateOneFrame(true);
+				x = x / 8;
+				y = y / 8;
+				if (x > 79)
+				{
+					var i:int = (y - display.spellStart.y) / 2;
+					if (i >= 0 && i < player.magic.length)
+						castSpell(i);
+					else
+					{
+						i = (y - display.helpStart.y) / 2;
+						switch(i)
+						{
+							case 0: enter(new HelpScreen());break;
+							case 1: enter(new ExamineScreen(world, player));break;
+							case 2: enter(new DiscoveriesScreen()); break;
+						}
+					}
+				}
+				else
+				{
+					isRunning = true;
+					animateOneFrame(true);
+				}
 			});
 			
 			bind('draw', draw);
 			bind('animate', animate);
+		}
+		
+		override public function enter(newScreen:Screen):void 
+		{
+			isRunning = false;
+			player.path = [];
+			
+			super.enter(newScreen);
 		}
 		
 		private function moveBy(mx:int, my:int):void
