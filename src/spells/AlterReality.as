@@ -72,13 +72,9 @@ package spells
 				callback();
 		}
 		
-		private var cooldown:int = 0;
 		public function aiGetAction(ai:Creature):SpellCastAction
 		{
-			if (cooldown-- > 0)
-				return new SpellCastAction(0, function():void { } );
-			
-			return new SpellCastAction(0.1, function():void
+			return new SpellCastAction(0.01, function():void
 			{
 				var x:int = -1;
 				var y:int = -1;
@@ -93,7 +89,6 @@ package spells
 				if (ai.canSee(x, y))
 				{
 					cast(ai, x, y);
-					cooldown = 10;
 				}
 			});
 		}

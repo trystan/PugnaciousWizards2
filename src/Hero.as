@@ -40,13 +40,13 @@ package
 				}
 			}
 			
-			if (path.length == 0 || Math.random() < 0.1)
+			if (path.length == 0)
 				pathToNextTarget();
 			
-			if (path.length > 0)
+			if (world.getTile(position.x, position.y).isFog || Math.random() < 0.02)
+				wanderRandomly();
+			else if (path.length > 0)
 				moveToTarget();
-			else if (blindCounter > 0)
-				moveBy(0, 0);
 			else
 				wanderRandomly();
 		}

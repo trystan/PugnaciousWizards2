@@ -43,8 +43,8 @@ package
 		static public var frozen_water:Tile = new Tile("pool of frozen water", "There is some very slippery ice here.", false, false, 0.0, 0, iceEffect);
 		static public var magma:Tile = new Tile("magma", null, false, false, 0, 0, magmaEffect, true, true);
 		
-		public static var poisonFog:Tile = new Tile("poison fog", "This poisonous fog is so thick that you can't see very far through it.", false, false, 0.5, 0, poisonedFogEffect, false);
-		public static var healingFog:Tile = new Tile("healing fog", "This healing fog is so thick that you can't see very far through it.", false, false, 0.5, 0, healingFogEffect, false);
+		public static var poisonFog:Tile = new Tile("poison fog", "This poisonous fog is so thick that you can't see very far through it.", false, false, 0.5, 0, poisonedFogEffect, false, false, true);
+		public static var healingFog:Tile = new Tile("healing fog", "This healing fog is so thick that you can't see very far through it.", false, false, 0.5, 0, healingFogEffect, false, false, true);
 		
 		static public var portal:Tile = new Tile("glowing portal", "This portal glows brightly. You can't see where it leads to.", false, false, 0.0, 0, portalEffect);
 		
@@ -102,8 +102,9 @@ package
 		public var standOnFunction:Function;
 		public var remember:Boolean;
 		public var isOnFire:Boolean;
+		public var isFog:Boolean;
 		
-		public function Tile(name:String, description:String, blocksMovement:Boolean, blocksArrows:Boolean, blocksVision:Number, burnChance:Number = 0.0, standOnFunction:Function = null, remember:Boolean = true, isOnFire:Boolean = false) 
+		public function Tile(name:String, description:String, blocksMovement:Boolean, blocksArrows:Boolean, blocksVision:Number, burnChance:Number = 0.0, standOnFunction:Function = null, remember:Boolean = true, isOnFire:Boolean = false, isFog:Boolean = false) 
 		{
 			this.name = name;
 			this.description = description;
@@ -114,6 +115,7 @@ package
 			this.standOnFunction = standOnFunction;
 			this.remember = remember;
 			this.isOnFire = isOnFire;
+			this.isFog = isFog;
 		}
 		
 		public function apply(creature:Creature):void
