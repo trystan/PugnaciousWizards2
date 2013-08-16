@@ -44,7 +44,11 @@ package
 		public function pathTo(x:int, y:int):void
 		{
 			path = AStar.pathTo(
-					function(x0:int, y0:int):Boolean { return !world.getTile(x0, y0, true).blocksMovement || world.isClosedDoor(x0, y0); },
+					function(x0:int, y0:int):Boolean { 
+						return (!world.getTile(x0, y0, true).blocksMovement
+							|| world.isClosedDoor(x0, y0)
+							&& hasSeen(x0, y0));
+						},
 					position,
 					new Point(x, y), 
 					false);
