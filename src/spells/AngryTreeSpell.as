@@ -14,7 +14,7 @@ package spells
 
 		public function get description():String
 		{
-			return "Give a tree the ability to wander around and smash stuff.";
+			return "Give a tree the ability to wander around and smash stuff. Tree's hate walls and don't care much for animals either.";
 		}
 		
 		public function playerCast(player:Creature, callback:Function):void

@@ -15,7 +15,7 @@ package spells
 		
 		public function get description():String
 		{
-			return "Alter the very fabric of space. No way of knowing what can happen.";
+			return "Alter the very fabric of space. Probably best to stay away from it since there's no way of knowing what will happen.";
 		}
 		
 		public function playerCast(player:Creature, callback:Function):void

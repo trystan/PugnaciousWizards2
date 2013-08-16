@@ -18,8 +18,8 @@ package
 		public static var tree_fire_1:Tile = new Tile("burning tree", null, true, false, 0.0, 0, null, true, true);
 		public static var floor_light:Tile = new Tile("floor", null, false, false, 0.0);
 		public static var floor_dark:Tile = new Tile("floor", null, false, false, 0.0);
-		public static var mystic_floor_light:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic. Used to keep thieving magic users like you away.", false, false, 0.0);
-		public static var mystic_floor_dark:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic. Used to keep thieving magic users like you away.", false, false, 0.0);
+		public static var mystic_floor_light:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic. It's supposed to keep thieving magic users like you away.", false, false, 0.0);
+		public static var mystic_floor_dark:Tile = new Tile("floor with mystic symbols", "These mystic symbols negate all magic. It's supposed to keep thieving magic users like you away.", false, false, 0.0);
 		public static var bars_h:Tile = new Tile("bars", null, true, false, 0.0);
 		public static var bars_v:Tile = new Tile("bars", null, true, false, 0.0);
 		public static var wall:Tile = new Tile("wall", null, true, true, 1.0);
@@ -38,9 +38,9 @@ package
 		static public var tower_5:Tile = new Tile("rotating arrow tower", "This tower rotates and shoots arrows in four directions.", true, true, 0.0);
 		static public var tower_6:Tile = new Tile("rotating arrow tower", "This tower rotates and shoots arrows in four directions.", true, true, 0.0);
 		static public var burnt_ground:Tile = new Tile("burt ground", null, false, false, 0.0);
-		static public var shallow_water:Tile = new Tile("pool of shallow water", "There is a shallow pool of water here.", false, false, 0.0, 0, waterEffect);
-		static public var poison_water:Tile = new Tile("pool of poison water", "There is a shallow pool of poisoned water here.", false, false, 0.0, 0, poisonedWaterEffect);
-		static public var frozen_water:Tile = new Tile("pool of frozen water", "There is some very slippery ice here.", false, false, 0.0, 0, iceEffect);
+		static public var shallow_water:Tile = new Tile("shallow water", "There is a shallow pool of water here.", false, false, 0.0, 0, waterEffect);
+		static public var poison_water:Tile = new Tile("shallow poison water", "There is a shallow pool of poisoned water here.", false, false, 0.0, 0, poisonedWaterEffect);
+		static public var frozen_water:Tile = new Tile("frozen water", "There is some very slippery ice here.", false, false, 0.0, 0, iceEffect);
 		static public var magma:Tile = new Tile("magma", null, false, false, 0, 0, magmaEffect, true, true);
 		
 		public static var poisonFog:Tile = new Tile("poison fog", "This poisonous fog is so thick that you can't see very far through it.", false, false, 0.5, 0, poisonedFogEffect, false, false, true);
@@ -91,7 +91,7 @@ package
 		static public var ice_trap:Tile = new Tile("ice trap", null, false, false, 0.0, 0, iceTrap);
 		static public var poison_trap:Tile = new Tile("poison trap", null, false, false, 0.0, 0, poisonTrap);
 		
-		static public var golden_statue:Tile = new Tile("golden statue", "This statue of a skeleton is made of pure gold.", true, true, 1.0);
+		static public var golden_statue:Tile = new Tile("golden statue", "This statue of a skeleton is made of pure gold.", true, false, 1.0);
 		
 		public var name:String;
 		public var description:String;

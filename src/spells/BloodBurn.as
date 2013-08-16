@@ -10,7 +10,6 @@ package spells
 		
 		public function get description():String { return "Ignite any blood you see."; }
 		
-		
 		public function playerCast(player:Creature, callback:Function):void 
 		{
 			cast(player, 0, 0);

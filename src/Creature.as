@@ -179,7 +179,7 @@ package
 			
 			if (bleedingCounter > 0)
 			{
-				popup("you're bleeding", "You're bleeding!", "One of the many hazards of being an adventurer is bloodloss from arrows and melee.\n\nYour wounds will stop bleeding in a few turns - unless you run out of blood first.");
+				popup("you're bleeding", "You're bleeding!", "One of the many hazards of being an adventurer is bloodloss from arrows and combat.\n\nYour wounds will stop bleeding in a few turns - unless you run out of blood first.");
 				hurt(1, "You have bleed to death.");
 				bleedingCounter--;
 				world.addBlood(position.x, position.y, 1);

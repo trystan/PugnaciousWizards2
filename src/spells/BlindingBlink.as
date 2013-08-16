@@ -6,7 +6,7 @@ package spells
 	{
 		public function get name():String { return "Blinding Blink"; }
 
-		public function get description():String { return "You and everyone you see swaps positions and is blinded for a few turns. You are blinded for only half as long."; }
+		public function get description():String { return "You and everyone you see swaps positions. They are blinded for a few turns but you are only blinded briefly."; }
 		
 		public function playerCast(player:Creature, callback:Function):void 
 		{
@@ -76,7 +76,7 @@ package spells
 		{
 			for (var i:int = 0; i < shuffledCreatures.length; i++)
 			{
-				shuffledCreatures[i].blind(shuffledCreatures[i] == caster ? 3 : 6);
+				shuffledCreatures[i].blind(shuffledCreatures[i] == caster ? 1 : 9);
 				shuffledCreatures[i].position.x = shuffledPositions[i].x;
 				shuffledCreatures[i].position.y = shuffledPositions[i].y;
 			}

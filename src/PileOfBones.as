@@ -6,7 +6,7 @@ package
 	public class PileOfBones implements Item
 	{
 		private var origin:Creature;
-		private var countdown:int = 66;
+		private var countdown:int = 50;
 		private var world:World;
 		
 		public function get name():String { return "pile of bones"; }

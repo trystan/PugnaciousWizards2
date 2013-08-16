@@ -4,7 +4,7 @@ package
 	{
 		public function get name():String { return "health container"; }
 		
-		public function get description():String { return "This heart will give you 5 health, possibly increasing your maximum health in the process."; }
+		public function get description():String { return "This health container will give you 5 health, possibly increasing your maximum health in the process."; }
 		
 		public function canBePickedUpBy(creature:Creature):Boolean { return true; }
 		
