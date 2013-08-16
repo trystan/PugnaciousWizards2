@@ -3,6 +3,7 @@ package screens
 	import animations.Flash;
 	import com.headchant.asciipanel.AsciiPanel;
 	import flash.events.MouseEvent;
+	import flash.globalization.StringTools;
 	import knave.BaseScreen;
 	import knave.Color;
 	
@@ -102,65 +103,8 @@ package screens
 		}
 		
 		private function describe():String 
-		{			
-			if (!player.hasSeen(lookX, lookY))
-				return "Unknown";
-			
-			if (!player.canSee(lookX, lookY))
-			{
-				var memory:String = player.memory(lookX, lookY).name;
-				
-				return memory.charAt(0).toUpperCase() + memory.substr(1) + " (from memory)";
-			}
-			
-			var text:String = "";
-			
-			var creature:Creature = world.getCreature(lookX, lookY);
-			if (creature != null)
-			{
-				text += creature.type;
-				
-				var attribs:Array = []
-				if (creature.fireCounter > 0)
-					attribs.push("burning");
-					
-				if (creature.freezeCounter > 0)
-					attribs.push("frozen");
-				
-				if (creature.bleedingCounter > 0)
-					attribs.push("bleeding");
-					
-				if (creature.poisonCounter > 0)
-					attribs.push("poisoned");
-					
-				if (creature.blindCounter > 0)
-					attribs.push("blind");
-				
-				if (!player.isEnemy(creature) && player != creature)
-					attribs.push("friendly (" + String.fromCharCode(3) + " " + creature.health + "/" + creature.maxHealth + ")");
-					
-				if (attribs.length > 0)
-					text += " (" + attribs.join(", ") + ")"
-					
-				text += " standing on ";
-			}
-			
-			
-			var item:Item = world.getItem(lookX, lookY);
-			if (item != null)
-				text += item.name + " laying on ";
-			
-			switch (world.getBlood(lookX, lookY) / 3)
-			{
-				case 0: break;
-				case 1: text += "blood splattered "; break;
-				case 2: text += "bloody "; break;
-				default: text += "blood covered "; break;
-			}
-			
-			text += world.getTile(lookX, lookY).name;
-			
-			return text.charAt(0).toUpperCase() + text.substr(1);
+		{
+			return player.describe(lookX, lookY);
 		}
 	}
 }

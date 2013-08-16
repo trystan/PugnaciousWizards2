@@ -392,5 +392,66 @@ package
 			if (this is Player)
 				HelpSystem.popup(topic, title, text);
 		}
+		
+		public function describe(x:int, y:int):String
+		{
+			if (!hasSeen(x, y))
+				return "Unknown";
+			
+			if (!canSee(x, y))
+			{
+				var memory:String = memory(x, y).name;
+				
+				return memory.charAt(0).toUpperCase() + memory.substr(1) + " (from memory)";
+			}
+			
+			var text:String = "";
+			
+			var creature:Creature = world.getCreature(x, y);
+			if (creature != null)
+			{
+				text += creature.type;
+				
+				var attribs:Array = []
+				if (creature.fireCounter > 0)
+					attribs.push("burning");
+					
+				if (creature.freezeCounter > 0)
+					attribs.push("frozen");
+				
+				if (creature.bleedingCounter > 0)
+					attribs.push("bleeding");
+					
+				if (creature.poisonCounter > 0)
+					attribs.push("poisoned");
+					
+				if (creature.blindCounter > 0)
+					attribs.push("blind");
+				
+				if (!isEnemy(creature) && this != creature)
+					attribs.push("friendly (" + String.fromCharCode(3) + " " + creature.health + "/" + creature.maxHealth + ")");
+					
+				if (attribs.length > 0)
+					text += " (" + attribs.join(", ") + ")"
+					
+				text += " standing on ";
+			}
+			
+			var item:Item = world.getItem(x, y);
+			if (item != null)
+				text += item.name + " laying on ";
+			
+			switch (world.getBlood(x, y) / 3)
+			{
+				case 0: break;
+				case 1: text += "blood splattered "; break;
+				case 2: text += "bloody "; break;
+				default: text += "blood covered "; break;
+			}
+			
+			text += world.getTile(x, y).name;
+			
+			return text.charAt(0).toUpperCase() + text.substr(1);
+		}
 	}
 }

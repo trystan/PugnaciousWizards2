@@ -43,6 +43,7 @@ version 0.7 (done)
 
 version 0.8 (in progress)
 * discoveries screen
+* mouse support
 
 version 0.9
 * a random effect with related subtitle for each game (eg, Pugnacous Wizards 2: Revenge of the fire archers)
