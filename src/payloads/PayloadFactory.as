@@ -8,11 +8,11 @@ package payloads
 			var r:Number = Math.random();
 			var chance:Number = 0.1;
 			
-			if (r < chance * 1)
+			if (r < CurrentGameVariables.fireChance)
 				return new Fire();
-			else if (r < chance * 2)
+			else if (r < CurrentGameVariables.fireChance + CurrentGameVariables.iceChance)
 				return new Ice();
-			else if (r < chance * 3)
+			else if (r < CurrentGameVariables.fireChance + CurrentGameVariables.iceChance + CurrentGameVariables.poisonChance)
 				return new Poison();
 			else
 				return new Pierce();

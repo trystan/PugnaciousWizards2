@@ -4,7 +4,7 @@ package payloads
 	{
 		public function hitCreature(creature:Creature):void
 		{
-			creature.poison(3);
+			creature.poison(CurrentGameVariables.poisonDamage);
 		}
 		
 		public function hitTile(world:World, x:int, y:int):void 

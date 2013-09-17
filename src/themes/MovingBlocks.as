@@ -3,8 +3,11 @@ package themes
 	import features.CastleFeature;
 	import features.MovingWall;
 	import flash.geom.Point;
+	
 	public class MovingBlocks implements RoomTheme
 	{
+		public function get name():String { return "Moving block room"; }
+		
 		public function apply(room:Room, world:World):void 
 		{
 			room.allowsVariation = false;

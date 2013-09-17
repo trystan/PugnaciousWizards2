@@ -5,11 +5,13 @@ package themes
 	
 	public class RotatingTrapTower implements RoomTheme
 	{
+		public function get name():String { return "Tower"; }
+		
 		public function apply(room:Room, world:World):void
 		{
 			var total:int = (int)(room.distance / 5 + 1);
 			
-			if (Math.random() < Globals.rarePercent)
+			if (Math.random() < CurrentGameVariables.rarePercent)
 				total *= 2;
 				
 			for (var i:int = 0; i < total; i++)

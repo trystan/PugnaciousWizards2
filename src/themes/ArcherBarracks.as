@@ -6,6 +6,8 @@ package themes
 	
 	public class ArcherBarracks implements RoomTheme
 	{
+		public function get name():String { return "Archer barracks"; }
+		
 		public function apply(room:Room, world:World):void
 		{
 			room.allowsVariation = false;

@@ -2,9 +2,11 @@ package themes
 {
 	public class PoolRoom implements RoomTheme
 	{
+		public function get name():String { return "Pool room"; }
+		
 		public function apply(room:Room, world:World):void
 		{
-			if (Math.random() < Globals.rarePercent)
+			if (Math.random() < CurrentGameVariables.rarePercent)
 				fullPool(room, world);
 			else
 				smallPool(room, world);

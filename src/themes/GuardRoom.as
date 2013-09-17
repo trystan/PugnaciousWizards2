@@ -4,10 +4,12 @@ package themes
 	
 	public class GuardRoom implements RoomTheme
 	{
+		public function get name():String { return "Guard room"; }
+		
 		public function apply(room:Room, world:World):void
 		{
-			var max:int = room.distance / 7 + 1;
-			if (Math.random() < Globals.rarePercent)
+			var max:int = CurrentGameVariables.guardCount * (room.distance / 8) + 1;
+			if (Math.random() < CurrentGameVariables.rarePercent)
 				max *= 2;
 				
 			var tries:int = 0;

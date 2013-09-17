@@ -23,7 +23,7 @@ package screens
 		
 		public function PlayScreen() 
 		{
-			TreasureFactory.reset();
+			CurrentGameVariables.reset();
 			
 			var spellsForSale:Array = [];
 			spellsForSale.push((TreasureFactory.random() as Scroll).spell);
@@ -160,6 +160,7 @@ package screens
 		public function draw(terminal:AsciiPanel):void
 		{
 			display.draw(terminal);
+			terminal.writeCenter("Pugnacious Wizards 2: " + CurrentGameVariables.subtitle, 1);
 			
 			var hilite:Color = Color.hsv(60, 75, 75);
 			

@@ -6,7 +6,7 @@ package payloads
 	{
 		public function hitCreature(creature:Creature):void
 		{
-			creature.burn(3);
+			creature.burn(CurrentGameVariables.fireDamage);
 			hitTile(creature.world, creature.position.x, creature.position.y);
 		}
 		

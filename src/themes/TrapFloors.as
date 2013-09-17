@@ -6,13 +6,15 @@ package themes
 	
 	public class TrapFloors implements RoomTheme
 	{
+		public function get name():String { return "Trap"; }
+		
 		public function apply(room:Room, world:World):void
 		{
 			var tiles:Array = [];
 			
 			var type:int = (int)(Math.random() * 10);
 			
-			if (Math.random() < Globals.rarePercent)
+			if (Math.random() < CurrentGameVariables.rarePercent)
 				type = 99;
 			
 			for (var x:int = 0; x < 7; x++)

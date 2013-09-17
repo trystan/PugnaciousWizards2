@@ -2,9 +2,11 @@ package themes
 {
 	public class Courtyard implements RoomTheme
 	{
+		public function get name():String { return "Courtyard"; }
+		
 		public function apply(room:Room, world:World):void
 		{
-			if (Math.random() < Globals.rarePercent)
+			if (Math.random() < CurrentGameVariables.rarePercent)
 				fullOfTrees(room, world);
 			else
 				normalCourtyard(room, world);

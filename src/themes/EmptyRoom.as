@@ -4,9 +4,11 @@ package themes
 	
 	public class EmptyRoom implements RoomTheme
 	{
+		public function get name():String { return "Empty room"; }
+		
 		public function apply(room:Room, world:World):void
 		{
-			if (Math.random() < Globals.rarePercent)
+			if (Math.random() < CurrentGameVariables.rarePercent)
 			{
 				for (var x:int = 0; x < 7; x++)
 				for (var y:int = 0; y < 7; y++)

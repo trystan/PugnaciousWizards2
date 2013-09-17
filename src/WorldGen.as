@@ -153,7 +153,7 @@ package
 		private function addGold(world:World):void
 		{
 			var added:int = 0;
-			while (added < 50)
+			while (added < CurrentGameVariables.goldCount)
 			{
 				var x:int = Math.random() * 7 * 8 + 5;
 				var y:int = Math.random() * 7 * 8 + 5;
@@ -273,25 +273,25 @@ package
 				
 				while (room.isDeadEnd)
 				{
-					if (x > 0 && Math.random() < 0.25)
+					if (x > 0 && Math.random() < CurrentGameVariables.extraConnectionChance)
 					{
 						room.isConnectedWest = true;
 						getRoom(x - 1, y).isConnectedEast = true;
 					}
 					
-					if (x < 8 && Math.random() < 0.25)
+					if (x < 8 && Math.random() < CurrentGameVariables.extraConnectionChance)
 					{
 						room.isConnectedEast = true;
 						getRoom(x + 1, y).isConnectedWest = true;
 					}
 					
-					if (y > 0 && Math.random() < 0.25)
+					if (y > 0 && Math.random() < CurrentGameVariables.extraConnectionChance)
 					{
 						room.isConnectedNorth = true;
 						getRoom(x, y - 1).isConnectedSouth = true;
 					}
 					
-					if (y < 8 && Math.random() < 0.25)
+					if (y < 8 && Math.random() < CurrentGameVariables.extraConnectionChance)
 					{
 						room.isConnectedSouth = true;
 						getRoom(x, y + 1).isConnectedNorth = true;
@@ -350,7 +350,7 @@ package
 		
 		private function getDoorTile():Tile
 		{
-			return Math.random() < 0.25 ? Tile.stone_door_closed : Tile.wood_door_closed;
+			return Math.random() < CurrentGameVariables.stoneDoorChance ? Tile.stone_door_closed : Tile.wood_door_closed;
 		}
 		
 		private function addCastleDoors(world:World):void 
@@ -371,19 +371,17 @@ package
 		
 		private function addCastleBars(world:World):void 
 		{
-			var barChance:Number = 1.0 / 9.0;
-			
 			for (var x:int = 0; x < 8; x++)
 			for (var y:int = 0; y < 8; y++)
 			{
 				var room:Room = getRoom(x, y);
 
-				if (Math.random() < barChance)
+				if (Math.random() < CurrentGameVariables.barChance)
 				{
 					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 6, Tile.bars_v);
 					world.addTile(room.position.x * 8 + 12, room.position.y * 8 + 10, Tile.bars_v);
 				}
-				if (Math.random() < barChance)
+				if (Math.random() < CurrentGameVariables.barChance)
 				{
 					world.addTile(room.position.x * 8 + 6, room.position.y * 8 + 12, Tile.bars_h);
 					world.addTile(room.position.x * 8 + 10, room.position.y * 8 + 12, Tile.bars_h);

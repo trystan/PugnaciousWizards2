@@ -47,6 +47,7 @@ package screens
 			"Bump into others to attack them",
 			"Stand on gold, scrolls, and amulet pieces to pick them up",
 			"",
+			CurrentGameVariables.subtitle + ": " + CurrentGameVariables.description,
 			"  Be careful with your magic and don't give up.",
 		];
 		

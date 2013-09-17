@@ -8,11 +8,13 @@ package themes
 	
 	public class TrapRoom implements RoomTheme
 	{
+		public function get name():String { return "Trap"; }
+		
 		public function apply(room:Room, world:World):void
 		{
 			var points:int = 2 + room.distance / 3 * 2;
 			
-			if (Math.random() < Globals.rarePercent)
+			if (Math.random() < CurrentGameVariables.rarePercent)
 				points *= 2;
 			
 			var tries:int = 0;

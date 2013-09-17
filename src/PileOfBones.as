@@ -6,7 +6,7 @@ package
 	public class PileOfBones implements Item
 	{
 		private var origin:Creature;
-		private var countdown:int = 50;
+		private var countdown:int;
 		private var world:World;
 		
 		public function get name():String { return "pile of bones"; }
@@ -17,6 +17,7 @@ package
 		{
 			this.origin = origin;
 			this.world = origin.world;
+			this.countdown = CurrentGameVariables.skeletonRecoveryTime;
 		}
 		
 		public function canBePickedUpBy(creature:Creature):Boolean { return false; }

@@ -8,6 +8,8 @@ package themes
 	
 	public class TrapWalls implements RoomTheme
 	{
+		public function get name():String { return "Trap"; }
+		
 		public function apply(room:Room, world:World):void
 		{
 			var dir:String = "NSWE".charAt((int)(Math.random() * 4));
@@ -40,7 +42,7 @@ package themes
 			
 			var ticks:int = (int)(Math.random() * 24);
 			var payload:Payload = PayloadFactory.random();
-			var howOften:int = Math.random() < Globals.rarePercent ? 1 : 3;
+			var howOften:int = Math.random() < CurrentGameVariables.rarePercent ? 1 : 3;
 			
 			var f:CastleFeature = new WallTrap(world, tiles, dir, ticks, payload, howOften);
 			room.roomFeatures.push(f);

@@ -35,7 +35,8 @@ package features
 					archerCount++;
 			}
 			
-			if (archerCount < room.distance / 8 + 1)
+			var maxArchers:int = CurrentGameVariables.archerCount * (room.distance / 8) + 1;
+			if (archerCount < maxArchers)
 			{
 				var cx:int = room.worldPosition.x + Math.random() * 7 + 1;
 				var cy:int = room.worldPosition.y + Math.random() * 7 + 1;

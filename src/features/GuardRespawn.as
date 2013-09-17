@@ -36,7 +36,8 @@ package features
 					guardCount++;
 			}
 			
-			if (guardCount < room.distance / 7 + 1)
+			var maxCount:int = CurrentGameVariables.guardCount * (room.distance / 8) + 1;
+			if (guardCount < maxCount)
 			{
 				var cx:int = room.worldPosition.x + Math.random() * 7 + 1;
 				var cy:int = room.worldPosition.y + Math.random() * 7 + 1;

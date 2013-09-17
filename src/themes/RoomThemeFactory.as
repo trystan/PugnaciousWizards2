@@ -1,9 +1,8 @@
 package themes 
 {
-	import features.WallTrap;
 	public class RoomThemeFactory 
 	{
-		private static var themeList:Array = [
+		private static var allThemes:Array = [
 			new EmptyRoom(),
 			new Courtyard(),
 			new TrapFloors(),
@@ -20,15 +19,25 @@ package themes
 			new PortalRoom(),
 			new PoolRoom(),
 			new TrapRoom(),
+		];
+		
+		public static var themeList:Array = null;
+		
+		public static function reset():void
+		{
+			themeList = allThemes.slice();
 			
 			// some rooms are more common
-			new PortalRoom(),
-			new TrapRoom(),
-			new TrapRoom(),
-		];
+			themeList.push(new PortalRoom());
+			themeList.push(new TrapRoom());
+			themeList.push(new TrapRoom());
+		}
 		
 		public static function random():RoomTheme
 		{
+			if (themeList == null)
+				reset();
+				
 			return themeList[Math.floor(Math.random() * themeList.length)];
 		}
 	}

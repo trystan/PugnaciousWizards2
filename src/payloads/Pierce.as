@@ -4,7 +4,7 @@ package payloads
 	{
 		public function hitCreature(creature:Creature):void
 		{
-			creature.hurt(3, "You've been killed by a piercing blow.");
+			creature.hurt(CurrentGameVariables.pierceDamage, "You've been killed by a piercing blow.");
 			creature.bleed(2);
 		}
 		

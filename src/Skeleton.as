@@ -14,9 +14,9 @@ package
 					? "This fallen skeleton has picked itself up and come back for more. More REVENGE!"
 					: "This dead " + origin.type + " has come back as a weak skeleton and decided to take arms against intruders. Intruders like you.");
 			
-			maxHealth = 5;
+			maxHealth = CurrentGameVariables.skeletonHealth;
 			_health = maxHealth;
-			meleeDamage = 5;
+			meleeDamage = CurrentGameVariables.skeletonDamage;
 			
 			isAsleep = true;
 		}

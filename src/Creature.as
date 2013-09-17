@@ -163,7 +163,7 @@ package
 			if (poisonCounter > 0)
 			{
 				popup("you're poisoned", "You're poisoned!", "One of the many hazards of being an adventurer is the occasional poisoning.\n\nThe poison will wear off after a few turns. Or kill you.");
-				hurt(2, "You have been poisoned to death.");
+				hurt(CurrentGameVariables.poisonDamage, "You have been poisoned to death.");
 				poisonCounter--;
 			}
 			
@@ -173,7 +173,7 @@ package
 					world.addFeature(new BurningFire(world, position.x, position.y));
 				
 				popup("you're burning", "You're on fire!", "One of the many hazards of being an adventurer is catching on fire every once in a while.\n\nThe fire will subside after a few turns - if you're still alive.");
-				hurt(5, "You have burned to death.");
+				hurt(CurrentGameVariables.fireDamage, "You have burned to death.");
 				fireCounter--;
 			}
 			
@@ -188,7 +188,7 @@ package
 			if (freezeCounter > 0)
 			{
 				popup("you're frozen", "You're frozen!", "One of the many hazards of being an adventurer is getting frozen solid every once in a while.\n\nYou'll thaw out in a couple turns - if you're still alive.");
-				hurt(1, "You have frozen to death.");
+				hurt(CurrentGameVariables.iceDamage, "You have frozen to death.");
 				freezeCounter--;
 			}
 			

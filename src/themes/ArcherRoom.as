@@ -4,10 +4,12 @@ package themes
 	
 	public class ArcherRoom implements RoomTheme
 	{
+		public function get name():String { return "Archer rooms"; }
+		
 		public function apply(room:Room, world:World):void
 		{
-			var max:int = room.distance / 9 + 1;
-			if (Math.random() < Globals.rarePercent)
+			var max:int = CurrentGameVariables.archerCount * (room.distance / 8) + 1;
+			if (Math.random() < CurrentGameVariables.rarePercent)
 				max *= 2;
 				
 			var tries:int = 0;

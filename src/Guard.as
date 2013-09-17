@@ -12,9 +12,9 @@ package
 			super(position, "Guard",
 				"Guards rush to fight anyone who enters the castle.");
 			
-			maxHealth = 5 * 4;
+			maxHealth = CurrentGameVariables.guardHealth;
 			_health = maxHealth;
-			meleeDamage = 10;
+			meleeDamage = CurrentGameVariables.guardDamage;
 			
 			isAsleep = true;
 		}

@@ -3,11 +3,7 @@ package
 	import spells.Spell;
 	public class Globals 
 	{
-		public static var rarePercent:Number = 0.01;
-		
 		public static var numberOfTimesDied:int = 0;
-		
-		
 		
 		private static var knownSpellNames:Array = [];
 		

@@ -5,13 +5,15 @@ package themes
 	
 	public class TreasureRoom implements RoomTheme
 	{
+		public function get name():String { return "Treasure room"; }
+		
 		public function apply(room:Room, world:World):void
 		{
 			room.allowsVariation = false;
 			
 			if (room.isEndRoom)
 				endRoom(room, world);
-			else if (Math.random() < Globals.rarePercent)
+			else if (Math.random() < CurrentGameVariables.rarePercent)
 				bigTreasure(room, world);
 			else
 				normalTreasure(room, world);
@@ -55,7 +57,7 @@ package themes
 			if (Math.random() < 0.1)
 				tile = Tile.grass;
 			
-			if (Math.random() < Globals.rarePercent)
+			if (Math.random() < CurrentGameVariables.rarePercent)
 				tile = Tile.golden_statue;
 				
 			if (r < 0.1)
