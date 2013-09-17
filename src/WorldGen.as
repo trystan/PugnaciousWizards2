@@ -109,6 +109,7 @@ package
 			world.addItem(2, 37, new Scroll(new HealAndWeaken()));
 			
 			addGold(world);
+			addBones(world);
 		}
 		
 		private function addThemedAreas(world:World):void
@@ -168,6 +169,30 @@ package
 					continue;
 					
 				world.addItem(x, y, new Gold());
+				added++;
+			}
+		}
+		
+		private function addBones(world:World):void
+		{
+			var added:int = 0;
+			while (added < CurrentGameVariables.extraBoneCount)
+			{
+				var x:int = Math.random() * 7 * 8 + 5;
+				var y:int = Math.random() * 7 * 8 + 5;
+				
+				if (world.getTile(x, y).blocksMovement)
+					continue;
+					
+				if (world.getCreature(x, y) != null)
+					continue;
+					
+				if (world.getItem(x, y) != null)
+					continue;
+				
+				var bones:PileOfBones = new PileOfBones(new Creature(new Point(x, y), "unlucky adventurer", "This thing has been dead for so long that you can't even tell what it used to be."));
+				bones.countdown += 100 + Math.random() * 100;
+				world.addItem(x, y, bones);
 				added++;
 			}
 		}

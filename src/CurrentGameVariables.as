@@ -45,6 +45,7 @@ package
 		public static var stoneDoorChance:Number;
 		public static var barChance:Number;
 		public static var goldCount:int;
+		public static var extraBoneCount:int;
 		
 		public static function reset():void
 		{
@@ -55,14 +56,6 @@ package
 			subtitle = "Pugnaciouser and Wizarder";
 			description = "The default game with default rules.";
 			
-			archerCount = 1;
-			archerHealth = 15;
-			archerDamage = 2;
-			
-			guardCount = 1;
-			guardHealth = 20;
-			guardDamage = 10;
-			
 			pierceDamage = 5;
 			fireDamage = 10;
 			iceDamage = 1;
@@ -72,16 +65,25 @@ package
 			iceChance = 0.02;
 			poisonChance = 0.02;
 			
+			archerCount = 1;
+			archerHealth = 15;
+			archerDamage = 2;
+			
+			guardCount = 1;
+			guardHealth = 20;
+			guardDamage = 10;
+			
+			skeletonRecoveryTime = 60;
 			skeletonHealth = 5;
 			skeletonDamage = 5;
-			skeletonRecoveryTime = 60;
 			
 			bloodloss = 2;
 			
 			extraConnectionChance = 0.125 + Math.random() / 8;
 			stoneDoorChance = 0.125 + Math.random() / 8;
-			barChance = 0.05 + Math.random() / 10;
+			barChance = 0.10 + Math.random() / 10;
 			goldCount = 40 + Math.random() * 10 + Math.random() * 10;
+			extraBoneCount = 0;
 			
 			for (var n:int = 0; n < 3; n++)
 				RoomThemeFactory.themeList.splice((int)(Math.random() * RoomThemeFactory.themeList.length), 1);
@@ -108,10 +110,24 @@ package
 					RoomThemeFactory.themeList.push(new ArcherBarracks());
 					RoomThemeFactory.themeList.push(new ArcherBarracks());
 				}),
-				new Variant("Melee", "Melee does more damage - except for yours.", function ():void {
-					CurrentGameVariables.archerDamage *= 2;
-					CurrentGameVariables.guardDamage *= 2;
-					CurrentGameVariables.skeletonDamage *= 2;
+				new Variant("Henchmen", "Guards and archers are both more common.", function ():void {
+					CurrentGameVariables.guardCount *= 3;
+					RoomThemeFactory.themeList.push(new GuardRoom());
+					RoomThemeFactory.themeList.push(new GuardBarracks());
+					
+					CurrentGameVariables.archerCount *= 3;
+					RoomThemeFactory.themeList.push(new ArcherRoom());
+					RoomThemeFactory.themeList.push(new ArcherBarracks());
+				}),
+				new Variant("Swords", "Everyone does more melee damage - except for you.", function ():void {
+					CurrentGameVariables.archerDamage *= 3;
+					CurrentGameVariables.guardDamage *= 3;
+					CurrentGameVariables.skeletonDamage *= 3;
+				}),
+				new Variant("Armor", "Everyone has more health - except for you.", function ():void {
+					CurrentGameVariables.archerHealth *= 2;
+					CurrentGameVariables.guardHealth *= 2;
+					CurrentGameVariables.skeletonHealth *= 2;
 				}),
 				new Variant("Arrows", "Piercing attacks do more damage.", function ():void {
 					CurrentGameVariables.pierceDamage *= 2;
@@ -119,25 +135,31 @@ package
 				new Variant("Blood", "Bloodloss is doubled.", function ():void {
 					CurrentGameVariables.bloodloss *= 2;
 				}),
+				new Variant("Bones", "Piles of bones litter the castle.", function ():void {
+					CurrentGameVariables.extraBoneCount = 20 + Math.random() * 20;
+				}),
 				new Variant("Fire", "Fire does double damage and is more common.", function ():void {
 					CurrentGameVariables.fireDamage *= 2;
-					CurrentGameVariables.fireChance = 0.1;
+					CurrentGameVariables.fireChance = 0.25;
 				}),
 				new Variant("Ice", "Ice does double damage and is more common.", function ():void {
 					CurrentGameVariables.iceDamage *= 2;
-					CurrentGameVariables.iceChance = 0.1;
+					CurrentGameVariables.iceChance = 0.25;
 				}),
 				new Variant("Poison", "Poison does double damage and is more common.", function ():void {
 					CurrentGameVariables.poisonDamage *= 2;
-					CurrentGameVariables.poisonChance = 0.1;
+					CurrentGameVariables.poisonChance = 0.25;
 				}),
-				new Variant("Rare rooms", "Rare rooms are much more common.", function ():void {
-					CurrentGameVariables.rarePercent = 0.1;
+				new Variant("Rarities", "Rare rooms are much more common.", function ():void {
+					CurrentGameVariables.rarePercent = 0.5;
 				})
 			];
 			
 			for each (var theme:RoomTheme in RoomThemeFactory.themeList)
 			{
+				if (Math.random() < 0.75) // most of the variants shouldn't involve rooms
+					continue;
+				
 				variants.push(new Variant(theme.name + "s", theme.name + "s are more common.", function ():void {
 					for (var n:int = 0; n < 6; n++)
 						RoomThemeFactory.themeList.push(theme);
@@ -147,7 +169,14 @@ package
 			var subtitleParts:Array = [];
 			var descriptionParts:Array = [];
 			
-			var count:int = Math.random() < 0.2 ? 3 : 2;
+			var count:int = 2;
+			
+			if (Math.random() < 0.2)
+				count++;
+			
+			if (Math.random() < 0.2)
+				count++;
+				
 			while (subtitleParts.length < count)
 			{
 				var i:int = (int)(Math.random() * variants.length);
@@ -157,7 +186,13 @@ package
 				variants.splice(i, 1);
 			}
 
-			subtitle = subtitleParts.join(" and ");
+			if (subtitleParts.length < 3)
+				subtitle = subtitleParts.join(" and ");
+			else {
+				subtitleParts[subtitleParts.length - 1] = "and " + subtitleParts[subtitleParts.length - 1];
+				subtitle = subtitleParts.join(", ");
+			}
+				
 			subtitle = subtitle.charAt(0).toUpperCase() + subtitle.substr(1).toLowerCase();
 			description = descriptionParts.join(" ");
 		}

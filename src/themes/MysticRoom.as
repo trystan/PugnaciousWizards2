@@ -4,7 +4,7 @@ package themes
 	
 	public class MysticRoom implements RoomTheme
 	{
-		public function get name():String { return "Mystic symbol room"; }
+		public function get name():String { return "Mystic symbol"; }
 		
 		public function apply(room:Room, world:World):void
 		{
