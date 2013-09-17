@@ -8,7 +8,7 @@ package themes
 	
 	public class TrapWalls implements RoomTheme
 	{
-		public function get name():String { return "Trap"; }
+		public function get name():String { return "Wall trap"; }
 		
 		public function apply(room:Room, world:World):void
 		{

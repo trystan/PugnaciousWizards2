@@ -3,6 +3,7 @@ package screens
 	import com.headchant.asciipanel.AsciiPanel;
 	import knave.BaseScreen;
 	import knave.Color;
+	import knave.Text;
 	
 	public class HelpScreen extends BaseScreen
 	{
@@ -11,7 +12,13 @@ package screens
 		private var background:int = Color.integer(0x101020).toInt();
 		
 		public function HelpScreen() 
-		{
+		{	
+			for each (var variationLine:String in Text.wordWrap(80, "Current variant: " + CurrentGameVariables.subtitle + ". " + CurrentGameVariables.description))
+				text.push(variationLine);
+			
+			text.push("");
+			text.push("  Be careful with your magic and don't give up.");
+			
 			bind('escape', exitScreen);
 			bind('enter', exitScreen);
 			bind('space', exitScreen);
@@ -47,8 +54,6 @@ package screens
 			"Bump into others to attack them",
 			"Stand on gold, scrolls, and amulet pieces to pick them up",
 			"",
-			CurrentGameVariables.subtitle + ": " + CurrentGameVariables.description,
-			"  Be careful with your magic and don't give up.",
 		];
 		
 		private function draw(terminal:AsciiPanel):void

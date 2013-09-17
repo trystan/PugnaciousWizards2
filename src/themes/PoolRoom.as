@@ -2,7 +2,7 @@ package themes
 {
 	public class PoolRoom implements RoomTheme
 	{
-		public function get name():String { return "Pool room"; }
+		public function get name():String { return "Pool"; }
 		
 		public function apply(room:Room, world:World):void
 		{

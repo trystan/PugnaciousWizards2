@@ -21,7 +21,8 @@ package
 				"take the three amulets, and escape back outside. " +
 				"There are many traps and defenders so you must rely on your " +
 				"wits - and any items you find - to survive.\n\n" +
-				"You'll probably just die though....\n\n");
+				"You'll probably just die though....\n\n" +
+				"Each time you play the castle and the rules will be a little different. Press ? for more help.\n\n");
 				
 			isGoodGuy = true;
 			usesMagic = true;

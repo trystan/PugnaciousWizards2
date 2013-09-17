@@ -15,6 +15,7 @@ package
 	public class CurrentGameVariables
 	{
 		public static var rarePercent:Number;
+		public static var bloodloss:int;
 		
 		public static var archerCount:int;
 		public static var archerHealth:int;
@@ -75,99 +76,104 @@ package
 			skeletonDamage = 5;
 			skeletonRecoveryTime = 60;
 			
-			extraConnectionChance = 0.25;
-			stoneDoorChance = 0.25;
-			barChance = 1.0 / 9.0;
-			goldCount = 50;
+			bloodloss = 2;
 			
-			var i:int;
+			extraConnectionChance = 0.125 + Math.random() / 8;
+			stoneDoorChance = 0.125 + Math.random() / 8;
+			barChance = 0.05 + Math.random() / 10;
+			goldCount = 40 + Math.random() * 10 + Math.random() * 10;
 			
-			i = (int)(Math.random() * RoomThemeFactory.themeList.length);
-			RoomThemeFactory.themeList.splice(i, 1);
+			for (var n:int = 0; n < 3; n++)
+				RoomThemeFactory.themeList.splice((int)(Math.random() * RoomThemeFactory.themeList.length), 1);
 			
-			i = (int)(Math.random() * RoomThemeFactory.themeList.length)
-			RoomThemeFactory.themeList.splice(i, 1);
-			
-			i = (int)(Math.random() * RoomThemeFactory.themeList.length)
-			RoomThemeFactory.themeList.push(RoomThemeFactory.themeList[i]);
-			
-			switch ((int)(Math.random() * 10))
-			{
-				case 0:
-					subtitle = "Skeleton's revenge";
-					description = "Skeletons do more damage, take more damage, and recover sooner.";
-					skeletonHealth *= 2;
-					skeletonDamage *= 2;
-					skeletonRecoveryTime /= 2;
-					break;
-				case 2:
-					subtitle = "An uncommon castle";
-					description = "Rare rooms are 10 times as likely.";
-					rarePercent *= 10;
-					break;
-				case 3:
-					subtitle = "Pins and needles";
-					description = "Archers, arrow towers, and arrow walls are more common. Piercing attacks do more damage.";
-					archerCount *= 2;
-					pierceDamage *= 2;
-					RoomThemeFactory.themeList.push(new ArcherRoom());
-					RoomThemeFactory.themeList.push(new ArcherBarracks());
-					RoomThemeFactory.themeList.push(new RotatingTrapTower());
-					RoomThemeFactory.themeList.push(new RotatingTrapTower_4Way());
-					RoomThemeFactory.themeList.push(new TrapWalls());
-					break;
-				case 4:
-					subtitle = "Swords and shields";
-					description = "Guards are much stronger, do more damage, and are more common.";
-					guardCount *= 2;
-					guardHealth *= 2;
-					guardDamage *= 2;
+			var variants:Array = [
+				new Variant("Skeletons", "Skeletons are stronger and recover sooner.", function ():void {
+					CurrentGameVariables.skeletonDamage *= 2;
+					CurrentGameVariables.skeletonHealth *= 2;
+					CurrentGameVariables.skeletonRecoveryTime /= 10;
+				}),
+				new Variant("Guards", "Guards are stronger and more common.", function ():void {
+					CurrentGameVariables.guardCount *= 2;
+					CurrentGameVariables.guardDamage *= 2;
+					CurrentGameVariables.guardHealth *= 2;
 					RoomThemeFactory.themeList.push(new GuardRoom());
 					RoomThemeFactory.themeList.push(new GuardBarracks());
-					break;
-				case 5:
-					subtitle = "Death by fire";
-					description = "Fire does twice as much damage. Fire traps are much more common.";
-					fireDamage *= 2;
-					fireChance = 0.1;
-					stoneDoorChance = 0.5;
-					break;
-				case 6:
-					subtitle = "Death by ice";
-					description = "Ice does twice as much damage. Ice traps are much more common.";
-					iceDamage *= 2;
-					iceChance = 0.1;
-					break;
-				case 7:
-					subtitle = "Death by poison";
-					description = "Poison does twice as much damage. Poison traps are much more common.";
-					poisonDamage *= 2;
-					poisonChance = 0.1;
-					break;
-				case 8:
-					i = (int)(Math.random() * RoomThemeFactory.themeList.length);
-					var preferredRoomTheme:RoomTheme = RoomThemeFactory.themeList[i];
-					
-					subtitle = preferredRoomTheme.name;
-					description = "Hope you like " + preferredRoomTheme.name + "s.";
-					
-					for (var n:int = 0; n < 8; n++)
-						RoomThemeFactory.themeList.push(preferredRoomTheme);
-					break;
-				case 9:
-					subtitle = "The mystic jail";
-					description = "This castle is a jail for magic users.";
-					barChance *= 5;
-					guardCount *= 2;
-					archerCount *= 2;
-					stoneDoorChance = 0.9;
-					RoomThemeFactory.themeList.push(new MysticRoom());
-					RoomThemeFactory.themeList.push(new MysticRoom());
-					RoomThemeFactory.themeList.push(new MysticRoom());
-					RoomThemeFactory.themeList.push(new MysticRoom());
-					goldCount = Math.random() * 25 + Math.random() * 25;
-					break;
+					RoomThemeFactory.themeList.push(new GuardBarracks());
+				}),
+				new Variant("Archers", "Archers are stronger and more common.", function ():void {
+					CurrentGameVariables.archerCount *= 2;
+					CurrentGameVariables.archerDamage *= 2;
+					CurrentGameVariables.archerHealth *= 2;
+					RoomThemeFactory.themeList.push(new ArcherRoom());
+					RoomThemeFactory.themeList.push(new ArcherBarracks());
+					RoomThemeFactory.themeList.push(new ArcherBarracks());
+				}),
+				new Variant("Melee", "Melee does more damage - except for yours.", function ():void {
+					CurrentGameVariables.archerDamage *= 2;
+					CurrentGameVariables.guardDamage *= 2;
+					CurrentGameVariables.skeletonDamage *= 2;
+				}),
+				new Variant("Arrows", "Piercing attacks do more damage.", function ():void {
+					CurrentGameVariables.pierceDamage *= 2;
+				}),
+				new Variant("Blood", "Bloodloss is doubled.", function ():void {
+					CurrentGameVariables.bloodloss *= 2;
+				}),
+				new Variant("Fire", "Fire does double damage and is more common.", function ():void {
+					CurrentGameVariables.fireDamage *= 2;
+					CurrentGameVariables.fireChance = 0.1;
+				}),
+				new Variant("Ice", "Ice does double damage and is more common.", function ():void {
+					CurrentGameVariables.iceDamage *= 2;
+					CurrentGameVariables.iceChance = 0.1;
+				}),
+				new Variant("Poison", "Poison does double damage and is more common.", function ():void {
+					CurrentGameVariables.poisonDamage *= 2;
+					CurrentGameVariables.poisonChance = 0.1;
+				}),
+				new Variant("Rare rooms", "Rare rooms are much more common.", function ():void {
+					CurrentGameVariables.rarePercent = 0.1;
+				})
+			];
+			
+			for each (var theme:RoomTheme in RoomThemeFactory.themeList)
+			{
+				variants.push(new Variant(theme.name + "s", theme.name + "s are more common.", function ():void {
+					for (var n:int = 0; n < 6; n++)
+						RoomThemeFactory.themeList.push(theme);
+				}));
 			}
+			
+			var subtitleParts:Array = [];
+			var descriptionParts:Array = [];
+			
+			var count:int = Math.random() < 0.2 ? 3 : 2;
+			while (subtitleParts.length < count)
+			{
+				var i:int = (int)(Math.random() * variants.length);
+				subtitleParts.push(variants[i].subtitle);
+				descriptionParts.push(variants[i].description);
+				variants[i].apply();
+				variants.splice(i, 1);
+			}
+
+			subtitle = subtitleParts.join(" and ");
+			subtitle = subtitle.charAt(0).toUpperCase() + subtitle.substr(1).toLowerCase();
+			description = descriptionParts.join(" ");
 		}
+	}
+}
+
+class Variant
+{
+	public var subtitle:String;
+	public var description:String;
+	public var apply:Function;
+	
+	public function Variant(subtitle:String, description:String, func:Function)
+	{
+		this.subtitle = subtitle;
+		this.description = description;
+		this.apply = func;
 	}
 }

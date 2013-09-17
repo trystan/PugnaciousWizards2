@@ -4,7 +4,7 @@ package themes
 	
 	public class PortalRoom implements RoomTheme
 	{
-		public function get name():String { return "Portal room"; }
+		public function get name():String { return "Portal"; }
 		
 		public function apply(room:Room, world:World):void
 		{

@@ -4,7 +4,7 @@ package themes
 	
 	public class ArcherRoom implements RoomTheme
 	{
-		public function get name():String { return "Archer rooms"; }
+		public function get name():String { return "Archer room"; }
 		
 		public function apply(room:Room, world:World):void
 		{

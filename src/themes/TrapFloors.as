@@ -6,7 +6,7 @@ package themes
 	
 	public class TrapFloors implements RoomTheme
 	{
-		public function get name():String { return "Trap"; }
+		public function get name():String { return "Floor trap"; }
 		
 		public function apply(room:Room, world:World):void
 		{

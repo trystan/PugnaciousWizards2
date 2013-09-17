@@ -6,7 +6,7 @@ package themes
 	
 	public class GuardBarracks implements RoomTheme
 	{
-		public function get name():String { return "Guard barracks"; }
+		public function get name():String { return "Guard barrack"; }
 		
 		public function apply(room:Room, world:World):void
 		{
