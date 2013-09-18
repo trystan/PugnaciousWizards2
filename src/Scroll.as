@@ -20,10 +20,7 @@ package
 		public function getPickedUpBy(creature:Creature):void 
 		{
 			if (creature is Player || creature is Hero)
-			{
-				creature.world.removeItemsAt(creature.position.x, creature.position.y);
 				creature.addMagicSpell(spell);
-			}
 		}
 		
 		public function update():void

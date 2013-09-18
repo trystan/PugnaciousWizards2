@@ -59,7 +59,7 @@ package animations
 			}
 			else
 			{
-				c.hurt(5, "Telekenetically slammed into a " + caster.world.getTile(c.position.x + dx, c.position.y + dy, true).name + ".");
+				c.hurt(6, "Telekenetically slammed into a " + caster.world.getTile(c.position.x + dx, c.position.y + dy, true).name + ".");
 				c.bleed(2);
 				_done = true;
 			}
@@ -79,6 +79,7 @@ package animations
 					if (i.canBePickedUpBy(caster))
 					{
 						i.getPickedUpBy(caster);
+						caster.world.removeItem(i);
 					}
 					else
 					{

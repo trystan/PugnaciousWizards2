@@ -10,7 +10,6 @@ package
 		
 		public function getPickedUpBy(creature:Creature):void 
 		{
-			creature.world.removeItemsAt(creature.position.x, creature.position.y);
 			creature.heal(5, true);
 		}
 		

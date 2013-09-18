@@ -223,8 +223,7 @@ package
 					continue;
 					
 				item.getPickedUpBy(this);
-					
-				item = world.getItem(position.x, position.y);
+				world.removeItem(item);
 			}
 		}
 		

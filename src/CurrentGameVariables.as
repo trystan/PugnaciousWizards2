@@ -47,8 +47,10 @@ package
 		public static var extraConnectionChance:Number;
 		public static var stoneDoorChance:Number;
 		public static var barChance:Number;
+		public static var treeChance:Number;
 		public static var goldCount:int;
 		public static var extraBoneCount:int;
+		public static var extraBloodCount:int;
 		
 		public static function reset():void
 		{
@@ -90,11 +92,16 @@ package
 			barChance = 0.10 + Math.random() / 10;
 			goldCount = 40 + Math.random() * 10 + Math.random() * 10;
 			extraBoneCount = 0;
+			extraBloodCount = 0;
+			treeChance = 0.125 + Math.random() * 0.25;
 			
 			for (var i:int = 0; i < 3; i++)
 				RoomThemeFactory.themeList.splice((int)(Math.random() * RoomThemeFactory.themeList.length), 1);
 			
 			var variants:Array = [
+				new Variant("Gore", "Blood ... everywhere.", function ():void {
+					CurrentGameVariables.extraBloodCount = 7 * 7 * 9 * 9 * 0.33;
+				}),
 				new Variant("Explosions", "Explosions spread farther.", function ():void {
 					CurrentGameVariables.explosionSpread = 2.5;
 				}),

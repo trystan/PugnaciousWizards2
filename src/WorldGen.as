@@ -110,6 +110,7 @@ package
 			
 			addGold(world);
 			addBones(world);
+			addBlood(world);
 		}
 		
 		private function addThemedAreas(world:World):void
@@ -196,6 +197,18 @@ package
 				bones.countdown += 100 + Math.random() * 100;
 				world.addItem(x, y, bones);
 				added++;
+			}
+		}
+			
+		private function addBlood(world:World):void
+		{
+			var added:int = 0;
+			while (added++ < CurrentGameVariables.extraBloodCount)
+			{
+				var x:int = Math.random() * 7 * 8 + 5;
+				var y:int = Math.random() * 7 * 8 + 5;
+				
+				world.addBlood(x, y, Math.random() * 5 + 1);
 			}
 		}
 		
@@ -338,21 +351,21 @@ package
 			for (var x:int = 0; x < 80; x++)
 			for (var y:int = 0; y < 15; y++)
 			{
-				if (Math.random() < 0.33)
+				if (Math.random() < 0.20 + CurrentGameVariables.treeChance)
 					world.addTile(x, y, Tile.tree);
 			}
 			
 			for (var x2:int = 0; x2 < 80; x2++)
 			for (var y2:int = 65; y2 < 80; y2++)
 			{
-				if (Math.random() < 0.33)
+				if (Math.random() < 0.20 + CurrentGameVariables.treeChance)
 					world.addTile(x2, y2, Tile.tree);
 			}
 			
 			for (var x3:int = 10; x3 < 80; x3++)
 			for (var y3:int = 0; y3 < 80; y3++)
 			{
-				if (Math.random() < 0.80)
+				if (Math.random() < 0.50 + CurrentGameVariables.treeChance)
 					world.addTile(x3, y3, Tile.tree);
 			}
 		}

@@ -79,7 +79,7 @@ package themes
 					w.aura = new Ice();
 					w.type = "Wizard of ice";
 					break;
-				case 2:
+				default:
 					w.addMagicSpell(new PoisonFog());
 					w.addMagicSpell(new Telekenesis());
 					w.addMagicSpell(new SummonGolem());
