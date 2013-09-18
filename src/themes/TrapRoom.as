@@ -1,6 +1,7 @@
 package themes
 {
 	import features.CastleFeature;
+	import features.FloorTrap;
 	import features.RotatingTowerTrap;
 	import features.RotatingTowerTrap_4Way;
 	import features.TowerTrap;
@@ -12,19 +13,20 @@ package themes
 		
 		public function apply(room:Room, world:World):void
 		{
-			var points:int = 2 + room.distance / 3 * 2;
+			var points:Number = 2 + room.distance / 3.0 * 2;
 			
 			if (Math.random() < CurrentGameVariables.rarePercent)
 				points *= 2;
 			
 			var tries:int = 0;
 			var table:Array = [
-				{ cost:2, func:addGuard },
-				{ cost:3, func:addArcher },
-				{ cost:2, func:addTower2 },
-				{ cost:4, func:addTower4 },
-				{ cost:6, func:addWallTraps },
-				{ cost:8, func:addTower8 },
+				{ cost:2.0 / CurrentGameVariables.guardCount, func:addGuard },
+				{ cost:3.0 / CurrentGameVariables.archerCount, func:addArcher },
+				{ cost:2.0, func:addTower2 },
+				{ cost:4.0, func:addTower4 },
+				{ cost:6.0, func:addWallTraps },
+				{ cost:8.0, func:addTower8 },
+				{ cost:12.0, func:addFloorTraps },
 			];
 			
 			while (tries++ < 100 && points > 0)
@@ -126,6 +128,11 @@ package themes
 		private function addWallTraps(room:Room, world:World):void 
 		{
 			new TrapWalls().apply(room, world);
+		}
+	
+		private function addFloorTraps(room:Room, world:World):void 
+		{
+			new TrapFloors().apply(room, world);
 		}
 	}
 }
