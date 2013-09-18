@@ -10,8 +10,6 @@ package themes
 		
 		public function apply(room:Room, world:World):void 
 		{
-			room.allowsVariation = false;
-			
 			switch ((int)(Math.random() * 2))
 			{
 				case 0: northSouth(room, world); break;

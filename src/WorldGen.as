@@ -178,8 +178,8 @@ package
 			var added:int = 0;
 			while (added < CurrentGameVariables.extraBoneCount)
 			{
-				var x:int = Math.random() * 7 * 8 + 5;
-				var y:int = Math.random() * 7 * 8 + 5;
+				var x:int = Math.random() * 79;
+				var y:int = Math.random() * 79;
 				
 				if (world.getTile(x, y).blocksMovement)
 					continue;
@@ -190,7 +190,9 @@ package
 				if (world.getItem(x, y) != null)
 					continue;
 				
-				var bones:PileOfBones = new PileOfBones(new Creature(new Point(x, y), "unlucky adventurer", "This thing has been dead for so long that you can't even tell what it used to be."));
+				var body:Creature = new Creature(new Point(x, y), "unlucky adventurer", "This thing has been dead for so long that you can't even tell what it used to be.");
+				var bones:PileOfBones = new PileOfBones(body);
+				bones.world = world;
 				bones.countdown += 100 + Math.random() * 100;
 				world.addItem(x, y, bones);
 				added++;

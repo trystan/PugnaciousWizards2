@@ -52,15 +52,10 @@ package themes
 		
 		public static function random():Item
 		{
-			if (spellList == null)
-				reset();
-				
 			if (spellList.length == 0)
 				return new HealthContainer();
-				
-			var index:int = Math.random() * spellList.length;
 			
-			return spellList.splice(index, 1)[0];
+			return spellList.splice(Math.random() * spellList.length, 1)[0];
 		}
 		
 		static public function randomWizard(room:Room):EnemyWizard 

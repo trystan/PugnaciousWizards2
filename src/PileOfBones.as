@@ -7,7 +7,7 @@ package
 	{
 		private var origin:Creature;
 		public var countdown:int;
-		private var world:World;
+		public var world:World;
 		
 		public function get name():String { return "pile of bones"; }
 		

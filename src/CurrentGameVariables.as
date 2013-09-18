@@ -63,7 +63,7 @@ package
 			fogSpread = 1.0;
 			defaultVisionRadius = 13;
 			pierceDamage = 5;
-			fireDamage = 10;
+			fireDamage = 5;
 			iceDamage = 1;
 			poisonDamage = 1;
 			
@@ -91,7 +91,7 @@ package
 			goldCount = 40 + Math.random() * 10 + Math.random() * 10;
 			extraBoneCount = 0;
 			
-			for (var n:int = 0; n < 3; n++)
+			for (var i:int = 0; i < 3; i++)
 				RoomThemeFactory.themeList.splice((int)(Math.random() * RoomThemeFactory.themeList.length), 1);
 			
 			var variants:Array = [
@@ -149,7 +149,7 @@ package
 					CurrentGameVariables.bloodloss *= 2;
 				}),
 				new Variant("Bones", "Piles of bones litter the castle.", function ():void {
-					CurrentGameVariables.extraBoneCount = 20 + Math.random() * 20;
+					CurrentGameVariables.extraBoneCount = 25 + Math.random() * 25 + Math.random() * 25;
 				}),
 				new Variant("Fire", "Fire does double damage and is more common.", function ():void {
 					CurrentGameVariables.fireDamage *= 2;
@@ -168,16 +168,8 @@ package
 				})
 			];
 			
-			for each (var theme:RoomTheme in RoomThemeFactory.themeList)
-			{
-				if (Math.random() < 0.75) // most of the variants shouldn't involve rooms
-					continue;
-				
-				variants.push(new Variant(theme.name + "s", theme.name + "s are more common.", function ():void {
-					for (var n:int = 0; n < 6; n++)
-						RoomThemeFactory.themeList.push(theme);
-				}));
-			}
+			for each (var thisTheme:RoomTheme in RoomThemeFactory.themeList)
+				variants.push(new RoomVariant(thisTheme.name + "s", thisTheme.name + "s are more common.", thisTheme));
 			
 			var subtitleParts:Array = [];
 			var descriptionParts:Array = [];
@@ -192,7 +184,7 @@ package
 				
 			while (subtitleParts.length < count)
 			{
-				var i:int = (int)(Math.random() * variants.length);
+				i = (int)(Math.random() * variants.length);
 				subtitleParts.push(variants[i].subtitle);
 				descriptionParts.push(variants[i].description);
 				variants[i].apply();
@@ -224,5 +216,25 @@ class Variant
 		this.subtitle = subtitle;
 		this.description = description;
 		this.apply = func;
+	}
+}
+
+class RoomVariant
+{
+	public var subtitle:String;
+	public var description:String;
+	public var roomTheme:themes.RoomTheme;
+	
+	public function RoomVariant(subtitle:String, description:String, roomTheme:themes.RoomTheme)
+	{
+		this.subtitle = subtitle;
+		this.description = description;
+		this.roomTheme = roomTheme;
+	}
+	
+	public function apply():void
+	{
+		for (var n:int = 0; n < 8; n++)
+			themes.RoomThemeFactory.themeList.push(roomTheme);
 	}
 }

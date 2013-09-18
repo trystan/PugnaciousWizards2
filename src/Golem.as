@@ -24,7 +24,7 @@ package
 				"A magically animated creature. Summoned by " + summoner.type + ".");
 			
 			this.summoner = summoner;
-			this.isGoodGuy = true;
+			this.isGoodGuy = summoner.isGoodGuy;
 		}
 		
 		override public function burn(amount:int):void 

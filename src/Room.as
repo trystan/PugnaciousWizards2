@@ -18,8 +18,6 @@ package
 		public var theme:RoomTheme;
 		public var roomFeatures:Array = [];
 		
-		public var allowsVariation:Boolean = true;
-		
 		public var isConnectedNorth:Boolean = false;
 		public var isConnectedSouth:Boolean = false;
 		public var isConnectedWest:Boolean = false;
@@ -51,7 +49,7 @@ package
 		{
 			for each (var feature:CastleFeature in roomFeatures)
 				feature.retheme(payload);
-				
+			
 			var trap:Tile = Tile.fire_trap;
 			if (payload is Ice)
 				trap = Tile.ice_trap;
@@ -124,8 +122,8 @@ package
 			while (world.getTile(firstPoint.x, firstPoint.y).blocksMovement
 				&& world.getTile(firstPoint.x, firstPoint.y) != Tile.tree)
 			{
-				firstPoint.x = worldPosition.x + (int)(Math.random() * 6);
-				firstPoint.y = worldPosition.y + (int)(Math.random() * 6);
+				firstPoint.x = worldPosition.x + (int)(Math.random() * 3) + 2;
+				firstPoint.y = worldPosition.y + (int)(Math.random() * 3) + 2;
 			}
 			
 			var cardinal:AStar = new AStar(
@@ -244,10 +242,13 @@ package
 		
 		private function addEnemies(world:World):void 
 		{
-			while (Math.random() < 0.5)
+			var px:int, py:int;
+			
+			var archerPercents:Number = CurrentGameVariables.archerCount / (CurrentGameVariables.archerCount + 1);
+			while (Math.random() < archerPercents)
 			{
-				var px:int = Math.random() * 7 + 1;
-				var py:int = Math.random() * 7 + 1;
+				px = Math.random() * 7 + 1;
+				py = Math.random() * 7 + 1;
 				
 				if (world.getTile(worldPosition.x + px, worldPosition.y + py).blocksMovement)
 					continue;
@@ -255,10 +256,22 @@ package
 				if (world.getCreature(worldPosition.x + px, worldPosition.y + py) != null)
 					continue;
 				
-				if (Math.random() < 66)
-					world.addCreature(new Guard(new Point(worldPosition.x + px, worldPosition.y + py)));
-				else
-					world.addCreature(new Archer(new Point(worldPosition.x + px, worldPosition.y + py)));
+				world.addCreature(new Archer(new Point(worldPosition.x + px, worldPosition.y + py)));
+			}
+			
+			var guardPercents:Number = CurrentGameVariables.guardCount / (CurrentGameVariables.guardCount + 1);
+			while (Math.random() < guardPercents)
+			{
+				px = Math.random() * 7 + 1;
+				py = Math.random() * 7 + 1;
+				
+				if (world.getTile(worldPosition.x + px, worldPosition.y + py).blocksMovement)
+					continue;
+				
+				if (world.getCreature(worldPosition.x + px, worldPosition.y + py) != null)
+					continue;
+				
+				world.addCreature(new Guard(new Point(worldPosition.x + px, worldPosition.y + py)));
 			}
 		}
 	}

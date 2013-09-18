@@ -22,7 +22,8 @@ package
 				"There are many traps and defenders so you must rely on your " +
 				"wits - and any items you find - to survive.\n\n" +
 				"You'll probably just die though....\n\n" +
-				"Each time you play the castle and the rules will be a little different. Press ? for more help.\n\n");
+				"Each time you play the castle and the rules will be a little different.\n\n" + 
+				"Press ? for more help, $ for the store, or x to examine your surroundings.\n\n");
 				
 			isGoodGuy = true;
 			usesMagic = true;

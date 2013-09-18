@@ -26,18 +26,10 @@ package themes
 		public static function reset():void
 		{
 			themeList = allThemes.slice();
-			
-			// some rooms are more common
-			themeList.push(new PortalRoom());
-			themeList.push(new TrapRoom());
-			themeList.push(new TrapRoom());
 		}
 		
 		public static function random():RoomTheme
 		{
-			if (themeList == null)
-				reset();
-				
 			return themeList[Math.floor(Math.random() * themeList.length)];
 		}
 	}

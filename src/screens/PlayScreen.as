@@ -65,12 +65,12 @@ package screens
 			bind('$', function():void { enter(new SpellShopScreen(player, spellsForSale)); } );
 			
 			bind('mouse', function(x:int, y:int, event:Object):void {
-				x = x / 8;
-				y = y / 8;
+				x = Math.max(0, x / 8);
+				y = Math.max(0, Math.min(y / 8, 79));
 				
 				if (x > 79)
 					return;
-					
+				
 				player.path = [];
 				isRunning = false;
 				if (player.hasSeen(x, y)

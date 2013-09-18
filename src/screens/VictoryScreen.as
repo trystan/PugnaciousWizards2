@@ -21,7 +21,7 @@ package screens
 		public function draw(terminal:AsciiPanel):void
 		{
 			terminal.clear();
-			terminal.write("You won!", 2, 2);
+			terminal.write("You won!", 2, 4);
 			terminal.writeCenter("-- press enter to restart --", 78);
 		}
 	}

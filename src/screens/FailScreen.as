@@ -29,6 +29,8 @@ package screens
 				statuses.push("frozen");
 			if (player.bleedingCounter > 0)
 				statuses.push("bleeding");
+			if (player.poisonCounter > 0)
+				statuses.push("poisoned");
 			if (player.blindCounter > 0)
 				statuses.push("blind");
 			
@@ -44,8 +46,8 @@ package screens
 								: statuses.length == 2 ? statuses[0] + " and " + statuses[1]
 								: statuses.join(", ");
 				
-			terminal.write(player.causeOfDeath, 2, 2);
-			terminal.write("You died " + status + ".", 2, 5);
+			terminal.write(player.causeOfDeath, 2, 4);
+			terminal.write("You died " + status + ".", 2, 6);
 			
 			terminal.writeCenter("R.I.P", terminal.getHeightInCharacters() / 2);
 			

@@ -13,7 +13,7 @@ package screens
 		
 		public function HelpScreen() 
 		{	
-			for each (var variationLine:String in Text.wordWrap(80, "Current variant: " + CurrentGameVariables.subtitle + ". " + CurrentGameVariables.description))
+			for each (var variationLine:String in Text.wordWrap(80, "Current variant: " + CurrentGameVariables.subtitle + " " + CurrentGameVariables.description))
 				text.push(variationLine);
 			
 			text.push("");
