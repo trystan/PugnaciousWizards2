@@ -27,7 +27,7 @@ package animations
 			if (!includeOrigin)
 				this.occupied.push(x + "," + y);
 				
-			this.max = amount;
+			this.max = amount * CurrentGameVariables.explosionSpread;
 			
 			world.addAnimationEffect(this);
 		}

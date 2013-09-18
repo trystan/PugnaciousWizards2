@@ -16,6 +16,9 @@ package
 	{
 		public static var rarePercent:Number;
 		public static var bloodloss:int;
+		public static var defaultVisionRadius:int;
+		public static var fogSpread:Number;
+		public static var explosionSpread:Number;
 		
 		public static var archerCount:int;
 		public static var archerHealth:int;
@@ -56,6 +59,9 @@ package
 			subtitle = "Pugnaciouser and Wizarder";
 			description = "The default game with default rules.";
 			
+			explosionSpread = 1.0;
+			fogSpread = 1.0;
+			defaultVisionRadius = 13;
 			pierceDamage = 5;
 			fireDamage = 10;
 			iceDamage = 1;
@@ -89,6 +95,13 @@ package
 				RoomThemeFactory.themeList.splice((int)(Math.random() * RoomThemeFactory.themeList.length), 1);
 			
 			var variants:Array = [
+				new Variant("Explosions", "Explosions spread farther.", function ():void {
+					CurrentGameVariables.explosionSpread = 2.5;
+				}),
+				new Variant("Fog", "Fog spread farther and all vision is reduced.", function ():void {
+					CurrentGameVariables.defaultVisionRadius *= 0.75;
+					CurrentGameVariables.fogSpread = 1.5;
+				}),
 				new Variant("Skeletons", "Skeletons are stronger and recover sooner.", function ():void {
 					CurrentGameVariables.skeletonDamage *= 2;
 					CurrentGameVariables.skeletonHealth *= 2;
@@ -192,6 +205,7 @@ package
 				subtitleParts[subtitleParts.length - 1] = "and " + subtitleParts[subtitleParts.length - 1];
 				subtitle = subtitleParts.join(", ");
 			}
+			subtitle += ".";
 				
 			subtitle = subtitle.charAt(0).toUpperCase() + subtitle.substr(1).toLowerCase();
 			description = descriptionParts.join(" ");

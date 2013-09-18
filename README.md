@@ -41,11 +41,11 @@ version 0.7 (done)
 * themed areas (fire, ice, poison)
 * numerous chances to world gen
 
-version 0.8 (in progress)
+version 0.8 (done)
 * discoveries screen
 * mouse support
 
-version 0.9
+version 0.9 (in progress)
 * a random effect with related subtitle for each game (eg, Pugnacous Wizards 2: Revenge of the fire archers)
 	* extra hp for guards, archers, skeletons, or wizards
 	* fire, ice, poison, arrows, floor traps, or melee does double damage

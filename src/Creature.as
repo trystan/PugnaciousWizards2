@@ -27,7 +27,7 @@ package
 		public function set visionRadius(amount:int):void { _visionRadius = amount; }
 		public function reduceVisionRadius():void { _visionRadius--; }
 		
-		private var _visionRadius:int = 13;
+		private var _visionRadius:int;
 		public var bleedingCounter:int = 0;
 		private var vision:SimpleLineOfSight;
 		
@@ -50,6 +50,7 @@ package
 			maxHealth = 100;
 			_health = maxHealth;
 			
+			_visionRadius = CurrentGameVariables.defaultVisionRadius;
 			vision = new SimpleLineOfSight(this);
 		}
 		

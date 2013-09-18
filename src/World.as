@@ -309,7 +309,7 @@ package
 		
 		public function addFog(x:int, y:int, amount:int, payload:Payload):void 
 		{
-			fogGrid[x][y] = new Fog(amount, payload);
+			fogGrid[x][y] = new Fog(amount * CurrentGameVariables.fogSpread, payload);
 			fogPoints.push(new Point(x, y));
 		}
 		
