@@ -98,7 +98,17 @@ package
 				new Variant(day + " sales", "Everything in the store is 20% off.", function ():void {
 					CurrentGameVariables.storeCost = CurrentGameVariables.storeCost * 0.8;
 				}),
-				new Variant("Gore", "Blood ... everywhere.", function ():void {
+				new Variant("Treasure", "Extra treasure.", function ():void {
+					CurrentGameVariables.goldCount *= 2;
+				}),
+				new Variant("Nature", "Trees grow really well here.", function ():void {
+					RoomThemeFactory.themeList.push(new Courtyard());
+					RoomThemeFactory.themeList.push(new Courtyard());
+					RoomThemeFactory.themeList.push(new Courtyard());
+					RoomThemeFactory.themeList.push(new Courtyard());
+					treeChance = treeChance * 2 + 0.25;
+				}),
+				new Variant("Gore", "Blood is everywhere.", function ():void {
 					CurrentGameVariables.extraBloodCount = 7 * 7 * 9 * 9 * 0.33;
 				}),
 				new Variant("Explosions", "Explosions spread farther.", function ():void {
@@ -204,7 +214,7 @@ package
 				subtitle = subtitleParts.join(", ");
 			}
 			
-			var prefixes:Array = ["", "", "Extra ", "Now with ", "More ", "A game of ", "Of ", "A tale of " , "The castle of "];
+			var prefixes:Array = ["", "", "Extra ", "More ", "Revenge of ", "A game of ", "Of ", "A tale of " , "The castle of "];
 			if (subtitle.length < 40)
 				subtitle = prefixes[(int)(Math.random() * prefixes.length)] + subtitle;
 				

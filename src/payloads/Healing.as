@@ -4,7 +4,7 @@ package payloads
 	{
 		public function hitCreature(creature:Creature):void
 		{
-			creature.heal(3);
+			creature.heal(5);
 		}
 		
 		public function hitTile(world:World, x:int, y:int):void 

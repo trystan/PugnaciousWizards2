@@ -4,7 +4,7 @@ package payloads
 	{
 		public function hitCreature(creature:Creature):void
 		{
-			creature.freeze(CurrentGameVariables.iceDamage);
+			creature.freeze(2);
 		}
 		
 		public function hitTile(world:World, x:int, y:int):void 

@@ -6,7 +6,6 @@ package payloads
 		public static function random():Payload
 		{
 			var r:Number = Math.random();
-			var chance:Number = 0.1;
 			
 			if (r < CurrentGameVariables.fireChance)
 				return new Fire();

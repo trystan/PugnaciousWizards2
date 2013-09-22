@@ -30,11 +30,18 @@ package spells
 		public function cast(caster:Creature, x:int, y:int):void
 		{
 			var tiles:Array = [
+				Tile.fire_trap, Tile.ice_trap, Tile.poison_trap,
+				Tile.portal, Tile.magma, Tile.shallow_water,
 				Tile.portal, Tile.magma, Tile.shallow_water,
 				Tile.wall, Tile.wall,
+				Tile.wall, Tile.wall,
+				Tile.floor_dark, Tile.floor_light, Tile.floor_dark, Tile.floor_light, 
 				Tile.floor_dark, Tile.floor_light, Tile.floor_dark, Tile.floor_light, 
 				Tile.mystic_floor_dark, Tile.mystic_floor_light, Tile.mystic_floor_dark, Tile.mystic_floor_light, 
+				Tile.mystic_floor_dark, Tile.mystic_floor_light, Tile.mystic_floor_dark, Tile.mystic_floor_light, 
 				Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt,
+				Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, 
+				Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, 
 				Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, Tile.dirt, 
 			];
 			
