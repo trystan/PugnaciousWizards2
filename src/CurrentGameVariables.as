@@ -95,7 +95,7 @@ package
 			][new Date().getDay()];
 			
 			var variants:Array = [
-				new Variant(day + " sale", "Everything in the store is 20% off.", function ():void {
+				new Variant(day + " sales", "Everything in the store is 20% off.", function ():void {
 					CurrentGameVariables.storeCost = CurrentGameVariables.storeCost * 0.8;
 				}),
 				new Variant("Gore", "Blood ... everywhere.", function ():void {
@@ -104,7 +104,7 @@ package
 				new Variant("Explosions", "Explosions spread farther.", function ():void {
 					CurrentGameVariables.explosionSpread = 2.5;
 				}),
-				new Variant("Fog", "Fog spread farther and all vision is reduced.", function ():void {
+				new Variant("Fog", "Fog spreads farther and everyone's vision is slightly reduced.", function ():void {
 					CurrentGameVariables.defaultVisionRadius *= 0.75;
 					CurrentGameVariables.fogSpread = 1.5;
 				}),
@@ -203,10 +203,15 @@ package
 				subtitleParts[subtitleParts.length - 1] = "and " + subtitleParts[subtitleParts.length - 1];
 				subtitle = subtitleParts.join(", ");
 			}
-			subtitle += ".";
+			
+			var prefixes:Array = ["", "", "Extra ", "Now with ", "More ", "A game of ", "Of ", "A tale of " , "The castle of "];
+			if (subtitle.length < 40)
+				subtitle = prefixes[(int)(Math.random() * prefixes.length)] + subtitle;
 				
+			subtitle += ".";
+			
 			subtitle = subtitle.charAt(0).toUpperCase() + subtitle.substr(1).toLowerCase();
-			description = descriptionParts.join(" ");
+			description = descriptionParts.join(" ");	
 		}
 	}
 }
@@ -240,7 +245,7 @@ class RoomVariant
 	
 	public function apply():void
 	{
-		for (var n:int = 0; n < 8; n++)
+		for (var n:int = 0; n < 12; n++)
 			themes.RoomThemeFactory.themeList.push(roomTheme);
 	}
 }
