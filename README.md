@@ -45,7 +45,7 @@ version 0.8 (done)
 * discoveries screen
 * mouse support
 
-version 0.9 (in progress)
+version 0.9 (done)
 * a random effect with related subtitle for each game (eg, Pugnacous Wizards 2: Revenge of the fire archers)
 	* extra hp for guards, archers, skeletons, or wizards
 	* fire, ice, poison, arrows, floor traps, or melee does double damage
@@ -56,6 +56,6 @@ version 0.9 (in progress)
 	* skeletons respawn in only 10 turns
 	* etc.
 
-version 1.0
+version 1.0 (done)
 * extract common rogulike stuff into a framework
 * final release
