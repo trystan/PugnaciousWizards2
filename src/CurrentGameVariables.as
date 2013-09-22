@@ -1,16 +1,6 @@
 package  
 {
-	import themes.ArcherBarracks;
-	import themes.ArcherRoom;
-	import themes.GuardBarracks;
-	import themes.GuardRoom;
-	import themes.MysticRoom;
-	import themes.RoomTheme;
-	import themes.RoomThemeFactory;
-	import themes.RotatingTrapTower;
-	import themes.RotatingTrapTower_4Way;
-	import themes.TrapWalls;
-	import themes.TreasureFactory;
+	import themes.*;
 	
 	public class CurrentGameVariables
 	{
@@ -19,6 +9,7 @@ package
 		public static var defaultVisionRadius:int;
 		public static var fogSpread:Number;
 		public static var explosionSpread:Number;
+		public static var storeCost:int;
 		
 		public static var archerCount:int;
 		public static var archerHealth:int;
@@ -68,6 +59,7 @@ package
 			fireDamage = 5;
 			iceDamage = 1;
 			poisonDamage = 1;
+			storeCost = 20;
 			
 			fireChance = 0.02;
 			iceChance = 0.02;
@@ -98,7 +90,14 @@ package
 			for (var i:int = 0; i < 3; i++)
 				RoomThemeFactory.themeList.splice((int)(Math.random() * RoomThemeFactory.themeList.length), 1);
 			
+			var day:String  = [
+				"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+			][new Date().getDay()];
+			
 			var variants:Array = [
+				new Variant(day + " sale", "Everything in the store is 20% off.", function ():void {
+					CurrentGameVariables.storeCost = CurrentGameVariables.storeCost * 0.8;
+				}),
 				new Variant("Gore", "Blood ... everywhere.", function ():void {
 					CurrentGameVariables.extraBloodCount = 7 * 7 * 9 * 9 * 0.33;
 				}),

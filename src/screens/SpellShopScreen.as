@@ -16,17 +16,19 @@ package screens
 		private var spellList:Array;
 		private var player:Creature;
 		private var failedToBuy:Boolean = false;
+		private var cost:int;
 		
 		public function SpellShopScreen(player:Creature, spellList:Array) 
 		{
 			this.player = player;
 			this.spellList = spellList;
+			this.cost = CurrentGameVariables.storeCost;
 			
 			w = 80;
 			text = [];
 			text.push(Text.padToCenter(w, "-- Spell shop --"));
 			text.push("");
-			text.push("Spend extra gold to gain new spells. Each spell cost 20$");
+			text.push("Spend extra gold to gain new spells. Each spell cost $" + cost + ".");
 			text.push("");
 			var i:int = 0;
 			for each (var spell:Spell in spellList)
@@ -59,7 +61,7 @@ package screens
 		
 		private function buy(index:int):void
 		{
-			failedToBuy = player.gold < 20;
+			failedToBuy = player.gold < cost;
 				
 			if (failedToBuy)
 				return;
@@ -67,7 +69,7 @@ package screens
 			var spell:Spell = spellList[index];
 			player.addMagicSpell(spell);
 			spellList.splice(index, 1);
-			player.gold -= 20;
+			player.gold -= cost;
 			exit();
 		}
 		
@@ -90,7 +92,7 @@ package screens
 			}
 			
 			if (failedToBuy)
-				terminal.write("You need at least 20$ to buy a spell.", left + 2, top + y + 6, 0xffffff);
+				terminal.write("You need at least $" + cost + " to buy a spell.", left + 2, top + y + 6, 0xffffff);
 		}
 	}
 }
